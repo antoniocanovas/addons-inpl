@@ -8,7 +8,7 @@
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//group[@name='description']" position="after">
-                <group name="pricelist_recalculation" string="Product prices recalculation">
+                <group name="pricelist_recalculation" string="Product pricelists recalculation">
                     <field name="pnt_pricelist_weight"/>
                     <field name="pnt_margin1_percent"/>
                     <field name="pnt_margin2_percent"/>
