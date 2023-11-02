@@ -12,6 +12,7 @@ Recálculo de tarifas en base a datos de familia, productos y materia prima.
         'contacts',
         'product',
         'sale_management',
+        'account',
         'account_invoice_pricelist',
         'account_invoice_pricelist_sale',
     ],
