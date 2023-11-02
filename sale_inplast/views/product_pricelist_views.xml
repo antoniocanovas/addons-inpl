@@ -20,6 +20,14 @@
                             name="products_pricelist_recalculation"
                             string="Recalculate"/>
                 </group>
+                <group>
+                    <field name="pnt_raw_product_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="list_price"/>
+                        </tree>
+                    </field>
+                </group>
             </xpath>
 
             <xpath expr="//notebook" position="inside">
