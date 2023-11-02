@@ -5,7 +5,7 @@
     <record id="inplast_product_category_inh_form" model="ir.ui.view">
         <field name="name">inplast.product.category.inh.form</field>
         <field name="model">product.category</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
         <field name="arch" type="xml">
             <data>
                 <group name="first" position="after">
