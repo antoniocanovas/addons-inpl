@@ -9,6 +9,7 @@ Recálculo de tarifas en base a datos de familia, productos y materia prima.
 """,
     'author': 'Punt Sistemes SL',
     'depends': [
+        'mail',
         'contacts',
         'product',
         'sale_management',
@@ -22,6 +23,7 @@ Recálculo de tarifas en base a datos de familia, productos y materia prima.
         'views/sale_order_views.xml',
         'views/account_move_views.xml',
         'views/product_category_views.xml',
+        'views/product_template_views.xml',
     ],
     'installable': True,
 }

@@ -5,7 +5,8 @@ _logger = logging.getLogger(__name__)
 
 
 class ProductPricelist(models.Model):
-    _inherit = 'product.pricelist'
+    _name = 'product.pricelist'
+    _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
 
     @api.depends('item_ids.product_tmpl_id')
     def _get_pricelist_products(self):
@@ -18,3 +19,10 @@ class ProductPricelist(models.Model):
                 products.append(li.product_id.id)
         self.product_ids = [(6,0,products)]
     product_ids = fields.Many2many('product.product', store=True, compute='_get_pricelist_products')
+
+    pnt_margin1_percent = fields.Float('Margin1 (%)', store=True, copy=False)
+    pnt_margin2_percent = fields.Float('Margin2 (%)', store=True, copy=False)
+    pnt_margen3_amount  = fields.Float('Margin3 (€)', store=True, copy=False)
+
+    def products_pricelist_recalculation(self):
+        return True
