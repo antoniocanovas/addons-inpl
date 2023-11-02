@@ -30,7 +30,8 @@ class ProductPricelist(models.Model):
             if (li.pnt_material_type.id) not in products:
                 products.append(li.pnt_material_type.id)
         self.pnt_raw_product_ids = [(6,0,products)]
-    pnt_raw_product_ids = fields.Many2many('product.template', store=False, compute='_get_raw_products')
+    pnt_raw_product_ids = fields.Many2many('product.template', string='Raw products', store=False,
+                                           compute='_get_raw_products')
 
 
     pnt_margin1_percent = fields.Float('Margin1 (%)', store=True, copy=False)
