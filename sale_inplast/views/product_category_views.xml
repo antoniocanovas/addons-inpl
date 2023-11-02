@@ -8,13 +8,11 @@
         <field name="inherit_id" ref="account.view_category_property_form"/>
         <field name="arch" type="xml">
             <data>
-                <group name="first" position="after">
-                    <group>
-                        <group name="pricelist" string="Pricelist data">
-                            <field name="pnt_material_type"/>
-                            <field name="pnt_pricelist_weight"/>
-                            <field name="pnt_mrp_fault_percent"/>
-                        </group>
+                <group name="account_property" position="inside">
+                    <group name="pricelist" string="Pricelist data">
+                        <field name="pnt_material_type"/>
+                        <field name="pnt_pricelist_weight"/>
+                        <field name="pnt_mrp_fault_percent"/>
                     </group>
                 </group>
             </data>
