@@ -5,8 +5,9 @@
     'description': u"""
 Custom Inplast Sales.
 Cada cliente sólo tiene posibilidad de ser ofertado en sus productos (ventas, facturas, tarifas, etc).
+Recálculo de tarifas en base a datos de familia, productos y materia prima.
 """,
-    'author': 'Serincloud',
+    'author': 'Punt Sistemes SL',
     'depends': [
         'contacts',
         'product',
@@ -19,6 +20,7 @@ Cada cliente sólo tiene posibilidad de ser ofertado en sus productos (ventas, f
         'views/product_pricelist_views.xml',
         'views/sale_order_views.xml',
         'views/account_move_views.xml',
+        'views/product_category_views.xml',
     ],
     'installable': True,
 }
