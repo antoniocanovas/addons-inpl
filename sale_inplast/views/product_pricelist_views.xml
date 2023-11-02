@@ -14,7 +14,7 @@
                     <field name="pnt_margin2_percent"/>
                     <field name="pnt_margen3_amount"/>
                 </group>
-                <group attrs="{'invisible':['|',('pnt_campaign_id','=',False),('pnt_product_brand_id','=',False)]}">
+                <group>
                     <button class="oe_highlight"
                             type="object"
                             name="products_pricelist_recalculation"
