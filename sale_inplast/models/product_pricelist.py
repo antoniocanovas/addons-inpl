@@ -34,10 +34,6 @@ class ProductPricelist(models.Model):
                                            compute='_get_raw_products')
 
 
-    pnt_margin1_percent = fields.Float('Margin1 (%)', store=True, copy=False)
-    pnt_margin2_percent = fields.Float('Margin2 (%)', store=True, copy=False)
-    pnt_margen3_amount  = fields.Float('Margin3 (€)', store=True, copy=False)
-
-
     def products_pricelist_recalculation(self):
+        categ_price_variation =
         return True

@@ -9,17 +9,6 @@
         <field name="inherit_id" ref="product.product_pricelist_view"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='pricelist_config']" position="inside">
-                <group name="pricelist_recalculation" string="Product prices recalculation">
-                    <field name="pnt_margin1_percent"/>
-                    <field name="pnt_margin2_percent"/>
-                    <field name="pnt_margen3_amount"/>
-                </group>
-                <group>
-                    <button class="oe_highlight"
-                            type="object"
-                            name="products_pricelist_recalculation"
-                            string="Recalculate"/>
-                </group>
                 <group>
                     <field name="pnt_raw_product_ids">
                         <tree>
@@ -27,6 +16,12 @@
                             <field name="list_price"/>
                         </tree>
                     </field>
+                </group>
+                <group>
+                    <button class="oe_highlight"
+                            type="object"
+                            name="products_pricelist_recalculation"
+                            string="Recalculate"/>
                 </group>
             </xpath>
 
