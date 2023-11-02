@@ -35,5 +35,4 @@ class ProductPricelist(models.Model):
 
 
     def products_pricelist_recalculation(self):
-        categ_price_variation =
         return True
