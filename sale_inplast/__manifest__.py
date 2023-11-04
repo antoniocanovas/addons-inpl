@@ -18,12 +18,12 @@ Recálculo de tarifas en base a datos de familia, productos y materia prima.
         'account_invoice_pricelist_sale',
     ],
     'data': [
-        'views/res_partner_views.xml',
-        'views/product_pricelist_views.xml',
-        'views/sale_order_views.xml',
         'views/account_move_views.xml',
         'views/product_category_views.xml',
+        'views/product_pricelist_views.xml',
         'views/product_template_views.xml',
+        'views/res_partner_views.xml',
+        'views/sale_order_views.xml',
     ],
     'installable': True,
 }
