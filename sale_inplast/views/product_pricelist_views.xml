@@ -12,9 +12,9 @@
         <field name="inherit_id" ref="product.product_pricelist_view"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//form" position="inside">
+            <xpath expr="//sheet" position="before">
                 <header>
-                   <button name="products_pricelist_recalculation" type="object" data-hotkey="shift+r"
+                   <button name="pricelist_update_tracking" type="object" data-hotkey="shift+r"
                            string="Update prices" class="oe_highlight"/>
                 </header>
             </xpath>
