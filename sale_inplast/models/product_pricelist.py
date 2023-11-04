@@ -37,16 +37,16 @@ class ProductPricelist(models.Model):
 
 
     # Crear una nota con los precios que han cambiado en la tarifa, desde botón o acción planificada:
-    def pricelist_tracking(self):
+    def pricelist_update_tracking(self):
         item_tracking = ""
-        now = datetime.now()
+        now = date.now()
 
         for li in self.item_ids:
-            if not(li.tracking_date) or (li.tracking_date < li.write_date):
+            if (li.pnt_new_price != li.fixed_price):
                 name = li.product_tmpl_id.name
                 if li.product_id.id: name = li.product_id.name
                 item_tracking += "<p>" + name + ", Min.: " + str(li.min_quantity) + ", Price: " + str(li.fixed_price) + "</p>"
-                li.tracking_date = now
+                li.write({'tracking_date':now, 'fixed_price':li.pnt_new_price})
 
         if item_tracking != "":
             new_note = self.env['mail.message'].create({'body': item_tracking,
