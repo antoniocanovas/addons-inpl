@@ -8,4 +8,4 @@ class ProductPricelistItem(models.Model):
     _inherit = 'product.pricelist.item'
 
     pnt_tracking_date = fields.Date('Tracking date', store=True, copy=False)
-    pnt_new_price = fields.Float('New price', store=True, copy=False)
+    pnt_new_price = fields.Float('New price', store=True, copy=False, digits=(3,6))
