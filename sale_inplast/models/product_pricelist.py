@@ -45,7 +45,10 @@ class ProductPricelist(models.Model):
             if (li.pnt_new_price != li.fixed_price):
                 name = li.product_tmpl_id.name
                 if li.product_id.id: name = li.product_id.name
-                item_tracking += "<p>" + name + ", Min.: " + str(li.min_quantity) + ", Price: " + str(li.fixed_price) + "</p>"
+                item_tracking += "<p>" + name + \
+                                 ", Previous price: " + str(li.fixed_price) + \
+                                 ", New price: " + str(li.pnt_new_price) + \
+                                 "</p>"
                 li.write({'pnt_tracking_date':now, 'fixed_price':li.pnt_new_price})
 
         if item_tracking != "":
