@@ -10,6 +10,7 @@ class ProductPricelist(models.Model):
     _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
 
     pnt_tracking_date = fields.Date('Tracking date', store=True, copy=False)
+    pnt_pending_update = fields.Boolean('Pending update', store=True, copy=False, default=False)
 
     # Productos en la lista de precios, para ser usados como los únicos a utilizar en ventas y facturas:
     @api.depends('item_ids.product_tmpl_id')
@@ -21,7 +22,7 @@ class ProductPricelist(models.Model):
                 for pro in product_ids: products.append(pro.id)
             else:
                 products.append(li.product_id.id)
-        self.product_ids = [(6,0,products)]
+        self.pnt_product_ids = [(6,0,products)]
     product_ids = fields.Many2many('product.product', store=True, compute='_get_pricelist_products')
 
     # Productos utilizados como materia prima en las categorías de producto:
@@ -58,7 +59,7 @@ class ProductPricelist(models.Model):
                                                         'model': 'product.pricelist',
                                                         'res_id': self.id,
                                                         })
-        self.pnt_tracking_date = now
+        self.write({'pnt_tracking_date':now, 'pnt_pending_update':False})
 
     # Recalcular precios de tarifa en base a parámetros establecidos:
     def products_pricelist_recalculation(self):
@@ -85,3 +86,4 @@ class ProductPricelist(models.Model):
             price1000 = net_price + increment1 + increment2 + raw_product.pnt_i3
             unit_price = price1000 / 1000
             li.write({'pnt_new_price':unit_price, 'pnt_tracking_date':date.today()})
+        self.pnt_pending_update = True
