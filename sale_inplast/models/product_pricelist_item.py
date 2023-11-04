@@ -7,4 +7,5 @@ _logger = logging.getLogger(__name__)
 class ProductPricelistItem(models.Model):
     _inherit = 'product.pricelist.item'
 
-    tracking_date = fields.Datetime('Tracking date', store=True, copy=False)
+    pnt_tracking_date = fields.Datetime('Tracking date', store=True, copy=False)
+    pnt_new_price = fields.Float('New price', store=True, copy=False)

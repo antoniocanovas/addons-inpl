@@ -1,13 +1,16 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    # Mostrar los productos disponibles según tarifa:
+    # 1. Mostrar los productos utilizados como materia prima y botón recálculo.
+    # 2. Mostrar los productos disponibles en tarifa:
+    # 3. Incluir en tree de items de tarifa el nuevo precio (después se cambiará)
     <record id="inplast_pricelist_inh_view" model="ir.ui.view">
         <field name="name">inplast.pricelist.inh.view</field>
         <field name="model">product.pricelist</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="product.product_pricelist_view"/>
         <field name="arch" type="xml">
+
             <xpath expr="//page[@name='pricelist_config']" position="inside">
                 <group>
                     <field name="pnt_raw_product_ids">
@@ -46,6 +49,11 @@
                         </tree>
                     </field>
                 </page>
+            </xpath>
+
+            <xpath expr="//field[@name='fixed_price']" position="after">
+                <field name="pnt_new_price"/>
+                <field name="pnt_tracking_date"/>
             </xpath>
 
             <xpath expr="//sheet" position="after">

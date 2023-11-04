@@ -10,9 +10,11 @@
             <xpath expr="//group[@name='sale']" position="inside">
                 <group name="pricelist_recalculation" string="Product pricelists recalculation">
                     <field name="pnt_pricelist_weight"/>
+    <!-- Es en tarifa, quitado 4/11/23:
                     <field name="pnt_margin1_percent"/>
                     <field name="pnt_margin2_percent"/>
                     <field name="pnt_margen3_amount"/>
+    -->
                 </group>
             </xpath>
         </field>
