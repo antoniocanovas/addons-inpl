@@ -46,7 +46,7 @@ class ProductPricelist(models.Model):
                 name = li.product_tmpl_id.name
                 if li.product_id.id: name = li.product_id.name
                 item_tracking += "<p>" + name + ", Min.: " + str(li.min_quantity) + ", Price: " + str(li.fixed_price) + "</p>"
-                li.write({'tracking_date':now, 'fixed_price':li.pnt_new_price})
+                li.write({'pnt_tracking_date':now, 'fixed_price':li.pnt_new_price})
 
         if item_tracking != "":
             new_note = self.env['mail.message'].create({'body': item_tracking,
