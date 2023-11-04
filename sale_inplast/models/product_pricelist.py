@@ -61,7 +61,7 @@ class ProductPricelist(models.Model):
             product = li.product_tmpl_id
             categ = product.categ_id
             fault_percent = categ.pnt_mrp_fault_percent
-            last_price = p.fixed_price
+            last_price = li.fixed_price
             raw_product = categ.pnt_material_type
 
             # Utilizo el campo de precio de venta para indicar el incremento para recálculo de tarifa:
