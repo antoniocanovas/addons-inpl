@@ -77,6 +77,6 @@ class ProductPricelist(models.Model):
 
             increment1 = net_price * (raw_product.pnt_i1 / 100)
             increment2 = pricelist_weight * (raw_product.pnt_i2 / 1000) * (1 + fault_percent/100)
-            price1000 = net_price + increment1 + increment2 + raw_product.i3
+            price1000 = net_price + increment1 + increment2 + raw_product.pnt_i3
             unit_price = price1000 / 1000
             li.write({'pnt_new_price':unit_price, 'pnt_tracking_date':date.today()})
