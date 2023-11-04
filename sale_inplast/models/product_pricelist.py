@@ -39,7 +39,7 @@ class ProductPricelist(models.Model):
     # Crear una nota con los precios que han cambiado en la tarifa, desde botón o acción planificada:
     def pricelist_update_tracking(self):
         item_tracking = ""
-        now = date.now()
+        now = date.today()
 
         for li in self.item_ids:
             if (li.pnt_new_price != li.fixed_price):
