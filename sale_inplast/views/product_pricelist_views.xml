@@ -20,9 +20,9 @@
                 </header>
             </xpath>
 
-            <path expr="//field[@name='active']" position="after">
+            <xpath expr="//field[@name='active']" position="after">
                 <field name="pnt_tracking_date"/>
-            </path>
+            </xpath>
 
             <xpath expr="//page[@name='pricelist_config']" position="inside">
                 <group>
