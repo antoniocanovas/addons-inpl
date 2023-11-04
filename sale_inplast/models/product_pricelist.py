@@ -9,6 +9,7 @@ class ProductPricelist(models.Model):
     _name = 'product.pricelist'
     _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
 
+    pnt_tracking_date = fields.Date('Tracking date', store=True, copy=False)
 
     # Productos en la lista de precios, para ser usados como los únicos a utilizar en ventas y facturas:
     @api.depends('item_ids.product_tmpl_id')
@@ -57,6 +58,7 @@ class ProductPricelist(models.Model):
                                                         'model': 'product.pricelist',
                                                         'res_id': self.id,
                                                         })
+        self.pnt_tracking_date = now
 
     # Recalcular precios de tarifa en base a parámetros establecidos:
     def products_pricelist_recalculation(self):
