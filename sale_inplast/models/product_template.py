@@ -9,7 +9,9 @@ class ProductTemplate(models.Model):
 
     pnt_pricelist_weight = fields.Float('Pricelist weight', store=True, copy=True)
 
-# Está mal, es en tarifa (eliminado 04/11/23):
-#    pnt_margin1_percent = fields.Float('Margin1 (%)', store=True, copy=False)
-#    pnt_margin2_percent = fields.Float('Margin2 (%)', store=True, copy=False)
-#    pnt_margen3_amount  = fields.Float('Margin3 (€)', store=True, copy=False)
+    # Primer incremento porcentual sobre el precio ya modificado por variación de precio en MP + defectuoso:
+    pnt_i1 = fields.Float('Inc. 1 (%)', store=True, copy=False)
+    # Segundo incremento en tanto por mil, sobre el precio ya modificado por variación de precio en MP + defectuoso:
+    pnt_i2 = fields.Float('Inc. 2 (tanto/1000)', store=True, copy=False)
+    # Tercer incremento en valor absoluto sobre los incrementos anteriores:
+    pnt_i3 = fields.Float('Inc. 3 (€)', store=True, copy=False)

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    # 1. Mostrar parámetros de cálculo, los productos utilizados como materia prima y botón recálculo.
+    # 1. Mostrar los productos utilizados como materia prima y botón recálculo.
     # 2. Mostrar los productos disponibles en tarifa:
     # 3. Incluir en tree de items de tarifa el nuevo precio (después se cambiará)
     <record id="inplast_pricelist_inh_view" model="ir.ui.view">
@@ -13,9 +13,6 @@
 
             <xpath expr="//page[@name='pricelist_config']" position="inside">
                 <group>
-                    <field name="pnt_i1"/>
-                    <field name="pnt_i2"/>
-                    <field name="pnt_i3"/>
                     <field name="pnt_raw_product_ids">
                         <tree>
                             <field name="name"/>

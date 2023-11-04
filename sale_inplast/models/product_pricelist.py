@@ -9,13 +9,6 @@ class ProductPricelist(models.Model):
     _name = 'product.pricelist'
     _inherit = ['product.pricelist', 'mail.thread', 'mail.activity.mixin']
 
-    # Primer incremento porcentual sobre el precio ya modificado por variación de precio en MP + defectuoso:
-    pnt_i1 = fields.Float('Inc. 1 (%)', store=True, copy=False)
-    # Segundo incremento en tanto por mil, sobre el precio ya modificado por variación de precio en MP + defectuoso:
-    pnt_i2 = fields.Float('Inc. 2 (tanto/1000)', store=True, copy=False)
-    # Tercer incremento en valor absoluto sobre los incrementos anteriores:
-    pnt_i3 = fields.Float('Inc. 3 (€)', store=True, copy=False)
-
 
     # Productos en la lista de precios, para ser usados como los únicos a utilizar en ventas y facturas:
     @api.depends('item_ids.product_tmpl_id')
@@ -69,9 +62,10 @@ class ProductPricelist(models.Model):
             categ = product.categ_id
             fault_percent = categ.pnt_mrp_fault_percent
             last_price = p.fixed_price
+            raw_product = categ.pnt_material_type
 
             # Utilizo el campo de precio de venta para indicar el incremento para recálculo de tarifa:
-            raw_increment = categ.pnt_material_type.list_price
+            raw_increment = raw_product.list_price
 
             # Buscar la tarifa/peso en el producto, y si no existe en la familia:
             pricelist_weight = product.pnt_pricelist_weight
@@ -81,8 +75,8 @@ class ProductPricelist(models.Model):
             # Incremento de precio debido al coste de materia prima (se consideran defectuosos):
             net_price = pricelist_weight * (raw_increment / 1000) * (1 + fault_percent/100) + (last_price * 1000)
 
-            increment1 = net_price * (record.pnt_i1 / 100)
-            increment2 = pricelist_weight * (record.pnt_i2 / 1000) * (1 + fault_percent/100)
-            price1000 = net_price + increment1 + increment2 + record.i3
+            increment1 = net_price * (raw_product.pnt_i1 / 100)
+            increment2 = pricelist_weight * (raw_product.pnt_i2 / 1000) * (1 + fault_percent/100)
+            price1000 = net_price + increment1 + increment2 + raw_product.i3
             unit_price = price1000 / 1000
             li.write({'pnt_new_price':unit_price, 'pnt_tracking_date':date.today()})
