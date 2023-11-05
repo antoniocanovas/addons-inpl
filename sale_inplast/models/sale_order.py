@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.onchage('partner_id', 'state')
+    @api.onchange('partner_id', 'state')
     def _avoid_outdated_pricelists(self):
         today = date.today()
         locking_days = self.env.user.company_id.pnt_pricelist_day_lock
