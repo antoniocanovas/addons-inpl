@@ -22,7 +22,7 @@ class ProductPricelist(models.Model):
                 for pro in product_ids: products.append(pro.id)
             else:
                 products.append(li.product_id.id)
-        self.pnt_product_ids = [(6,0,products)]
+        self.product_ids = [(6,0,products)]
     product_ids = fields.Many2many('product.product', store=True, compute='_get_pricelist_products')
 
     # Productos utilizados como materia prima en las categorías de producto:
