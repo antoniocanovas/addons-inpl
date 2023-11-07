@@ -73,17 +73,15 @@ class ProductPricelist(models.Model):
             # Utilizo el campo de precio de venta para indicar el incremento para recálculo de tarifa:
             raw_increment = raw_product.list_price
 
-            # Buscar la tarifa/peso en el producto, y si no existe en la familia:
-            pricelist_weight = product.pnt_pricelist_weight
-            if pricelist_weight == 0:
-                pnt_pricelist_weight = product.categ_id.pnt_pricelist_weight
+            # Tarifa/peso en familia:
+            pricelist_weight = product.categ_id.pnt_pricelist_weight
 
             # Incremento de precio debido al coste de materia prima (se consideran defectuosos):
             net_price = pricelist_weight * (raw_increment / 1000) * (1 + fault_percent/100) + (last_price * 1000)
 
-            increment1 = net_price * (raw_product.pnt_i1 / 100)
-            increment2 = pricelist_weight * (raw_product.pnt_i2 / 1000) * (1 + fault_percent/100)
-            price1000 = net_price + increment1 + increment2 + raw_product.pnt_i3
+            increment1 = net_price * (categ.pnt_i1 / 100)
+            increment2 = pricelist_weight * (categ.pnt_i2 / 1000) * (1 + fault_percent/100)
+            price1000 = net_price + increment1 + increment2 + categ.pnt_i3
             unit_price = price1000 / 1000
             li.write({'pnt_new_price':unit_price, 'pnt_tracking_date':date.today()})
         self.pnt_pending_update = True
