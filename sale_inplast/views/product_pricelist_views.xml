@@ -28,13 +28,15 @@
 
             <xpath expr="//page[@name='pricelist_config']" position="inside">
                 <group>
-                    <field name="pnt_raw_product_ids">
+                    <field name="pnt_product_categ_ids">
                         <tree>
                             <field name="name"/>
+                            <field name="pnt_material_type"/>
+                            <field name="pnt_pricelist_weight"/>
+                            <field name="pnt_mrp_fault_percent"/>
                             <field name="pnt_i1"/>
                             <field name="pnt_i2"/>
                             <field name="pnt_i3"/>
-                            <field name="list_price"/>
                         </tree>
                     </field>
                 </group>

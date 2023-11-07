@@ -25,17 +25,17 @@ class ProductPricelist(models.Model):
         self.product_ids = [(6,0,products)]
     product_ids = fields.Many2many('product.product', store=True, compute='_get_pricelist_products')
 
-    # Productos utilizados como materia prima en las categorías de producto:
-    @api.depends('item_ids.product_tmpl_id')
-    def _get_raw_products(self):
-        products = []
-        product_categs = self.env['product.category'].search([('pnt_material_type','!=',False)])
+    # Categorías utilizadas en este cliente:
+    @api.depends('item_ids.product_tmpl_id.categ_id')
+    def _get_product_categs(self):
+        categs = []
+        product_categs = self.env['product.category'].search()
         for li in product_categs:
-            if (li.pnt_material_type.id) not in products:
-                products.append(li.pnt_material_type.id)
-        self.pnt_raw_product_ids = [(6,0,products)]
-    pnt_raw_product_ids = fields.Many2many('product.template', string='Raw products', store=False,
-                                           compute='_get_raw_products')
+            if (li.product_tmpl_id.categ_id.id) not in categs:
+                categs.append(li.product_tmpl_id.categ_id.id)
+        self.pnt_product_categ_ids = [(6,0,categs)]
+    pnt_product_categ_ids = fields.Many2many('product.template', string='Raw products', store=False,
+                                           compute='_get_product_categs')
 
 
     # Crear una nota con los precios que han cambiado en la tarifa, desde botón o acción planificada:
