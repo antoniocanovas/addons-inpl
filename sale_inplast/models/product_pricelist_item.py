@@ -9,3 +9,4 @@ class ProductPricelistItem(models.Model):
 
     pnt_tracking_date = fields.Date('Tracking date', store=True, copy=False)
     pnt_new_price = fields.Float('New price', store=True, copy=False, digits=(3,6))
+    pnt_product_state = fields.Boolean('Active', related='product_id.active', store=True)
