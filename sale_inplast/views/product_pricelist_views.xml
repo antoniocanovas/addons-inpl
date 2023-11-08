@@ -26,7 +26,7 @@
                 <field name="pnt_pending_update" invisible="1"/>
             </xpath>
 
-            <xpath expr="//field@name=['item_ids']/tree" position="inside">
+            <xpath expr="//field[@name='item_ids']/tree" position="inside">
                 <field name="pnt_product_state" invisible="1"/>
             </xpath>
             <!--
