@@ -29,8 +29,7 @@ class ProductPricelist(models.Model):
     @api.depends('item_ids.product_tmpl_id.categ_id')
     def _get_product_categs(self):
         categs = []
-        product_categs = self.env['product.category'].search([('id','>',0)])
-        for li in product_categs:
+        for li in self.item_ids:
             if (li.product_tmpl_id.categ_id.id) not in categs:
                 categs.append(li.product_tmpl_id.categ_id.id)
         self.pnt_product_categ_ids = [(6,0,categs)]
