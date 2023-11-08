@@ -50,7 +50,7 @@
 
             <xpath expr="//notebook" position="inside">
                 <page name="pricelist_products" string="Products">
-                    <field name="product_ids">
+                    <field name="pnt_product_ids">
                         <tree>
                             <field name="priority" widget="priority" nolabel="1" readonly="1"/>
                             <field name="name" readonly="1"/>

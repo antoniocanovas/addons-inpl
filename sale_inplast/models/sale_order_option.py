@@ -7,8 +7,8 @@ _logger = logging.getLogger(__name__)
 class SaleOrderOption(models.Model):
     _inherit = 'sale.order.option'
 
-    product_ids = fields.Many2many('product.product', store=False, string='Pricelist products',
-                                   related='order_id.pricelist_id.product_ids')
+    pnt_product_ids = fields.Many2many('product.product', store=False, string='Pricelist products',
+                                   related='order_id.pricelist_id.pnt_product_ids')
 
 
 
