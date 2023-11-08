@@ -52,7 +52,7 @@ class ProductPricelist(models.Model):
                                  ", Previous price: " + str(li.fixed_price) + \
                                  ", New price: " + str(li.pnt_new_price) + \
                                  ", MP i0: " + str(categ.i0) + \
-                                 ", Comercial i1, i2, i3: " + str(categ.i1) + ", " str(categ.i2) + ", " + str(categ.i3) + \
+                                 ", Comercial i1, i2, i3: " + str(categ.i1) + ", " + str(categ.i2) + ", " + str(categ.i3) + \
                                  "</p>"
                 li.write({'pnt_tracking_date':now, 'fixed_price':li.pnt_new_price})
 
