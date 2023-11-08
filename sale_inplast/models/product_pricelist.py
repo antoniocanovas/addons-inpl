@@ -72,7 +72,7 @@ class ProductPricelist(models.Model):
             categ = product.categ_id
             fault_percent = categ.pnt_mrp_fault_percent
             last_price = li.fixed_price
-            raw_increment = categ.i0
+            raw_increment = categ.pnt_i0
 
             # Tarifa/peso en familia:
             pricelist_weight = product.categ_id.pnt_pricelist_weight
