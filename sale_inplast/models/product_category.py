@@ -19,4 +19,3 @@ class ProductCategory(models.Model):
     # Tercer incremento en valor absoluto sobre los incrementos anteriores:
     pnt_i3 = fields.Float('Inc. 3 (€)', store=True, copy=False)
 
-
