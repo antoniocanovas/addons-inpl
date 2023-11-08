@@ -38,7 +38,6 @@ class ProductPricelist(models.Model):
 
 
     # Crear una nota con los precios que han cambiado en la tarifa, desde botón o acción planificada:
-    # Falta ampliar PARA HACER TRACKING DE LOS VALORES DE RECÁLCULO POR FAMILIA !!
     def pricelist_update_tracking(self):
         item_tracking = ""
         now = date.today()
