@@ -49,9 +49,9 @@ class ProductPricelist(models.Model):
                 name = li.product_tmpl_id.name
                 if li.product_id.id: name = li.product_id.name
                 item_tracking += "<p>" + name + \
-                                 ", Previous price: " + str(li.fixed_price) + \
-                                 ", New price: " + str(li.pnt_new_price) + \
-                                 ", MP i0: " + str(categ.pnt_i0) + \
+                                 ", Previous: " + str(li.fixed_price) + \
+                                 ", New: " + str(li.pnt_new_price) + \
+                                 ", Raw: " + str(categ.pnt_i0) + \
                                  ", Comercial i1, i2, i3: " + \
                                  str(categ.pnt_i1) + ", " + str(categ.pnt_i2) + ", " + str(categ.pnt_i3) + \
                                  "</p>"
