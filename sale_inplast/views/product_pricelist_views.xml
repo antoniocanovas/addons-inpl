@@ -15,9 +15,9 @@
 
             <xpath expr="//sheet" position="before">
                 <header>
-                   <button name="pricelist_update_tracking" type="object" data-hotkey="shift+r"
-                           string="Update prices" class="oe_highlight"
-                           attrs="{'invisible':[('pnt_pending_update','=',False)]}"/>
+                    <button name="pricelist_update_tracking" type="object" data-hotkey="shift+r"
+                            string="Update prices" class="oe_highlight"
+                            attrs="{'invisible':[('pnt_pending_update','=',False)]}"/>
                 </header>
             </xpath>
 
@@ -30,7 +30,7 @@
                 <field name="pnt_product_state" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='item_ids']/tree" position="attributes">
-                <attribute name="decoration-danger">"pnt_product_state == False"</attribute>>
+                <attribute name="decoration-info">pnt_product_state == 0</attribute>
             </xpath>
 
             <xpath expr="//page[@name='pricelist_config']" position="inside">
