@@ -29,7 +29,7 @@
             <xpath expr="//field@name=['item_ids']/tree" position="inside">
                 <field name="pnt_product_state" invisible="1"/>
             </xpath>
-            <xpath expr="//field@name=['item_ids']/tree" position="attributes">
+            <xpath expr="//field[@name='item_ids']/tree" position="attributes">
                 <attribute name="decoration-danger">pnt_product_state == False</attribute>>
             </xpath>
 
