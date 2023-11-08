@@ -12,7 +12,9 @@ class ProductCategory(models.Model):
     pnt_pricelist_weight = fields.Float('Pricelist weight', store=True, copy=True)
     pnt_mrp_fault_percent = fields.Float('Fault (%)', store=True, copy=True)
 
-    # Primer incremento porcentual sobre el precio ya modificado por variación de precio en MP + defectuoso:
+    # Incremento tanto por mil debido a variaciones del coste de materia prima y energía:
+    pnt_i0 = fields.Float('Inc. Raw (tanto/1000)', store=True, copy=False)
+    # Primer incremento comercial porcentual sobre el precio ya modificado por variación de precio en MP + defectuoso:
     pnt_i1 = fields.Float('Inc. 1 (%)', store=True, copy=False)
     # Segundo incremento en tanto por mil, sobre el precio ya modificado por variación de precio en MP + defectuoso:
     pnt_i2 = fields.Float('Inc. 2 (tanto/1000)', store=True, copy=False)

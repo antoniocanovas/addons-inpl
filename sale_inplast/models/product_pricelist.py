@@ -38,17 +38,21 @@ class ProductPricelist(models.Model):
 
 
     # Crear una nota con los precios que han cambiado en la tarifa, desde botón o acción planificada:
+    # Falta ampliar PARA HACER TRACKING DE LOS VALORES DE RECÁLCULO POR FAMILIA !!
     def pricelist_update_tracking(self):
         item_tracking = ""
         now = date.today()
 
         for li in self.item_ids:
             if (li.pnt_new_price != li.fixed_price):
+                categ = li.product_tmpl_id.categ_id
                 name = li.product_tmpl_id.name
                 if li.product_id.id: name = li.product_id.name
                 item_tracking += "<p>" + name + \
                                  ", Previous price: " + str(li.fixed_price) + \
                                  ", New price: " + str(li.pnt_new_price) + \
+                                 ", MP i0: " + str(categ.i0) + \
+                                 ", Comercial i1, i2, i3: " + str(categ.i1) + ", " str(categ.i2) + ", " + str(categ.i3) + \
                                  "</p>"
                 li.write({'pnt_tracking_date':now, 'fixed_price':li.pnt_new_price})
 
@@ -60,6 +64,7 @@ class ProductPricelist(models.Model):
                                                         })
         self.write({'pnt_tracking_date':now, 'pnt_pending_update':False})
 
+
     # Recalcular precios de tarifa en base a parámetros establecidos:
     def products_pricelist_recalculation(self):
         for li in self.item_ids:
@@ -67,10 +72,7 @@ class ProductPricelist(models.Model):
             categ = product.categ_id
             fault_percent = categ.pnt_mrp_fault_percent
             last_price = li.fixed_price
-            raw_product = categ.pnt_raw_material
-
-            # Utilizo el campo de precio de venta para indicar el incremento para recálculo de tarifa:
-            raw_increment = raw_product.list_price
+            raw_increment = categ.i0
 
             # Tarifa/peso en familia:
             pricelist_weight = product.categ_id.pnt_pricelist_weight
