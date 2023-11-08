@@ -7,7 +7,7 @@ _logger = logging.getLogger(__name__)
 class ProductCategory(models.Model):
     _inherit = 'product.category'
 
-    pnt_material_type = fields.Many2one('product.template', store=True, copy=True,
+    pnt_raw_material = fields.Many2one('product.template', store=True, copy=True, string='Raw material'
                                         domain="[('detailed_type','=','product')]")
     pnt_pricelist_weight = fields.Float('Pricelist weight', store=True, copy=True)
     pnt_mrp_fault_percent = fields.Float('Fault (%)', store=True, copy=True)
