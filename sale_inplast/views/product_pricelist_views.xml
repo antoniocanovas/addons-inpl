@@ -22,7 +22,7 @@
             </xpath>
 
             <xpath expr="//field[@name='active']" position="after">
-                <field name="pnt_tracking_date"/>
+                <field name="pnt_tracking_date" readonly="1"/>
                 <field name="pnt_pending_update" invisible="1"/>
             </xpath>
 
