@@ -5,4 +5,5 @@ from . import sale_order_option
 from . import account_move_line
 from . import product_category
 from . import res_company
+from . import res_partner
 from . import sale_order
