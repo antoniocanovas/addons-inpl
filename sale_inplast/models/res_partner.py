@@ -7,14 +7,14 @@ _logger = logging.getLogger(__name__)
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    @api.onchange('parent_id')
-    def _get_pricelist_mode(self):
-        if self.parent_id.id:
-            self.pnt_pricelist_mode = self.parent_id.pnt_pricelist_mode
+#    @api.onchange('parent_id')
+#    def _get_pricelist_mode(self):
+#        if self.parent_id.id:
+#            self.pnt_pricelist_mode = self.parent_id.pnt_pricelist_mode
     pnt_pricelist_mode   = fields.Selection([('auto','Automático'),
                                              ('bom', 'Escandallo general'),
-                                             ('custom', 'Escandallo personalizado')],
-                                            store=True, copy=True, compute='_get_pricelist_mode')
+                                             ('custom', 'Escandallo personalizado')], readonly=False,
+                                            store=True, copy=True, related='parent_id.pnt_pricelist_mode')
 
     @api.onchange('parent_id')
     def _get_pricelist_update(self):
