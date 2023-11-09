@@ -18,7 +18,7 @@ class ResPartner(models.Model):
                                              ('custom', 'Negociación')],
                                             store=True, copy=True)
 
-    @api.onchage('parent_id')
+    @api.onchange('parent_id')
     def _get_pricelist_mode_update(self):
         if self.parent_id.id:
             self.write({'pnt_pricelist_mode': self.parent_id.pnt_pricelist_mode,
