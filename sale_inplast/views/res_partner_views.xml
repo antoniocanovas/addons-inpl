@@ -16,7 +16,7 @@
                 </xpath>
                 <xpath expr="//field[@name='property_product_pricelist']" position="after">
                     <field name="pnt_pricelist_mode" attrs="{'readonly':[('parent_id','!=', False)]}"/>
-                    <field name="pnt_pricelist_update" attrs="{'readonly':[('parent_id','!=', False)]}"/>
+                    <field name="pnt_pricelist_update" attrs="{'invisible':[('parent_id','!=', False)]}"/>
                 </xpath>
             </data>
         </field>
