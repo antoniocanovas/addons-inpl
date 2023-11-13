@@ -11,7 +11,7 @@
         <field name="arch" type="xml">
             <!-- No permitir cambiar la tarifa por cliente o dirección de entrega y permitir acceso m2o: -->
             <xpath expr="//field[@name='pricelist_id']" position="attributes">
-                <attribute name="attrs">{'readonly':True}</attribute>
+                <attribute name="readonly">True</attribute>
                 <attribute name="options"></attribute>
             </xpath>
 
