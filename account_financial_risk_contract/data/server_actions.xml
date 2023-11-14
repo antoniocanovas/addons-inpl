@@ -15,7 +15,9 @@
         <field name="code">
             record.update_invoice_risk_batch_id()
         </field>
+<!--
         <field name="base_automation_id" ref="account_financial_risk_contract.ba_update_invoices_risk_batch"/>
+-->
     </record>
 
 </odoo>
