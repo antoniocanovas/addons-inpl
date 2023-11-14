@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
+    # No se usa, es copiado para ejemplo:
     <data>
 
         <record id="ir_cron_lock_by_pricelist_outdated" model="ir.cron">

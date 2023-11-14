@@ -12,7 +12,7 @@ class ProductPricelist(models.Model):
     pnt_tracking_date = fields.Date('Tracking date', store=True, copy=False)
     pnt_pending_update = fields.Boolean('Pending update', store=True, copy=False, default=False)
 
-    # Productos en la lista de precios, para ser usados como los únicos a utilizar en ventas y facturas:
+    # Productos en la lista de precios, para ser usados como exclusivamente disponibles en ventas y facturas:
     @api.depends('item_ids.product_tmpl_id')
     def _get_pricelist_products(self):
         products = []
@@ -25,7 +25,7 @@ class ProductPricelist(models.Model):
         self.pnt_product_ids = [(6,0,products)]
     pnt_product_ids = fields.Many2many('product.product', store=True, compute='_get_pricelist_products')
 
-    # Categorías utilizadas en este cliente:
+    # Categorías utilizadas en esta tarifa:
     @api.depends('item_ids.product_tmpl_id.categ_id')
     def _get_product_categs(self):
         categs = []

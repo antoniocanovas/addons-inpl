@@ -15,3 +15,4 @@ class ResCompany(models.Model):
     _inherit = 'res.company'
 
     pnt_pricelist_day_lock = fields.Integer('Pricelist days lock', store=True, default=15)
+    pnt_update_month_day = fields.Integer('Month day to update', store=True, default=1)
