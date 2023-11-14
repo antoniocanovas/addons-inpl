@@ -15,5 +15,5 @@
         <field name="code">
             record.update_invoice_risk_batch_id()
         </field>
-
+    </record>
 </odoo>
