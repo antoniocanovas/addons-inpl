@@ -354,7 +354,7 @@ class ResPartner(models.Model):
                 group["domain"] + [("partner_id", "in", customers.ids)],
                 group["fields"],
                 group["group_by"],
-                orderby_"id",
+                orderby="id",
                 lazy=False,
             )
         for partner in customers:
