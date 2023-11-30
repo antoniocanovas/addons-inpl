@@ -23,7 +23,7 @@
                 <!--
                 <attribute name="domain">[('id','in', pnt_product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
                 -->
-                <attribute name="domain">context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt') and ('id', 'in', pnt_product_ids) and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)] or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
+                <attribute name="domain">"context.get('default_move_type') in ('out_invoice', 'out_refund', 'out_receipt') and ('id', 'in', pnt_product_ids) and [('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)] or [('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
                 </attribute>
             </xpath>
             <!-- Limitar productos que no están en tarifa en la línea de factura (form): -->
