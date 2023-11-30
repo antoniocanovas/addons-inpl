@@ -11,7 +11,7 @@ class AccountMove(models.Model):
     pricelist_id = fields.Many2one(
         comodel_name="product.pricelist",
         string="Pricelist",
-        states={"draft": [("readonly", False)]},
+#        states={"draft": [("readonly", False)]},
         compute="_compute_pricelist_id",
         tracking=True,
         store=True,
