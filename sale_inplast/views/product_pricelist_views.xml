@@ -79,7 +79,11 @@
                 </page>
             </xpath>
 
-            <xpath expr="//field[@name='fixed_price']" position="after">
+            <xpath expr="//page/field/tree[1]/field[@name='date_start']" position="before">
+                <field name="pnt_new_price"/>
+                <field name="pnt_tracking_date"/>
+            </xpath>
+            <xpath expr="//page/field/tree[2]/field[@name='date_start']" position="before">
                 <field name="pnt_new_price"/>
                 <field name="pnt_tracking_date"/>
             </xpath>
