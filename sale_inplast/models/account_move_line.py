@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
     def _get_pnt_product_ids(self):
         for record in self:
             if (record.move_type in ['out_invoice','out_refund','out_receipt']):
-                pp = move_id.pricelist_id.pnt_product_id
+                pp = record.move_id.pricelist_id.pnt_product_id
             elif (record.move_type in ['in_invoice','in_refund','in_receipt']):
                 pp = self.env['product.product'].search([('purchase_ok','=',True)])
             else:  # Es 'entry'
