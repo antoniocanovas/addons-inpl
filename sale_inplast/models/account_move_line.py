@@ -21,3 +21,4 @@ class AccountMoveLine(models.Model):
                 pp = self.env['product.product'].search([])
             record['pnt_product_ids'] = [(6, 0, pp.ids)]
     pnt_product_ids = fields.Many2many('product.product', store=False, string='Pricelist products',
+                                       compute='_get_pnt_product_ids')
