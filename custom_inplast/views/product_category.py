@@ -20,3 +20,12 @@ class ProductCategory(models.Model):
     pnt_i2 = fields.Float('Inc. 2 (tanto/1000)', store=True, copy=False)
     # Tercer incremento en valor absoluto sobre los incrementos anteriores:
     pnt_i3 = fields.Float('Inc. 3 (€)', store=True, copy=False)
+
+    # Tipo de productos en subfamilia:
+    pnt_product_type = fields.Selection([('final','End-product'),
+                                         ('semi', 'Semi-finished'),
+                                         ('raw', 'Raw'),
+                                         ('dye', 'Dye'),
+                                         ('packing', 'Packing'),
+                                         ('other', 'Other')],
+                                        store=True, copy=True, string='Product type')
