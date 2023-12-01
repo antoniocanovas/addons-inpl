@@ -1,26 +1,24 @@
 {
-    "name": "Custom Inplast",
-    "summary": "Customs Inplast",
+    "name": "MRP Inplast",
+    "summary": "MRP Inplast",
     "version": "17.0.1.0.0",
-    'category': 'Product, Picking',
+    'category': 'MRP',
     "author": "Punt Sistemes",
     "website": "https://www.puntsistemes.es",
     "Maintainers":[
-        "Pedro Guirao",
+        "Punt Sistemes",
     ],
     "license": "LGPL-3",
     "depends": [
         "product",
         "stock",
-        "report_qweb_pdf_watermark",
+        "mrp",
+        "custom_inplast",
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/mrp_tool_views.xml",
-        "views/product_category_views.xml",
         "views/menu_views.xml",
-        "report/templates.xml",
-        "report/ir_action_report.xml",
     ],
     "installable": True,
 }
