@@ -34,7 +34,7 @@
                         <field name="name" required="1"/>
                     </h2>
                     <group>
-                        <field name="pnt_type" required="1" readonly="pnt_product_id.id"/>
+                        <field name="pnt_type" required="1" readonly="pnt_product_id.id != False"/>
                         <field name="pnt_tool_id" invisible="pnt_type == 'tool'" required="pnt_type == 'accesory'"/>
                         <field name="pnt_product_id" domain="[('pnt_product_type','in',['other'])]"/>
                         <field name="pnt_cycles"/>
