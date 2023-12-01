@@ -9,6 +9,7 @@ class ProductTemplate(models.Model):
 
 
     pnt_product_type = fields.Selection(string='Product type', related='categ_id.pnt_product_type')
+    pnt_product_dye_id = fields.Many2one('product.template', string='Product dye', store=True, copy=True)
 
     pnt_product_coa = fields.Many2one(
         "pnt.coa",

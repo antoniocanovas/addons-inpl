@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <data>
                 <field name="parent_id" position="after">
-                    <field name="pnt_product_type"/>
+                    <field name="pnt_product_type" required="1"/>
                 </field>
             </data>
         </field>
