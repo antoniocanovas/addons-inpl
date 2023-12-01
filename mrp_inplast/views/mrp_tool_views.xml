@@ -5,8 +5,8 @@
         <field name="active" eval="True"/>
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
                 <!--
+                <field name="name"/>
                 <field name="pnt_type"/>
                 <field name="pnt_tool_id" optional="hide"/>
                 <field name="pnt_gaps" optional="hide"/>
