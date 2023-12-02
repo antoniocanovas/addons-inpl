@@ -21,7 +21,7 @@
             </xpath>
 
             <xpath expr="//field[@name='location']" position="after">
-                <field name="pnt_workcenter_ids"/>
+                <field name="pnt_workcenter_ids" domain="[('id','!=',workcenter_id)]" invisible="not workcenter_id"/>
             </xpath>
 
         </field>
