@@ -40,7 +40,8 @@
                            groups="mrp.group_mrp_routings"
                            widget="many2many_tags"
                            invisible="not workcenter_id"
-                           />
+                           options="{'no_create_edit':true,'no_quick_create':true}"
+                    />
                 </xpath>
             </data>
         </field>
