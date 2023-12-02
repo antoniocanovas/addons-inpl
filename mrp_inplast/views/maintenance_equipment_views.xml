@@ -20,6 +20,7 @@
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="attributes">
                     <attribute name="readonly">category_id == pnt_mrp_accesory_categ_id and pnt_tool_id</attribute>
+                    <attribute name="force_save">1</attribute>
                 </xpath>
             </data>
         </field>
