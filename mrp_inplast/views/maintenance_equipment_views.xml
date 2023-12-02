@@ -34,7 +34,6 @@
         <field name="arch" type="xml">
             <data>
                 <field name="workcenter_id" position="after">
-                <xpath expr="//field[@name='workcenter_id']" position="after">
                     <field name="pnt_workcenter_ids"
                            domain="[('id','!=',workcenter_id)]"
                            context="{'default_company_id':company_id}"
