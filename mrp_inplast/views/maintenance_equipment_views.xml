@@ -20,7 +20,6 @@
                 <attribute name="readonly">category_id == pnt_mrp_accesory_categ_id and pnt_tool_id</attribute>
             </xpath>
 
-            # Centros de trabajo secundarios:
             <xpath expr="//field[@name='workcenteer_id']" position="after">
                 <field name="pnt_workcenter_ids"/>
             </xpath>
