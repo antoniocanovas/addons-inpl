@@ -19,10 +19,6 @@
         "views/res_company_views.xml",
         "views/maintenance_equipment_views.xml",
         "views/product_template_views.xml",
-# Versión 1 (para borrar):
-#        "security/ir.model.access.csv",
-#        "views/mrp_tool_views.xml",
-#        "views/menu_views.xml",
     ],
     "installable": True,
 }
