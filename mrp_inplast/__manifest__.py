@@ -16,6 +16,7 @@
         "custom_inplast",
     ],
     "data": [
+        "views/res_company_views.xml",
         "security/ir.model.access.csv",
         "views/mrp_tool_views.xml",
         "views/menu_views.xml",
