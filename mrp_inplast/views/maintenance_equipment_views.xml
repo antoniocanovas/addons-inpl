@@ -19,11 +19,11 @@
             <xpath expr="//field[@name='category_id']" position="attributes">
                 <attribute name="readonly">category_id == pnt_mrp_accesory_categ_id and pnt_tool_id</attribute>
             </xpath>
-
+<!-- Poner después de workcenter_id en otra vista:
             <xpath expr="//field[@name='location']" position="after">
                 <field name="pnt_workcenter_ids" domain="[('id','!=',workcenter_id)]" invisible="not workcenter_id"/>
             </xpath>
-
+-->
         </field>
         <field name="priority">99</field>
     </record>
