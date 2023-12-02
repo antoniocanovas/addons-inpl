@@ -33,14 +33,14 @@
         <field name="inherit_id" ref="mrp_maintenance.maintenance_equipment_view_form_inherit_mrp"/>
         <field name="arch" type="xml">
             <data>
-                <field name="workcenter_id" position="after">
+                <xpath expr="//field[@name='workcenter_id']" position="after">
                     <field name="pnt_workcenter_ids"
                            domain="[('id','!=',workcenter_id)]"
                            context="{'default_company_id':company_id}"
                            groups="mrp.group_mrp_routings"
                            widget="many2many_tags"
                            />
-                </field>
+                </xpath>
             </data>
         </field>
 
