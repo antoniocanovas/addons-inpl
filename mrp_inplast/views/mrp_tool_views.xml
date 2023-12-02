@@ -2,9 +2,10 @@
 <odoo>
 
     <record id="mrp_tool_default_tree" model="ir.ui.view">
-        <field name="active" eval="True"/>
+        <field name="name">Default Tree View </field>
+        <field name="model">pnt.mrp.tool</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree string="MRP Tools" editable="bottom">
                 <field name="name"/>
                 <field name="pnt_type"/>
                 <field name="pnt_tool_id" optional="hide"/>
@@ -12,14 +13,6 @@
                 <field name="pnt_product_id" optional="hide"/>
             </tree>
         </field>
-        <field name="groups_id" eval="[(6, 0, [])]"/>
-        <field name="inherit_id" eval="False"/>
-        <field name="key" eval="False"/>
-        <field name="mode">primary</field>
-        <field name="model">pnt.mrp.tool</field>
-        <field name="name">Default Tree View </field>
-        <field name="priority">16</field>
-        <field name="type">tree</field>
     </record>
 
     <record id="mrp_tool_default_form" model="ir.ui.view">
@@ -27,15 +20,20 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <h2>
+                    <h1>
                         <field name="name" required="1"/>
-                    </h2>
+                    </h1>
                     <group>
-                        <field name="pnt_type" required="1" readonly="pnt_product_id != False"/>
-                        <field name="pnt_tool_id" invisible="pnt_type == 'tool'" required="pnt_type == 'accesory'"/>
-                        <field name="pnt_product_id" domain="[('pnt_product_type','in',['other'])]"/>
-                        <field name="pnt_cycles"/>
-                        <field name="pnt_gaps"/>
+                        <group>
+                            <field name="pnt_type" required="1" readonly="pnt_product_id != False"/>
+                            <field name="pnt_tool_id" invisible="pnt_type == 'tool'" required="pnt_type == 'accesory'"/>
+                            <field name="pnt_product_id" domain="[('pnt_product_type','in',['other'])]"/>
+                            <field name="pnt_cycles"/>
+                            <field name="pnt_gaps"/>
+                        </group>
+                        <group>
+                            <field name="pnt_image" widget="image"/>
+                        </group>
                     </group>
                     <field name="pnt_note"/>
                 </sheet>

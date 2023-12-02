@@ -1,8 +1,6 @@
 
 
 from odoo import fields, models, api
-from odoo.exceptions import UserError, ValidationError
-
 
 class MrpTool(models.Model):
     _name = "pnt.mrp.tool"
@@ -15,3 +13,4 @@ class MrpTool(models.Model):
     pnt_cycles = fields.Integer('Cycles / Speed', copy=True, store=True)
     pnt_gaps = fields.Integer('Gaps', copy=True, store=True)
     pnt_note = fields.Html(string="Notes")
+    pnt_image = fields.Binary(string="Image", store=True, copy=False)
