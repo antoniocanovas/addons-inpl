@@ -32,7 +32,9 @@
         <field name="inherit_id" ref="mrp_maintenance.maintenance_equipment_view_form_inherit_mrp"/>
         <field name="arch" type="xml">
             <data>
-
+                <field name="workcenter_id" position="after">
+                    <field name="pnt_workcenter_ids" domain="[('id','!=',workcenter_id)]" invisible="not workcenter_id"/>
+                </field>
             </data>
         </field>
 
