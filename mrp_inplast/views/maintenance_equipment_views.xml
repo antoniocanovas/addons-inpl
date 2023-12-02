@@ -19,11 +19,21 @@
             <xpath expr="//field[@name='category_id']" position="attributes">
                 <attribute name="readonly">category_id == pnt_mrp_accesory_categ_id and pnt_tool_id</attribute>
             </xpath>
-<!-- Poner después de workcenter_id en otra vista:
-            <xpath expr="//field[@name='location']" position="after">
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+
+
+    <record id="mrp_inplast_other_workcenter_inh_form" model="ir.ui.view">
+        <field name="name">mrp.inplast.other.workcenter.inh.form</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="mrp_maintenance.maintenance_equipment_view_form_inherit_mrp"/>
+        <field name="arch" type="xml">
+            <field name="workcenter_id" position="after">
                 <field name="pnt_workcenter_ids" domain="[('id','!=',workcenter_id)]" invisible="not workcenter_id"/>
-            </xpath>
--->
+            </field>
         </field>
         <field name="priority">99</field>
     </record>
