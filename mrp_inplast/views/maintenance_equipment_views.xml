@@ -20,10 +20,11 @@
                 <attribute name="readonly">category_id == pnt_mrp_accesory_categ_id and pnt_tool_id</attribute>
             </xpath>
 
+            <!--
             <xpath expr="//field[@name='workcenter_id']" position="after">
                 <field name="pnt_workcenter_ids"/>
             </xpath>
-
+            -->
         </field>
     </record>
 
