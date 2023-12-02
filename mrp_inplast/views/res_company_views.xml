@@ -11,8 +11,8 @@
                 <page string="MRP">
                     <group>
                         <group>
-                            <field name="pnt_mrp_tool_categ"/>
-                            <field name="pnt_mrp_accesory_categ"/>
+                            <field name="pnt_mrp_tool_categ_id"/>
+                            <field name="pnt_mrp_accesory_categ_id"/>
                         </group>
                     </group>
                 </page>

@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    pnt_mrp_tool_categ = fields.Many2one('maintenance.equipment.category', string='Tools category',
-                                         store=True, help="Injections or pressure Molds")
-    pnt_mrp_accesory_categ = fields.Many2one('maintenance.equipment.category', string='Accesories category',
-                                             store=True, help="Accesories for molds")
+    pnt_mrp_tool_categ_id = fields.Many2one('maintenance.equipment.category', string='Tools category',
+                                         store=True, help="Injections or pressure Molds (Maintenance equipments)"
+    pnt_mrp_accesory_categ_id = fields.Many2one('maintenance.equipment.category', string='Accesories category',
+                                             store=True, help="Molds accesories category (Maintenance equipments)"
