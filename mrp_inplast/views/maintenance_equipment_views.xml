@@ -20,18 +20,31 @@
                 <xpath expr="//field[@name='category_id']" position="attributes">
                     <attribute name="readonly">category_id == pnt_mrp_accesory_categ_id and pnt_tool_id</attribute>
                 </xpath>
+            </data>
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+
+    <record id="mrp_inplast_other_workcenter_inh_form" model="ir.ui.view">
+        <field name="name">mrp.inplast.other.workcenter.inh.form</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="mrp_maintenance.maintenance_equipment_view_form_inherit_mrp"/>
+        <field name="arch" type="xml">
+            <data>
+                <field name="workcenter_id" position="after">
                 <xpath expr="//field[@name='workcenter_id']" position="after">
                     <field name="pnt_workcenter_ids"
                            domain="[('id','!=',workcenter_id)]"
                            context="{'default_company_id':company_id}"
                            groups="mrp.group_mrp_routings"
                            widget="many2many_tags"
-                    />
-                </xpath>
+                </field>
             </data>
         </field>
+
         <field name="priority">99</field>
     </record>
-
 
 </odoo>
