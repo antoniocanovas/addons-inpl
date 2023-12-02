@@ -14,6 +14,7 @@
         "stock",
         "mrp",
         "maintenance",
+        "mrp_maintenance",
         "custom_inplast",
     ],
     "data": [
