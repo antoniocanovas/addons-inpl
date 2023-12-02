@@ -12,9 +12,9 @@ class MaintenanceEquipment(models.Model):
     _inherit = 'maintenance.equipment'
 
     # Datos de empresa de categoría de moldes y accesorios para usar en dominios de equipos:
-    pnt_mrp_tool_categ_id = fields.Many2one('maintance.equipment.category', store=False,
+    pnt_mrp_tool_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
                                             related='company_id.pnt_mrp_tool_categ_id')
-    pnt_mrp_accesory_categ_id = fields.Many2one('maintance.equipment.category', store=False,
+    pnt_mrp_accesory_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
                                                 related='company_id.pnt_mrp_accesory_categ_id')
 
     pnt_tool_id = fields.Many2one('maintenance.equipment', string='Tool', store=True)
