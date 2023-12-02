@@ -24,7 +24,9 @@
                     <field name="pnt_workcenter_ids"
                            domain="[('id','!=',workcenter_id)]"
                            context="{'default_company_id':company_id}"
-                           groups="mrp.group_mrp_routings"/>
+                           groups="mrp.group_mrp_routings"
+                           widget="many2many_tags"
+                    />
                 </xpath>
             </data>
         </field>
