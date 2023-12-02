@@ -39,6 +39,7 @@
                            context="{'default_company_id':company_id}"
                            groups="mrp.group_mrp_routings"
                            widget="many2many_tags"
+                           invisible="not workcenter_id"
                            />
                 </xpath>
             </data>
