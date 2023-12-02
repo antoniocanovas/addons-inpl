@@ -31,11 +31,13 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="mrp_maintenance.maintenance_equipment_view_form_inherit_mrp"/>
         <field name="arch" type="xml">
-            <!--
-            <field name="workcenter_id" position="after">
-                <field name="pnt_workcenter_ids" domain="[('id','!=',workcenter_id)]" invisible="not workcenter_id"/>
-            </field>
-            -->
+            <data>
+                <!--
+                <field name="workcenter_id" position="after">
+                    <field name="pnt_workcenter_ids" domain="[('id','!=',workcenter_id)]" invisible="not workcenter_id"/>
+                </field>
+                -->
+            </data>
         </field>
 
         <field name="priority">99</field>
