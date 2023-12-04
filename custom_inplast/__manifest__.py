@@ -12,6 +12,7 @@
     "depends": [
         "product",
         "stock",
+        "account",
         "report_qweb_pdf_watermark",
     ],
     "data": [
