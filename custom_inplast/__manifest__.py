@@ -16,7 +16,6 @@
     ],
     "data": [
         "security/ir.model.access.csv",
-        "views/mrp_tool_views.xml",
         "views/product_category_views.xml",
         "views/menu_views.xml",
         "report/templates.xml",
