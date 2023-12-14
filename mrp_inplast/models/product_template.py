@@ -8,9 +8,9 @@ class ProductTemplate(models.Model):
 
     # Datos de empresa de categoría de moldes y accesorios para usar en dominios de equipos:
     pnt_mrp_tool_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
-                                            related='company_id.pnt_mrp_tool_categ_id')
+                                            compute=lambda self: self.env.company.pnt_mrp_tool_categ_id.id)
     pnt_mrp_accesory_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
-                                                related='company_id.pnt_mrp_accesory_categ_id')
+                                                compute=lambda self: self.env.company.pnt_mrp_accesory_categ_id.id)
 
     # El molde para usar en la fabricación (con o sin accesorio):
     pnt_tool_id = fields.Many2one('maintenance.equipment', string='Mold', store=True, copy=True)
