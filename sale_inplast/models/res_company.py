@@ -16,3 +16,4 @@ class ResCompany(models.Model):
 
     pnt_pricelist_day_lock = fields.Integer('Pricelist days lock', store=True, default=15)
     pnt_update_month_day = fields.Integer('Month day to update', store=True, default=1)
+    pnt_plastic_tax = fields.Float('Plastic tax (€/kg)', default=0.45)
