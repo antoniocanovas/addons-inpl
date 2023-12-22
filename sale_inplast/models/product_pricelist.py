@@ -11,6 +11,7 @@ class ProductPricelist(models.Model):
 
     pnt_tracking_date = fields.Date('Tracking date', store=True, copy=False)
     pnt_pending_update = fields.Boolean('Pending update', store=True, copy=False, default=False)
+    pnt_plastic_tax = fields.Boolean('Apply plastic tax', store=True, copy=False, default=True)
 
     # Productos en la lista de precios, para ser usados como exclusivamente disponibles en ventas y facturas:
     @api.depends('item_ids.product_tmpl_id')
@@ -54,7 +55,15 @@ class ProductPricelist(models.Model):
                                  ", Comercial i1, i2, i3: " + \
                                  str(categ.pnt_i1) + ", " + str(categ.pnt_i2) + ", " + str(categ.pnt_i3) + \
                                  "</p>"
-                li.write({'pnt_tracking_date':now, 'fixed_price':li.pnt_new_price})
+
+                # El impuesto al plástico aplica a ciertos régimenes fiscales, definimos en la tarifa (única por cliente):
+                plastic_tax = 0
+                if self.pnt_plastic_tax:
+                    plastic_tax = li.product_tmpl_id.pnt_plastic_1000unit_tax / 1000
+
+                li.write({'pnt_tracking_date':now,
+                          'price_surcharge': plastic_tax,
+                          'fixed_price':li.pnt_new_price})
 
         if item_tracking != "":
             new_note = self.env['mail.message'].create({'body': item_tracking,
@@ -75,7 +84,7 @@ class ProductPricelist(models.Model):
             raw_increment = categ.pnt_i0
 
             # Tarifa/peso en familia:
-            pricelist_weight = product.categ_id.pnt_pricelist_weight
+            pricelist_weight = product.categ_id.pnt_plastic_weight
 
             # Incremento de precio debido al coste de materia prima (se consideran defectuosos):
             net_price = pricelist_weight * (raw_increment / 1000) * (1 + fault_percent/100) + (last_price * 1000)
