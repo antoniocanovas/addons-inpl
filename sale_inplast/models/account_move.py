@@ -21,7 +21,44 @@ class AccountMove(models.Model):
     plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_show_button_plastic_tax')
 
     def create_plastic_tax_entry(self):
-        return True
+        if self.pnt_move_plastic_tax_id.id:
+          raise UserError('Esta factura ya tiene un apunte, modifícalo o quita la asociación.')
+
+        plastic_journal_id = self.env.company.pnt_plastic_journal_id
+        account430 = env['account.account'].search([('code', '=', '430000')])
+        if not plastic_journal_id:
+            raise UserError('Asigna el diario para el impuesto al plástico en la compañía.')
+
+        apunte = env['account.move'].create(
+            {'journal_id': plastic_journal_id.id, 'move_type': 'entry', 'name': "Impuesto al plástico " + record.name,
+             'partner_id': record.partner_id.id, 'invoice_origin': record.invoice_origin})
+        record['pnt_move_plastic_tax_id'] = apunte
+
+        # Si es venta o abono de compra: el debe a la 700(producto) y haber a la 475
+        # Si es compra o abono de venta: el debe a la 475 y haber a la 600 (depende del producto)
+        # Añadir los kg de plástico
+
+        cuenta430 = env['account.account'].search([('code', '=', '430000')])
+
+        for li in record.invoice_line_ids:
+            if li.product_id.id:
+                #        account = li.product_id.property_account_expense_id
+                #        if not account.id: account = li.product_id.categ_id.property_account_expense_categ_id
+                apunte['line_ids'] = [(0, 0, {
+                    'product_id': li.product_id.id,
+                    'display_type': li.display_type,
+                    'name': li.product_id.name,
+                    'price_unit': abs(li.price_subtotal),
+                    'debit': li.price_subtotal,
+                    'account_id': cuenta430.id,
+                    'analytic_distribution': li.analytic_distribution,
+                    'partner_id': record.partner_id.id
+                }), (0, 0, {
+                    'name': record.name or '/',
+                    'credit': li.price_subtotal,
+                    'account_id': 233,
+                    'partner_id': record.partner_id.id,
+                })]
 
     # Caso 1.- Compramos plástico fuera de España => Impuesto (contemplado)
     # Caso 2.- Compramos plástico dentro de España => Ese plástico ya pagó impuesto (contemplado)
