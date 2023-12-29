@@ -11,6 +11,11 @@
         <field name="arch" type="xml">
 
             <!-- Apunte de compras/ventas para el impuesto al plástico: -->
+            <xpath expr="//header" position="inside">
+                <button name="create_plastic_tax_entry" type="object" data-hotkey="shift+r"
+                        string="Plastic Tax entry" class="oe_highlight"
+                        invisible="move_type not in ('in_invoice','in_refund','out_invoice','out_refund')"/>
+            </xpath>
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="pnt_move_plastic_tax_id" invisible="move_type not in ('out_invoice', 'out_refund','in_invoice','in_refund')"/>
             </xpath>

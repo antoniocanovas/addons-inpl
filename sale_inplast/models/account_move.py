@@ -11,6 +11,9 @@ class AccountMove(models.Model):
     pnt_move_plastic_tax_id = fields.Many2one('account.move', store=True, string='Plastic tax entry')
 
 
+    def create_plastic_tax_entry(self):
+        return True
+
     # Caso 1.- Compramos plástico fuera de España => Impuesto (contemplado)
     # Caso 2.- Compramos plástico dentro de España => Ese plástico ya pagó impuesto (contemplado)
     # Caso 3.- Vendemos en España algo comprado fuera y pagó impuesto => Cobrar al cliente en pvp (contemplado)
