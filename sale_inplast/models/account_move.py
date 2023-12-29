@@ -10,13 +10,15 @@ class AccountMove(models.Model):
 
     pnt_move_plastic_tax_id = fields.Many2one('account.move', store=True, string='Plastic tax entry')
 
-    @api.depends('state', 'pnt_move_plastic_tax_id')
-    def _get_options_invisible_plastic_tax(self):
-        show_button = True
-        if (self.state in ['cancel']) or (self.move_type not in ['in_invoice','in_refund','out_invoice','out_refund']) or (self.pnt_move_plastic_tax_id.id):
-            show_button = False
+    @api.depends('state', 'pnt_move_plastic_tax_id', 'write_date')
+    def _get_show_button_plastic_tax(self):
+        show_button = False
+        if (self.state not in ['cancel']) and (self.move_type in ['in_invoice','in_refund','out_invoice','out_refund']) and not (self.pnt_move_plastic_tax_id.id):
+            for li in self.invoice_line_ids:
+                if (li.product_id.pnt_plastic_weight != 0) and (li.product_id.quantity != 0):
+                    show_button = True
         self.plastic_tax = show_button
-    plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_options_invisible_plastic_tax')
+    plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_show_button_plastic_tax')
 
     def create_plastic_tax_entry(self):
         return True
