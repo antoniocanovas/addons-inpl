@@ -14,10 +14,7 @@ class AccountMove(models.Model):
     def _get_show_button_plastic_tax(self):
         show_button = False
         # Si vendemos o compramos en España, el impuesto va en PVP o ya lo pagó el proveedor:
-        if (self.partner_id.country_id.code != 'ES')/
-            and (self.state not in ['cancel'])/
-            and (self.move_type in ['in_invoice','in_refund','out_invoice','out_refund'])/
-            and not (self.pnt_move_plastic_tax_id.id):
+        if (self.partner_id.country_id.code != 'ES') and (self.state not in ['cancel']) and (self.move_type in ['in_invoice','in_refund','out_invoice','out_refund']) and not (self.pnt_move_plastic_tax_id.id):
             for li in self.invoice_line_ids:
                 if (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
                     show_button = True
