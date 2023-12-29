@@ -49,11 +49,24 @@ class AccountMove(models.Model):
         record['pnt_move_plastic_tax_id'] = tax_entry
 
         for li in record.invoice_line_ids:
-            if li.product_id.id:
-                # Voy por aquí:
+            if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
+# Voy por aquí !!!!!!!!!!
+                # Considerar si es venta, compra, abono de compra y abono de devolución:
+                if (self.move_type == 'out_invoice') and (li.product_id.pnt_is_manufactured) and (self.partner_id.country_id.code == 'ES'):
+                    # Apunte de venta para clientes españoles de producidos o cualquier plástico si extranjero.
+                    # Realmente son apuntes distintos porque uno es para pagar nosotros y otro para que nos abonen.
+                elif (self.move_type == 'out_invoice') and not (li.product_id.pnt_is_manufactured) and (
+                            self.partner_id.country_id.code != 'ES'):
+                # Compra de plástico en el extranjero (no materia prima):
+                elif (self.move_type == 'in_invoice') and (self.partner_id.country_id.code != 'ES'):
 
+                # Compra de plástico en España (no materia prima):
+                elif (self.move_type == 'in_invoice') and (self.partner_id.country_id.code == 'ES'):
+                    nothing = 1
 
-                #        account = li.product_id.property_account_expense_id
+                # Faltan los abonos ...
+
+    #        account = li.product_id.property_account_expense_id
                 #        if not account.id: account = li.product_id.categ_id.property_account_expense_categ_id
                 apunte['line_ids'] = [(0, 0, {
                     'product_id': li.product_id.id,
