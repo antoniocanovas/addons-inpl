@@ -15,14 +15,18 @@ class AccountMove(models.Model):
         show_button = False
         if (self.state not in ['cancel']) and (self.move_type in ['in_invoice','in_refund','out_invoice','out_refund']) and not (self.pnt_move_plastic_tax_id.id):
             for li in self.invoice_line_ids:
+                # Con esta condición verificamos que es plástico:
                 if (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
-                    if (self.partner_id.country_id.code != 'ES'):
+                    # Operaciones de compra fuera de España:
+                    if (self.partner_id.country_id.code != 'ES') and (self.move_type in ['in_invoice','in_refund']):
                         show_button = True
-                    # Si vendemos o compramos plástico en España, el impuesto va en PVP o ya lo pagó el proveedor:
-                    # Si vendemos plástico PRODUCIDO en España, en España hemos de pagar (si venta en el extranjero, no):
-                    else:
-                        if (self.partner_id.country_id.code == 'ES') and (li.product_id.pnt_is_manufactured):
-                            show_button = True
+                    # Operaciones de venta fuera de España, sólo recuperamos si es comercio (no fabricados):
+                    if (self.partner_id.country_id.code != 'ES') and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.pnt_is_manufactured == False):
+                        show_button = True
+                    # Si vendemos o compramos plástico en España, el impuesto va en PVP o ya lo pagó el proveedor.
+                    # Si vendemos en España plástico PRODUCIDO aquí, hemos de pagar (si venta en el extranjero, no):
+                    if (self.partner_id.country_id.code == 'ES') and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.pnt_is_manufactured):
+                        show_button = True
         self.plastic_tax = show_button
     plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_show_button_plastic_tax')
 
