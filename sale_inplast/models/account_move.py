@@ -13,9 +13,9 @@ class AccountMove(models.Model):
     @api.depends('state', 'pnt_move_plastic_tax_id')
     def _get_options_invisible_plastic_tax(self):
         hidden = False
-        if (self.state == 'cancel')
-            or (self.move_type not in ['in_invoice','in_refund','out_invoice','out_refund'])
-            or (self.pnt_move_plastic_tax_id.id):
+        if (self.state in ['cancel']) or
+            (self.move_type not in ['in_invoice','in_refund','out_invoice','out_refund']) or
+            (self.pnt_move_plastic_tax_id.id):
             hidden = True
         self.plastic_tax = hidden
     plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_options_invisible_plastic_tax')
