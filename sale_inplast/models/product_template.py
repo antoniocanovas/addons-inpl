@@ -11,7 +11,9 @@ class ProductTemplate(models.Model):
     pnt_is_manufactured = fields.Boolean('Manufactured', store=True, related='categ_id.pnt_is_manufactured')
 
     def _get_plastic_unit_tax(self):
-        self.pnt_plastic_1000unit_tax = self.env.company.pnt_plastic_tax * self.pnt_plastic_weight * 1000
+        for record in self:
+            tax = self.env.company.pnt_plastic_tax
+            record['pnt_plastic_1000unit_tax'] = tax * record.pnt_plastic_weight * 1000
     pnt_plastic_1000unit_tax = fields.Float('Plastic tax x 1000', store=False,
                                             digits='Product Price',
                                             compute='_get_plastic_unit_tax')
