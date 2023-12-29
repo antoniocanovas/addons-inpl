@@ -19,3 +19,4 @@ class ResCompany(models.Model):
     pnt_plastic_tax = fields.Float('Plastics tax (€/kg)', store=True, default=0.45, digits='Product Price',
                                    help='Tasa de impuesto por kg de plástico no reciclabe fabricado en España o importado.'
                                         ' Es recuperable si es vendido fuera de España')
+    pnt_plastic_account_id = fields.Many2one('account.account', string='AEAT Plastic tax')
