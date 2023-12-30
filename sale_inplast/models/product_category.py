@@ -6,8 +6,7 @@ _logger = logging.getLogger(__name__)
 
 
 class ProductCategory(models.Model):
-    _name = 'product.category'
-    _inherit = ['product.category', 'mail.thread', 'mail.activity.mixin']
+    _inherit = 'product.category'
 
     pnt_raw_material = fields.Many2one('product.template', store=True, copy=True, string='Raw material', tracking=True,
                                        domain="[('detailed_type','=','product')]",
