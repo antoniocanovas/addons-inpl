@@ -122,10 +122,6 @@ class AccountMove(models.Model):
 
 
 
-
-
-
-
     def tax_entry_out_refund_spain(self):
                     return True
 
@@ -141,26 +137,6 @@ class AccountMove(models.Model):
                 # Abono del anterior:
                 if (self.move_type == 'in_invoice') and (self.partner_id.country_id.code != 'ES'):
                     return True
-
-
-
-    #        account = li.product_id.property_account_expense_id
-                #        if not account.id: account = li.product_id.categ_id.property_account_expense_categ_id
-#                apunte['line_ids'] = [(0, 0, {
-                    #                    'product_id': li.product_id.id,
-                    #'display_type': li.display_type,
-                    #'name': li.product_id.name,
-                    #'price_unit': abs(li.price_subtotal),
-                    #'debit': li.price_subtotal,
-                    #'account_id': account430.id,
-                    #'analytic_distribution': li.analytic_distribution,
-                    #'partner_id': record.partner_id.id
-                    # }), (0, 0, {
-                    #'name': record.name or '/',
-                    #'credit': li.price_subtotal,
-                    #'account_id': 233,
-                    #'partner_id': record.partner_id.id,
-                #})]
 
 
 
