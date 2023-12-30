@@ -21,6 +21,11 @@
                 <field name="plastic_tax" invisible="1"/>
             </xpath>
 
+            <!-- Mostrar los kilos de plástico en los journal items de la factura: -->
+            <xpath expr="//field[@name='tax_tag_ids']" position="after">
+                <field name="pnt_plastic_kg" optional="show"/>
+            </xpath>
+
             <!-- No permitir cambiar la tarifa por cliente o dirección de entrega: -->
             <xpath expr="//field[@name='pricelist_id'][2]" position="attributes">
                 <attribute name="readonly">1</attribute>
