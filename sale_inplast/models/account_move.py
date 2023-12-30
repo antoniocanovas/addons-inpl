@@ -84,7 +84,7 @@ class AccountMove(models.Model):
                         'analytic_distribution': li.analytic_distribution,
                         'partner_id': self.partner_id.id
                     }), (0, 0, {
-                        'name': record.name or '/',
+                        'name': self.name or '/',
                         'credit': li.price_subtotal,
                         'account_id': plastic_account.id,
                         'partner_id': self.partner_id.id,
