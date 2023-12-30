@@ -21,7 +21,7 @@
                     </group>
                 </group>
 
-                <xpath expr="//expr=[@name='sheet']" position="after">
+                <xpath expr="/form/sheet" position="after">
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="activity_ids" widget="mail_activity"/>
