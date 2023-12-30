@@ -44,8 +44,8 @@ class AccountMove(models.Model):
             raise UserError('Asigna el diario y cuenta para el impuesto al plástico en la compañía.')
 
         tax_entry = self.env['account.move'].create(
-            {'journal_id': plastic_journal.id, 'move_type': 'entry', 'name': "Impuesto al plástico " + record.name,
-             'partner_id': record.partner_id.id, 'invoice_origin': record.invoice_origin})
+            {'journal_id': plastic_journal.id, 'move_type': 'entry', 'name': "Impuesto al plástico " + self.name,
+             'partner_id': record.partner_id.id, 'invoice_origin': self.invoice_origin})
         self.pnt_move_plastic_tax_id = tax_entry
 
         control = 0
