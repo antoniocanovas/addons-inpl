@@ -86,7 +86,7 @@ class AccountMove(models.Model):
                     }), (0, 0, {
                         'name': self.name or '/',
                         'credit': li.price_subtotal,
-                        'account_id': plastic_account.id,
+                        'account_id': self.env.company.pnt_plastic_account_id.id,
                         'partner_id': self.partner_id.id,
                     })]
 
