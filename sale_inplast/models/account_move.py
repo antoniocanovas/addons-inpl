@@ -83,7 +83,8 @@ class AccountMove(models.Model):
                         'debit': abs(li.pnt_plastic_tax),
                         'account_id': accountsale.id,
                         'analytic_distribution': li.analytic_distribution,
-                        'partner_id': self.partner_id.id
+                        'partner_id': self.partner_id.id,
+                        'pnt_plastic_kg': li.pnt_plastic_kg,
                     }), (0, 0, {
                         'name': self.name or '/',
                         'credit': abs(li.pnt_plastic_tax),
