@@ -7,4 +7,4 @@ _logger = logging.getLogger(__name__)
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    pnt_product_ids = fields.Many2many('product.product', store=False, string='Pricelist products'
+    pnt_product_ids = fields.Many2many('product.product', store=False, string='Pricelist products')
