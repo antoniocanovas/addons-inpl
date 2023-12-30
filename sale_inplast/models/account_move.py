@@ -79,14 +79,14 @@ class AccountMove(models.Model):
                         'product_id': li.product_id.id,
                         'display_type': li.display_type,
                         'name': li.product_id.name,
-                        'price_unit': abs(li.pnt_plastic_tax),
-                        'debit': abs(li.pnt_plastic_tax * li.quantity),
+                        'price_unit': abs(li.pnt_plastic_tax / li.quantity),
+                        'debit': abs(li.pnt_plastic_tax),
                         'account_id': accountsale.id,
                         'analytic_distribution': li.analytic_distribution,
                         'partner_id': self.partner_id.id
                     }), (0, 0, {
                         'name': self.name or '/',
-                        'credit': abs(li.pnt_plastic_tax * li.quantity),
+                        'credit': abs(li.pnt_plastic_tax),
                         'account_id': self.env.company.pnt_plastic_account_id.id,
                         'partner_id': self.partner_id.id,
                     })]
