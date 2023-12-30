@@ -29,3 +29,9 @@ class ProductCategory(models.Model):
     pnt_is_manufactured = fields.Boolean('Manufactured', store=True, copy=True, default=True,
                                          help='Enabled if products are manufactured, disabled when bought.')
 
+#    @api.constrains('pnt_plastic_weight')
+#    def _avoid_change_weight_when_tax_moves(self):
+#        account_moves = self.env['account.move.line'].search([('product_id.categ_id','=', self.id),])
+#        if account_moves.ids:
+#            raise UserError('You can not change the weight used for previous taxes accounting and sales pricelists,'
+#                            'create another category and products.')
