@@ -74,6 +74,7 @@ class AccountMove(models.Model):
                     accountsale = li.product_id.property_account_income_id
                     if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
+                    tax_entry = self.pnt_move_plastic_tax_id
                     tax_entry['line_ids'] = [(0, 0, {
                         'product_id': li.product_id.id,
                         'display_type': li.display_type,
