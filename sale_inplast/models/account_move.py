@@ -94,7 +94,7 @@ class AccountMove(models.Model):
 
     def tax_entry_out_invoice_no_spain(self):
         # Para venta reclamamos abono de impuesto pagado si vendemos elaborado comprado en el extranjero (no fabricado):
-        for li in record.invoice_line_ids:
+        for li in self.invoice_line_ids:
             if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
                 if not (li.product_id.pnt_is_manufactured):
                     accountpurchase = li.product_id.property_account_expense_id
