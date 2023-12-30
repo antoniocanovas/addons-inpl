@@ -14,11 +14,28 @@ class ProductPricelist(models.Model):
     pnt_plastic_tax = fields.Boolean('Apply plastic tax', store=True, copy=False, default=True)
 
     # Productos en la lista de precios, para ser usados como exclusivamente disponibles en ventas y facturas:
-
-    pnt_product_ids = fields.Many2many('product.product', store=True)
+    @api.depends('item_ids.product_tmpl_id')
+    def _get_pricelist_products(self):
+        products = []
+        for li in self.item_ids:
+            if (li.product_tmpl_id.id) and not (li.product_id.id):
+                pnt_product_ids = self.env['product.product'].search([('product_tmpl_id', '=', li.product_tmpl_id.id)])
+                for pro in pnt_product_ids: products.append(pro.id)
+            else:
+                products.append(li.product_id.id)
+        self.pnt_product_ids = [(6,0,products)]
+    pnt_product_ids = fields.Many2many('product.product', store=True, compute='_get_pricelist_products')
 
     # Categorías utilizadas en esta tarifa:
-    pnt_product_categ_ids = fields.Many2many('product.category', string='Raw products', store=False)
+    @api.depends('item_ids.product_tmpl_id.categ_id')
+    def _get_product_categs(self):
+        categs = []
+        for li in self.item_ids:
+            if (li.product_tmpl_id.categ_id.id) not in categs:
+                categs.append(li.product_tmpl_id.categ_id.id)
+        self.pnt_product_categ_ids = [(6,0,categs)]
+    pnt_product_categ_ids = fields.Many2many('product.category', string='Raw products', store=False,
+                                           compute='_get_product_categs')
 
 
     # Crear una nota con los precios que han cambiado en la tarifa, desde botón o acción planificada:
