@@ -65,7 +65,7 @@ class AccountMove(models.Model):
             self.tax_entry_in_refund()
 
     def tax_entry_out_invoice_spain(self):
-        for li in record.invoice_line_ids:
+        for li in self.invoice_line_ids:
             if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
                 # Para venta pagamos impuesto por plástico fabricado aquí y vendido aquí:
                 if (li.product_id.pnt_is_manufactured):
@@ -82,12 +82,12 @@ class AccountMove(models.Model):
                         'debit': li.price_subtotal,
                         'account_id': accountsale.id,
                         'analytic_distribution': li.analytic_distribution,
-                        'partner_id': record.partner_id.id
+                        'partner_id': self.partner_id.id
                     }), (0, 0, {
                         'name': record.name or '/',
                         'credit': li.price_subtotal,
                         'account_id': plastic_account.id,
-                        'partner_id': record.partner_id.id,
+                        'partner_id': self.partner_id.id,
                     })]
 
     def tax_entry_out_invoice_no_spain(self):
