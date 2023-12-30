@@ -79,8 +79,8 @@ class AccountMove(models.Model):
                         'product_id': li.product_id.id,
                         'display_type': li.display_type,
                         'name': li.product_id.name,
-                        'price_unit': abs(li.pnt_plastic_tax * li.quantity),
-                        'debit': li.price_subtotal,
+                        'price_unit': abs(li.pnt_plastic_tax),
+                        'debit': abs(li.pnt_plastic_tax * li.quantity),
                         'account_id': accountsale.id,
                         'analytic_distribution': li.analytic_distribution,
                         'partner_id': self.partner_id.id
