@@ -45,7 +45,7 @@ class AccountMove(models.Model):
 
         tax_entry = self.env['account.move'].create(
             {'journal_id': plastic_journal.id, 'move_type': 'entry', 'name': "Impuesto al plástico " + self.name,
-             'partner_id': record.partner_id.id, 'invoice_origin': self.invoice_origin})
+             'partner_id': self.partner_id.id, 'invoice_origin': self.invoice_origin})
         self.pnt_move_plastic_tax_id = tax_entry
 
         control = 0
