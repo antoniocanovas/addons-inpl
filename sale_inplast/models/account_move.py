@@ -37,52 +37,131 @@ class AccountMove(models.Model):
         if self.pnt_move_plastic_tax_id.id:
           raise UserError('Esta factura ya tiene un apunte, modifícalo o quita la asociación.')
 
-        plastic_journal_id = self.env.company.pnt_plastic_journal_id
-        account430 = env['account.account'].search([('code', '=', '430000')])
-        accountsup = self.partner_id.property_account_payable_id
-        if not plastic_journal_id:
-            raise UserError('Asigna el diario para el impuesto al plástico en la compañía.')
+        plastic_journal = self.env.company.pnt_plastic_journal_id
+        plastic_account = self.env.company.pnt_plastic_account_id
+
+        if not (plastic_journal.id) or not (plastic_account.id):
+            raise UserError('Asigna el diario y cuenta para el impuesto al plástico en la compañía.')
 
         tax_entry = env['account.move'].create(
             {'journal_id': plastic_journal_id.id, 'move_type': 'entry', 'name': "Impuesto al plástico " + record.name,
              'partner_id': record.partner_id.id, 'invoice_origin': record.invoice_origin})
         record['pnt_move_plastic_tax_id'] = tax_entry
 
+        control = 0
+        if (self.move_type == 'out_invoice') and (self.partner_id.country_id.code == 'ES'):
+            self.tax_entry_out_invoice_spain()
+        if (self.move_type == 'out_invoice') and (self.partner_id.country_id.code != 'ES'):
+            self.tax_entry_out_invoice_no_spain()
+
+        if (self.move_type == 'out_refund') and (self.partner_id.country_id.code == 'ES'):
+            self.tax_entry_out_refund_spain()
+        if (self.move_type == 'out_refund') and (self.partner_id.country_id.code != 'ES'):
+            self.tax_entry_out_refund_no_spain()
+
+        if (self.move_type == 'in_invoice') and (self.partner_id.country_id.code != 'ES'):
+            self.tax_entry_in_invoice()
+        if (self.move_type == 'in_refund') and (self.partner_id.country_id.code != 'ES'):
+            self.tax_entry_in_refund()
+
+    def tax_entry_out_invoice_spain(self):
         for li in record.invoice_line_ids:
             if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
-# Voy por aquí !!!!!!!!!!
-                # Considerar si es venta, compra, abono de compra y abono de devolución:
-                if (self.move_type == 'out_invoice') and (li.product_id.pnt_is_manufactured) and (self.partner_id.country_id.code == 'ES'):
-                    # Apunte de venta para clientes españoles de producidos o cualquier plástico si extranjero.
-                    # Realmente son apuntes distintos porque uno es para pagar nosotros y otro para que nos abonen.
-                elif (self.move_type == 'out_invoice') and not (li.product_id.pnt_is_manufactured) and (
-                            self.partner_id.country_id.code != 'ES'):
-                # Compra de plástico en el extranjero (no materia prima):
-                elif (self.move_type == 'in_invoice') and (self.partner_id.country_id.code != 'ES'):
+                # Para venta pagamos impuesto por plástico fabricado aquí y vendido aquí:
+                if (li.product_id.pnt_is_manufactured):
+                    accountpurchase = li.product_id.property_account_expense_id
+                    if not accountpurchase.id: accountpurchase = li.product_id.categ_id.property_account_expense_categ_id
+                    accountsale = li.product_id.property_account_income_id
+                    if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
-                # Compra de plástico en España (no materia prima):
-                elif (self.move_type == 'in_invoice') and (self.partner_id.country_id.code == 'ES'):
-                    nothing = 1
+                    tax_entry['line_ids'] = [(0, 0, {
+                        'product_id': li.product_id.id,
+                        'display_type': li.display_type,
+                        'name': li.product_id.name,
+                        'price_unit': abs(li.price_subtotal),
+                        'debit': li.price_subtotal,
+                        'account_id': accountsale.id,
+                        'analytic_distribution': li.analytic_distribution,
+                        'partner_id': record.partner_id.id
+                    }), (0, 0, {
+                        'name': record.name or '/',
+                        'credit': li.price_subtotal,
+                        'account_id': plastic_account.id,
+                        'partner_id': record.partner_id.id,
+                    })]
 
-                # Faltan los abonos ...
+    def tax_entry_out_invoice_no_spain(self):
+        # Para venta reclamamos abono de impuesto pagado si vendemos elaborado comprado en el extranjero (no fabricado):
+        for li in record.invoice_line_ids:
+            if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
+                if not (li.product_id.pnt_is_manufactured):
+                    accountpurchase = li.product_id.property_account_expense_id
+                    if not accountpurchase.id: accountpurchase = li.product_id.categ_id.property_account_expense_categ_id
+                    accountsale = li.product_id.property_account_income_id
+                    if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
+
+                    tax_entry['line_ids'] = [(0, 0, {
+                        'product_id': li.product_id.id,
+                        'display_type': li.display_type,
+                        'name': li.product_id.name,
+                        'price_unit': abs(li.price_subtotal),
+                        'debit': li.price_subtotal,
+                        'account_id': accountsale.id,
+                        'analytic_distribution': li.analytic_distribution,
+                        'partner_id': record.partner_id.id
+                    }), (0, 0, {
+                        'name': record.name or '/',
+                        'credit': li.price_subtotal,
+                        'account_id': plastic_account.id,
+                        'partner_id': record.partner_id.id,
+                    })]
+
+
+
+
+
+
+
+    def tax_entry_out_refund_spain(self):
+                    return True
+
+    def tax_entry_out_refund_no_spain(self):
+                    return True
+
+    def tax_entry_in_invoice(self):
+                # Pagamos impuesto en aduana por Compra de plástico en el extranjero (la materia prima no paga):
+                if (self.move_type == 'in_invoice') and (self.partner_id.country_id.code != 'ES'):
+                    return True
+
+    def tax_entry_in_refund(self):
+                # Abono del anterior:
+                if (self.move_type == 'in_invoice') and (self.partner_id.country_id.code != 'ES'):
+                    return True
+
+
 
     #        account = li.product_id.property_account_expense_id
                 #        if not account.id: account = li.product_id.categ_id.property_account_expense_categ_id
-                apunte['line_ids'] = [(0, 0, {
-                    'product_id': li.product_id.id,
-                    'display_type': li.display_type,
-                    'name': li.product_id.name,
-                    'price_unit': abs(li.price_subtotal),
-                    'debit': li.price_subtotal,
-                    'account_id': account430.id,
-                    'analytic_distribution': li.analytic_distribution,
-                    'partner_id': record.partner_id.id
-                }), (0, 0, {
-                    'name': record.name or '/',
-                    'credit': li.price_subtotal,
-                    'account_id': 233,
-                    'partner_id': record.partner_id.id,
-                })]
+#                apunte['line_ids'] = [(0, 0, {
+                    #                    'product_id': li.product_id.id,
+                    #'display_type': li.display_type,
+                    #'name': li.product_id.name,
+                    #'price_unit': abs(li.price_subtotal),
+                    #'debit': li.price_subtotal,
+                    #'account_id': account430.id,
+                    #'analytic_distribution': li.analytic_distribution,
+                    #'partner_id': record.partner_id.id
+                    # }), (0, 0, {
+                    #'name': record.name or '/',
+                    #'credit': li.price_subtotal,
+                    #'account_id': 233,
+                    #'partner_id': record.partner_id.id,
+                #})]
+
+
+
+
+
 
     # Caso 1.- Compramos plástico fuera de España => Impuesto (contemplado)
     # Caso 2.- Compramos plástico dentro de España => Ese plástico ya pagó impuesto (contemplado)
