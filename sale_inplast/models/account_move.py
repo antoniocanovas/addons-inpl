@@ -102,20 +102,22 @@ class AccountMove(models.Model):
                     accountsale = li.product_id.property_account_income_id
                     if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
+                    tax_entry = self.pnt_move_plastic_tax_id
                     tax_entry['line_ids'] = [(0, 0, {
                         'product_id': li.product_id.id,
                         'display_type': li.display_type,
                         'name': li.product_id.name,
-                        'price_unit': abs(li.price_subtotal),
-                        'debit': li.price_subtotal,
+                        'price_unit': abs(li.pnt_plastic_tax / li.quantity),
+                        'credit': abs(li.pnt_plastic_tax),
                         'account_id': accountsale.id,
                         'analytic_distribution': li.analytic_distribution,
-                        'partner_id': record.partner_id.id
+                        'partner_id': self.partner_id.id,
+                        'quantity': li.quantity,
                     }), (0, 0, {
-                        'name': record.name or '/',
-                        'credit': li.price_subtotal,
+                        'name': self.name or '/',
+                        'debit': abs(li.pnt_plastic_tax),
                         'account_id': self.env.company.pnt_plastic_account_id.id,
-                        'partner_id': record.partner_id.id,
+                        'partner_id': self.partner_id.id,
                     })]
 
 
