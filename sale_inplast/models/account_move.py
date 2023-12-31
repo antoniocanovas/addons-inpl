@@ -67,7 +67,7 @@ class AccountMove(models.Model):
     def tax_entry_out_invoice_spain(self):
         for li in self.invoice_line_ids:
             if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
-                # Para venta pagamos impuesto por plástico fabricado aquí y vendido aquí:
+                # En la venta pagamos impuesto por plástico FABRICADO aquí y vendido aquí:
                 if (li.product_id.pnt_is_manufactured):
                     accountpurchase = li.product_id.property_account_expense_id
                     if not accountpurchase.id: accountpurchase = li.product_id.categ_id.property_account_expense_categ_id
@@ -93,7 +93,7 @@ class AccountMove(models.Model):
                     })]
 
     def tax_entry_out_invoice_no_spain(self):
-        # Para venta reclamamos abono de impuesto pagado si vendemos elaborado comprado en el extranjero (no fabricado):
+        # En la venta reclamamos abono de impuesto pagado si vendemos fabricados IMPORTADOS (que pagamos en aduana anteriormente la tasa):
         for li in self.invoice_line_ids:
             if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
                 if not (li.product_id.pnt_is_manufactured):
@@ -125,7 +125,7 @@ class AccountMove(models.Model):
     def tax_entry_out_refund_spain(self):
         for li in self.invoice_line_ids:
             if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
-                # Para venta pagamos impuesto por plástico fabricado aquí y vendido aquí:
+                # Para venta pagamos impuesto por plástico FABRICADO aquí y vendido aquí, pero no si vuelve a STOCK:
                 if (li.product_id.pnt_is_manufactured):
                     accountpurchase = li.product_id.property_account_expense_id
                     if not accountpurchase.id: accountpurchase = li.product_id.categ_id.property_account_expense_categ_id
@@ -151,7 +151,8 @@ class AccountMove(models.Model):
                     })]
 
     def tax_entry_out_refund_no_spain(self):
-        # Para venta reclamamos abono de impuesto pagado si vendemos elaborado comprado en el extranjero (no fabricado):
+        # En venta si nos han devuelto el impuesto (porque pagamos "no fabricado"
+        # hemos de volver a pagarlo ya que introducimos plático en España:
         for li in self.invoice_line_ids:
             if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
                 if not (li.product_id.pnt_is_manufactured):
@@ -179,7 +180,8 @@ class AccountMove(models.Model):
                     })]
 
     def tax_entry_in_invoice(self):
-                # Pagamos impuesto en aduana por Compra de plástico en el extranjero (la materia prima no paga):
+                # Pagamos impuesto en aduana por Compra de plástico en el extranjero (la materia prima no paga, para
+                # esto en los productos de materia prima "pnt_plastic_weight" == 0):
                 for li in self.invoice_line_ids:
                     if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
                         if not (li.product_id.pnt_is_manufactured):
@@ -208,7 +210,8 @@ class AccountMove(models.Model):
 
     def tax_entry_in_refund(self):
                 # Abono del anterior:
-                # Pagamos impuesto en aduana por Compra de plástico en el extranjero (la materia prima no paga):
+                # Solicitud de devolución de impuesto en aduana por Compra de plástico en el extranjero,
+                # en el caso de devolución:
                 for li in self.invoice_line_ids:
                     if (li.product_id.id) and (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
                         if not (li.product_id.pnt_is_manufactured):
