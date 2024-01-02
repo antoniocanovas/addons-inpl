@@ -28,7 +28,30 @@ class AccountMove(models.Model):
                     if (self.partner_id.country_id.code == 'ES') and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.pnt_is_manufactured):
                         show_button = True
         self.plastic_tax = show_button
-    plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_show_button_plastic_tax')
+    plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_show_button_plastic_tax',
+                                 help='El impuesto al plástico graba la introducción o fabricación del mismo en España.'
+                                      '- - - '
+                                      'Es obligatorio el pago de tasa:'
+                                      '- En caso de importar plástico.'
+                                      '- En caso de fabricar plastico en España.'
+                                      '- La tasa de compra se paga adicionalmente al precio del proveedor extranjero, en aduana.'
+                                      '- La repercusión de la tasa al cliente se hace en el PVP, no es compensable y lleva IVA.'
+                                      '- - - '
+                                      'Podemos solicitar la devolución de estas tasas en los siguientes casos:'
+                                      '- Venta de plástico adquirido fuera de España, pagó tasas y ha sido exportado.'
+                                      '- Abono de facturas de compra fuera de España con devolución de material.'
+                                      '- - - '
+                                      'Otros casos:'
+                                      '- Si compramos plástico en España, el proveedor ya pagó la tasa, no podemos recuperarla.'
+                                      '- La compra de materia prima no se considera grabable a que no se conoce su uso final.'
+                                      '- - - '
+                                      'CONFIGURACIÓN DE LA APLICACIÓN:'
+                                      '- Los productos fabricados están definidos en la familia.'
+                                      '- El diario y cuenta contable utilizada para el apunte están definidos en la configuración de empresa.'
+                                      '- En caso de que la factura no requiera tasa el botón para creación automática no aparece.'
+                                      '- Podemos asignar un apunte creado previamente (o nulo) manualmente o crearlo automáticamente.'
+                                      '- Se recomienda diario independiente para facilitar la búsqueda y filtros oportunos.'
+                                      '(más información en la web oficial AEAT)')
 
     def create_plastic_tax_entry(self):
         # Si es venta o abono de compra: el debe a la 700(producto) y haber a la 475
