@@ -9,7 +9,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     pnt_move_plastic_tax_id = fields.Many2one('account.move', store=True, string='Plastic tax entry',
-                                 help='El impuesto al plástico graba la introducción o fabricación del mismo en España.'
+                                 help='El impuesto al plástico graba la introducción o fabricación del mismo en España. "\n"'
                                       '- - - '
                                       'Es obligatorio el pago de tasa:'
                                       '- En caso de importar plástico.'
