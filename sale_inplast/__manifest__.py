@@ -1,9 +1,9 @@
 {
-    'name': 'Custom Inplast Sales',
+    'name': 'Sales Inplast',
     'version': '17.0.1.0.0',
     'category': '',
     'description': u"""
-Custom Inplast Sales.
+Sales Inplast.
 Cada cliente sólo tiene posibilidad de ser ofertado en sus productos (ventas, facturas, tarifas, etc).
 Recálculo de tarifas en base a datos de familia, productos y materia prima.
 """,
