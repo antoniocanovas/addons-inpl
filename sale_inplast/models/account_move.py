@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    pnt_move_plastic_tax_id = fields.Many2one('account.move', store=True, string='Plastic tax entry',
+    pnt_plastictax_move_id = fields.Many2one('account.move', store=True, string='Plastic tax entry', copy=False,
                                  help='El impuesto al plástico graba la introducción o fabricación del mismo en España. "\n"'
                                       '- - - "\n\n"'
                                       'Es obligatorio el pago de tasa: "\n"'
@@ -33,10 +33,10 @@ class AccountMove(models.Model):
                                       '- Se recomienda diario independiente para facilitar la búsqueda y filtros oportunos. "\n"'
                                       '(más información en la web oficial AEAT)' "\n")
 
-    @api.depends('state', 'pnt_move_plastic_tax_id', 'write_date')
+    @api.depends('state', 'pnt_plastictax_move_id', 'write_date')
     def _get_show_button_plastic_tax(self):
         show_button = False
-        if (self.state not in ['cancel']) and (self.move_type in ['in_invoice','in_refund','out_invoice','out_refund']) and not (self.pnt_move_plastic_tax_id.id):
+        if (self.state not in ['cancel']) and (self.move_type in ['in_invoice','in_refund','out_invoice','out_refund']) and not (self.pnt_plastictax_move_id.id):
             for li in self.invoice_line_ids:
                 # Con esta condición verificamos que es plástico:
                 if (li.product_id.pnt_plastic_weight != 0) and (li.quantity != 0):
@@ -57,7 +57,7 @@ class AccountMove(models.Model):
         # Si es venta o abono de compra: el debe a la 700(producto) y haber a la 475
         # Si es compra o abono de venta: el debe a la 475 y haber a la 600 (depende del producto)
         # Añadir los kg de plástico
-        if self.pnt_move_plastic_tax_id.id:
+        if self.pnt_plastictax_move_id.id:
           raise UserError('Esta factura ya tiene un apunte, modifícalo o quita la asociación.')
 
         plastic_journal = self.env.company.pnt_plastic_journal_id
@@ -69,7 +69,7 @@ class AccountMove(models.Model):
         tax_entry = self.env['account.move'].create(
             {'journal_id': plastic_journal.id, 'move_type': 'entry', 'name': "Plastic tax: " + self.partner_id.name,
              'partner_id': self.partner_id.id, 'invoice_origin': self.invoice_origin})
-        self.pnt_move_plastic_tax_id = tax_entry
+        self.pnt_plastictax_move_id = tax_entry
 
         control = 0
         if (self.move_type == 'out_invoice') and (self.partner_id.country_id.code == 'ES'):
@@ -97,7 +97,7 @@ class AccountMove(models.Model):
                     accountsale = li.product_id.property_account_income_id
                     if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
-                    tax_entry = self.pnt_move_plastic_tax_id
+                    tax_entry = self.pnt_plastictax_move_id
                     tax_entry['line_ids'] = [(0, 0, {
                         'product_id': li.product_id.id,
                         'display_type': li.display_type,
@@ -125,7 +125,7 @@ class AccountMove(models.Model):
                     accountsale = li.product_id.property_account_income_id
                     if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
-                    tax_entry = self.pnt_move_plastic_tax_id
+                    tax_entry = self.pnt_plastictax_move_id
                     tax_entry['line_ids'] = [(0, 0, {
                         'product_id': li.product_id.id,
                         'display_type': li.display_type,
@@ -155,7 +155,7 @@ class AccountMove(models.Model):
                     accountsale = li.product_id.property_account_income_id
                     if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
-                    tax_entry = self.pnt_move_plastic_tax_id
+                    tax_entry = self.pnt_plastictax_move_id
                     tax_entry['line_ids'] = [(0, 0, {
                         'product_id': li.product_id.id,
                         'display_type': li.display_type,
@@ -184,7 +184,7 @@ class AccountMove(models.Model):
                     accountsale = li.product_id.property_account_income_id
                     if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
-                    tax_entry = self.pnt_move_plastic_tax_id
+                    tax_entry = self.pnt_plastictax_move_id
                     tax_entry['line_ids'] = [(0, 0, {
                         'product_id': li.product_id.id,
                         'display_type': li.display_type,
@@ -213,7 +213,7 @@ class AccountMove(models.Model):
                             accountsale = li.product_id.property_account_income_id
                             if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
-                            tax_entry = self.pnt_move_plastic_tax_id
+                            tax_entry = self.pnt_plastictax_move_id
                             tax_entry['line_ids'] = [(0, 0, {
                                 'product_id': li.product_id.id,
                                 'display_type': li.display_type,
@@ -243,7 +243,7 @@ class AccountMove(models.Model):
                             accountsale = li.product_id.property_account_income_id
                             if not accountsale.id: accountsale = li.product_id.categ_id.property_account_income_categ_id
 
-                            tax_entry = self.pnt_move_plastic_tax_id
+                            tax_entry = self.pnt_plastictax_move_id
                             tax_entry['line_ids'] = [(0, 0, {
                                 'product_id': li.product_id.id,
                                 'display_type': li.display_type,
@@ -279,7 +279,7 @@ class AccountMove(models.Model):
                 if (not record.partner_id.country_id.id):
                     raise UserError('Pon el país al proveedor para poder controlar el impuesto al plástico.')
                 # Si el país es España quien vende ha pagado impuesto y no podemos repercutirlo, si extranjero hemos de pagar:
-                if (record.partner_id.country_id.code != 'ES') and not (record.pnt_move_plastic_tax_id.id):
+                if (record.partner_id.country_id.code != 'ES') and not (record.pnt_plastictax_move_id.id):
                     plastic_tax_required = False
                     for li in record.invoice_line_ids:
                         if li.product_id.pnt_plastic_weight != 0:
@@ -291,13 +291,13 @@ class AccountMove(models.Model):
                 if (not record.partner_id.country_id.id):
                     raise UserError('Pon el país al cliente para poder controlar el impuesto al plástico.')
                 # Si es cliente extranjero y el plástico fue importado pagando tasas, podemos recuperar el importe:
-                if (record.partner_id.country_id.code != 'ES') and not (record.pnt_move_plastic_tax_id.id):
+                if (record.partner_id.country_id.code != 'ES') and not (record.pnt_plastictax_move_id.id):
                     for li in record.invoice_line_ids:
                         if (li.product_id.pnt_plastic_weight != 0) and (li.product_id.categ_id.pnt_is_manufactured == False):
                             message = "El producto " + li.product_id.name + " es susceptible de recuperar el impuesto al plástico, crea o asigna el apunte correspondiente en esta factura"
                             raise UserError(message)
                 # Caso de venta en España de plástico fabricado por nosotros en España, requiere impuesto:
-                if (record.partner_id.country_id.code == 'ES') and not (record.pnt_move_plastic_tax_id.id):
+                if (record.partner_id.country_id.code == 'ES') and not (record.pnt_plastictax_move_id.id):
                     for li in record.invoice_line_ids:
                         if (li.product_id.pnt_plastic_weight != 0) and (li.product_id.categ_id.pnt_is_manufactured == True):
                             message = "El producto " + li.product_id.name + " requiere impuesto al plástico, crea o asigna el apunte correspondiente en esta factura"
