@@ -6,7 +6,7 @@
     "author": "Punt Sistemes",
     "website": "https://www.puntsistemes.es",
     "Maintainers":[
-        "Pedro Guirao",
+        "Equipo rojo",
     ],
     "license": "LGPL-3",
     "depends": [
@@ -19,6 +19,7 @@
         "security/ir.model.access.csv",
         "views/product_category_views.xml",
         "views/product_template_views.xml",
+        "views/stock_location_views.xml",
         "views/menu_views.xml",
         "report/templates.xml",
         "report/ir_action_report.xml",
