@@ -11,6 +11,8 @@ class ProductCategory(models.Model):
     pnt_raw_material = fields.Many2one('product.template', store=True, copy=True, string='Raw material', tracking=True,
                                        domain="[('detailed_type','=','product')]",
                                        help='Main component to manufacture these category products.')
+    pnt_plastic_weight = fields.Float('Plastic weight', store=True, copy=True, digits='Stock Weight', tracking=True,
+                                      help='Unit weight used to pricelist recalculation and plastic taxes.')
     pnt_mrp_fault_percent = fields.Float('Fault (%)', store=True, copy=True, tracking=True,
                                          help='Production percent deficiency')
 
@@ -22,3 +24,6 @@ class ProductCategory(models.Model):
     pnt_i2 = fields.Float('Inc. 2 (tanto/1000)', store=True, copy=False)
     # Tercer incremento en valor absoluto sobre los incrementos anteriores:
     pnt_i3 = fields.Float('Inc. 3 (€)', store=True, copy=False)
+
+    pnt_is_manufactured = fields.Boolean('Manufactured', store=True, copy=True, default=True,
+                                         help='Enabled if products are manufactured, disabled when bought.')

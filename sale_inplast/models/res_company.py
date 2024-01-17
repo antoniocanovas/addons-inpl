@@ -16,8 +16,3 @@ class ResCompany(models.Model):
 
     pnt_pricelist_day_lock = fields.Integer('Pricelist days lock', store=True, default=15)
     pnt_update_month_day = fields.Integer('Pricelist update day', store=True, default=1)
-    pnt_plastic_journal_id = fields.Many2one('account.journal', string='Plastic tax journal')
-    pnt_plastic_tax = fields.Float('Plastics tax (€/kg)', store=True, default=0.45, digits='Product Price',
-                                   help='Tasa de impuesto por kg de plástico no reciclabe fabricado en España o importado.'
-                                        ' Es recuperable si es vendido fuera de España')
-    pnt_plastic_account_id = fields.Many2one('account.account', string='AEAT Plastic tax')
