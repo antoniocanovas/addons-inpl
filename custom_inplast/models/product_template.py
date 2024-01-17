@@ -21,3 +21,11 @@ class ProductTemplate(models.Model):
         "pnt.coa",
         string="COA",
     )
+
+    @api.depends('name', 'default_code', 'pnt_product_dye_id')
+    def _compute_display_name(self):
+        for template in self:
+            template.display_name = '{}{}{}'.format(
+                template.default_code and '[%s] ' % template.default_code or '',
+                template.name, template.pnt_product_dye_id.name and ' [%s]' % template.pnt_product_dye_id.name or '')
+
