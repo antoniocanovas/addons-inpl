@@ -9,16 +9,18 @@ _logger = logging.getLogger(__name__)
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
+    # Campos de estado de la tarifa, necesito los boolean para los filtros:
     @api.depends('state', 'order_line', 'pricelist_id.pnt_state')
-    def _get_pricelist_state(self):
+    def _get_sale_pricelist_state(self):
         for record in self:
             state = record.pnt_pricelist_state
-            if record.state not in ['sale','cancel']:
+            if record.state in ['draft','sent']:
                 state = record.pricelist_id.pnt_state
             record['pnt_pricelist_state'] = state
     pnt_pricelist_state = fields.Selection([('active','Active'),('update','Update'),('locked','Locked')],
                                            string='Pricelist state', store=True, copy=False,
-                                           compute='_get_pricelist_state')
+                                           compute='_get_sale_pricelist_state')
+
 
     # Restricción para que no se puedan cambiar de estado los pedidos con tarifas bloqueadas:
     @api.constrains('state')
