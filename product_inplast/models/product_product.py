@@ -8,6 +8,7 @@ from odoo.tools.misc import unique
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
+    # Reescribimos la función estandar para poder añadir el dye como parámetro
     @api.depends('name', 'default_code', 'product_tmpl_id', 'pnt_product_dye_id')
     @api.depends_context('display_default_code', 'seller_id', 'company_id',
                          'partner_id')
