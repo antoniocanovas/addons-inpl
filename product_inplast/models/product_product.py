@@ -19,6 +19,8 @@ class ProductProduct(models.Model):
                     return f'[{code}] {name} {dye}'
             elif self._context.get('display_default_code', True) and code and not dye:
                 return f'[{code}] {name}'
+            elif dye:
+                return f'{name} {dye}'
             return name
 
         partner_id = self._context.get('partner_id')
