@@ -10,19 +10,10 @@
     ],
     "license": "LGPL-3",
     "depends": [
-        "product",
         "stock",
-        "account",
-        "report_qweb_pdf_watermark",
     ],
     "data": [
-        "security/ir.model.access.csv",
-#        "views/product_category_views.xml",
-        "views/product_template_views.xml",
         "views/stock_location_views.xml",
-        "views/menu_views.xml",
-        "report/templates.xml",
-        "report/ir_action_report.xml",
     ],
     "installable": True,
 }

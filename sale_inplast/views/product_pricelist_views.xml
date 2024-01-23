@@ -16,9 +16,18 @@
 
                 <xpath expr="//sheet" position="before">
                     <header>
-                        <button name="pricelist_update_tracking" type="object" data-hotkey="shift+r"
+                        <button class="oe_highlight"
+                                type="object" data-hotkey="shift+r"
+                                name="products_pricelist_recalculation"
+                                string="Recalculate"
+                                groups="sales_team.group_sale_manager"
+                        />
+                        <button name="pricelist_update_confirm"
+                                type="object" data-hotkey="shift+t"
                                 string="Update prices" class="oe_highlight"
-                                invisible="(pnt_pending_update == False)"/>
+                                invisible="(pnt_pending_update == False)"
+                                groups="sales_team.group_sale_manager"
+                        />
                         <field name="pnt_state" widget="statusbar"/>
                     </header>
                 </xpath>
@@ -31,7 +40,7 @@
                 <xpath expr="//sheet/group" position="inside">
                     <group>
                         <field name="pnt_last_update" readonly="1"/>
-                        <field name="pnt_next_update"/>
+                        <field name="pnt_next_update" required="1"/>
                         <field name="pnt_lock_date" readonly="1"/>
                     </group>
                 </xpath>
@@ -49,7 +58,7 @@
                             <tree>
                                 <field name="name"/>
                                 <field name="pnt_raw_material"/>
-                                <field name="pnt_plastic_weight"/>
+                                <field name="pnt_plastic_weight" optional="hide"/>
                                 <field name="pnt_mrp_fault_percent"/>
                                 <field name="pnt_i0"/>
                                 <field name="pnt_i1"/>
@@ -57,12 +66,6 @@
                                 <field name="pnt_i3"/>
                             </tree>
                         </field>
-                    </group>
-                    <group>
-                        <button class="oe_highlight"
-                                type="object"
-                                name="products_pricelist_recalculation"
-                                string="Recalculate"/>
                     </group>
                 </xpath>
 
@@ -122,5 +125,25 @@
         </field>
         <field name="priority">99</field>
     </record>
+
+    <!-- PRICELIST INH SEARCH:   -->
+    <record id="product_pricelist_inplast_inh_search" model="ir.ui.view">
+        <field name="name">product.pricelist.inplast.inh.search</field>
+        <field name="model">product.pricelist</field>
+        <field name="inherit_id" ref="product.product_pricelist_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <separator/>
+                <filter string="Updated" name="state_active" domain="[('pnt_state','=', 'active')]"/>
+                <filter string="To update" name="to_update" domain="[('pnt_state', '=', 'to_renew')]"/>
+                <filter string="Locked" name="locked" domain="[('pnt_state', '=', 'locked')]"/>
+                <group name="group_by" string="Group By">
+                    <filter name="state" string="State" context="{'group_by': 'pnt_state'}"/>
+                    <filter name="type" string="Type" context="{'group_by': 'pnt_pricelist_type'}"/>
+                </group>
+            </filter>
+        </field>
+    </record>
+
 
 </odoo>

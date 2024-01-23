@@ -11,13 +11,13 @@ class ProductPricelist(models.Model):
 
     # Campos para tipos y actualización de tarifa:
     pnt_pending_update = fields.Boolean('Pending update', store=True, copy=False, default=False)
-    pnt_last_update = fields.Date('Last update')
+    pnt_last_update = fields.Datetime('Last update', default=lambda self: datetime.now())
     pnt_next_update = fields.Date('Next update')
-    pnt_pricelist_frec = fields.Integer('Months frequency', store=True, copy=True)
+    pnt_pricelist_frec = fields.Integer('Months frequency', store=True, copy=True, default=1)
     pnt_pricelist_type   = fields.Selection([('standard','Estándar'),
                                              ('bom', 'Escandallo general'),
                                              ('custom', 'Escandallo personalizado')],
-                                            store=True, copy=True, string='Pricelist mode')
+                                            store=True, copy=True, string='Pricelist mode', default='standard')
 
     @api.depends('pnt_next_update')
     def _get_pnt_lock_date(self):
@@ -61,20 +61,21 @@ class ProductPricelist(models.Model):
             if (li.product_tmpl_id.categ_id.id) not in categs:
                 categs.append(li.product_tmpl_id.categ_id.id)
         self.pnt_product_categ_ids = [(6,0,categs)]
-    pnt_product_categ_ids = fields.Many2many('product.category', string='Raw products', store=False,
+    pnt_product_categ_ids = fields.Many2many('product.category', string='Product categories', store=False,
                                              compute='_get_product_categs')
 
 
     # Crear una nota con los precios que han cambiado en la tarifa, desde botón o acción planificada:
-    def pricelist_update_tracking(self):
+    def pricelist_update_confirm(self):
         item_tracking = ""
-        now = date.today()
+        now = datetime.now()
         years = (now.month + self.pnt_pricelist_frec) // 12
         month = (now.month + self.pnt_pricelist_frec) - years * 12
         nextupdate = date(now.year + years, month, self.env.company.pnt_update_month_day)
 
         for li in self.item_ids:
-            if (li.pnt_new_price != li.fixed_price) and (li.pnt_product_state == True) or (li.pnt_plastic_tax == 0):
+            if ((li.pnt_new_price != li.fixed_price) and (li.pnt_product_state == True)
+                    or (li.price_surcharge == 0) and (li.product_tmpl_id.pnt_plastic_weight != 0)) :
                 categ = li.product_tmpl_id.categ_id
                 name = li.product_tmpl_id.name
                 if li.product_id.id: name = li.product_id.name
@@ -115,7 +116,7 @@ class ProductPricelist(models.Model):
             raw_increment = categ.pnt_i0
 
             # Tarifa/peso en familia:
-            pricelist_weight = product.categ_id.pnt_plastic_weight
+            pricelist_weight = product.pnt_plastic_weight
 
             # Incremento de precio debido al coste de materia prima (se consideran defectuosos):
             net_price = pricelist_weight * (raw_increment / 1000) * (1 + fault_percent/100) + (last_price * 1000)
