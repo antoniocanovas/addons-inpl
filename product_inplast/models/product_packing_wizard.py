@@ -44,7 +44,8 @@ class ProductPackingWizard(models.TransientModel):
             # Tipo de empaquetado PALET:
             # Cantidades base:
             baseqty, type = record.pnt_box_base_qty, " - Caja "
-            packagetype = self.env['stock.package.type']._for_xml_id('product_inplast.package_type_box_inplast')
+            packagetype = self.env.ref('product_inplast.package_type_box_inplast')
+            #self.env['stock.package.type']._for_xml_id('product_inplast.package_type_box_inplast')
             if record.pnt_type == 'pallet':
                 baseqty = record.pnt_pallet_base_qty
                 type = " - Palet "
