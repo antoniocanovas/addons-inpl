@@ -133,7 +133,7 @@ class ProductPackingWizard(models.TransientModel):
                     })
                     pricelist.append(item.pricelist_id.id)
 
-            # Asignar packaging_ids (product.packaging) al producto:
+            # Asignar packaging_ids (product.packaging) al nuevo producto del tipo caja o PALET para huecos disponibles:
             product = self.env['product.product'].search([('product_tmpl_id','=', newpacking.id)])[0]
             newpackingtype = self.env['product.packaging'].create({
                 'name': record.pnt_type + " " + str(baseqty),
@@ -142,5 +142,4 @@ class ProductPackingWizard(models.TransientModel):
                 'product_uom_id': product.uom_id.id,
                 'sales': False,
                 'qty': 1,
-                'company_id': self.env.company.id,
             })
