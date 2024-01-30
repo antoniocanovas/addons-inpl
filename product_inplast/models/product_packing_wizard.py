@@ -41,11 +41,14 @@ class ProductPackingWizard(models.TransientModel):
 
     def create_packing_products(self):
         for record in self:
+            # Tipo de empaquetado PALET:
             # Cantidades base:
             baseqty, type = record.pnt_box_base_qty, " - Caja "
+            packagetype = self.env['stock.package.type']._for_xml_id('product_inplast.package_type_box_inplast')
             if record.pnt_type == 'pallet':
                 baseqty = record.pnt_pallet_base_qty
                 type = " - Palet "
+                packagetype = self.env['stock.package.type']._for_xml_id('product_inplast.package_type_pallet_inplast')
 
             # Crear producto:
             dye = ""
@@ -78,9 +81,8 @@ class ProductPackingWizard(models.TransientModel):
                 'type': 'normal',
             })
 
-
+            # Crear componentes de la lista de materiales para CAJAS:
             if record.pnt_type == 'box':
-                # Crear componentes de la lista de materiales para CAJAS:
                 product = self.env['product.product'].search([('product_tmpl_id','=', record.pnt_box_type_id.id)])[0]
                 newbomboxline  = self.env['mrp.bom.line'].create(
                     {'product_id': product.id, 'product_qty': 1, 'bom_id': newldm.id })
@@ -94,7 +96,7 @@ class ProductPackingWizard(models.TransientModel):
                 newbomboxseal  = self.env['mrp.bom.line'].create(
                     {'product_id': seal.id, 'product_qty': record.pnt_box_seal_qty, 'bom_id': newldm.id})
 
-            # Caso de los PALETS:
+            # Crear componentes de la lista de materiales para los PALETS:
             else:
                 product = self.env['product.product'].search([('product_tmpl_id', '=', record.pnt_pallet_type_id.id)])[0]
                 newbompalletline = self.env['mrp.bom.line'].create(
@@ -130,3 +132,15 @@ class ProductPackingWizard(models.TransientModel):
                         'fixed_price': newpacking.list_price,
                     })
                     pricelist.append(item.pricelist_id.id)
+
+            # Asignar packaging_ids (product.packaging) al producto:
+            product = self.env['product.product'].search([('product_tmpl_id','=', record.newpacking.id)])[0]
+            newpackingtype = self.env['product.packaging'].create({
+                'name': record.pnt_type + " " + baseqty,
+                'package_type_id': packagetype.id,
+                'product_id': product.id,
+                'product_uom_id': record.product_uom_id.id,
+                'sales': False,
+                'qty': 1,
+                'company_id': self.env.company.id,
+            })

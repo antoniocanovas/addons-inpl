@@ -22,7 +22,7 @@
         'views/menu_views.xml',
         'security/user_groups.xml',
         'security/ir.model.access.csv',
-        'data/server_actions.xml',
+        'data/stock_package_type.xml',
     ],
     'installable': True,
     'application': False,
