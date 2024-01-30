@@ -136,7 +136,7 @@ class ProductPackingWizard(models.TransientModel):
             # Asignar packaging_ids (product.packaging) al producto:
             product = self.env['product.product'].search([('product_tmpl_id','=', newpacking.id)])[0]
             newpackingtype = self.env['product.packaging'].create({
-                'name': record.pnt_type + " " + baseqty,
+                'name': record.pnt_type + " " + str(baseqty),
                 'package_type_id': packagetype.id,
                 'product_id': product.id,
                 'product_uom_id': record.product_uom_id.id,
