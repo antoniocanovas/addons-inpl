@@ -48,7 +48,7 @@ class ProductPackingWizard(models.TransientModel):
             if record.pnt_type == 'pallet':
                 baseqty = record.pnt_pallet_base_qty
                 type = " - Palet "
-                packagetype = self.env['stock.package.type']._for_xml_id('product_inplast.package_type_pallet_inplast')
+                packagetype = self.env.ref('product_inplast.package_type_pallet_inplast')
 
             # Crear producto:
             dye = ""
