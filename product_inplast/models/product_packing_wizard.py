@@ -139,7 +139,7 @@ class ProductPackingWizard(models.TransientModel):
                 'name': record.pnt_type + " " + str(baseqty),
                 'package_type_id': packagetype.id,
                 'product_id': product.id,
-                'product_uom_id': record.product_uom_id.id,
+                'product_uom_id': record.uom_id.id,
                 'sales': False,
                 'qty': 1,
                 'company_id': self.env.company.id,
