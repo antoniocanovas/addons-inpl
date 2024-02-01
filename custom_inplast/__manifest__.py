@@ -14,6 +14,7 @@
     ],
     "data": [
         "views/stock_location_views.xml",
+        "views/product_category_views.xml",
     ],
     "installable": True,
 }
