@@ -10,6 +10,9 @@ class ProductCategory(models.Model):
     # Campos de migración facilitados por el cliente, se pueden eliminar en un futuro:
     mig_cod_familia = fields.Char('mig_cod_familia')
     mig_cod_subfamilia = fields.Char('mig_cod_subfamilia')
+    mig_serie = fields.Char('mig_serie')
+    mig_cod_serie = fields.Char('mig_cod_serie')
+    mig_serie_descripcion = fields.Char('mig_serie_descripcion')
     mig_cod_arancelario = fields.Char('mig_cod_arancelario')
     mig_grupo_iva = fields.Char('mig_grupo_iva')
     mig_ud_compra = fields.Char('mig_ud_compra')

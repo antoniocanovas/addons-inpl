@@ -11,6 +11,9 @@
                 <group>
                     <field name="mig_cod_familia"/>
                     <field name="mig_cod_subfamilia"/>
+                    <field name="mig_serie"/>
+                    <field name="mig_cod_serie"/>
+                    <field name="mig_serie_descripcion"/>
                     <field name="mig_cod_arancelario"/>
                     <field name="mig_grupo_iva"/>
                     <field name="mig_ud_compra"/>
