@@ -16,7 +16,7 @@ class MrpBomLine(models.Model):
 
     pnt_raw_percent = fields.Float('Percent')
 
-    @api.onchage('pnt_raw_percent')
+    @api.onchange('pnt_raw_percent')
     def _get_units_from_total_percent(self):
         for record in self:
             # Faalta el if de que sea la misma clase de unidad:
