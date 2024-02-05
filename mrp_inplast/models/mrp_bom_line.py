@@ -19,6 +19,6 @@ class MrpBomLine(models.Model):
     @api.depends('bom_id.pnt_raw_type')
     def _get_percent_hide(self):
         hide = True
-        if self.bom_id.pnt_raw_type: hide = False
+#        if self.bom_id.pnt_raw_type: hide = False
         self.pnt_percent_hide = hide
     pnt_percent_hide = fields.Boolean('Hide percent', compute='_get_percent_hide')
