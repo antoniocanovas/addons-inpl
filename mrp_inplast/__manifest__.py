@@ -21,6 +21,7 @@
         "views/res_company_views.xml",
         "views/maintenance_equipment_views.xml",
         "views/product_template_views.xml",
+        "views/mrp_bom_views.xml",
     ],
     "installable": True,
 }
