@@ -13,7 +13,8 @@
                 <field name="pnt_percent_hide"/>
             </field>
             <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_id']" position="after">
-                <field name="pnt_raw_percent" colum_invisible="pnt_percent_hide"/>
+                <field name="pnt_percent_hide"/>
+                <field name="pnt_raw_percent" column_invisible="pnt_percent_hide"/>
             </xpath>
         </field>
     </record>
