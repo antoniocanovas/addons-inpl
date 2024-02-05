@@ -33,3 +33,10 @@ class MrpBom(models.Model):
                 qty = record.product_tmpl_id.volume * factor
             record['pnt_raw_qty'] = qty
     pnt_raw_qty = fields.Float('UOM Qty', store=True, compute='_get_product_raw_qty')
+
+    @api.depends('pnt_raw_type')
+    def _get_percent_hide(self):
+        hide = True
+        if self.pnt_raw_type: hide = False
+        self.pnt_percent_hide = hide
+    pnt_percent_hide = fields.Boolean('Hide percent', compute='_get_percent_hide')
