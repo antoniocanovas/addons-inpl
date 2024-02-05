@@ -12,6 +12,7 @@
                 <field name="pnt_raw_qty"/>
             </field>
             <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_id']" position="after">
+                <field name="pnt_raw_type" invisible="1"/>
                 <field name="pnt_raw_percent" column_invisible="not pnt_raw_type"/>
             </xpath>
         </field>

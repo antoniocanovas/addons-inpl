@@ -15,3 +15,4 @@ class MrpBomLine(models.Model):
     _inherit = 'mrp.bom.line'
 
     pnt_raw_percent = fields.Float('Percent')
+    pnt_raw_type = fields.Selection(related='bom_id.pnt_raw_type')
