@@ -28,6 +28,7 @@
                         <field name="mig_descripcionlinea" readonly="1"/>
                         <field name="mig_comentario_articulo" readonly="1"/>
                         <field name="mig_marca_producto" readonly="1"/>
+                        <field name="mig_barcode" readonly="1"/>
                         <field name="mig_cod_alternativo" readonly="1"/>
                         <field name="mig_cod_arancelario" readonly="1"/>
                         <field name="mig_cod_proveedor" readonly="1"/>

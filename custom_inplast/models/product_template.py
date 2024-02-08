@@ -27,6 +27,7 @@ class ProductTemplate(models.Model):
     mig_descripcionlinea = fields.Text('mig_descripcionlinea')
     mig_comentario_articulo = fields.Text('mig_comentario_articulo')
     mig_marca_producto = fields.Char('mig_marca_producto')
+    mig_barcode = fields.Char('mig_barcode')
     mig_cod_alternativo = fields.Char('mig_cod_alternativo')
     mig_cod_arancelario = fields.Char('mig_cod_arancelario')
     mig_cod_proveedor = fields.Char('mig_cod_proveedor')
