@@ -16,6 +16,7 @@
         "maintenance",
         "mrp_maintenance",
         "custom_inplast",
+        "product_inplast",
     ],
     "data": [
         "views/res_company_views.xml",

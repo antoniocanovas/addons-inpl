@@ -52,7 +52,7 @@ class ProductPackingWizard(models.TransientModel):
 
             # Crear producto:
             dye = ""
-            if record.name.pnt_product_dye_id.id: dye = " " + record.name.pnt_product_dye_id.name
+            if record.name.pnt_product_dye: dye = " " + record.name.pnt_product_dye
             name = record.name.name + dye + type + str(baseqty)
 
             exist = self.env['product.template'].search([('name', '=', name)])

@@ -9,7 +9,7 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     # Reescribimos la función estandar para poder añadir el dye como parámetro
-    @api.depends('name', 'default_code', 'product_tmpl_id', 'pnt_product_dye_id')
+    @api.depends('name', 'default_code', 'product_tmpl_id', 'pnt_product_dye')
     @api.depends_context('display_default_code', 'seller_id', 'company_id',
                          'partner_id')
     def _compute_display_name(self):
@@ -78,11 +78,11 @@ class ProductProduct(models.Model):
                     ) or False
                     temp.append(get_display_name(seller_variant or name,
                                                  s.product_code or product.default_code,
-                                                 product.pnt_product_dye_id.name if product.pnt_product_dye_id else False))
+                                                 product.pnt_product_dye if product.pnt_product_dye else False))
 
                 # => Feature drop here, one record can only have one display_name now, instead separate with `,`
                 # Remove this comment
                 product.display_name = ", ".join(unique(temp))
             else:
                 product.display_name = get_display_name(name, product.default_code,
-                                                        product.pnt_product_dye_id.name if product.pnt_product_dye_id else False)
+                                                        product.pnt_product_dye if product.pnt_product_dye else False)
