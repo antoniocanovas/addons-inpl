@@ -23,7 +23,7 @@ class MrpBomLine(models.Model):
         if (self.pnt_raw_percent != 0) and (self.pnt_raw_type_id == self.product_uom_category_id):
             qty = self.bom_id.pnt_raw_qty * self.pnt_raw_percent / 100
         self.product_qty = qty
-    product_qty = fields.Float(compute='_get_units_from_total_percent')
+    product_qty = fields.Float(compute='_get_units_from_total_percent', store=True)
 
     @api.onchange('pnt_raw_percent','product_id')
     def _get_uom_from_percent_type(self):
@@ -35,4 +35,4 @@ class MrpBomLine(models.Model):
                 ('uom_type','=','reference')
             ])
         self.product_uom_id = uom.id
-    product_uom_id = fields.Many2one(compute='_get_uom_from_percent_type')
+    product_uom_id = fields.Many2one(compute='_get_uom_from_percent_type', store=True)
