@@ -8,6 +8,6 @@ class MigBomlines(models.Model):
     _name = 'mig.bomlines'
     _description = 'MIG Bomlines'
 
-    name = fields.Char('Componente')
-    producto = fields.Char('Producto')
+    name = fields.Char('Producto')
+    componente = fields.Char('Componente')
     cantidad = fields.Float('Cantidad')
