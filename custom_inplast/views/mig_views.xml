@@ -1,7 +1,7 @@
 <odoo>
     <data>
 
-        <record id="mig_components_default_tree" model="ir.ui.view">
+        <record id="mig_bomlines_default_tree" model="ir.ui.view">
             <field name="active" eval="True"/>
             <field name="arch" type="xml">
                 <tree string="MIG Components">
@@ -14,7 +14,7 @@
             <field name="inherit_id" eval="False"/>
             <field name="key" eval="False"/>
             <field name="mode">primary</field>
-            <field name="model">mig.components</field>
+            <field name="model">mig.bomlines</field>
             <field name="name">Default tree view for MIG Components</field>
             <field name="priority">16</field>
             <field name="type">tree</field>
