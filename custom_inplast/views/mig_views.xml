@@ -68,7 +68,7 @@
             <field name="arch" type="xml">
                 <tree string="MIG embalaje">
                     <field name="name"/>
-                    <field name="codembalaje"/>
+                    <field name="producto"/>
                     <field name="cantidad"/>
                 </tree>
             </field>
