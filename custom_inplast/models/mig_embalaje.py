@@ -11,3 +11,4 @@ class Migembalaje(models.Model):
     name = fields.Char('Embalaje')
     producto = fields.Char('Producto')
     cantidad = fields.Float('Cantidad')
+    cajapalet = fields.Char('Caja/Palet')
