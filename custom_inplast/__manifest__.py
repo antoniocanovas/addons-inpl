@@ -11,6 +11,8 @@
     "license": "LGPL-3",
     "depends": [
         "stock",
+        "contact",
+        "l10n_es_partner",
     ],
     "data": [
         "views/stock_location_views.xml",
