@@ -12,7 +12,9 @@
     "depends": [
         "stock",
         "contact",
+        "account",
         "l10n_es_partner",
+        "partner_phone_secondary",
     ],
     "data": [
         "views/stock_location_views.xml",
