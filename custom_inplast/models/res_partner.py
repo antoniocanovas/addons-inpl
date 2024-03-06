@@ -81,10 +81,10 @@ class ResPartner(models.Model):
     mig_proformaemail = fields.Char('mig_proformaemail')
     mig_grupo = fields.Integer('mig_grupo')
 
-
-
-
-
-
-
-
+    # Para CADENAS:
+    mig_exportacioncodigo = fields.Char('mig_exportacioncodigo')
+    mig_exportacion = fields.Char('mig_exportacion')
+    mig_transportistacodigo = fields.Char('mig_transportistacodigo')
+    mig_transportista = fields.Char('mig_transportista')
+    mig_almacenorigen = fields.Char('mig_almacenorigen')
+    mig_codigocarga = fields.Char('mig_codigocarga')

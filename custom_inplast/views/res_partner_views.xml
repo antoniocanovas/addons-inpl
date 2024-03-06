@@ -82,6 +82,13 @@
                         <field name="mig_spread"/>
                         <field name="mig_proformaemail"/>
                         <field name="mig_grupo"/>
+
+                        <field name="mig_exportacioncodigo"/>
+                        <field name="mig_exportacion"/>
+                        <field name="mig_transportistacodigo"/>
+                        <field name="mig_transportista"/>
+                        <field name="mig_almacenorigen"/>
+                        <field name="mig_codigocarga"/>
                     </group>
                 </page>
             </xpath>
