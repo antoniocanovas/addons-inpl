@@ -35,7 +35,7 @@ class ResPartner(models.Model):
     mig_tipoportes = fields.Char('mig_tipoportes')
     mig_grupoiva = fields.Integer('mig_grupoiva')
     mig_indicadoriva = fields.Char('mig_indicadoriva')
-    mig_dtoprontopago = fields.Flat('mig_dtoprontopago')
+    mig_dtoprontopago = fields.Float('mig_dtoprontopago')
     mig_retencion = fields.Integer('mig_retencion')
     mig_fechabajalc = fields.Date('mig_fechabajalc')
     mig_fechaapro = fields.Date('mig_fechaapro')
