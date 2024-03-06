@@ -16,6 +16,7 @@
         "views/stock_location_views.xml",
         "views/product_category_views.xml",
         "views/product_template_views.xml",
+        "views/res_partner_views.xml",
         "views/mig_views.xml",
         "security/ir.model.access.csv",
         "views/menu_views.xml",
