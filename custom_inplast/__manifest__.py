@@ -11,7 +11,6 @@
     "license": "LGPL-3",
     "depends": [
         "stock",
-        "contacts",
         "account",
         "l10n_es_partner",
         "partner_phone_secondary",
