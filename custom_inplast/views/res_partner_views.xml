@@ -40,7 +40,6 @@
                         <field name="mig_indicadoriva"/>
                         <field name="mig_dtoprontopago"/>
                         <field name="mig_retencion"/>
-                        <field name="mig_fechabajalc"/>
                         <field name="mig_fechaapro"/>
 
                         <field name="mig_fecha_alta"/>
