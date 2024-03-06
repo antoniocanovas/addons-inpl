@@ -29,11 +29,6 @@
                         <field name="mig_observacionescompra"/>
                         <field name="mig_comentarios"/>
                         <field name="mig_codigocontable"/>
-                        <field name="mig_codigodefinicion"/>
-                        <field name="mig_codigocliente"/>
-                        <field name="mig_codigoseccion"/>
-                        <field name="mig_codigocanal"/>
-                        <field name="mig_codigozona"/>
                         <field name="mig_codigotransporte"/>
                         <field name="mig_tipoportes"/>
                         <field name="mig_grupoiva"/>
