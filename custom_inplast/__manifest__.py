@@ -14,6 +14,7 @@
         "account",
         "l10n_es_partner",
         "partner_phone_secondary",
+        "partner_commission",
     ],
     "data": [
         "views/stock_location_views.xml",
