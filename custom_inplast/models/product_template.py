@@ -14,7 +14,7 @@ class ProductTemplate(models.Model):
     mig_compras_poq = fields.Char('mig_compras_poq')
     mig_tipo_producto = fields.Integer('mig_tipo_producto')
     mig_unidad_logistica = fields.Integer('mig_unidad_logistica')
-    mig_tipo_embalaje = fields.Integer('mig_tipo_embalaje')
+    mig_tipo_embalaje = fields.Float('mig_tipo_embalaje')
     mig_peso_embalaje = fields.Integer('mig_peso_embalaje')
 
     mig_cod_familia = fields.Char('mig_cod_familia')
