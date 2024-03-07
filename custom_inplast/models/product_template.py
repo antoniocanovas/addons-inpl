@@ -43,6 +43,7 @@ class ProductTemplate(models.Model):
     mig_ud_palet = fields.Integer('mig_ud_palet')
     mig_tipo_coa = fields.Char('mig_tipo_coa')
     mig_nivel_compuesto = fields.Char('mig_nivel_compuesto')
+    mig_en_packing = fields.Char('mig_en_packing')
     mig_obsoleto_lc = fields.Char('mig_obsoleto_lc')
     mig_obsoleto = fields.Char('mig_obsoleto')
 
