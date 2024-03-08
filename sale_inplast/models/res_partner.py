@@ -11,6 +11,6 @@ class ResPartner(models.Model):
     pnt_pricelist_state = fields.Selection(related='property_product_pricelist.pnt_state', store=True)
     pnt_next_update = fields.Date(related='property_product_pricelist.pnt_next_update')
 
-    def _create_private_pricelist(self):
+    def create_private_pricelist(self):
         my_pricelist = self.env['product.pricelist'].create({'name': self.name})
         self.write({'pricelist_id': my_pricelist.id})
