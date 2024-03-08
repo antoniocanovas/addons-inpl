@@ -8,7 +8,7 @@
         <field name="domain" eval="False"/>
         <field name="filter" eval="False"/>
         <field name="limit">80</field>
-        <field name="name">MIG Components</field>
+        <field name="name">MIG Materiales Artículo</field>
         <field name="res_model">mig.materialesarticulo</field>
         <field name="search_view_id" eval="False"/>
         <field name="target">current</field>
