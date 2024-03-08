@@ -40,3 +40,8 @@ class ProductTemplate(models.Model):
             template.display_name = '{}{}{}'.format(
                 template.default_code and '[%s] ' % template.default_code or '',
                 template.name, template.pnt_product_dye and ' [%s]' % template.pnt_product_dye or '')
+
+    def _create_private_pricelist(self):
+        for p in partners:
+            my_pricelist = self.env['product.pricelist'].create({'name': p.name})
+            p.write({'pricelist_id': my_pricelist.id})
