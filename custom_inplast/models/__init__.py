@@ -6,3 +6,4 @@ from . import mig_articuloidioma
 from . import mig_componentes
 from . import mig_embalaje
 from . import res_partner
+from . import mig_lineastarifa

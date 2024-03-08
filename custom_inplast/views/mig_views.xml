@@ -63,7 +63,7 @@
 
 
 
-         <record id="mig_embalaje_default_tree" model="ir.ui.view">
+        <record id="mig_embalaje_default_tree" model="ir.ui.view">
             <field name="active" eval="True"/>
             <field name="arch" type="xml">
                 <tree string="MIG embalaje">
@@ -78,6 +78,38 @@
             <field name="mode">primary</field>
             <field name="model">mig.embalaje</field>
             <field name="name">Default tree view for MIG Embalaje</field>
+            <field name="priority">16</field>
+            <field name="type">tree</field>
+        </record>
+
+
+        <record id="mig_lineastarifa_default_tree" model="ir.ui.view">
+            <field name="active" eval="True"/>
+            <field name="arch" type="xml">
+                <tree string="MIG Líneas tarifa">
+                    <field name="name"/>
+                    <field name="clientecod"/>
+                    <field name="cliente"/>
+                    <field name="articulo"/>
+                    <field name="familia"/>
+                    <field name="subfamilia"/>
+                    <field name="fechavalideztarifa"/>
+                    <field name="fechalimitepedido"/>
+                    <field name="fechaactualizacion"/>
+                    <field name="eneuros"/>
+                    <field name="codigodivisa"/>
+                    <field name="preciooferta"/>
+                    <field name="precioetileno"/>
+                    <field name="comentario"/>
+                    <field name="articulocodcliente"/>
+                </tree>
+            </field>
+            <field name="groups_id" eval="[(6, 0, [])]"/>
+            <field name="inherit_id" eval="False"/>
+            <field name="key" eval="False"/>
+            <field name="mode">primary</field>
+            <field name="model">mig.lineastarifa</field>
+            <field name="name">Default tree view for MIG Líneas Tarifa</field>
             <field name="priority">16</field>
             <field name="type">tree</field>
         </record>
