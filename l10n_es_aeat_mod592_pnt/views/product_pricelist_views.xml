@@ -14,7 +14,7 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//sheet/group" position="inside">
-                    <group>
+                    <group name="plastic_tax">
                         <field name="pnt_plastic_tax"/>
                     </group>
                 </xpath>
