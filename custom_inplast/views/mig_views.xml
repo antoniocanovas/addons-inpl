@@ -1,6 +1,20 @@
 <odoo>
     <data>
 
+        <record id="inplast_pricelist_mig_inh_view" model="ir.ui.view">
+            <field name="name">inplast.pricelist.mig.inh.view</field>
+            <field name="model">product.pricelist</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="mig_codigocliente"/>
+                </xpath>
+            </field>
+            <field name="priority">99</field>
+        </record>
+
+
         <record id="mig_materialesarticulo_default_tree" model="ir.ui.view">
             <field name="active" eval="True"/>
             <field name="arch" type="xml">
