@@ -37,7 +37,7 @@
                     <field name="pnt_pricelist_frec"/>
                     <field name="pnt_pending_update" invisible="1"/>
                 </xpath>
-                <xpath expr="//sheet/group[@name='plastic_tax']" position="inside">
+                <xpath expr="//sheet/group" position="inside">
                     <group>
                         <field name="pnt_last_update" readonly="1"/>
                         <field name="pnt_next_update" required="1"/>
