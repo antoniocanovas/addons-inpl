@@ -8,7 +8,8 @@ class Migembalaje(models.Model):
     _name = 'mig.embalaje'
     _description = 'MIG embalaje'
 
-    name = fields.Char('Embalaje')
-    producto = fields.Char('Producto')
-    cantidad = fields.Float('Cantidad')
-    cajapalet = fields.Char('Caja/Palet')
+    name = fields.Char('Embalaje (name)')
+    producto = fields.Char('producto')
+    cantidad = fields.Float('cantidad')
+    cajapalet = fields.Char('cajapalet')
+    escaja = fields.Boolean('escaja')
