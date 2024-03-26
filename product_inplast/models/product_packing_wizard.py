@@ -34,6 +34,13 @@ class ProductPackingWizard(models.TransientModel):
     pnt_picking_label_id = fields.Many2one('product.template', string='Picking Label', domain="[('pnt_product_type','=','packaging')]")
     pnt_picking_label_qty = fields.Integer('Picking Label qty', default="1")
 
+    @api.onchange('pnt_type')
+    def _get_packing_prefix(self):
+        if self.pnt_type == 'box': prefix = 'C.'
+        else: prefix = 'P.'
+        self.pnt_prefix = prefix
+    pnt_prefix = fields.Char('Prefix', compute='_get_packing_prefix')
+
     @api.onchange('pnt_pallet_box_qty', 'pnt_pallet_box_id')
     def _get_pallet_base_qty(self):
         for record in self:
@@ -43,24 +50,19 @@ class ProductPackingWizard(models.TransientModel):
         for record in self:
             # Tipo de empaquetado PALET o Caja:
             # Cantidades base:
-            baseqty, type, code = record.pnt_box_base_qty, " - Caja ", "C."
+            baseqty, type = record.pnt_box_base_qty, " - Caja "
             packagetype = self.env.ref('product_inplast.package_type_box_inplast')
             if record.pnt_type == 'pallet':
                 baseqty = record.pnt_pallet_base_qty
                 type = " - Palet "
-                code = "P."
                 packagetype = self.env.ref('product_inplast.package_type_pallet_inplast')
 
-            # Generar el código para los productos PACKING:
-            if (record.default_code):
-                code += record.default_code
-                exist_code = self.env['product.template'].search([('default_code','=',code)])
-            if not record.default_code or exist_code.id: code = ""
-
             # Crear producto:
-            dye = ""
+            dye, code = "", ""
             if record.name.pnt_product_dye: dye = " " + record.name.pnt_product_dye
             name = record.name.name + dye + type + str(baseqty)
+                # Asignar un código similar al producto padre:
+            if record.name.default_code: code = record.pnt_prefix + record.name.default_code
 
             exist = self.env['product.template'].search([('name', '=', name)])
             routemrp = self.env.ref('mrp.route_warehouse0_manufacture')
