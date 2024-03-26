@@ -12,8 +12,8 @@
 
             <!-- Estimaciones del impuesto: -->
             <xpath expr="//field[@name='order_line']/tree/field[@name='company_id']" position="after">
-                <field name="pnt_plastic_tax" optional="show"/>
-                <field name="pnt_plastic_kg" optional="show"/>
+                <field name="pnt_plastic_tax" optional="hide"/>
+                <field name="pnt_plastic_kg" optional="hide"/>
             </xpath>
 
         </field>
