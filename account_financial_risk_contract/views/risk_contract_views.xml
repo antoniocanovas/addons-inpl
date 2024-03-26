@@ -11,11 +11,12 @@
                 <field name="date_begin" optional="hide"/>
                 <field name="date_end" optional="show"/>
                 <field name="risk_level" optional="show"/>
-                <field name="cobertura" optional="show"/>
+                <field name="coverage" optional="show"/>
                 <field name="supplier_id" optional="show"/>
                 <field name="demand" optional="show"/>
                 <field name="amount" optional="show"/>
                 <field name="margin" optional="hide"/>
+                <field name="claim" optional="hide"/>
                 <field name="state" optional="show"/>
                 <field name="currency_id" optional="hide"/>
             </tree>
@@ -45,12 +46,13 @@
                             <field name="name" placeholder="Nº suplemento o pendiente si aún no lo tenemos"/>
                             <field name="currency_id"/>
                             <field name="create_uid"/>
+                            <field name="claim"/>
                         </group>
                         <group string="Granted">
                             <field name="amount"/>
                             <field name="date_begin" required="(state == 'done')"/>
                             <field name="date_end"/>
-                            <field name="cobertura"/>
+                            <field name="coverage"/>
                             <field name="margin"/>
                             <field name="risk_level"/>
                         </group>

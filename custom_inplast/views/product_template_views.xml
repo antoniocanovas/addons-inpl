@@ -46,6 +46,10 @@
                         <field name="mig_nivel_compuesto" readonly="1"/>
                         <field name="mig_obsoleto_lc" readonly="1"/>
                         <field name="mig_obsoleto" readonly="1"/>
+
+                        <field name="mig_unidades_palet" readonly="1"/>
+                        <field name="mig_unidades_caja" readonly="1"/>
+                        <field name="mig_etiqueta_esp_cliente" readonly="1"/>
                     </group>
                 </page>
             </xpath>
