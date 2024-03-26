@@ -41,7 +41,7 @@ class ProductPackingWizard(models.TransientModel):
 
     def create_packing_products(self):
         for record in self:
-            # Tipo de empaquetado PALET:
+            # Tipo de empaquetado PALET o Caja:
             # Cantidades base:
             baseqty, type = record.pnt_box_base_qty, " - Caja "
             packagetype = self.env.ref('product_inplast.package_type_box_inplast')
