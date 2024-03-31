@@ -50,14 +50,14 @@ class ProductPackingWizard(models.TransientModel):
         for record in self:
             # Tipo de empaquetado PALET o Caja:
             # Cantidades base:
-            baseqty, type, sales, purchase = record.pnt_box_base_qty, " - Caja ", False, False
+            baseqty, type, sales_ok, purchase_ok = record.pnt_box_base_qty, " - Caja ", False, False
             packagetype = self.env.ref('product_inplast.package_type_box_inplast')
             if record.pnt_type == 'pallet':
                 baseqty = record.pnt_pallet_base_qty
                 type = " - Palet "
                 packagetype = self.env.ref('product_inplast.package_type_pallet_inplast')
-                sales = True
-                purchase = True
+                sale_ok = True
+                purchase_ok = True
 
             # Crear producto:
             dye, code = "", ""
@@ -79,8 +79,8 @@ class ProductPackingWizard(models.TransientModel):
                     'list_price': record.name.list_price * baseqty,
                     'pnt_plastic_weight': record.name.pnt_plastic_weight * baseqty,
                     'standard_price': record.name.standard_price * baseqty,
-                    'sale_ok': True,
-                    'purchase_ok': False,
+                    'sale_ok': sale_ok,
+                    'purchase_ok': purchase_ok,
                     'route_ids': [(6, 0, [routemrp.id])]
                 })
             else:
@@ -152,7 +152,7 @@ class ProductPackingWizard(models.TransientModel):
                 'package_type_id': packagetype.id,
                 'product_id': product.id,
                 'product_uom_id': product.uom_id.id,
-                'sales': sales,
-                'purchase': purchase,
+                'sales': True,
+                'purchase': True,
                 'qty': 1,
             })
