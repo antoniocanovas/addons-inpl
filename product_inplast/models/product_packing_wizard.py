@@ -95,9 +95,12 @@ class ProductPackingWizard(models.TransientModel):
 
             # Crear componentes de la lista de materiales para CAJAS:
             if record.pnt_type == 'box':
-                product = self.env['product.product'].search([('product_tmpl_id','=', record.pnt_box_type_id.id)])[0]
+                product = self.env['product.product'].search([('product_tmpl_id','=', record.id)])
                 newbomboxline  = self.env['mrp.bom.line'].create(
-                    {'product_id': product.id, 'product_qty': 1, 'bom_id': newldm.id })
+                    {'product_id': product.id, 'product_qty': pnt_box_base_qty, 'bom_id': newldm.id })
+                boxproduct = self.env['product.product'].search([('product_tmpl_id','=', record.pnt_box_type_id.id)])[0]
+                newbomboxline  = self.env['mrp.bom.line'].create(
+                    {'product_id': boxproduct.id, 'product_qty': 1, 'bom_id': newldm.id })
                 bag = self.env['product.product'].search([('product_tmpl_id','=', record.pnt_box_bag_id.id)])[0]
                 newbomboxbag   = self.env['mrp.bom.line'].create(
                     {'product_id': bag.id, 'product_qty': record.pnt_box_bag_qty, 'bom_id': newldm.id})
