@@ -19,20 +19,22 @@ class MrpBomLine(models.Model):
 
     @api.onchange('pnt_raw_percent','product_id')
     def _get_units_from_total_percent(self):
-        qty = self._origin.product_qty
-        if (self.pnt_raw_percent != 0) and (self.pnt_raw_type_id == self.product_uom_category_id):
-            qty = self.bom_id.pnt_raw_qty * self.pnt_raw_percent / 100
-        self.product_qty = qty
+        for record in self:
+            qty = record._origin.product_qty
+            if (record.pnt_raw_percent != 0) and (record.pnt_raw_type_id == record.product_uom_category_id):
+                qty = record.bom_id.pnt_raw_qty * record.pnt_raw_percent / 100
+            record['product_qty'] = qty
     product_qty = fields.Float(compute='_get_units_from_total_percent', store=True)
 
     @api.onchange('pnt_raw_percent','product_id')
     def _get_uom_from_percent_type(self):
-        # Falta el if de que sea la misma clase de unidad y asginar la misma que del peso o volumen:
-        uom = self._origin.product_uom_id
-        if (self.pnt_raw_percent != 0) and (self.pnt_raw_type_id == self.product_uom_category_id):
-            uom = self.env['uom.uom'].search([
-                ('category_id','=',self.product_uom_category_id.id),
-                ('uom_type','=','reference')
-            ])
-        self.product_uom_id = uom.id
+        for record in self:
+            # Falta el if de que sea la misma clase de unidad y asginar la misma que del peso o volumen:
+            uom = record._origin.product_uom_id
+            if (record.pnt_raw_percent != 0) and (record.pnt_raw_type_id == record.product_uom_category_id):
+                uom = record.env['uom.uom'].search([
+                    ('category_id','=',record.product_uom_category_id.id),
+                    ('uom_type','=','reference')
+                ])
+            record['product_uom_id'] = uom.id
     product_uom_id = fields.Many2one(compute='_get_uom_from_percent_type', store=True)
