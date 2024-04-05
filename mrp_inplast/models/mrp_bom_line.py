@@ -17,14 +17,14 @@ class MrpBomLine(models.Model):
     pnt_raw_percent = fields.Float('Percent')
     pnt_raw_type_id = fields.Many2one(related='bom_id.pnt_raw_type_id')
 
-    @api.onchange('pnt_raw_percent','product_id')
-    def _get_units_from_total_percent(self):
-        for record in self:
-            qty = record._origin.product_qty
-            if (record.pnt_raw_percent != 0) and (record.pnt_raw_type_id == record.product_uom_category_id):
-                qty = record.bom_id.pnt_raw_qty * record.pnt_raw_percent / 100
-            record['product_qty'] = qty
-    product_qty = fields.Float(compute='_get_units_from_total_percent', store=True)
+    def write(self, vals):
+        if "pnt_raw_percent" in vals:
+            qty = self.product_qty
+            if (vals["pnt_raw_percent"] != 0) and (
+                    self.pnt_raw_type_id == self.product_uom_category_id):
+                qty = self.bom_id.pnt_raw_qty * vals["pnt_raw_percent"] / 100
+            vals['product_qty'] = qty
+        super(MrpBomLine, self).write(vals)
 
     @api.onchange('pnt_raw_percent','product_id')
     def _get_uom_from_percent_type(self):
