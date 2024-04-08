@@ -39,7 +39,7 @@ class ProductPackingWizard(models.TransientModel):
         if self.pnt_type == 'box': prefix = 'C.'
         else: prefix = 'P.'
         self.pnt_prefix = prefix
-    pnt_prefix = fields.Char('Prefix', compute='_get_packing_prefix')
+    pnt_prefix = fields.Char('Prefix', readonly=False, compute='_get_packing_prefix')
 
     @api.onchange('pnt_pallet_box_qty', 'pnt_pallet_box_id')
     def _get_pallet_base_qty(self):
