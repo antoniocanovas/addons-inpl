@@ -16,6 +16,7 @@ class MrpBomLine(models.Model):
 
     pnt_raw_percent = fields.Float('Percent')
     pnt_raw_type_id = fields.Many2one(related='bom_id.pnt_raw_type_id')
+    product_qty = fields.Float(digits='Stock Weight')
 
     def write(self, vals):
         if "pnt_raw_percent" in vals:
