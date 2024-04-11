@@ -17,12 +17,12 @@ class MrpBomLine(models.Model):
     pnt_raw_percent = fields.Float('Percent')
     pnt_raw_type_id = fields.Many2one(related='bom_id.pnt_raw_type_id')
     product_qty = fields.Float(digits='Stock Weight', compute="_get_product_qty")
- #   bom_product_qty = fields.Float(related='bom_id.product_qty')
+    bom_product_qty = fields.Float(related='bom_id.product_qty')
 
-    @api.onchange('pnt_raw_percent','bom_id.bom_product_qty')
+    @api.onchange('pnt_raw_percent','bom_product_qty')
     def _get_product_qty(self):
         for record in self:
-            if record.pnt_raw_type_id.id:
+            if record.bom_id.pnt_raw_type_id.id:
                 qty = record.product_qty
                 if (record.pnt_raw_percent != 0) and (
                         record.pnt_raw_type_id == record.product_uom_category_id):
