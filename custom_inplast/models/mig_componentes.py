@@ -11,3 +11,4 @@ class MigComponentesArticulo(models.Model):
     name = fields.Char('Producto')
     componente = fields.Char('Componente')
     cantidad = fields.Float('Cantidad')
+    bom_line_id = fields.Many2one('mrp.bom.line', string="Bom line")

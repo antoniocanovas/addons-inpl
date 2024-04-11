@@ -13,3 +13,4 @@ class Migembalaje(models.Model):
     cantidad = fields.Float('cantidad')
     cajapalet = fields.Char('cajapalet')
     escaja = fields.Boolean('escaja')
+    bom_line_id = fields.Many2one('mrp.bom.line', string="Bom line")

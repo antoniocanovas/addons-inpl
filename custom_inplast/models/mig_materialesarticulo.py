@@ -12,3 +12,4 @@ class MigMaterialesArticulo(models.Model):
     componente = fields.Char('Componente')
     cantidad = fields.Float('Cantidad')
     tipo = fields.Integer('Tipo Material')
+    bom_line_id = fields.Many2one('mrp.bom.line', string="Bom line")
