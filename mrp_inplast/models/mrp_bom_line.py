@@ -19,7 +19,7 @@ class MrpBomLine(models.Model):
     product_qty = fields.Float(digits='Stock Weight', compute="_get_product_qty")
     bom_product_qty = fields.Float(related='bom_id.product_qty')
 
-#    @api.onchange('pnt_raw_percent','bom_product_qty')
+    @api.onchange('pnt_raw_percent','bom_product_qty')
     def _get_product_qty(self):
         for record in self:
             qty = record.product_qty
