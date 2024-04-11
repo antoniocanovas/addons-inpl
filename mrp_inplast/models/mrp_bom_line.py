@@ -25,7 +25,7 @@ class MrpBomLine(models.Model):
             qty = record.product_qty
             if (record.pnt_raw_percent != 0) and (
                     record.pnt_raw_type_id == record.product_uom_category_id):
-                qty = record.bom_product_qty * record.pnt_raw_percent / 100
+                qty = record.bom_id.pnt_raw_qty * record.pnt_raw_percent / 100
 
             record.write({'product_qty': qty})
 
