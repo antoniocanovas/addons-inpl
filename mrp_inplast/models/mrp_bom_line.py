@@ -22,13 +22,12 @@ class MrpBomLine(models.Model):
     @api.onchange('pnt_raw_percent','bom_product_qty')
     def _get_product_qty(self):
         for record in self:
-            if record.bom_id.pnt_raw_type_id.id:
-                qty = record.product_qty
-                if (record.pnt_raw_percent != 0) and (
-                        record.pnt_raw_type_id == record.product_uom_category_id):
-                    qty = record.bom_id.pnt_raw_qty * record.pnt_raw_percent / 100
+            qty = record.product_qty
+            if (record.pnt_raw_percent != 0) and (
+                    record.pnt_raw_type_id == record.product_uom_category_id):
+                qty = record.bom_id.pnt_raw_qty * record.pnt_raw_percent / 100
 
-                record.write({'product_qty': qty})
+            record.write({'product_qty': qty})
 
     @api.onchange('pnt_raw_percent','product_id')
     def _get_uom_from_percent_type(self):
