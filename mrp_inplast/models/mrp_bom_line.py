@@ -16,7 +16,7 @@ class MrpBomLine(models.Model):
 
     pnt_raw_percent = fields.Float('Percent')
     pnt_raw_type_id = fields.Many2one(related='bom_id.pnt_raw_type_id')
-    product_qty = fields.Float(digits='Stock Weight', compute="_get_product_qty")
+    product_qty = fields.Float(digits='Stock Weight', compute="_get_product_qty", store=True)
     bom_product_qty = fields.Float(related='bom_id.product_qty')
 
     @api.onchange('pnt_raw_percent','bom_product_qty')
