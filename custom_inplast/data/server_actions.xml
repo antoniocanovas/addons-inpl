@@ -44,6 +44,7 @@ for li in records:
 
     if (partner.property_product_pricelist.mig_codigocliente != li.clientecod):
         partner.write({'property_product_pricelist': pricelist.id})
+        -->
         </field>
     </record>
 
@@ -54,6 +55,7 @@ for li in records:
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
+        <!--
 # MATERIALES: Son las materias primas por porcentaje del tapón o partes (mig.materialesarticulo).
 # COMPONENTES: Es la cuchilla o las partes del tapón, hay tres casos: 1 línea => Cuchilla; 1 línea => Tapón; 2 líneas => "base y tapón" (mig.componentes).
 # EMBALAJES: Productos para crear el BOM de las BOM de CAJAS y PALETS.
@@ -107,6 +109,7 @@ for semi in semis:
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
+            <!--
 # MATERIALES: Son las materias primas por porcentaje del tapón o partes (mig.materialesarticulo).
 # COMPONENTES: Es la cuchilla o las partes del tapón, hay tres casos: 1 línea => Cuchilla; 1 línea => Tapón; 2 líneas => "base y tapón" (mig.componentes).
 # EMBALAJES: Productos para crear el BOM de las BOM de CAJAS y PALETS.
@@ -160,7 +163,7 @@ for final in finales:
             cualquiera = env['mrp.bom.line'].search([])[0].id
             raise UserError(cualquiera)
             mat['bom_line_id'] = env['mrp.bom.line'].search([])[0].id
-
+-->
         </field>
     </record>
 
@@ -171,6 +174,7 @@ for final in finales:
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
+        <!--
 for r in records:
     if not r.bom_line_id.id:
         productobase = env['product.template'].search([('default_code','=',r.producto)])
@@ -309,7 +313,7 @@ for r in records:
             r['bom_line_id'] = newbomline.id
 
         else: continue
-
+-->
         </field>
     </record>
 
@@ -321,6 +325,7 @@ for r in records:
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
+            <!--
 # Migrar líneas de tarifas:
 for li in records:
     partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
@@ -342,7 +347,7 @@ for li in records:
         'price_surcharge': producto.pnt_plastic_1000unit_tax / 1000,
         'fixed_price': float(li.preciooferta) - producto.pnt_plastic_1000unit_tax / 1000
     })
-
+-->
         </field>
     </record>
 
