@@ -8,8 +8,8 @@
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
-# Crear tarifa para los clientes que tienen línea solamente, si no es que utilizan la de la matriz:
-# (cuando se arrancaba desde partner se ejecutaba esta línea): lineastarifa = env['mig.lineastarifa'].search([])
+            <!--
+# Importar tarifa para los clientes y direcciones de entrega que la tienen:
 partners = []
 for li in records:
 
@@ -96,7 +96,7 @@ for semi in semis:
             'product_qty':mat.cantidad * pesoproducto / 100,
             'product_uom_id':uomgramo.id})
         mat['bom_line_id'] = newbomline.id
-
+        -->
         </field>
     </record>
 
