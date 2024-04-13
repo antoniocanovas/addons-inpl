@@ -3,7 +3,7 @@
 
     <record id="mig_tarifas_cliente_as" model="ir.actions.server">
         <field name="name">=> 1. Crear tarifas por cadena</field>
-        <field name="model_id" ref="custom_inplast.mig_lineastarifa"/>
+        <field name="model_id" ref="custom_inplast.model_mig_lineastarifa"/>
         <field name="binding_model_id" ref="custom_inplast.model_mig_lineastarifa"/>
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
@@ -48,7 +48,7 @@ for li in records:
 
     <record id="mig_componentes_as" model="ir.actions.server">
         <field name="name">=> 1. Crear componentes en la lista de materiales de los productos básicos (%)</field>
-        <field name="model_id" ref="custom_inplast.mig_materialesarticulo"/>
+        <field name="model_id" ref="custom_inplast.model_mig_materialesarticulo"/>
         <field name="binding_model_id" ref="custom_inplast.model_mig_materialesarticulo"/>
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
@@ -102,7 +102,7 @@ for semi in semis:
 
     <record id="mig_componentes_as" model="ir.actions.server">
         <field name="name">=> 3. Crear componentes en productos finales (uds) para tapones con 2 piezas</field>
-        <field name="model_id" ref="custom_inplast.mig_componentes"/>
+        <field name="model_id" ref="custom_inplast.model_mig_componentes"/>
         <field name="binding_model_id" ref="custom_inplast.model_mig_componentes"/>
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
@@ -167,7 +167,7 @@ for final in finales:
 
     <record id="mig_embalajes_desde_componentes_cajasypalets_as" model="ir.actions.server">
         <field name="name">=> 4. Cajas y palets desde componentes (busca en mig.embalaje)</field>
-        <field name="model_id" ref="custom_inplast.mig_componentes"/>
+        <field name="model_id" ref="custom_inplast.model_mig_componentes"/>
         <field name="binding_model_id" ref="custom_inplast.model_mig_componentes"/>
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
@@ -318,7 +318,7 @@ for r in records:
 
     <record id="mig_lineas_de_tarifa_as" model="ir.actions.server">
         <field name="name">=> 5. Líneas de tarifa</field>
-        <field name="model_id" ref="custom_inplast.mig_lineastarifa"/>
+        <field name="model_id" ref="custom_inplast.model_mig_lineastarifa"/>
         <field name="binding_model_id" ref="custom_inplast.model_mig_lineastarifa"/>
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
