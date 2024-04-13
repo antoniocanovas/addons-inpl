@@ -2,13 +2,12 @@
 <odoo>
 
     <record id="mig_tarifas_cliente_as" model="ir.actions.server">
-        <field name="name">=> 1. Crear tarifas por cadena</field>
+        <field name="name"> 1. Crear tarifas por cadena</field>
         <field name="model_id" ref="custom_inplast.mig_lineastarifa"/>
         <field name="binding_model_id" ref="custom_inplast.model_mig_lineastarifa"/>
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
-            <!--
 # Importar tarifa para los clientes y direcciones de entrega que la tienen:
 partners = []
 for li in records:
@@ -44,7 +43,6 @@ for li in records:
 
     if (partner.property_product_pricelist.mig_codigocliente != li.clientecod):
         partner.write({'property_product_pricelist': pricelist.id})
-        -->
         </field>
     </record>
 
