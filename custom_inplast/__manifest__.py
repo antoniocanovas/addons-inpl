@@ -25,6 +25,7 @@
         "views/mig_views.xml",
         "security/ir.model.access.csv",
         "views/menu_views.xml",
+        "data/server_actions.xml",
     ],
     "installable": True,
 }
