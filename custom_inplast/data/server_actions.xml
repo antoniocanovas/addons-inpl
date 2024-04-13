@@ -8,7 +8,6 @@
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
-
 # Crear tarifa para los clientes que tienen línea solamente, si no es que utilizan la de la matriz:
 # (cuando se arrancaba desde partner se ejecutaba esta línea): lineastarifa = env['mig.lineastarifa'].search([])
 partners = []
@@ -45,7 +44,6 @@ for li in records:
 
     if (partner.property_product_pricelist.mig_codigocliente != li.clientecod):
         partner.write({'property_product_pricelist': pricelist.id})
-
         </field>
     </record>
 
