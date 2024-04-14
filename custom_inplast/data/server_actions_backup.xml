@@ -172,7 +172,7 @@ for final in finales:
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
-        <!--
+
 for r in records:
     if not r.bom_line_id.id:
         productobase = env['product.template'].search([('default_code','=',r.producto)])
@@ -311,7 +311,7 @@ for r in records:
             r['bom_line_id'] = newbomline.id
 
         else: continue
--->
+
         </field>
     </record>
 
@@ -323,7 +323,7 @@ for r in records:
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
-            <!--
+
 # Migrar líneas de tarifas:
 for li in records:
     partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
@@ -345,7 +345,7 @@ for li in records:
         'price_surcharge': producto.pnt_plastic_1000unit_tax / 1000,
         'fixed_price': float(li.preciooferta) - producto.pnt_plastic_1000unit_tax / 1000
     })
--->
+
         </field>
     </record>
 
