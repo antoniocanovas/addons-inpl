@@ -46,4 +46,58 @@ for li in records:
         </field>
     </record>
 
+    <record id="mig_componentes_as" model="ir.actions.server">
+        <field name="name">=> 1. Crear componentes en la lista de materiales de los productos básicos (%)</field>
+        <field name="model_id" ref="custom_inplast.model_mig_materialesarticulo"/>
+        <field name="binding_model_id" ref="custom_inplast.model_mig_materialesarticulo"/>
+        <field name="evaluation_type">value</field>
+        <field name="state">code</field>
+        <field name="code">
+
+# MATERIALES: Son las materias primas por porcentaje del tapón o partes (mig.materialesarticulo).
+# COMPONENTES: Es la cuchilla o las partes del tapón, hay tres casos: 1 línea => Cuchilla; 1 línea => Tapón; 2 líneas => "base y tapón" (mig.componentes).
+# EMBALAJES: Productos para crear el BOM de las BOM de CAJAS y PALETS.
+# SI EL TIPO DE PRODUCTO ES 3 EN COMPONENTES, ESTO INDICA LA CUCHILLA DE CORTE, Y HAY PRODUCTOS QUE SÓLO TIENEN ESTA LÍNEA.
+# EN EL NUEVO SISTEMA, LAS CUCHILLAS NO SON PRODUCTOS SINO EQUIPOS PARA MANTENER. Se comprarían con la misma referencia y crearían en mantenimiento.
+
+# En algún momento hay que poner el peso del campo de migración en el producto, se hace aquí:
+products = env['product.template'].search([('detailed_type','!=','service')])
+for p in products:
+    if p.weight != p.mig_peso_neto_gr/1000:
+        p['weight'] = p.mig_peso_neto_gr/1000
+
+semis = []
+# (se ejecutaba cuando se ejecuta desde partner) materialesarticulo = env['mig.materialesarticulo'].search([])
+uompeso = env.ref('uom.product_uom_categ_kgm')
+uomgramo = env.ref('uom.product_uom_gram')
+# La del kg es igual pero con kgm
+
+for li in records:
+    if (li.name not in semis):
+        semis.append(li.name)
+for semi in semis:
+    producto = env['product.product'].search([('default_code','=',semi)])
+    materiales = env['mig.materialesarticulo'].search([('name','=',semi),('bom_line_id','=',False)])
+    bom = env['mrp.bom'].search([('code','=',semi)])
+    if not bom.id:
+        bom = env['mrp.bom'].create({
+            'product_id':producto.id,
+            'product_tmpl_id':producto.product_tmpl_id.id,
+            'type':'normal',
+            'code':semi,
+            'pnt_raw_type_id':uompeso.id})
+    for mat in materiales:
+        material = env['product.product'].search([('default_code','=',mat.componente)])
+        pesoproducto = producto.mig_peso_neto_gr
+        newbomline = env['mrp.bom.line'].create({
+            'bom_id':bom.id,
+            'product_id':material.id,
+            'pnt_raw_percent': mat.cantidad,
+            'product_qty':mat.cantidad * pesoproducto / 100,
+            'product_uom_id':uomgramo.id})
+        mat['bom_line_id'] = newbomline.id
+
+        </field>
+    </record>
+
 </odoo>
