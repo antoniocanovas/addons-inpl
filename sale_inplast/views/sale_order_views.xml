@@ -19,7 +19,7 @@
 
             <!-- Change base products to MRP BOX AND PALLETS: -->
             <xpath expr="//header" position="after">
-                <button name="_update_order_lines_with_related_box_pallet_products" type="object" data-hotkey="shift+m"
+                <button name="update_order_lines_with_related_box_pallet_products" type="object" data-hotkey="shift+m"
                         string="MPR Products" class="oe_highlight"
                         invisible="state in ['sale','done','cancel'] or pnt_pricelist_state == 'locked'"/>
             </xpath>

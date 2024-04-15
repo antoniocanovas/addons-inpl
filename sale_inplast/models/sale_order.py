@@ -51,7 +51,7 @@ class SaleOrder(models.Model):
 
 
     # Cambiar las líneas de venta de tapones sueltos por CAJAS o PALETS, si tienen packaging asignado:
-    def _update_order_lines_with_related_box_pallet_products(self):
+    def update_order_lines_with_related_box_pallet_products(self):
         for li in self.order_line:
             if li.product_packaging_id.id:
                 pppackaging = self.env['product.product'].search(
