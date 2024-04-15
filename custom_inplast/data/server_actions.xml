@@ -257,6 +257,15 @@ for r in records:
                 'sales': False,
                 'qty': 1,
             })
+            #  Asignar packaging_ids (product.packaging) al producto BASE del tipo CAJA para cálculo de presupestos:
+            newpackingcajatype = env['product.packaging'].create({
+                'name': "Caja " + str(taponesporcaja),
+                'package_type_id': packagetypecaja.id,
+                'product_id': pp_base.id,
+                'product_uom_id': pp_base.uom_id.id,
+                'sales': True,
+                'qty': taponesporcaja,
+            })
 
         # CREACIÓN DEL PALET (si existe la CAJA y si tiene asignados el nº de tapones que contiene el total del palet):
         productpalet = env['product.template'].search([('default_code','=',codepalet)])
@@ -291,6 +300,15 @@ for r in records:
                 'product_uom_id': pp_palet.uom_id.id,
                 'sales': False,
                 'qty': 1,
+            })
+            #  Asignar packaging_ids (product.packaging) al producto BASE del tipo PALET para cálculo de presupestos:
+            newpackingcajatype = env['product.packaging'].create({
+                'name': "Palet " + str(taponesporpalet),
+                'package_type_id': packagetypepalet.id,
+                'product_id': pp_base.id,
+                'product_uom_id': pp_base.uom_id.id,
+                'sales': True,
+                'qty': taponesporpalet,
             })
 
 
