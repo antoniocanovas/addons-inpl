@@ -11,18 +11,17 @@ class SaleOrderLine(models.Model):
     pnt_product_ids = fields.Many2many('product.product', store=False, string='Pricelist products',
                                    related='order_id.pricelist_id.pnt_product_ids')
 
-
-    # Campos para pasar de tapones a palets, en caso de vender por palets:
-    pnt_base_unit = fields.Integer('Base qty')
-
-    @api.onchange('pnt_base_unit')
-    def _get_packing_units_from_base_qty(self):
+    @api.onchange('product_uom_qty','product_id','product_packaging_id','product_packaging_qty')
+    def _get_base_units(self):
         for li in self:
             qty = 0
             if (li.product_id.pnt_product_type == 'packing') and (li.product_id.pnt_parent_qty > 0):
-                qty = li.pnt_base_unit / li.product_id.pnt_parent_qty
+                qty = li.product_uom_qty / li.product_id.pnt_parent_qty
+            if (li.product_id.pnt_product_type == 'final'):
+                qty = li.product_qty
             li['pnt_base_uom_unit'] = qty
-    pnt_base_uom_unit = fields.Float('Pack', store=False, compute='_get_packing_units_from_base_qty')
+    pnt_base_qty = fields.Integer('Base qty', store=False, compute='_get_base_units')
+
 
     @api.onchange('product_uom_qty')
     def _get_packing_units_from_sale_qty(self):
