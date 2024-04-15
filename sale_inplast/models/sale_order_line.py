@@ -19,7 +19,7 @@ class SaleOrderLine(models.Model):
                 qty = li.product_uom_qty / li.product_id.pnt_parent_qty
             if (li.product_id.pnt_product_type == 'final'):
                 qty = li.product_qty
-            li['pnt_base_uom_unit'] = qty
+            li['pnt_base_qty'] = qty
     pnt_base_qty = fields.Integer('Base qty', store=False, compute='_get_base_units')
 
 
