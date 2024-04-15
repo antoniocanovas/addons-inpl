@@ -163,6 +163,32 @@ for final in finales:
         </field>
     </record>
 
+    <!--
+    <record id="mig_corregir_ncajas_embalajes_cajasypalets_as" model="ir.actions.server">
+        <field name="name">=> 1. Corregir nº cajas en PT (mig.embalaje)</field>
+        <field name="model_id" ref="custom_inplast.model_mig_embalaje"/>
+        <field name="binding_model_id" ref="custom_inplast.model_mig_embalaje"/>
+        <field name="evaluation_type">value</field>
+        <field name="state">code</field>
+        <field name="code">
+for r in records:
+    # COMPLETAR LA CANTIDAD DE TAPONES POR CAJA, SI NO ESTÁ ESTABLECIDO EN PT:
+    if r.escaja == True:
+        productobase = env['product.template'].search([('default_code','=',r.producto)])
+        if productobase.mig_unidades_caja != r.cantidad:
+            productobase['mig_unidades_caja'] = r.cantidad
+            r['cajapaletnull'] = False
+
+    if r.escaja == True:
+        productobase = env['product.template'].search([('default_code','=',r.producto)])
+        if productobase.mig_unidades_caja != r.cantidad:
+            productobase['mig_unidades_caja'] = r.cantidad
+            r['cajapaletnull'] = False
+
+        </field>
+    </record>
+    -->
+
     <record id="mig_embalajes_cajasypalets_as" model="ir.actions.server">
         <field name="name">=> 4. Embalajes, Cajas y palets (mig.embalaje)</field>
         <field name="model_id" ref="custom_inplast.model_mig_embalaje"/>
@@ -178,12 +204,14 @@ for r in records:
         if not pp_base.id: raise UserError("No encuentro el producto.producto base " + str(r.producto))
 
         taponesporcaja = productobase.mig_unidades_caja
-        taponesporpalet = productobase.mig_unidades_palet
+        taponesporpalet = productobase.mig_ud_palet
 
         # Si no tiene configurados el nº de tapones por caja o palet, salta a la siguiente línea:
         if (taponesporcaja == 0) or (taponesporpalet == 0):
             r['cajapaletnull'] = True
             continue
+        else:
+            numerocajas = taponesporpalet / taponesporcaja
 
         # Códigos establecidos para los productos PACKING que vamos a crear:
         codecaja = 'C.'+ r.producto
@@ -199,6 +227,9 @@ for r in records:
 
         # CREACIÓN DE CAJA (si tiene asignados el nº de tapones que contiene):
         productcaja = env['product.template'].search([('default_code','=',codecaja)])
+        if productcaja.id:
+            pp_caja = env['product.product'].search([('product_tmpl_id','=', productcaja.id)])[0]
+
         # Creación de artículo CAJA, si no lo hemos encontrado::
         if (not productcaja.id) and (taponesporcaja != 0):
             # Crear producto CAJA:
@@ -238,8 +269,6 @@ for r in records:
         productpalet = env['product.template'].search([('default_code','=',codepalet)])
         if (not productpalet.id) and (taponesporcaja > 0) and (taponesporpalet > 0):
             # Crear producto PALET:
-            # Para palets: numerocajas = taponesporpalet / taponesporcaja
-            numerocajas = taponesporpalet / taponesporcaja
             type = " - Palet "
             dye = ""
             if productobase.pnt_product_dye: dye = " " + productobase.pnt_product_dye
