@@ -48,3 +48,16 @@ class SaleOrder(models.Model):
             if (record.pnt_update_prices) and (record.state in ['sent','draft','sale']):
                 raise UserError('Precios obsoletos, se requiere actualizar precios para: ' + record.partner_id.name)
             else: return True
+
+
+    # Cambiar las líneas de venta de tapones sueltos por CAJAS o PALETS, si tienen packaging asignado:
+    def _update_order_lines_with_related_box_pallet_products(self):
+        for li in self.order_line:
+            if li.product_packaging_id.id:
+                pppackaging = self.env['product.product'].search(
+                    [('pnt_parent_id', '=', li.product_id.id), ('pnt_parent_qty', '=', li.product_packaging_id.qty)])
+                if pppackaging.id:
+                    price = li.price_unit * li.product_uom_qty / li.product_packaging_qty
+                    qty = li.product_packaging_qty
+                    li.write({'product_id': pppackaging.id, 'product_uom_qty': qty, 'price_unit': price,
+                              'product_packaging_id': False, 'product_packaging_qty': 0})

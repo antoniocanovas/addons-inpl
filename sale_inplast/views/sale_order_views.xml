@@ -17,6 +17,13 @@
                         invisible="not pnt_update_prices or pnt_pricelist_state == 'locked'"/>
             </xpath>
 
+            <!-- Change base products to MRP BOX AND PALLETS: -->
+            <xpath expr="//header" position="after">
+                <button name="_update_order_lines_with_related_box_pallet_products" type="object" data-hotkey="shift+m"
+                        string="MPR Products" class="oe_highlight"
+                        invisible="state in ['sale','done','cancel'] or pnt_pricelist_state == 'locked'"/>
+            </xpath>
+
             <!-- Mensajes de aviso y bloqueo por estado de la tarifa:  -->
             <xpath expr="//header" position="after">
                 <div class="alert alert-info mb-0" role="alert" invisible="pnt_pricelist_state != 'update'">
