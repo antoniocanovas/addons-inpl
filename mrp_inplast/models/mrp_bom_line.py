@@ -27,7 +27,7 @@ class MrpBomLine(models.Model):
                     record.pnt_raw_type_id == record.product_uom_category_id):
                 qty = record.bom_id.pnt_raw_qty * record.pnt_raw_percent / 100
 
-            record.write({'product_qty': qty})
+            record.product_qty = qty
 
     @api.onchange('pnt_raw_percent','product_id')
     def _get_uom_from_percent_type(self):

@@ -17,12 +17,14 @@
         "mrp_maintenance",
         "custom_inplast",
         "product_inplast",
+        "base_automation",
     ],
     "data": [
         "views/res_company_views.xml",
         "views/maintenance_equipment_views.xml",
         "views/product_template_views.xml",
         "views/mrp_bom_views.xml",
+        "data/server_actions.xml",
     ],
     "installable": True,
 }

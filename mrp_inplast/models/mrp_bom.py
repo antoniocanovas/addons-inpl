@@ -16,6 +16,14 @@ class MrpBom(models.Model):
 
     pnt_raw_type_id = fields.Many2one('uom.category', string='Distribution type')
 
+    # Método interno para ser llamado desde una BA, para los casos de Lista de Materiales por %
+    def bom_percent_update(self):
+        for record in self:
+            if record.pnt_raw_type_id.id:
+                for li in record.bom_line_ids:
+                    if li.product_uom_category_id == record.pnt_raw_type_id:
+                        li['product_qty'] = record.pnt_raw_qty * li.pnt_raw_percent / 100
+
     @api.depends('product_tmpl_id', 'pnt_raw_type_id')
     def _get_default_uom(self):
         uom = self.env['uom.uom'].search([
