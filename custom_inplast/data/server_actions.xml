@@ -163,10 +163,10 @@ for final in finales:
         </field>
     </record>
 
-    <record id="mig_embalajes_desde_componentes_cajasypalets_as" model="ir.actions.server">
-        <field name="name">=> 4. Cajas y palets desde componentes (busca en mig.embalaje)</field>
-        <field name="model_id" ref="custom_inplast.model_mig_componentes"/>
-        <field name="binding_model_id" ref="custom_inplast.model_mig_componentes"/>
+    <record id="mig_embalajes_cajasypalets_as" model="ir.actions.server">
+        <field name="name">=> 4. Embalajes, Cajas y palets (mig.embalaje)</field>
+        <field name="model_id" ref="custom_inplast.model_mig_embalaje"/>
+        <field name="binding_model_id" ref="custom_inplast.model_mig_embalaje"/>
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
@@ -180,6 +180,11 @@ for r in records:
         taponesporcaja = productobase.mig_unidades_caja
         taponesporpalet = productobase.mig_unidades_palet
 
+        # Si no tiene configurados el nº de tapones por caja o palet, salta a la siguiente línea:
+        if (taponesporcaja == 0) or (taponesporpalet == 0):
+            r['cajapaletnull'] = True
+            continue
+
         # Códigos establecidos para los productos PACKING que vamos a crear:
         codecaja = 'C.'+ r.producto
         codepalet = 'P.' + r.producto
@@ -187,43 +192,89 @@ for r in records:
         packagetypecaja = env.ref('product_inplast.package_type_box_inplast')
         packagetypepalet = env.ref('product_inplast.package_type_pallet_inplast')
 
+
+
+        # Hay que crear las cajas y palets primero, para después asignar las líneas ya que se hace por lotes.
+        # De otra forma no funcionará ya que puede llegar una línea de palet antes que la caja esté creada.
+
+        # CREACIÓN DE CAJA (si tiene asignados el nº de tapones que contiene):
+        productcaja = env['product.template'].search([('default_code','=',codecaja)])
+        # Creación de artículo CAJA, si no lo hemos encontrado::
+        if (not productcaja.id) and (taponesporcaja != 0):
+            # Crear producto CAJA:
+            type = " - Caja "
+            dye = ""
+            if productobase.pnt_product_dye: dye = " " + productobase.pnt_product_dye
+            name = productobase.name + dye + type + str(taponesporcaja)
+            routemrp = env.ref('mrp.route_warehouse0_manufacture')
+
+            productcaja = env['product.template'].create({
+                'name': name,
+                'pnt_product_type': 'packing',
+                'pnt_parent_id': productobase.id,
+                'pnt_parent_qty': taponesporcaja,
+                'detailed_type': 'product',
+                'list_price': productobase.list_price * taponesporcaja,
+                'pnt_plastic_weight': productobase.pnt_plastic_weight * taponesporcaja,
+                'standard_price': productobase.standard_price * taponesporcaja,
+                'sale_ok': True,
+                'purchase_ok': False,
+                'default_code':codecaja,
+                'route_ids': [(6, 0, [routemrp.id])]
+            })
+
+            # Asignar packaging_ids (product.packaging) al nuevo producto del tipo CAJA para huecos disponibles:
+            pp_caja = env['product.product'].search([('product_tmpl_id','=', productcaja.id)])[0]
+            newpackingcajatype = env['product.packaging'].create({
+                'name': "Caja " + str(taponesporcaja),
+                'package_type_id': packagetypecaja.id,
+                'product_id': pp_caja.id,
+                'product_uom_id': pp_caja.uom_id.id,
+                'sales': False,
+                'qty': 1,
+            })
+
+        # CREACIÓN DEL PALET (si existe la CAJA y si tiene asignados el nº de tapones que contiene el total del palet):
+        productpalet = env['product.template'].search([('default_code','=',codepalet)])
+        if (not productpalet.id) and (taponesporcaja > 0) and (taponesporpalet > 0):
+            # Crear producto PALET:
+            # Para palets: numerocajas = taponesporpalet / taponesporcaja
+            numerocajas = taponesporpalet / taponesporcaja
+            type = " - Palet "
+            dye = ""
+            if productobase.pnt_product_dye: dye = " " + productobase.pnt_product_dye
+            name = productobase.name + dye + type + str(taponesporpalet)
+            routemrp = env.ref('mrp.route_warehouse0_manufacture')
+            productpalet = env['product.template'].create({
+                'name': name,
+                'pnt_product_type': 'packing',
+                'pnt_parent_id': productobase.id,
+                'pnt_parent_qty': taponesporpalet,
+                'detailed_type': 'product',
+                'list_price': productobase.list_price * taponesporpalet,
+                'pnt_plastic_weight': productobase.pnt_plastic_weight * taponesporpalet,
+                'standard_price': productobase.standard_price * taponesporpalet,
+                'sale_ok': True,
+                'purchase_ok': False,
+                'default_code':codepalet,
+                'route_ids': [(6, 0, [routemrp.id])]
+            })
+
+            # Asignar packaging_ids (product.packaging) al nuevo producto del tipo PALET para huecos disponibles:
+            pp_palet = env['product.product'].search([('product_tmpl_id','=', productpalet.id)])[0]
+            newpackingcajatype = env['product.packaging'].create({
+                'name': "Palet " + str(taponesporpalet),
+                'package_type_id': packagetypepalet.id,
+                'product_id': pp_palet.id,
+                'product_uom_id': pp_palet.uom_id.id,
+                'sales': False,
+                'qty': 1,
+            })
+
+
+
+        # CREAICÓN Y ACTUALIZACIÓN DE LÍNEAS DE MATERIALES para el registro en curso:
         if (r.cajapalet == "Caja") and (taponesporcaja > 0):
-            productcaja = env['product.template'].search([('default_code','=',codecaja)])
-            # Creación de artículo CAJA, si no lo hemos encontrado::
-            if not productcaja.id:
-                # Crear producto CAJA:
-                type = " - Caja "
-                dye = ""
-                if productobase.pnt_product_dye: dye = " " + productobase.pnt_product_dye
-                name = productobase.name + dye + type + str(taponesporcaja)
-                routemrp = env.ref('mrp.route_warehouse0_manufacture')
-
-                productcaja = env['product.template'].create({
-                    'name': name,
-                    'pnt_product_type': 'packing',
-                    'pnt_parent_id': productobase.id,
-                    'pnt_parent_qty': taponesporcaja,
-                    'detailed_type': 'product',
-                    'list_price': productobase.list_price * taponesporcaja,
-                    'pnt_plastic_weight': productobase.pnt_plastic_weight * taponesporcaja,
-                    'standard_price': productobase.standard_price * taponesporcaja,
-                    'sale_ok': True,
-                    'purchase_ok': False,
-                    'default_code':codecaja,
-                    'route_ids': [(6, 0, [routemrp.id])]
-                })
-
-                # Asignar packaging_ids (product.packaging) al nuevo producto del tipo CAJA para huecos disponibles:
-                pp_caja = env['product.product'].search([('product_tmpl_id','=', productcaja.id)])[0]
-                newpackingcajatype = env['product.packaging'].create({
-                    'name': "Caja " + str(taponesporcaja),
-                    'package_type_id': packagetypecaja.id,
-                    'product_id': pp_caja.id,
-                    'product_uom_id': pp_caja.uom_id.id,
-                    'sales': False,
-                    'qty': 1,
-                })
-
             # Comprobación si el producto CAJA ya tiene lista de materiales:
             bomcaja = env['mrp.bom'].search([('code','=',codecaja), ('product_tmpl_id','=',productcaja.id)])
             if not bomcaja.id:
@@ -249,44 +300,6 @@ for r in records:
 
         # Ahora el caso de que la línea corresponda a un componente de PALET:
         elif (r.cajapalet == "Palet") and (taponesporcaja > 0) and (taponesporpalet > 0):
-            productpalet = env['product.template'].search([('default_code','=',codepalet)])
-
-            if not productpalet.id:
-                # Crear producto PALET:
-                # Para palets: numerocajas = taponesporpalet / taponesporcaja
-                if taponesporcaja == 0: raise UserError('Falta nº de tapones en: ' + str(r.producto))
-                numerocajas = taponesporpalet / taponesporcaja
-                type = " - Palet "
-                dye = ""
-                if productobase.pnt_product_dye: dye = " " + productobase.pnt_product_dye
-                name = productobase.name + dye + type + str(taponesporpalet)
-                routemrp = env.ref('mrp.route_warehouse0_manufacture')
-                productpalet = env['product.template'].create({
-                    'name': name,
-                    'pnt_product_type': 'packing',
-                    'pnt_parent_id': productobase.id,
-                    'pnt_parent_qty': taponesporpalet,
-                    'detailed_type': 'product',
-                    'list_price': productobase.list_price * taponesporpalet,
-                    'pnt_plastic_weight': productobase.pnt_plastic_weight * taponesporpalet,
-                    'standard_price': productobase.standard_price * taponesporpalet,
-                    'sale_ok': True,
-                    'purchase_ok': False,
-                    'default_code':codepalet,
-                    'route_ids': [(6, 0, [routemrp.id])]
-                })
-
-                # Asignar packaging_ids (product.packaging) al nuevo producto del tipo PALET para huecos disponibles:
-                pp_palet = env['product.product'].search([('product_tmpl_id','=', productpalet.id)])[0]
-                newpackingcajatype = env['product.packaging'].create({
-                    'name': "Palet " + str(taponesporpalet),
-                    'package_type_id': packagetypepalet.id,
-                    'product_id': pp_palet.id,
-                    'product_uom_id': pp_palet.uom_id.id,
-                    'sales': False,
-                    'qty': 1,
-                })
-
             # Comprobación si el producto PALET ya tiene lista de materiales:
             bompalet = env['mrp.bom'].search([('code','=',codepalet), ('product_tmpl_id','=',productpalet.id)])
             if not bompalet.id:

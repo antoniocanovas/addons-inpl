@@ -14,3 +14,4 @@ class Migembalaje(models.Model):
     cajapalet = fields.Char('cajapalet')
     escaja = fields.Boolean('escaja')
     bom_line_id = fields.Many2one('mrp.bom.line', string="Bom line")
+    cajapaletnull = fields.Boolean('cajapaletnull', help="Nº de tapones en configuración de producto base nulo para caja o palet.")
