@@ -114,6 +114,8 @@ for semi in semis:
 # SI EL TIPO DE PRODUCTO ES 3 EN COMPONENTES, ESTO INDICA LA CUCHILLA DE CORTE, Y HAY PRODUCTOS QUE SÓLO TIENEN ESTA LÍNEA.
 # EN EL NUEVO SISTEMA, LAS CUCHILLAS NO SON PRODUCTOS SINO EQUIPOS PARA MANTENER. Se comprarían con la misma referencia y crearían en mantenimiento.
 
+# LAS LÍNEAS QUE NO EJECUTA SON QUE ESTÁN MARCADAS COMO "TIPO 3" PERO NO LO SON !!!
+
 finales = []
 uompeso = env.ref('uom.product_uom_categ_kgm')
 
@@ -140,7 +142,6 @@ for final in finales:
         # filtro para quitar los componentes duplicados de peso, que ya están en los semi y quitar las herramientas:
         # Caso de ser un componente del tapón:
         if (material.mig_tipo_producto != 3) and (material.uom_id.category_id.id != uompeso.id):
-            raise UserError("Aquí hay un producto que no se mide por unidades y es componente: " + material.name)
             newbomline = env['mrp.bom.line'].create({
                 'bom_id':bom.id,
                 'product_id':material.id,
@@ -157,7 +158,7 @@ for final in finales:
                 herramienta = env['maintenance.equipment'].create({'name': material.name, 'serial_no':material.default_code})
             producto['pnt_tool_id'] = herramienta.id
             # Truco para quitar las herramientas de la lista de líneas pendientes:
-            cualquiera = env['mrp.bom.line'].search([])[0].id
+            cualquiera = env['mrp.bom.line'].search([])[0]
             mat['bom_line_id'] = cualquiera.id
 
         </field>
