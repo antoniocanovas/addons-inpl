@@ -160,7 +160,7 @@ class ProductPackingWizard(models.TransientModel):
                 'qty': 1,
             })
             # Asignar packaging_ids (product.packaging) al producto base para vender por múltiplos:
-            product = self.env['product.product'].search([('product_tmpl_id','=', name.id)])[0]
+            product = self.env['product.product'].search([('product_tmpl_id','=', record.name.id)])[0]
             if record.pnt_type == 'box': qty = record.pnt_box_base_qty
             else: qty = record.pnt_pallet_base_qty
             newpackingtype = self.env['product.packaging'].create({
