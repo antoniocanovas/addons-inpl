@@ -22,27 +22,14 @@ class MrpBomLine(models.Model):
     @api.onchange('pnt_raw_percent','bom_product_qty')
     def _get_product_qty(self):
         for record in self:
+            # unidad patron = "Reference" de la unidad de medida, es la que se usa en "Weight" del producto.
+            # factor = unidad_origen._compute_quantity(cantidad_origen, unidad_destino)
             qty = record.product_qty
-            if (record.pnt_raw_percent != 0) and (
-                    record.pnt_raw_type_id == record.product_uom_category_id):
-                qty = record.bom_id.pnt_raw_qty * record.pnt_raw_percent / 100
+            if (record.pnt_raw_percent != 0) and (record.pnt_raw_type_id == record.product_uom_category_id):
+                uom_ref = self.env['uom.uom'].search([
+                    ('category_id', '=', record.pnt_raw_type_id.id),
+                    ('uom_type', '=', 'reference')])
+                factor = uom_ref._compute_quantity(record.bom_id.pnt_raw_qty, record.product_id.uom_id)
+                qty = factor * record.pnt_raw_percent / 100
 
             record.product_qty = qty
-
-    @api.onchange('pnt_raw_percent','product_id')
-    def _get_uom_from_percent_type(self):
-        for record in self:
-            # Falta el if de que sea la misma clase de unidad y asginar la misma que del peso o volumen:
-            weight = self.env.ref('uom.product_uom_categ_kgm')
-            volume = self.env.ref('uom.product_uom_categ_vol')
-            uom = record._origin.product_uom_id
-            if (record.pnt_raw_percent != 0) and (record.pnt_raw_type_id == record.product_uom_category_id):
-                if (record.product_uom_category_id == volume):
-                    uom = record.env['uom.uom'].search([
-                        ('category_id','=',record.product_uom_category_id.id),
-                        ('uom_type','=','reference')
-                    ])
-                if (record.product_uom_category_id == weight):
-                    uom = self.env.ref('uom.product_uom_gram')
-            record['product_uom_id'] = uom.id
-    product_uom_id = fields.Many2one(compute='_get_uom_from_percent_type', store=True)

@@ -20,9 +20,14 @@ class MrpBom(models.Model):
     def bom_percent_update(self):
         for record in self:
             if record.pnt_raw_type_id.id:
+                uom_ref = self.env['uom.uom'].search([
+                    ('category_id', '=', record.pnt_raw_type_id.id),
+                    ('uom_type', '=', 'reference')])
+                bom_qty = record.pnt_raw_qty
                 for li in record.bom_line_ids:
-                    if li.product_uom_category_id == record.pnt_raw_type_id:
-                        li['product_qty'] = record.pnt_raw_qty * li.pnt_raw_percent / 100
+                    if (li.pnt_raw_percent != 0) and (li.product_uom_category_id == li.pnt_raw_type_id):
+                        factor = uom_ref._compute_quantity(bom_qty, li.product_id.uom_id)
+                    li['product_qty'] = li.pnt_raw_percent / 100 * factor
 
     @api.depends('product_tmpl_id', 'pnt_raw_type_id')
     def _get_default_uom(self):
@@ -45,6 +50,7 @@ class MrpBom(models.Model):
     def _get_product_raw_qty(self):
         for record in self:
             qty = 0
+            # factor = unidad_origen(cantidad_origen, unidad_destino)
             factor = record.product_uom_id._compute_quantity(record.product_qty, record.product_tmpl_id.uom_id)
             if record.pnt_raw_type_id == self.env.ref('uom.product_uom_categ_kgm'):
                 qty = record.product_tmpl_id.weight * factor
