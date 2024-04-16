@@ -22,7 +22,7 @@ class MrpBom(models.Model):
             if record.pnt_raw_type_id.id:
                 for li in record.bom_line_ids:
                     if li.product_uom_category_id == record.pnt_raw_type_id:
-                        li['product_qty'] = record.pnt_raw_qty * li.pnt_raw_percent / 100
+                        li['product_qty'] = record.pnt_raw_qty * li.pnt_raw_percent / 100 * 1000
 
     @api.depends('product_tmpl_id', 'pnt_raw_type_id')
     def _get_default_uom(self):

@@ -33,11 +33,16 @@ class MrpBomLine(models.Model):
     def _get_uom_from_percent_type(self):
         for record in self:
             # Falta el if de que sea la misma clase de unidad y asginar la misma que del peso o volumen:
+            weight = self.env.ref('uom.product_uom_categ_kgm')
+            volume = self.env.ref('uom.product_uom_categ_vol')
             uom = record._origin.product_uom_id
             if (record.pnt_raw_percent != 0) and (record.pnt_raw_type_id == record.product_uom_category_id):
-                uom = record.env['uom.uom'].search([
-                    ('category_id','=',record.product_uom_category_id.id),
-                    ('uom_type','=','reference')
-                ])
+                if (record.product_uom_category_id == volume):
+                    uom = record.env['uom.uom'].search([
+                        ('category_id','=',record.product_uom_category_id.id),
+                        ('uom_type','=','reference')
+                    ])
+                if (record.product_uom_category_id == weight):
+                    uom = self.env.ref('uom.product_uom_gram')
             record['product_uom_id'] = uom.id
     product_uom_id = fields.Many2one(compute='_get_uom_from_percent_type', store=True)
