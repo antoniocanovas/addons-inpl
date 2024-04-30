@@ -116,7 +116,7 @@ class ProductPackingWizard(models.TransientModel):
             else:
                 product = self.env['product.product'].search([('product_tmpl_id', '=', record.pnt_pallet_type_id.id)])[0]
                 newbompalletline = self.env['mrp.bom.line'].create(
-                    {'product_id': product.id, 'product_qty': 1, 'bom_id': newldm.id})
+                    {'product_id': product.id, 'product_qty': record.pnt_pallet_qty, 'bom_id': newldm.id})
                 box = self.env['product.product'].search([('product_tmpl_id', '=', record.pnt_pallet_box_id.id)])[0]
                 newbompalletline = self.env['mrp.bom.line'].create(
                     {'product_id': box.id, 'product_qty': record.pnt_pallet_box_qty, 'bom_id': newldm.id})
