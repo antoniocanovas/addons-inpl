@@ -22,6 +22,7 @@ class ProductPackingWizard(models.TransientModel):
 
     #Palets:
     pnt_pallet_type_id = fields.Many2one('product.template', string='Pallet', domain="[('pnt_product_type','=','packaging')]")
+    pnt_pallet_qty = fields.Integer('Pallet qty', default="1")
     pnt_pallet_box_id  = fields.Many2one('product.template', string='Pallet box', domain="[('pnt_product_type','=','packaging')]")
     pnt_pallet_box_qty = fields.Integer('Box qty', default="24")
     pnt_pallet_base_qty = fields.Integer('Base qty', store=False, compute='_get_pallet_base_qty')
