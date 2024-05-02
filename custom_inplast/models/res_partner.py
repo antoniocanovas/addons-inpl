@@ -88,3 +88,5 @@ class ResPartner(models.Model):
     mig_transportista = fields.Char('mig_transportista')
     mig_almacenorigen = fields.Char('mig_almacenorigen')
     mig_codigocarga = fields.Char('mig_codigocarga')
+    mig_transporteasas = fields.Char('mig_transporteasas')
+    mig_codigoruta = fields.Char('mig_codigoruta')

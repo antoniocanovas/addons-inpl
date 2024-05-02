@@ -89,6 +89,8 @@
                         <field name="mig_transportista"/>
                         <field name="mig_almacenorigen"/>
                         <field name="mig_codigocarga"/>
+                        <field name="mig_transporteasas"/>
+                        <field name="mig_codigoruta"/>
                     </group>
                 </page>
             </xpath>
