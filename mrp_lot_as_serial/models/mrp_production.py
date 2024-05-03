@@ -33,17 +33,17 @@ class MrpProduction(models.Model):
 
     def update_lot_as_serial(self):
         seq = self.lot_producing_id.pnt_mrp_serial
-        lot = self.lot_producing_id
+        mo_lot = self.lot_producing_id
 
         for li in self.finished_move_line_ids:
-            name = self.lot_producing_id.name + "." + str(seq)
+            name = mo_lot.name + "." + str(seq)
             lot = self.env['stock.lot'].search([('product_id', '=', li.product_id.id), ('name', '=', name)])
             if not lot.id:
                 lot = self.env['stock.lot'].create({'product_id': li.product_id.id, 'name': name})
             li.write({'lot_id': lot.id})
             seq += 1
 
-        lot.write({'pnt_mrp_serial': seq})
+        mo_lot.write({'pnt_mrp_serial': seq})
 
     def button_mark_done(self):
         res = super().button_mark_done()
