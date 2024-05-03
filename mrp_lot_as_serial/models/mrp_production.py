@@ -31,24 +31,22 @@ class MrpProduction(models.Model):
             self.get_split_mrp_as_serial()
         return True
 
-    def update_lots(self):
+    def update_lot_as_serial(self):
         seq = self.lot_producing_id.pnt_mrp_serial
         lot = self.lot_producing_id
 
         for li in self.finished_move_line_ids:
-            lot = self.env['stock.lot'].search([('product_id', '=', li.product_id.id), (
-            'name', '=', self.lot_producing_id.name + "." + str(seq))])
+            name = self.lot_producing_id.name + "." + str(seq)
+            lot = self.env['stock.lot'].search([('product_id', '=', li.product_id.id), ('name', '=', name)])
             if not lot.id:
-                lot = self.env['stock.lot'].create({'product_id': li.product_id.id,
-                                               'name': self.lot_producing_id.name + "." + str(
-                                                   seq)})
-            li.write({'quantity': 1, 'lot_id': lot.id})
+                lot = self.env['stock.lot'].create({'product_id': li.product_id.id, 'name': name})
+            li.write({'lot_id': lot.id})
             seq += 1
 
-        lot.write({'pnt_mrp_serial': seq + 1,})
+        lot.write({'pnt_mrp_serial': seq})
 
     def button_mark_done(self):
         res = super().button_mark_done()
         if self.product_id.pnt_mrp_as_serial:
-            self.update_lots()
+            self.update_lot_as_serial()
         return res
