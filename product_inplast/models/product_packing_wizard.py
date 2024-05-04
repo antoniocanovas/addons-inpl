@@ -82,6 +82,7 @@ class ProductPackingWizard(models.TransientModel):
                     'standard_price': record.name.standard_price * baseqty,
                     'sale_ok': sale_ok,
                     'purchase_ok': purchase_ok,
+                    'tracking': 'lot',
                     'route_ids': [(6, 0, [routemrp.id])]
                 })
             else:
