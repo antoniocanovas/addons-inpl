@@ -245,6 +245,7 @@ for r in records:
                 'purchase_ok': False,
                 'default_code':codecaja,
                 'tracking': 'lot',
+                'pnt_mrp_as_serial': True,
                 'route_ids': [(6, 0, [routemrp.id])]
             })
 
@@ -290,6 +291,7 @@ for r in records:
                 'purchase_ok': False,
                 'default_code':codepalet,
                 'tracking': 'lot',
+                'pnt_mrp_as_serial': True,
                 'route_ids': [(6, 0, [routemrp.id])]
             })
 

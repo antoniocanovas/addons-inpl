@@ -15,6 +15,7 @@
         "account",
         "mrp",
         "report_qweb_pdf_watermark",
+        "mrp_lot_as_serial",
     ],
     "data": [
         "security/ir.model.access.csv",

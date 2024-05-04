@@ -83,6 +83,7 @@ class ProductPackingWizard(models.TransientModel):
                     'sale_ok': sale_ok,
                     'purchase_ok': purchase_ok,
                     'tracking': 'lot',
+                    'pnt_mrp_as_serial': True,
                     'route_ids': [(6, 0, [routemrp.id])]
                 })
             else:
