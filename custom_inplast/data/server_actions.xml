@@ -147,8 +147,8 @@ for final in finales:
                 'product_id':material.id,
                 'product_qty':mat.cantidad,
             })
-            if material.pnt_parent_id.id != producto.id:
-                material['pnt_parent_id'] = producto.id
+            if material.product_tmpl_id.pnt_parent_id.id != producto.product_tmpl_id.id:
+                material.product_tmpl_id.write({'pnt_parent_id':producto.product_tmpl_id.id})
             mat['bom_line_id'] = newbomline.id
 
         # Caso de ser una herramienta o cuchilla:
