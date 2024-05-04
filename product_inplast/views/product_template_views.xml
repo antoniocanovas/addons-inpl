@@ -18,7 +18,7 @@
             <field name="detailed_type" position="after">
                 <field name="pnt_product_type" required="1"/>
                 <field name="pnt_parent_id" domain="[('pnt_product_type','=','final')]"
-                       invisible="pnt_product_type not in ['packing']"
+                       invisible="pnt_product_type not in ['semi','packing']"
                        required="pnt_product_type in ['packing']"
                 />
                 <field name="pnt_parent_qty"
