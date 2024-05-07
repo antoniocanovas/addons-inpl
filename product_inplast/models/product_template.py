@@ -46,4 +46,4 @@ class ProductTemplate(models.Model):
     pnt_packing_ids = fields.One2many('product.template', 'pnt_parent_id', string='Packing products')
     pnt_bom_line_ids = fields.One2many('mrp.bom.line', 'product_tmpl_id', string='BOM lines')
 
-    standard_price = fields.Float(digits=dp.get_precision('INPLAST Cost'))
+    standard_price = fields.Float(digits=dp.get_precision('inplast_cost_digits'))
