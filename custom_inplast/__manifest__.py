@@ -27,7 +27,7 @@
         "security/ir.model.access.csv",
         "views/menu_views.xml",
         "data/server_actions.xml",
-        "data/digital_precision.xml",
+        "data/decimal_precision.xml",
     ],
     "installable": True,
 }
