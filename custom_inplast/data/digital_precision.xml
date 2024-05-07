@@ -3,13 +3,13 @@
 
     <data noupdate="1">
 
-        <record model="decimal.precision" id="weight_inplast_digits">
-            <field name="name">Weight inplast</field>
+        <record model="decimal.precision" id="inplast_weight_digits">
+            <field name="name">INPLAST Weight</field>
             <field name="digits">6</field>
         </record>
 
-        <record model="decimal.precision" id="cost_inplast_digits">
-            <field name="name">Cost inplast</field>
+        <record model="decimal.precision" id="inplast_cost_digits">
+            <field name="name">INPLAST Cost</field>
             <field name="digits">4</field>
         </record>
 
