@@ -16,6 +16,7 @@
         "mrp",
         "report_qweb_pdf_watermark",
         "mrp_lot_as_serial",
+        "custom_inplast",
     ],
     "data": [
         "security/ir.model.access.csv",
