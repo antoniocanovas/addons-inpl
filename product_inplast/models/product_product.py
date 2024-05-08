@@ -8,6 +8,10 @@ from odoo.tools.misc import unique
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
+
+    standard_price = fields.Float(string="Coste inplast", digits='INPLAST Cost')
+
+
     # Reescribimos la función estandar para poder añadir el dye como parámetro
     @api.depends('name', 'default_code', 'product_tmpl_id', 'pnt_product_dye')
     @api.depends_context('display_default_code', 'seller_id', 'company_id',
