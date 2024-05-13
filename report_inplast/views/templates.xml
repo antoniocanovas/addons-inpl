@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <template id="report_inplast.report_stockpicking_custom" inherit_id="stock.report_deliveryslip" active="True">
+        <xpath expr="//t[@t-lang='o._get_report_lang()']" position="replace">
+            <t t-if="not o.partner_id.pnt_picking_report_id"  t-call="stock.report_delivery_document" t-lang="o._get_report_lang()"/>
+            <t t-else="" t-call="{{o.sudo().get_template_report()}}" t-lang="o._get_report_lang()"/>
+        </xpath>
+    </template>
+
+    <template id="report_inplast.report_invoice_custom" inherit_id="account.report_invoice" active="True">
+        <xpath expr="//t[@t-lang='lang']" position="replace">
+           <t t-if="not o.partner_id.pnt_invoice_report_id" t-call="account.report_invoice_document" t-lang="lang"/>
+            <t t-else="" t-call="{{o.sudo().get_template_report()}}" t-lang="lang"/>
+        </xpath>
+    </template>
+
+    <template id="report_inplast.report_saleorder_raw_custom" inherit_id="sale.report_saleorder_raw" active="True">
+        <xpath expr="//t[@t-lang='doc.partner_id.lang']" position="replace">
+            <t t-if="not o.partner_id.pnt_sale_report_id" t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            <t t-else="" t-call="{{doc.sudo().get_template_report()}}" t-lang="doc.partner_id.lang"/>
+        </xpath>
+    </template>
+
+</odoo>

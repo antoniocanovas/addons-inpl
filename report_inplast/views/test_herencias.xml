@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+    <record id="inplast_external_layout_custom" model="ir.ui.view">
+        <field name="name">inplast.external.layout.custom</field>
+        <field name="inherit_id" ref="web.external_layout_standard"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@t-attf-class='header o_company_#{company.id}_layout']" position="replace"
+                   style="padding 100px">
+                <div class="header o_company_#{company.id}_layout" style=" border: none;width: 100%;height: 40%">
+
+
+                    <table style=" border: none;">
+
+                        <tr style=" border-bottom: none;">
+                            <div>
+
+                                <td>
+                                    <t t-set="company" t-value="o.company_id"/>
+                                    <img t-if="company.logo"
+                                         t-att-src="image_data_uri(company.logo)"
+                                         alt="Company logo" style="height: 70px;"/>
+                                </td>
+
+                            </div>
+                        </tr>
+                        <tr style=" border-bottom: none;">
+
+
+                            <td>
+                                <t t-set="company" t-value="o.company_id"/>
+                                <img t-if="company.pnt_logo_cert_uno"
+                                     t-att-src="image_data_uri(company.pnt_logo_cert_uno)"
+                                     alt="Company logo" style="height: 70px;"/>
+                            </td>
+                            <td>
+
+
+                            </td>
+                            <td>
+                                <t t-set="company" t-value="o.company_id"/>
+                                <img t-if="company.pnt_logo_cert_dos"
+                                     t-att-src="image_data_uri(company.pnt_logo_cert_dos)"
+                                     alt="Company cert 3" style="height: 75px; margin-left 800px"/>
+                            </td>
+
+                            <td>
+                                <t t-set="company" t-value="o.company_id"/>
+                                <img t-if="company.pnt_logo_cert_tres"
+                                     t-att-src="image_data_uri(company.pnt_logo_cert_tres)"
+                                     alt="Company cert 1" style="height:75px;"/>
+                            </td>
+
+
+                        </tr>
+
+
+
+                    </table>
+
+                </div>
+
+            </xpath>
+
+
+        </field>
+    </record>
+
+
+    <record id="inplast_report_picking_attachments" model="ir.ui.view">
+        <field name="name">inplast.report.picking.attachments</field>
+        <field name="inherit_id" ref="report_inplast.pnt_report_delivery_document"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//table[@name='stock_move_line_table']" position="after">
+
+                <div style="width: 100%;">
+                    <t t-set="company" t-value="o.company_id"/>
+                    <img t-if="company.pnt_goods_state_table"
+                         t-att-src="image_data_uri(company.pnt_goods_state_table)"
+                         alt="Company Image"/>
+                </div>
+
+
+                <div style="margin-bottom: 20px;">
+                    <strong>Total bultos:</strong>
+                    <span t-field="o.name"/>
+                    <br/>
+
+                    <strong>Total cajas:</strong>
+                    <span t-field="o.name"/>
+                    <br/>
+
+                    <strong>Total peso neto:</strong>
+                    <span t-field="o.weight"/>
+                    <br/>
+
+                    <strong>Total peso bruto:</strong>
+                    <span t-field="o.weight"/>
+                    <br/>
+
+
+                </div>
+                <div>
+                    <tr>
+                        <td>
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left;">Nº Pedido:
+                            </strong>
+                            <span t-field="o.name" style="margin-right: 20px; margin-bottom: 20px;"/>
+
+                        </td>
+                        <td>
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left;">Agencia de
+                                Transporte:
+                            </strong>
+                            <span t-field="o.carrier_id" style="margin-right: 70px; margin-bottom: 20px;"/>
+
+                        </td>
+                        <td>
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left;">Fecha:</strong>
+                            <span t-field="o.date" style="margin-right: 20px;margin-bottom: 20px;"/>
+
+                        </td>
+
+
+                    </tr>
+                    <tr style="margin: 50px;">
+                        <p>
+                            El poseedor final de los residuos de envases y embalajes usados deberá entregarlos en
+                            condiciones adecuadas de separación por materiales a
+                            un agente ecológico para su reutilización a un recuperador, a un reciclador o a un
+                            valorizador autorizados.\n
+                            Inscrita en el Registro Mercantil de Alicante: Tomo 1.712 General, Folio 11. Hoja nº.
+                            A-27.348. Inscripción 1ª, 14-6-1994 - C.I.F. A-03946472
+
+                        </p>
+                    </tr>
+
+
+                </div>
+
+
+            </xpath>
+
+
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+
+</odoo>
