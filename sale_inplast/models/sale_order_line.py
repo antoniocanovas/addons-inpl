@@ -31,3 +31,11 @@ class SaleOrderLine(models.Model):
                 base_qty = li.product_uom_qty * li.product_id.pnt_parent_qty
             li['pnt_base_sale_unit'] = base_qty
     pnt_base_sale_unit = fields.Integer('Base', store=False, compute='_get_packing_units_from_sale_qty')
+    @api.onchange('list_price','discount')
+    def _get_1k_price(self):
+        for record in self:
+            price = record.price_unit * 1000
+            if record.pnt_base_qty != 0:
+                price = record.price_subtotal / record.pnt_base_qty * 1000
+            record['pnt_base_1k_price'] =  price
+    pnt_base_1k_price = fields.Float('1K', compute='_get_1k_price')
