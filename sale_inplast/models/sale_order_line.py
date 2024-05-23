@@ -11,6 +11,8 @@ class SaleOrderLine(models.Model):
     pnt_product_ids = fields.Many2many('product.product', store=False, string='Pricelist products',
                                    related='order_id.pricelist_id.pnt_product_ids')
 
+    pnt_product_type = fields.Selection(related="product_id.pnt_product_type")
+
     @api.onchange('product_uom_qty','product_id','product_packaging_id','product_packaging_qty')
     def _get_base_units(self):
         for li in self:

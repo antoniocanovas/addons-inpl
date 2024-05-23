@@ -81,7 +81,7 @@ class ProductPackingWizard(models.TransientModel):
                 #
                     #    'pnt_plastic_weight': record.name.pnt_plastic_weight * baseqty,
                     'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
-                    'plastic_weight_tax': record.name.plastic_weight_tax * baseqty,
+                    'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
                     'tax_plastic_type': record.name.tax_plastic_type,
                     'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
                     'plastic_type_key': record.name.plastic_type_key,
