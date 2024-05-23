@@ -85,7 +85,7 @@ class ProductPackingWizard(models.TransientModel):
                     'tax_plastic_type': record.name.tax_plastic_type,
                     'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
                     'plastic_type_key': record.name.plastic_type_key,
-                    'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer
+                    'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer,
 
                     'standard_price': record.name.standard_price * baseqty,
                     'sale_ok': sale_ok,
