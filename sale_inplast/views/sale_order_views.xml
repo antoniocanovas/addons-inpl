@@ -14,33 +14,33 @@
             <xpath expr="//header" position="after">
                 <button name="pnt_action_update_prices" type="object" data-hotkey="shift+u"
                         string="Update prices" class="oe_highlight"
-                        invisible="(not id) or (pnt_update_prices or pnt_pricelist_state == 'locked')"/>
+                        invisible="pnt_update_prices or pnt_pricelist_state == 'locked'"/>
             </xpath>
 
             <!-- Change base products to MRP BOX AND PALLETS: -->
             <xpath expr="//header" position="inside">
                 <button name="update_order_lines_with_related_box_pallet_products" type="object" data-hotkey="shift+m"
                         string="MRP Products" class="oe_highlight"
-                        invisible="(not id) or (state in ['sale','done','cancel']) or (pnt_pricelist_state == 'locked')"/>
+                        invisible="state in ['sale','done','cancel'] or pnt_pricelist_state == 'locked'"/>
             </xpath>
 
             <!-- Mensajes de aviso y bloqueo por estado de la tarifa:  -->
             <xpath expr="//header" position="after">
-                <div class="alert alert-info mb-0" role="alert" invisible="not id or pnt_pricelist_state != 'update'">
+                <div class="alert alert-info mb-0" role="alert" invisible="pnt_pricelist_state != 'update'">
                     Revisa la tarifa de este cliente, ha pasado la fecha de actualización.
                 </div>
-                <div class="alert alert-danger mb-0" role="alert" invisible="not id or pnt_pricelist_state != 'locked'">
+                <div class="alert alert-danger mb-0" role="alert" invisible="pnt_pricelist_state != 'locked'">
                     El periodo de gracia de renovación de la tarifa ha pasado, actualiza o avisa al responsable.
                     La edición o confirmación del pedido están bloqueados.
                 </div>
-                <div class="alert alert-danger mb-0" role="alert" invisible="not id or pnt_update_prices or pnt_pricelist_state == 'locked'">
+                <div class="alert alert-danger mb-0" role="alert" invisible="pnt_update_prices or pnt_pricelist_state == 'locked'">
                     La oferta requiere actualización de precios. Se ejecutará automáticamente al realizar la próxima factura.
                 </div>
             </xpath>
 
             <!-- Bloquear order_line si tarifa bloqueado: -->
             <xpath expr="//field[@name='order_line']" position="attributes">
-                <attribute name="readonly">id and pnt_pricelist_state == "locked" or state == "cancel" or state == "locked"</attribute>
+                <attribute name="readonly">pnt_pricelist_state == "locked" or state == "cancel" or state == "locked"</attribute>
             </xpath>
 
             <!-- Estado de la tarifa en el momento de guardar líneas o cambiar estado: -->
