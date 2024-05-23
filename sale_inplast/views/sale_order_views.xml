@@ -14,7 +14,7 @@
             <xpath expr="//header" position="after">
                 <button name="pnt_action_update_prices" type="object" data-hotkey="shift+u"
                         string="Update prices" class="oe_highlight"
-                        invisible="not pnt_update_prices or pnt_pricelist_state == 'locked'"/>
+                        invisible="(not id) or (pnt_update_prices or pnt_pricelist_state == 'locked')"/>
             </xpath>
 
             <!-- Change base products to MRP BOX AND PALLETS: -->
