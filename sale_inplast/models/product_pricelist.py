@@ -75,8 +75,9 @@ class ProductPricelist(models.Model):
         nextupdate = date(now.year + years, month, self.env.company.pnt_update_month_day)
 
         for li in self.item_ids:
-            if ((li.pnt_new_price != li.fixed_price) and (li.pnt_product_state == True)
-                    or (li.price_surcharge == 0) and (li.product_tmpl_id.pnt_plastic_weight != 0)) :
+            # Cambiado 23/05 tras usar OCA:
+            if ((li.pnt_new_price != li.fixed_price) and (li.pnt_product_state == True):
+                #    or (li.price_surcharge == 0) and (li.product_tmpl_id.pnt_plastic_weight != 0)) :
                 categ = li.product_tmpl_id.categ_id
                 name = li.product_tmpl_id.name
                 if li.product_id.id: name = li.product_id.name
@@ -90,13 +91,15 @@ class ProductPricelist(models.Model):
 
                 # El impuesto al plástico aplica a ciertos régimenes fiscales, definimos en la tarifa (única por cliente)
                 # Aunque al crear la línea ya se asignó por onchange, aquí se actualiza por si cambia el impuesto:
-                plastic_tax = 0
-                if self.pnt_plastic_tax:
-                    plastic_tax = li.product_tmpl_id.pnt_plastic_1000unit_tax / 1000
+            # Quito la parte del impuesto al plástico (23/05/24) para usar OCA:
+                #plastic_tax = 0
+                #if self.pnt_plastic_tax:
+                #    plastic_tax = li.product_tmpl_id.pnt_plastic_1000unit_tax / 1000
 
                 li.write({'pnt_tracking_date':now,
-                          'price_surcharge': plastic_tax,
-                          'fixed_price':li.pnt_new_price})
+                          #'price_surcharge': plastic_tax,
+                          'fixed_price':li.pnt_new_price
+                          })
 
         if item_tracking != "":
             new_note = self.env['mail.message'].create({'body': item_tracking,
@@ -117,7 +120,8 @@ class ProductPricelist(models.Model):
             raw_increment = categ.pnt_i0
 
             # Tarifa/peso en familia:
-            pricelist_weight = product.pnt_plastic_weight
+            # QUITADO 23/05 PARA USAR OCA:
+            pricelist_weight = product.plastic_tax_weight
 
             # Incremento de precio debido al coste de materia prima (se consideran defectuosos):
             net_price = pricelist_weight * (raw_increment / 1000) * (1 + fault_percent/100) + (last_price * 1000)

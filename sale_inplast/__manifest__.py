@@ -20,7 +20,7 @@ Recálculo de tarifas en base a datos de familia, productos y materia prima.
         'account_invoice_pricelist_sale',
         'product_pricelist_fixed_extra',
         'product_category_chatter',
-        'l10n_es_aeat_mod592_pnt',
+        'l10n_es_aeat_mod592',
         'product_inplast',
     ],
     'data': [
