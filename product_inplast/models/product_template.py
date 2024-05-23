@@ -22,13 +22,14 @@ class ProductTemplate(models.Model):
     pnt_parent_qty = fields.Integer('Parent qty')
     pnt_product_dye = fields.Char(string='Product dye', store=True, copy=True)
 
-    @api.onchange('categ_id', 'pnt_parent_id', 'pnt_parent_qty', 'pnt_product_type')
-    def _get_pnt_plastic_weight(self):
-        for record in self:
-            weight = record.categ_id.pnt_plastic_weight
-            if record.pnt_product_type == 'packing':
-                weight = record.pnt_parent_id.categ_id.pnt_plastic_weight * record.pnt_parent_qty
-            record['pnt_plastic_weight'] = weight
+    # ELIMINADO PARA TRABAJAR CON OCA MAYO 2024:
+#    @api.onchange('categ_id', 'pnt_parent_id', 'pnt_parent_qty', 'pnt_product_type')
+#    def _get_pnt_plastic_weight(self):
+#        for record in self:
+#            weight = record.categ_id.pnt_plastic_weight
+#            if record.pnt_product_type == 'packing':
+#                weight = record.pnt_parent_id.categ_id.pnt_plastic_weight * record.pnt_parent_qty
+#            record['pnt_plastic_weight'] = weight
 
     pnt_product_coa = fields.Many2one(
         "pnt.coa",
