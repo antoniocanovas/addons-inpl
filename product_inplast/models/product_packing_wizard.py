@@ -78,7 +78,15 @@ class ProductPackingWizard(models.TransientModel):
                     'detailed_type': 'product',
                     'default_code': code,
                     'list_price': record.name.list_price * baseqty,
-                    'pnt_plastic_weight': record.name.pnt_plastic_weight * baseqty,
+                #
+                    #    'pnt_plastic_weight': record.name.pnt_plastic_weight * baseqty,
+                    'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
+                    'plastic_weight_tax': record.name.plastic_weight_tax * baseqty,
+                    'tax_plastic_type': record.name.tax_plastic_type,
+                    'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
+                    'plastic_type_key': record.name.plastic_type_key,
+                    'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer
+
                     'standard_price': record.name.standard_price * baseqty,
                     'sale_ok': sale_ok,
                     'purchase_ok': purchase_ok,
@@ -146,7 +154,7 @@ class ProductPackingWizard(models.TransientModel):
                         'product_tmpl_id': newpacking.id,
                         'applied_on': '1_product',
                         'compute_price': 'fixed',
-                        'price_surcharge': newpacking.pnt_plastic_1000unit_tax / 1000,
+                        #'price_surcharge': newpacking.pnt_plastic_1000unit_tax / 1000,
                         'fixed_price': newpacking.list_price,
                     })
                     pricelist.append(item.pricelist_id.id)
