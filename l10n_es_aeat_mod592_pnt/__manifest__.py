@@ -27,5 +27,5 @@ Impuesto al plástico.
         'views/res_company_views.xml',
         'views/product_template_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }
