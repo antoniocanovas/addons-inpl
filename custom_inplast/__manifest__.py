@@ -14,8 +14,8 @@
         "account",
         "l10n_es_partner",
         "partner_phone_secondary",
-        "partner_commission",
-        "partner_commission_manager_ee",
+        #"partner_commission",
+        #"partner_commission_manager_ee",
         "mrp_lot_as_serial",
     ],
     "data": [
