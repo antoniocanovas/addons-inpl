@@ -21,7 +21,7 @@
             <xpath expr="//header" position="inside">
                 <button name="update_order_lines_with_related_box_pallet_products" type="object" data-hotkey="shift+m"
                         string="MRP Products" class="oe_highlight"
-                        invisible="state in ['sale','done','cancel'] or pnt_pricelist_state == 'locked'"/>
+                        invisible="(not id) or (state in ['sale','done','cancel']) or (pnt_pricelist_state == 'locked')"/>
             </xpath>
 
             <!-- Mensajes de aviso y bloqueo por estado de la tarifa:  -->
