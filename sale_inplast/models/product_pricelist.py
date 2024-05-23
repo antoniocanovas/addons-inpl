@@ -76,7 +76,7 @@ class ProductPricelist(models.Model):
 
         for li in self.item_ids:
             # Cambiado 23/05 tras usar OCA:
-            if ((li.pnt_new_price != li.fixed_price) and (li.pnt_product_state == True):
+            if (li.pnt_new_price != li.fixed_price) and (li.pnt_product_state == True):
                 #    or (li.price_surcharge == 0) and (li.product_tmpl_id.pnt_plastic_weight != 0)) :
                 categ = li.product_tmpl_id.categ_id
                 name = li.product_tmpl_id.name
