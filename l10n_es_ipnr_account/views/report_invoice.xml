@@ -11,7 +11,13 @@
                 >Aporatación IPNR (RD 1055/2022): <span
                         t-field="line.ipnr_amount"
                         t-options="{'widget': 'monetary', 'display_currency': res_company.currency_id}"
-                    /></span>
+                    />
+             Peso:
+                <t t-set="weight" t-value="line.product_id.plastic_weight_non_recyclable * line.quantity"/>
+
+                <span
+                        t-esc="weight"
+                /> kg</span>
             </t>
         </xpath>
     </template>

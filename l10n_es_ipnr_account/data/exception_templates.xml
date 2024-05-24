@@ -6,7 +6,7 @@
         <div>
             Exception(s) occurred:
             <a href="#" t-att-data-oe-model="model" t-att-data-oe-id="origin" />.
-            The following products are subject to IPNR but have no weight.
+            The following products are subject to IPNR but have no weight for plastic and non recyclable plastic.
             <div class="mt16">
                 <p>Product(s):</p>
                 <ul t-foreach="products" t-as="product">

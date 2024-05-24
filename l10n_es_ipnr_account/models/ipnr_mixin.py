@@ -154,7 +154,7 @@ class IpnrMixin(models.AbstractModel):
         products_without_weight = (
             self[self._ipnr_secondary_unit_fields["line_ids"]]
             .mapped("product_id")
-            .filtered(lambda a: a.ipnr_has_amount and a.weight <= 0.0)
+            .filtered(lambda a: a.ipnr_has_amount and a.plastic_weight_non_recyclable <= 0.0 and a.plastic_tax_weight <= 0.0)
         )
         if products_without_weight:
             values = {

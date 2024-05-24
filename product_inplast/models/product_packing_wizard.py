@@ -80,8 +80,9 @@ class ProductPackingWizard(models.TransientModel):
                     'list_price': record.name.list_price * baseqty,
                 #
                     #    'pnt_plastic_weight': record.name.pnt_plastic_weight * baseqty,
-                    'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
-                    'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
+                    'ipnr_subject': 'yes' if record.name.ipnr_subject else 'category',
+                    #'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
+                    #'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
                     'tax_plastic_type': record.name.tax_plastic_type,
                     'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
                     'plastic_type_key': record.name.plastic_type_key,
@@ -93,6 +94,10 @@ class ProductPackingWizard(models.TransientModel):
                     'tracking': 'lot',
                     'pnt_mrp_as_serial': True,
                     'route_ids': [(6, 0, [routemrp.id])]
+                })
+                newpacking.write({
+                    'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
+                    'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
                 })
             else:
                 raise UserError('Este producto ya existe.')
