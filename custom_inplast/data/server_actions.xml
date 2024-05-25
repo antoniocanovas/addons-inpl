@@ -24,9 +24,9 @@ for li in records:
     pricelist = env['product.pricelist'].search([('mig_codigocliente','=',refpricelist)])
     if (partner.id) and (partner.id not in partners):
         if not pricelist.id:
-            impuestoalplastico = True
-            if partner.country_id.code != 'ES': impuestoalplastico = False
-            if partner.country_id.code == 'ES' and partner.state_id.code in ['TF','GC']: impuestoalplastico = False
+        #    impuestoalplastico = True
+        #    if partner.country_id.code != 'ES': impuestoalplastico = False
+        #    if partner.country_id.code == 'ES' and partner.state_id.code in ['TF','GC']: impuestoalplastico = False
             pricelist = env['product.pricelist'].create({
                 'name': partner.name,
                 'mig_codigocliente': refpricelist,
@@ -34,7 +34,7 @@ for li in records:
                 'pnt_last_update': li.fechaactualizacion,
                 'pnt_lock_date': li.fechalimitepedido,
                 'pnt_ethylene_price': li.precioetileno,
-                'pnt_plastic_tax': impuestoalplastico,
+        #        'pnt_plastic_tax': impuestoalplastico,
             })
 
     partners.append(partner.id)
@@ -397,8 +397,9 @@ for li in records:
         'product_tmpl_id': producto.id,
         'applied_on': '1_product',
         'compute_price': 'fixed',
-        'price_surcharge': producto.pnt_plastic_1000unit_tax / 1000,
-        'fixed_price': float(li.preciooferta) - producto.pnt_plastic_1000unit_tax / 1000
+    #    'price_surcharge': producto.pnt_plastic_1000unit_tax / 1000,
+    #    'fixed_price': float(li.preciooferta) - producto.pnt_plastic_1000unit_tax / 1000
+        'fixed_price': float(li.preciooferta)
     })
 
         </field>
