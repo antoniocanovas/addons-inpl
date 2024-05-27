@@ -83,10 +83,10 @@ class ProductPackingWizard(models.TransientModel):
                     'ipnr_subject': 'yes' if record.name.ipnr_subject else 'category',
                     #'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
                     #'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
-                    'tax_plastic_type': record.name.tax_plastic_type,
-                    'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
-                    'plastic_type_key': record.name.plastic_type_key,
-                    'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer,
+                    #'tax_plastic_type': record.name.tax_plastic_type,
+                    #'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
+                    #'plastic_type_key': record.name.plastic_type_key,
+                    #'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer,
 
                     'standard_price': record.name.standard_price * baseqty,
                     'sale_ok': sale_ok,
@@ -98,6 +98,10 @@ class ProductPackingWizard(models.TransientModel):
                 newpacking.write({
                     'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
                     'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
+                    'tax_plastic_type': record.name.tax_plastic_type,
+                    'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
+                    'plastic_type_key': record.name.plastic_type_key,
+                    'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer,
                 })
             else:
                 raise UserError('Este producto ya existe.')

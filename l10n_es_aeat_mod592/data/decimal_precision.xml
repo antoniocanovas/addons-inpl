@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+
+        <record model="decimal.precision" id="mod592_weight_digits">
+            <field name="name">MOD592 Weight</field>
+            <field name="digits">6</field>
+        </record>
+
+    </data>
+
+</odoo>

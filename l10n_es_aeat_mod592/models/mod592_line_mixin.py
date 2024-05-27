@@ -41,13 +41,13 @@ class L10nEsAeatmod592LineMixin(models.AbstractModel):
     )
     kgs = fields.Float(
         string="Weight",
-        digits="Product Unit of Measure",
+        digits="MOD592 Weight",
         compute="_compute_kgs",
         store=True,
     )
     no_recycling_kgs = fields.Float(
         string="Weight non reclycable",
-        digits="Product Unit of Measure",
+        digits="MOD592 Weight",
         compute="_compute_no_recycling_kgs",
         store=True,
     )
@@ -61,7 +61,7 @@ class L10nEsAeatmod592LineMixin(models.AbstractModel):
     product_uom_qty = fields.Float(
         compute="_compute_product_uom_qty",
         store=True,
-        digits="Product Unit of Measure",
+        digits="MOD592 Weight",
     )
     picking_id = fields.Many2one(
         comodel_name="stock.picking", related="stock_move_id.picking_id"
@@ -152,7 +152,7 @@ class L10nEsAeatmod592LineMixin(models.AbstractModel):
     def _compute_error_text(self):
         """Checks if all line fields are filled."""
         precision = self.env["decimal.precision"].precision_get(
-            "Product Unit of Measure"
+            "MOD592 Weight"
         )
         for record in self:
             errors = []

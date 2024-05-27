@@ -27,10 +27,10 @@ class ProductProduct(models.Model):
         selection=PRODUCT_KEYS, string="Plastic type key"
     )
     plastic_tax_weight = fields.Float(
-        string="Plastic weight", digits="INPLAST Weight"
+        string="Plastic weight", digits="MOD592 Weight"
     )
     plastic_weight_non_recyclable = fields.Float(
-        string="Plastic weight non recyclable", digits="INPLAST Weight"
+        string="Plastic weight non recyclable", digits="MOD592 Weight"
     )
     plastic_tax_regime_manufacturer = fields.Selection(
         selection=FISCAL_MANUFACTURERS,
@@ -44,7 +44,7 @@ class ProductProduct(models.Model):
     @api.constrains("plastic_weight_non_recyclable", "plastic_tax_weight")
     def check_plastic_weight_non_recyclable(self):
         precision = self.env["decimal.precision"].precision_get(
-            "Product Unit of Measure"
+            "MOD592 Weight"
         )
         for item in self:
             weight1 = item.plastic_weight_non_recyclable
