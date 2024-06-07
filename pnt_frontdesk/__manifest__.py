@@ -12,18 +12,18 @@
     "application": False,
     "installable": True,
     "depends": [
-       "frontdesk"
+        "frontdesk",
+        "website"
     ],
     "data": [
-
-
+        'views/frontdesk_visitor_views.xml'
 
     ],
 
-'assets': {
+    'assets': {
         'frontdesk.assets_frontdesk': [
 
-            'pnt_frontdesk/static/views/frontdesk_view.xml',
+            'pnt_frontdesk_inplast/static/views/frontdesk_view.xml',
         ],
 
     },
