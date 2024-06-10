@@ -10,4 +10,4 @@ class AccountMoveLine(models.Model):
     pnt_product_ids = fields.Many2many('product.product', store=False, string='Pricelist products',
                                    related='move_id.pricelist_id.pnt_product_ids')
 
-    pnt_product_type = fields.Selection(related="product_id.pnt_product_type")
+    pnt_product_type = fields.Selection(related="product_id.product_tmpl_id.pnt_product_type")
