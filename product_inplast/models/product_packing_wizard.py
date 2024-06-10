@@ -77,6 +77,7 @@ class ProductPackingWizard(models.TransientModel):
                     'pnt_parent_qty': baseqty,
                     'detailed_type': 'product',
                     'default_code': code,
+                    'pnt_product_dye': name.pnt_product_dye,
                     'list_price': record.name.list_price * baseqty,
                 #
                     #    'pnt_plastic_weight': record.name.pnt_plastic_weight * baseqty,
