@@ -1,31 +1,33 @@
 {
-    "name": "recepcion personalizada",
-    "summary": "añade un check obligatorio para evitar hacer el check in sin leer antes las politicas de la compañia",
-    "version": "17.0.1.0.1",
-    "category": "Customizations",
-    "website": "https://www.puntsistemes.es",
+    "name": "Product Inplast",
+    "summary": "Products Inplast",
+    "version": "17.0.1.0.0",
+    'category': 'Product, Picking',
     "author": "Punt Sistemes",
-    "maintainers": [
-        "PuntSistemes S.L.U"
+    "website": "https://www.puntsistemes.es",
+    "Maintainers":[
+        "Equipo rojo",
     ],
     "license": "LGPL-3",
-    "application": False,
-    "installable": True,
     "depends": [
-        "frontdesk",
-        "website"
+        "product",
+        "stock",
+        "account",
+        "mrp",
+        "report_qweb_pdf_watermark",
+        "mrp_lot_as_serial",
+        "custom_inplast",
+        "l10n_es_aeat_mod592",
     ],
     "data": [
-        'views/frontdesk_visitor_views.xml'
-
+        "security/ir.model.access.csv",
+        "views/res_company_views.xml",
+        "views/product_packing_wizard_views.xml",
+        "views/product_template_views.xml",
+        "views/menu_views.xml",
+        "data/stock_package_type.xml",
+        "report/templates.xml",
+        "report/ir_action_report.xml",
     ],
-
-    'assets': {
-        'frontdesk.assets_frontdesk': [
-
-            'pnt_frontdesk_inplast/static/views/frontdesk_view.xml',
-        ],
-
-    },
-
+    "installable": True,
 }
