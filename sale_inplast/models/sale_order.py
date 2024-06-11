@@ -48,7 +48,7 @@ class SaleOrder(models.Model):
             if (record.pnt_update_prices) and (record.state in ['sent','draft','sale']):
                 raise UserError('Precios obsoletos, se requiere actualizar precios para: ' + record.partner_id.name)
             for li in record.order_line:
-                if li.product_id.pnt_product_type == 'final':
+                if (li.product_id.pnt_product_type == 'final') and (record.state in ['sent','sale']):
                     raise UserError('Pedido con producto final, cámbialo por uno tipo PACKING (caja o palet).')
 
             else: return True
