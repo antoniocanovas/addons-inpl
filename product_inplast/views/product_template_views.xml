@@ -26,7 +26,7 @@
                        required="pnt_product_type in ['packing']"
                 />
                 <field name="pnt_product_dye"
-                       invisible="pnt_product_type not in ['final','semi']"
+                       invisible="pnt_product_type not in ['final','semi','packing']"
                 />
             </field>
             <xpath expr="//page[@name='general_information']" position="after">
