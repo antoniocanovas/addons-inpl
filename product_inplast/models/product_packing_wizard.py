@@ -40,7 +40,7 @@ class ProductPackingWizard(models.TransientModel):
         if self.pnt_type == 'box': prefix = 'C.'
         else: prefix = 'P.'
         self.pnt_prefix = prefix
-    pnt_prefix = fields.Char('Prefix', readonly=False, compute='_get_packing_prefix')
+    pnt_prefix = fields.Char('Prefix', store=True, compute='_get_packing_prefix')
 
     @api.onchange('pnt_pallet_box_qty', 'pnt_pallet_box_id')
     def _get_pallet_base_qty(self):
@@ -67,7 +67,7 @@ class ProductPackingWizard(models.TransientModel):
             # Comprobar si el producto ya existía (nombre similar creado automáticamente):
             name = record.name.name + dye + type + str(baseqty)
             exist = self.env['product.template'].search([('name', '=', name)])
-            if exist.id:
+            if exist.ids:
                 raise UserError('Este producto ya existe.')
 
             # Asignar un código similar al producto padre pero no repetido:
@@ -75,8 +75,8 @@ class ProductPackingWizard(models.TransientModel):
                 code = record.pnt_prefix + record.name.default_code
                 # Desarrollo para que no repita default_code (13/06/24):
                 existcode = self.env['product.template'].search([('default_code','=',code)])
-                if existcode.id:
-                    raise UserError('Código duplicado, cambia la letra del último campo.')
+                if existcode.ids:
+                    raise UserError('Código duplicado, cambia el último campo "Prefix".')
 
             # Continuamos, si no existe el producto y default_code es único:
             routemrp = self.env.ref('mrp.route_warehouse0_manufacture')
