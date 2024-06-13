@@ -63,49 +63,49 @@ class ProductPackingWizard(models.TransientModel):
             # Crear producto:
             dye, code = "", ""
             if record.name.pnt_product_dye: dye = " " + record.name.pnt_product_dye
+
+            # Comprobar si el producto ya existía (nombre similar creado automáticamente):
             name = record.name.name + dye + type + str(baseqty)
-                # Asignar un código similar al producto padre:
-            if record.name.default_code: code = record.pnt_prefix + record.name.default_code
-
             exist = self.env['product.template'].search([('name', '=', name)])
-            routemrp = self.env.ref('mrp.route_warehouse0_manufacture')
-            if not exist.id:
-                newpacking = self.env['product.template'].create({
-                    'name': name,
-                    'pnt_product_type': 'packing',
-                    'pnt_parent_id': record.name.id,
-                    'pnt_parent_qty': baseqty,
-                    'detailed_type': 'product',
-                    'default_code': code,
-                    'pnt_product_dye': record.name.pnt_product_dye,
-                    'list_price': record.name.list_price * baseqty,
-                #
-                    #    'pnt_plastic_weight': record.name.pnt_plastic_weight * baseqty,
-                    'ipnr_subject': 'yes' if record.name.ipnr_subject else 'category',
-                    #'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
-                    #'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
-                    #'tax_plastic_type': record.name.tax_plastic_type,
-                    #'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
-                    #'plastic_type_key': record.name.plastic_type_key,
-                    #'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer,
-
-                    'standard_price': record.name.standard_price * baseqty,
-                    'sale_ok': sale_ok,
-                    'purchase_ok': purchase_ok,
-                    'tracking': 'lot',
-                    'pnt_mrp_as_serial': True,
-                    'route_ids': [(6, 0, [routemrp.id])]
-                })
-                newpacking.write({
-                    'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
-                    'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
-                    'tax_plastic_type': record.name.tax_plastic_type,
-                    'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
-                    'plastic_type_key': record.name.plastic_type_key,
-                    'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer,
-                })
-            else:
+            if exist.id:
                 raise UserError('Este producto ya existe.')
+
+            # Asignar un código similar al producto padre pero no repetido:
+            if record.name.default_code:
+                code = record.pnt_prefix + record.name.default_code
+                # Desarrollo para que no repita default_code (13/06/24):
+                existcode = self.env['product.template'].search([('default_code','=',code)])
+                if existcode.id:
+                    raise UserError('Código duplicado, cambia la letra del último campo.')
+
+            # Continuamos, si no existe el producto y default_code es único:
+            routemrp = self.env.ref('mrp.route_warehouse0_manufacture')
+            newpacking = self.env['product.template'].create({
+                'name': name,
+                'pnt_product_type': 'packing',
+                'pnt_parent_id': record.name.id,
+                'pnt_parent_qty': baseqty,
+                'detailed_type': 'product',
+                'default_code': code,
+                'pnt_product_dye': record.name.pnt_product_dye,
+                'list_price': record.name.list_price * baseqty,
+                'ipnr_subject': 'yes' if record.name.ipnr_subject else 'category',
+                'categ_id': record.name.categ_id.id,
+                'standard_price': record.name.standard_price * baseqty,
+                'sale_ok': sale_ok,
+                'purchase_ok': purchase_ok,
+                'tracking': 'lot',
+                'pnt_mrp_as_serial': True,
+                'route_ids': [(6, 0, [routemrp.id])]
+            })
+            newpacking.write({
+                'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,
+                'plastic_tax_weight': record.name.plastic_tax_weight * baseqty,
+                'tax_plastic_type': record.name.tax_plastic_type,
+                'plastic_tax_regime_manufacturer': record.name.plastic_tax_regime_manufacturer,
+                'plastic_type_key': record.name.plastic_type_key,
+                'plastic_tax_regime_acquirer': record.name.plastic_tax_regime_acquirer,
+            })
 
             # Crear lista de materiales
             newldm = self.env['mrp.bom'].create({
