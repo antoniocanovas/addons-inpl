@@ -45,6 +45,7 @@ class MrpProduction(models.Model):
 
         mo_lot.write({'pnt_mrp_serial': seq})
 
+    def update_unreserve_reserve_primary_lot(self):
         # Unreserve / Reserve, original lot => New lots:
         pickings, productions = [], []
         sml = self.env['stock.move.line'].search(
@@ -67,4 +68,5 @@ class MrpProduction(models.Model):
         res = super().button_mark_done()
         if self.product_id.pnt_mrp_as_serial:
             self.update_lot_as_serial()
+            self.update_unreserve_reserve_primary_lot()
         return res
