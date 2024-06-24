@@ -48,6 +48,7 @@ class MrpProduction(models.Model):
     def update_unreserve_reserve_primary_lot(self):
         # Unreserve / Reserve, original lot => New lots:
         pickings, productions = [], []
+        mo_lot = self.lot_producing_id
         sml = self.env['stock.move.line'].search(
             [('product_id', '=', self.product_id.id), ('lot_id', '=', mo_lot.id)])
         for li in sml:
