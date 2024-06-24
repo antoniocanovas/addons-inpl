@@ -45,6 +45,24 @@ class MrpProduction(models.Model):
 
         mo_lot.write({'pnt_mrp_serial': seq})
 
+        # Unreserve / Reserve, original lot => New lots:
+        pickings, productions = [], []
+        sml = self.env['stock.move.line'].search(
+            [('product_id', '=', record.product_id.id), ('lot_id', '=', record.lot_producing_id.id)])
+        for li in sml:
+            if (li.picking_id.id) and (li.picking_id not in pickings):
+                pickings.append(li.picking_id)
+            if (li.production_id.id) and (li.production_id not in productions):
+                productions.append(li.production_id)
+
+        for pi in pickings:
+            pi.do_unreserve()
+            pi.action_assign()
+
+        for mo in productions:
+            mo.do_unreserve()
+            mo.action_assign()
+
     def button_mark_done(self):
         res = super().button_mark_done()
         if self.product_id.pnt_mrp_as_serial:
