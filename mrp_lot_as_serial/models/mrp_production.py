@@ -69,5 +69,5 @@ class MrpProduction(models.Model):
         res = super().button_mark_done()
         if self.product_id.pnt_mrp_as_serial:
             self.update_lot_as_serial()
-            self.update_unreserve_reserve_primary_lot()
+       #     self.update_unreserve_reserve_primary_lot()
         return res
