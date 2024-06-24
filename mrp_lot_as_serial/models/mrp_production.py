@@ -48,7 +48,7 @@ class MrpProduction(models.Model):
         # Unreserve / Reserve, original lot => New lots:
         pickings, productions = [], []
         sml = self.env['stock.move.line'].search(
-            [('product_id', '=', record.product_id.id), ('lot_id', '=', record.lot_producing_id.id)])
+            [('product_id', '=', self.product_id.id), ('lot_id', '=', mo_lot.id)])
         for li in sml:
             if (li.picking_id.id) and (li.picking_id not in pickings):
                 pickings.append(li.picking_id)
