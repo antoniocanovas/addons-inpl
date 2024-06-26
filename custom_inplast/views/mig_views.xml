@@ -1,6 +1,26 @@
 <odoo>
     <data>
 
+        <record id="migration_hr_employee_inh_form" model="ir.ui.view">
+            <field name="name">migration.hr.employee.inh.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page string="_migración" name="migration">
+                        <group name="first" position="after">
+                            <group>
+                                <field name="mig_cuenta_bancaria"/>
+                                <field name="fecha_alta"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+            <field name="priority">99</field>
+            <field name="type">form</field>
+        </record>
+
         <record id="inplast_pricelist_mig_inh_view" model="ir.ui.view">
             <field name="name">inplast.pricelist.mig.inh.view</field>
             <field name="model">product.pricelist</field>
