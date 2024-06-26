@@ -11,7 +11,7 @@
                         <group name="first" position="after">
                             <group>
                                 <field name="mig_cuenta_bancaria"/>
-                                <field name="fecha_alta"/>
+                                <field name="mig_fecha_alta"/>
                             </group>
                         </group>
                     </page>
