@@ -12,6 +12,7 @@
                             <group>
                                 <field name="mig_cuenta_bancaria"/>
                                 <field name="mig_fecha_alta"/>
+                                <field name="mig_tarjeta"/>
                             </group>
                         </group>
                     </page>
