@@ -64,4 +64,4 @@ class SaleOrder(models.Model):
                     price = li.price_unit * li.product_uom_qty / li.product_packaging_qty
                     qty = li.product_packaging_qty
                     li.write({'product_id': pppackaging.id, 'product_uom_qty': qty, 'price_unit': price,
-                              'product_packaging_id': False, 'product_packaging_qty': 0})
+                              'product_packaging_id': pppackaging.id, 'product_packaging_qty': 0})
