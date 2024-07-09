@@ -61,7 +61,7 @@ class SaleOrder(models.Model):
                 pppackaging = self.env['product.product'].search(
                     [('pnt_parent_id', '=', li.product_id.id), ('pnt_parent_qty', '=', li.product_packaging_id.qty)])
                 mrppackaging = self.env['product.packaging'].search(
-                    [('product_id','=',pppackaging.id),('qty','=',1)]
+                    [('product_id','=',pppackaging.id),('qty','=',1)])
                 if pppackaging.id and mrppackaging.id:
                     price = li.price_unit * li.product_uom_qty / li.product_packaging_qty
                     qty = li.product_packaging_qty
