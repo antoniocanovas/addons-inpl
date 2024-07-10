@@ -43,7 +43,7 @@ class ProductPackingWizard(models.TransientModel):
             record['pnt_prefix'] = prefix
     pnt_prefix = fields.Char('Prefix', store=True, readonly=False, compute='_get_packing_prefix')
 
-    @api.onchange('pnt_pallet_box_qty', 'pnt_pallet_box_id')
+    @api.depends('pnt_pallet_box_qty', 'pnt_pallet_box_id')
     def _get_pallet_base_qty(self):
         for record in self:
             qty = 0
