@@ -27,8 +27,9 @@ class MrpProduction(models.Model):
 
     def action_confirm(self):
         res = super().action_confirm()
-        if self.product_id.pnt_mrp_as_serial:
-            self.get_split_mrp_as_serial()
+        for record in self:
+            if record.product_id.pnt_mrp_as_serial:
+                record.get_split_mrp_as_serial()
         return True
 
     def update_lot_as_serial(self):
