@@ -35,6 +35,9 @@ class ProductTemplate(models.Model):
         "pnt.coa",
         string="COA",
     )
+    pnt_product_coa_components = fields.Html(
+        string="Components"
+    )
 
     @api.depends('name', 'default_code', 'pnt_product_dye')
     def _compute_display_name(self):

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="action_picking_report_type" model="ir.actions.act_window">
+        <field name="name">Picking Report Types</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">picking.report.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="picking_report_type_form" model="ir.ui.view">
+        <field name="active" eval="True"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet string="Picking Report">
+                    <h2>
+                        <field name="name"/>
+                    </h2>
+                    <group name="basic_params" col="4">
+                        <field name="coa"/>
+                        <field name="coab"/>
+                        <field name="components_table"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="model">picking.report.type</field>
+        <field name="name">Default form view </field>
+        <field name="priority">16</field>
+        <field name="type">form</field>
+    </record>
+
+    <record id="picking_report_type_tree" model="ir.ui.view">
+        <field name="active" eval="True"/>
+        <field name="arch" type="xml">
+            <tree string="Picking Report">
+                <field name="name"/>
+                <field name="coa"/>
+                <field name="coab"/>
+                <field name="components_table"/>
+            </tree>
+        </field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="model">picking.report.type</field>
+        <field name="name">Default tree view</field>
+        <field name="priority">16</field>
+        <field name="type">tree</field>
+    </record>
+
+    <menuitem id="pnt_menu_picking_report"
+              name="Reports"
+              parent="stock.menu_stock_config_settings"
+              sequence="100"/>
+    <menuitem id="pnt_menu_picking_report_types"
+              name="Report types"
+              action="action_picking_report_type"
+              parent="report_inplast.pnt_menu_picking_report"
+              sequence="101"/>
+
+</odoo>

@@ -5,4 +5,4 @@ class StockPicking(models.Model):
 
 
     def get_template_report(self):
-        return self.partner_id.pnt_picking_report_id.xml_id
+        return "report_inplast.pnt_report_delivery_document"

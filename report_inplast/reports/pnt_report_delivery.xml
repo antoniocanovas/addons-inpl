@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Todos los templates para picking deben tener prioridad 922 para el filtro del M2O -->
+    <template id="pnt_report_delivery_document" name="Custom Delivery Document">
+        <t t-name="pnt_report_delivery_document">
+            <t t-call="web.html_container">
+                <t t-call="stock.report_delivery_document"/>
+                <t t-set="lines" t-value="o.move_ids"/>
+                <t t-foreach="lines" t-as="line">
+                    <t t-if="o.partner_id.pnt_picking_report_id.coa" t-call="report_inplast.coa_product_document_a"/>
+                    <t t-if="o.partner_id.pnt_picking_report_id.components_table" t-call="report_inplast.coa_product_document_attachment"/>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="inplast_report_picking_attachments" model="ir.ui.view">
+        <field name="name">inplast.report.picking.attachments</field>
+        <field name="inherit_id" ref="stock.report_delivery_document"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//table[@name='stock_move_line_table']" position="after">
+
+                <div style="width: 100%;">
+                    <t t-set="company" t-value="o.company_id"/>
+                    <img t-if="company.pnt_goods_state_table"
+                         t-att-src="image_data_uri(company.pnt_goods_state_table)"
+                         alt="Company Image"/>
+                </div>
+
+
+                <div style="margin-bottom: 20px;">
+                    <strong>Total bultos:</strong>
+                    <span t-field="o.name"/>
+                    <br/>
+
+                    <strong>Total cajas:</strong>
+                    <span t-field="o.name"/>
+                    <br/>
+
+                    <strong>Total peso neto:</strong>
+                    <span t-field="o.weight"/>
+                    <br/>
+
+                    <strong>Total peso bruto:</strong>
+                    <span t-field="o.weight"/>
+                    <br/>
+
+
+                </div>
+                <div>
+                    <tr>
+                        <td>
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left;">Nº Pedido:
+                            </strong>
+                            <span t-field="o.name" style="margin-right: 20px; margin-bottom: 20px;"/>
+
+                        </td>
+                        <td>
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left;">Agencia de
+                                Transporte:
+                            </strong>
+                            <span t-field="o.carrier_id" style="margin-right: 70px; margin-bottom: 20px;"/>
+
+                        </td>
+                        <td>
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left;">Fecha:</strong>
+                            <span t-field="o.date" style="margin-right: 20px;margin-bottom: 20px;"/>
+
+                        </td>
+
+
+                    </tr>
+                    <tr style="margin: 50px;">
+                        <p>
+                            El poseedor final de los residuos de envases y embalajes usados deberá entregarlos en
+                            condiciones adecuadas de separación por materiales a
+                            un agente ecológico para su reutilización a un recuperador, a un reciclador o a un
+                            valorizador autorizados.\n
+                            Inscrita en el Registro Mercantil de Alicante: Tomo 1.712 General, Folio 11. Hoja nº.
+                            A-27.348. Inscripción 1ª, 14-6-1994 - C.I.F. A-03946472
+
+                        </p>
+                    </tr>
+
+
+                </div>
+
+
+            </xpath>
+
+
+        </field>
+        <field name="priority">99</field>
+    </record>
+
+
+
+</odoo>

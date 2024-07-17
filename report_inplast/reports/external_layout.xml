@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<odoo>
+
+    <record id="inplast_external_layout_custom" model="ir.ui.view">
+        <field name="name">inplast.external.layout.custom</field>
+        <field name="inherit_id" ref="web.external_layout_standard"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@t-attf-class='header o_company_#{company.id}_layout']" position="replace"
+                   style="padding 100px">
+                <div class="header o_company_#{company.id}_layout" style=" border: none;width: 100%;height: 40%">
+
+
+                    <table style=" border: none;">
+
+                        <tr style=" border-bottom: none;">
+                            <div>
+
+                                <td>
+                                    <t t-set="company" t-value="o.company_id"/>
+                                    <img t-if="company.logo"
+                                         t-att-src="image_data_uri(company.logo)"
+                                         alt="Company logo" style="height: 70px;"/>
+                                </td>
+
+                            </div>
+                        </tr>
+                        <tr style=" border-bottom: none;">
+
+
+                            <td>
+                                <t t-set="company" t-value="o.company_id"/>
+                                <img t-if="company.pnt_logo_cert_uno"
+                                     t-att-src="image_data_uri(company.pnt_logo_cert_uno)"
+                                     alt="Company logo" style="height: 70px;"/>
+                            </td>
+                            <td>
+
+
+                            </td>
+                            <td>
+                                <t t-set="company" t-value="o.company_id"/>
+                                <img t-if="company.pnt_logo_cert_dos"
+                                     t-att-src="image_data_uri(company.pnt_logo_cert_dos)"
+                                     alt="Company cert 3" style="height: 75px; margin-left 800px"/>
+                            </td>
+
+                            <td>
+                                <t t-set="company" t-value="o.company_id"/>
+                                <img t-if="company.pnt_logo_cert_tres"
+                                     t-att-src="image_data_uri(company.pnt_logo_cert_tres)"
+                                     alt="Company cert 1" style="height:75px;"/>
+                            </td>
+
+
+                        </tr>
+
+
+
+                    </table>
+
+                </div>
+
+            </xpath>
+
+
+        </field>
+    </record>
+
+</odoo>

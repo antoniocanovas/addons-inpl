@@ -18,9 +18,13 @@
         "web",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/res_partner_views.xml",
         "views/templates.xml",
-        "views/pnt_report_delivery.xml",
+        "reports/pnt_report_delivery.xml",
         "views/res_company_views.xml",
+        "reports/external_layout.xml",
+        "reports/coa_product_document.xml",
+        "views/picking_report_views.xml",
     ],
 }

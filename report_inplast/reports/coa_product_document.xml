@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="coa_product_document_a" name="COA Document A">
+        <t t-name="coa_product_document_a">
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
+                <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+                <div><p style="text-center">CERTIFICATE OF QUALITY</p></div>
+                <div><p>Product purchase data</p></div>
+                <table width="80%">
+                    <tr>
+                        <td>
+                            <span style="background-color:#81bddc"> Denomination </span>
+                        </td>
+                        <td colspan="3">
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                        <td>
+                            <span style="background-color:#81bddc"> Counter </span>
+                        </td>
+                        <td>
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="background-color:#81bddc"> Reference Nº </span>
+                        </td>
+                        <td >
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                        <td>
+                            <span style="background-color:#81bddc"> Batch Nº </span>
+                        </td>
+                        <td>
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                        <td>
+                            <span style="background-color:#81bddc"> Quantity </span>
+                        </td>
+                        <td>
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="background-color:#81bddc"> Raw Material </span>
+                        </td>
+                        <td>
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                        <td>
+                            <span style="background-color:#81bddc"> Colour </span>
+                        </td>
+                        <td>
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                        <td>
+                            <span style="background-color:#81bddc"> Waybill Nº </span>
+                        </td>
+                        <td>
+                            <span t-field="line.product_id.name"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <span style="background-color:#81bddc"> Cod.CLI </span>
+                        </td>
+                        <td>
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                        <td/>
+                        <td/>
+                        <td>
+                            <span style="background-color:#81bddc"> Prod. Date </span>
+                        </td>
+                        <td>
+                            <span t-field="line.product_id.name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:#81bddc">
+                            <span > Destination </span>
+                        </td>
+                        <td colspan="5">
+                            <span style="text-center" t-field="o.partner_id"/>
+                        </td>
+                    </tr>
+                </table>
+                <div style="width: 100%;">
+                    <span t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="coa_product_document_attachment" name="COA Document attachment">
+        <t t-name="coa_product_document_attachment">
+
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
+                <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+                <p>Components Attachment</p>
+                <div style="width: 100%;">
+                    <span t-raw="line.product_id.pnt_product_coa_components"/>
+                </div>
+            </t>
+
+        </t>
+    </template>
+
+
+
+</odoo>
