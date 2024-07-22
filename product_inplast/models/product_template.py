@@ -21,7 +21,7 @@ class ProductTemplate(models.Model):
     pnt_parent_id = fields.Many2one('product.template', string='Main product')
     pnt_parent_qty = fields.Integer('Parent qty')
     pnt_product_dye = fields.Char(string='Product dye', store=True, copy=True)
-
+    pnt_box_qty = fields.Integer("Box quantity")
     # ELIMINADO PARA TRABAJAR CON OCA MAYO 2024:
 #    @api.onchange('categ_id', 'pnt_parent_id', 'pnt_parent_qty', 'pnt_product_type')
 #    def _get_pnt_plastic_weight(self):
@@ -34,6 +34,10 @@ class ProductTemplate(models.Model):
     pnt_product_coa = fields.Many2one(
         "pnt.coa",
         string="COA",
+    )
+    pnt_product_handle_coa = fields.Many2one(
+        "pnt.coa",
+        string="COA Handle",
     )
     pnt_product_coa_components = fields.Html(
         string="Components"

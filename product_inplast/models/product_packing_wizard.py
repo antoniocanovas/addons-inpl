@@ -55,9 +55,11 @@ class ProductPackingWizard(models.TransientModel):
         for record in self:
             # Tipo de empaquetado PALET o Caja:
             # Cantidades base:
-            baseqty, type, sale_ok, purchase_ok = record.pnt_box_base_qty, " - Caja ", False, False
+
+            baseqty, boxqty, type, sale_ok, purchase_ok = record.pnt_box_base_qty, 1,  " - Caja ", False, False
             packagetype = self.env.ref('product_inplast.package_type_box_inplast')
             if record.pnt_type != 'box':
+                boxqty = record.pnt_pallet_box_qty
                 baseqty = record.pnt_pallet_base_qty
                 type = " - Palet "
                 packagetype = self.env.ref('product_inplast.package_type_pallet_inplast')
@@ -101,7 +103,8 @@ class ProductPackingWizard(models.TransientModel):
                 'purchase_ok': purchase_ok,
                 'tracking': 'lot',
                 'pnt_mrp_as_serial': True,
-                'route_ids': [(6, 0, [routemrp.id])]
+                'route_ids': [(6, 0, [routemrp.id])],
+                'pnt_box_qty': boxqty,
             })
             newpacking.write({
                 'plastic_weight_non_recyclable': record.name.plastic_weight_non_recyclable * baseqty,

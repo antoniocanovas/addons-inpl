@@ -25,6 +25,9 @@
                        invisible="pnt_product_type not in ['packing']"
                        required="pnt_product_type in ['packing']"
                 />
+                 <field name="pnt_box_qty"
+                       invisible="pnt_product_type not in ['packing']"
+                />
                 <field name="pnt_product_dye"
                        invisible="pnt_product_type not in ['final','semi','packing']"
                 />
@@ -33,6 +36,7 @@
                 <page string="COA" name="COA">
                     <group name="COA">
                         <field string="COA" name="pnt_product_coa"/>
+                        <field string="COA Handle" name="pnt_product_handle_coa"/>
                         <field string="Components" name="pnt_product_coa_components"/>
 
                     </group>
@@ -52,6 +56,7 @@
                             <field name="pnt_packing_ids" nolabel="1" readonly="1" colspan="2">
                                     <tree>
                                         <field name="name"/>
+                                        <field name="pnt_parent_qty"/>
                                         <field name="pnt_parent_qty"/>
                                         <field name="pnt_product_type"/>
                                     </tree>

@@ -16,6 +16,7 @@
         "account",
         "stock",
         "web",
+        "delivery_inplast",
     ],
     "data": [
         "security/ir.model.access.csv",
@@ -25,6 +26,7 @@
         "views/res_company_views.xml",
         "reports/external_layout.xml",
         "reports/coa_product_document.xml",
+        "reports/packing_list.xml",
         "views/picking_report_views.xml",
     ],
 }
