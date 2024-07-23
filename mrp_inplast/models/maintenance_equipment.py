@@ -22,6 +22,8 @@ class MaintenanceEquipment(models.Model):
         comodel_name="maintenance.equipment",
         string="Accesories",
         relation="mrp_model_accesory_rel",
+        column1="tool_id",
+        column2="accesory_id",
     )
 
     pnt_workcenter_ids = fields.Many2many('mrp.workcenter', store=True, copy=True, string='Other workcenters')
