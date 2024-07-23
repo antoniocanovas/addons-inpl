@@ -18,5 +18,5 @@ class MaintenanceEquipment(models.Model):
                                                 related='company_id.pnt_mrp_accesory_categ_id')
 
     pnt_tool_id = fields.Many2one('maintenance.equipment', string='Tool', store=True)
-    pnt_accesory_ids = fields.One2many('maintenance.equipment', 'pnt_tool_id', string='Accesories', store=True)
+    pnt_accesory_ids = fields.Many2many('maintenance.equipment', string='Accesories', store=True)
     pnt_workcenter_ids = fields.Many2many('mrp.workcenter', store=True, copy=True, string='Other workcenters')

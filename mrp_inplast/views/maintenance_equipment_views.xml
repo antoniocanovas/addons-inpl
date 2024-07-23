@@ -15,7 +15,8 @@
                            domain="[('id','!=',id),('category_id','=',pnt_mrp_tool_categ_id)]"
                            required="category_id == pnt_mrp_accesory_categ_id"
                            invisible="category_id != pnt_mrp_accesory_categ_id"/>
-                    <field name="pnt_accesory_ids" widget="many2many_tags" readonly="1"
+                    <field name="pnt_accesory_ids" widget="many2many_tags"
+                           domain="[('category_id','=','pnt_mrp_accesory_categ_id)]"
                            invisible="category_id != pnt_mrp_tool_categ_id"/>
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="attributes">
