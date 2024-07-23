@@ -18,3 +18,5 @@ class ProductTemplate(models.Model):
 
     # El molde para usar en la fabricación (con o sin accesorio):
     pnt_tool_id = fields.Many2one('maintenance.equipment', string='Mold', store=True, copy=True)
+    pnt_accesory_id = fields.Many2one('maintenance.equipment', string='Accesory', store=True, copy=True)
+    pnt_accesory_ids = fields.Many2many(related="pnt_tool_id.pnt_accesory_ids")

@@ -18,12 +18,15 @@ class MaintenanceEquipment(models.Model):
                                                 related='company_id.pnt_mrp_accesory_categ_id')
 
     pnt_tool_id = fields.Many2one('maintenance.equipment', string='Tool', store=True)
-    pnt_accesory_ids = fields.Many2many(
-        comodel_name="maintenance.equipment",
-        string="Accesories",
-        relation="mrp_model_accesory_rel",
-        column1="tool_id",
-        column2="accesory_id",
-    )
+    pnt_accesory_ids = fields.Many2many(comodel_name='maintenance.equipment',
+                                        relation="mrp_mold_accesory_rel",
+                                        column1='tool_id',
+                                        column2="accesory_id",
+                                        string='Accesories', store=True)
+    pnt_tool_ids = fields.Many2many(comodel_name='maintenance.equipment',
+                                        relation="mrp_mold_accesory_rel",
+                                        column1="accesory_id",
+                                        column2='tool_id',
+                                        string='Tools', store=True)
 
     pnt_workcenter_ids = fields.Many2many('mrp.workcenter', store=True, copy=True, string='Other workcenters')

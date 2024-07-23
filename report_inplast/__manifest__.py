@@ -27,6 +27,7 @@
         "reports/external_layout.xml",
         "reports/coa_product_document.xml",
         "reports/packing_list.xml",
+        "reports/pnt_report_invoice.xml",
         "views/picking_report_views.xml",
     ],
 }
