@@ -23,5 +23,5 @@ class MaintenanceEquipment(models.Model):
         string="Accesories",
         relation="mrp_model_accesory_rel",
     )
-                                        string='Accesories', store=True)
+
     pnt_workcenter_ids = fields.Many2many('mrp.workcenter', store=True, copy=True, string='Other workcenters')
