@@ -18,3 +18,5 @@ class ResCompany(models.Model):
                                          store=True, help="Injections or pressure Molds (Maintenance equipments)")
     pnt_mrp_accesory_categ_id = fields.Many2one('maintenance.equipment.category', string='Accesories category',
                                              store=True, help="Molds accesories category (Maintenance equipments)")
+    pnt_mrp_blade_categ_id = fields.Many2one('maintenance.equipment.category', string='Blades category',
+                                                store=True, help="Blades accesories category (Maintenance equipments)")

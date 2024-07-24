@@ -9,7 +9,7 @@
                 <t t-set="lines" t-value="o.move_ids"/>
                 <t t-foreach="lines" t-as="line">
                     <t t-if="o.partner_id.pnt_picking_report_id.coa" t-call="report_inplast.coa_product_document_a"/>
-                    <t t-if="o.partner_id.pnt_picking_report_id.coa_handle" t-call="report_inplast.coa_product_handle_document"/>
+                    <t t-if="o.partner_id.pnt_picking_report_id.coa" t-call="report_inplast.coa_product_handle_document"/>
                     <t t-if="o.partner_id.pnt_picking_report_id.components_table"
                        t-call="report_inplast.coa_product_document_attachment"/>
                     <t t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
@@ -24,7 +24,7 @@
         <field name="name">inplast.report.picking.attachments</field>
         <field name="inherit_id" ref="stock.report_delivery_document"/>
         <field name="arch" type="xml">
-            <xpath expr="//table[@name='stock_move_table']/thead" position="replace">
+            <!--<xpath expr="//table[@name='stock_move_table']/thead" position="replace">
 
                 <thead>
                     <tr style="border: 1px solid black; padding: 5px;">
@@ -78,7 +78,7 @@
                 </tbody>
 
 
-            </xpath>
+            </xpath> -->
 
 
             <xpath expr="//div[@t-if='not o.signature']" position="before">
