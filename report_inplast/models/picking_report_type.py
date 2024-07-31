@@ -6,6 +6,9 @@ class PickingReportType(models.Model):
 
 
     name = fields.Char("Delivery slip name")
-    coa = fields.Boolean("Attach COA")
+    coa = fields.Boolean("Attach COA", default=True)
     coa_batch_certificate = fields.Boolean("Attach COA batch certificate")
-    components_table = fields.Boolean("Attach Components table")
+    coa_multicolor = fields.Boolean("Attach COA Multicolor")
+    coa_milk = fields.Boolean("Attach COA quality messures")
+    coa_box_tracking = fields.Boolean("Attach box tracking")
+

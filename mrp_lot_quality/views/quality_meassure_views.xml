@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+   <!-- <record id="action_quality_meassure_view" model="ir.actions.act_window">
+        <field name="name">COA</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">quality.meassure.line</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem id="quality_meassures"
+              parent="stock.menu_stock_inventory_control"
+              name="Quality meassure" action="action_quality_meassure_view"/>
+    />-->
+
+    <record id="quality_meassures_tree" model="ir.ui.view">
+        <field name="active" eval="True"/>
+        <field name="arch" type="xml">
+            <tree string="Quality Meassure">
+                <field name="lot_id"/>
+                <field name="figure"/>
+                <field name="external_plate"/>
+                <field name="internal_without_screw"/>
+                <field name="total_internal"/>
+                <field name="total_height"/>
+            </tree>
+        </field>
+        <field name="groups_id" eval="[(6, 0, [])]"/>
+        <field name="inherit_id" eval="False"/>
+        <field name="key" eval="False"/>
+        <field name="mode">primary</field>
+        <field name="model">quality.meassure.line</field>
+        <field name="name">Default tree view for Quality Meassure Line</field>
+        <field name="priority">16</field>
+        <field name="type">tree</field>
+    </record>
+
+</odoo>

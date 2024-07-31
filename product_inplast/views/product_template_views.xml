@@ -36,8 +36,8 @@
                 <page string="COA" name="COA">
                     <group name="COA">
                         <field string="COA" name="pnt_product_coa"/>
-                        <field string="COA Handle" name="pnt_product_handle_coa"/>
-                        <field string="Components" name="pnt_product_coa_components"/>
+                        <!--<field string="COA Handle" name="pnt_product_handle_coa"/>
+                        <field string="Components" name="pnt_product_coa_components"/>-->
                     </group>
                 </page>
                 <page string="Relations" name="relations" groups="base.group_no_one">

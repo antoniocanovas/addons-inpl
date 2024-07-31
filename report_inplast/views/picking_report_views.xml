@@ -19,7 +19,9 @@
                     <group name="basic_params" col="4">
                         <field name="coa"/>
                         <field name="coa_batch_certificate"/>
-                        <field name="components_table"/>
+                        <field name="coa_multicolor"/>
+                <field name="coa_milk"/>
+                <field name="coa_box_tracking"/>
                     </group>
                 </sheet>
             </form>
@@ -41,7 +43,9 @@
                 <field name="name"/>
                 <field name="coa"/>
                 <field name="coa_batch_certificate"/>
-                <field name="components_table"/>
+                <field name="coa_multicolor"/>
+                <field name="coa_milk"/>
+                <field name="coa_box_tracking"/>
             </tree>
         </field>
         <field name="groups_id" eval="[(6, 0, [])]"/>

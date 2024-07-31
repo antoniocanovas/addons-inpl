@@ -5,8 +5,8 @@
         <field name="arch" type="xml">
             <xpath expr="//div[@t-attf-class='header o_company_#{company.id}_layout']" position="replace"
                    style="border: none;">
-                <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
-                    <div class="row">
+                <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style" style="margin-bottom:40px;">
+                    <div class="row" style="margin-bottom:40px;">
                         <div class="col-9 mb4">
                             <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 230px;"
                                  alt="Logo"/>
@@ -24,9 +24,7 @@
                         </div>
 
                     </div>
-                    <div style="margin-top -40px">
-                        <div class="col-4"></div>
-                    </div>
+
                 </div>
             </xpath>
         </field>

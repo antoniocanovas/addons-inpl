@@ -1,187 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data>
+        <!-- Todos los templates para picking deben tener prioridad 922 para el filtro del M2O -->
+        <template id="pnt_report_delivery_document" name="Custom Delivery Document">
+            <t t-name="pnt_report_delivery_document">
+                <t t-call="web.html_container">
+                    <t t-call="stock.report_delivery_document"/>
+                    <!-- ITERAMOS LOTES -->
+                    <t t-foreach="o.move_line_ids" t-as="line">
+                            <t t-if="o.partner_id.pnt_picking_report_id.coa">
+                                <t t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
+                                   t-call="report_inplast.coa_product_document_a"/>
+                                <t t-if="line.product_id.pnt_product_coa.type == 'nmp'"
+                                   t-call="report_inplast.coa_product_nmp_document"/>
+                                <t t-if="line.product_id.pnt_product_coa.type == 'asas'"
+                                   t-call="report_inplast.coa_product_handle_document"/>
 
-    <!-- Todos los templates para picking deben tener prioridad 922 para el filtro del M2O -->
-    <template id="pnt_report_delivery_document" name="Custom Delivery Document">
-        <t t-name="pnt_report_delivery_document">
-            <t t-call="web.html_container">
-                <t t-call="stock.report_delivery_document"/>
-                <t t-set="lines" t-value="o.move_ids"/>
-                <t t-foreach="lines" t-as="line">
-                    <t t-if="o.partner_id.pnt_picking_report_id.coa" t-call="report_inplast.coa_product_document_a"/>
-                    <t t-if="o.partner_id.pnt_picking_report_id.coa" t-call="report_inplast.coa_product_handle_document"/>
-                    <t t-if="o.partner_id.pnt_picking_report_id.components_table"
-                       t-call="report_inplast.coa_product_document_attachment"/>
-                    <t t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
-                       t-call="report_inplast.coa_product_batch_certificate_document"/>
+                                <!-- igual que arriba para buxton -->
+                                <t t-if="line.product_id.pnt_product_coa.type == 'buxton'">
+                                    <t t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
+                                   t-call="report_inplast.coa_product_batch_certificate_document"/>
+                                </t>
+                                <t t-if="o.partner_id.pnt_picking_report_id.coa_multicolor
+                             and line.product_id.pnt_product_coa.print_multicolor"
+                                   t-call="report_inplast.coa_product_document_multicolor_attachment"/>
+                                <t t-if="o.partner_id.pnt_picking_report_id.coa_milk
+                             and line.product_id.pnt_product_coa.print_quality_meassure"
+                                   t-call="report_inplast.coa_product_document_meassures_attachment"/>
+                                <t t-if="line.product_id.pnt_product_coa.print_components"
+                                   t-call="report_inplast.coa_product_document_attachment"/>
+                                <!-- FALTA BOX TRACKING  si cliente box tracking y ¿cajas? ... informe cajas-->
+                            </t>
+                    </t>
+                    <t t-if="o.carrier_id.pnt_print_picking_list" t-call="report_inplast.packing_list"/>
                 </t>
-                <t t-if="o.carrier_id.pnt_print_picking_list" t-call="report_inplast.packing_list"/>
             </t>
-        </t>
-    </template>
+        </template>
 
-    <record id="inplast_report_picking_attachments" model="ir.ui.view">
-        <field name="name">inplast.report.picking.attachments</field>
-        <field name="inherit_id" ref="stock.report_delivery_document"/>
-        <field name="arch" type="xml">
-            <!--<xpath expr="//table[@name='stock_move_table']/thead" position="replace">
+        <!-- Plantilla para extender stock_report_delivery_has_serial_move_line -->
+        <template id="report_delivery_has_serial_move_line_inh"
+                  inherit_id="stock.stock_report_delivery_has_serial_move_line" priority="99">
+            <xpath expr="//t[@t-name='stock.stock_report_delivery_has_serial_move_line']" position="inside">
 
-                <thead>
-                    <tr style="border: 1px solid black; padding: 5px;">
-                        <th name="th_sm_codigo">
-                            <strong>Codigo</strong>
-                        </th>
-                        <th name="th_sm_n_pedido">
-                        <strong>NºPedido</strong>
-                        </th>
-                        <th name="th_sm_cantidad">
-                            <strong>Cantidad</strong>
-                        </th>
-                        <th name="th_sm_descripcion">
-                            <strong>Descripcion</strong>
-                        </th>
-                        <th name="th_sm_cajas_unidades">
-                            <strong>Cajas/Unidades</strong>
-                        </th>
-                    </tr>
-                </thead>
+                <td class="text-center">
+                    <span>(</span>
+                    <span t-esc="move_line.quantity * o.product_id.pnt_box_qty"/>
+                    <span> X </span>
+                    <span t-esc="o.product_id.pnt_parent_qty/o.product_id.pnt_box_qty"/>
+                    <span>Und. / Caja</span>
+                    <span>)</span>
+                </td>
+                <td class="text-center">
+                    <span t-esc="move_line.quantity * o.product_id.pnt_parent_qty"/>
+                </td>
+                <td class="text-center">
+                    <span t-esc="o.product_id.pnt_parent_qty"/>
+                </td>
             </xpath>
-            <xpath expr="//table[@name='stock_move_table']/tbody" position="replace">
-                <tbody>
-                    <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
+        </template>
+
+        <!-- Plantilla para extender stock_report_delivery_aggregated_move_lines -->
+        <template id="report_delivery_aggregated_move_lines_inh"
+                  inherit_id="stock.stock_report_delivery_aggregated_move_lines" priority="99">
+            <xpath expr="//tr/td[last()]" position="after">
+                <td class="text-center">
+                    <span>hola2</span>
+                </td>
+            </xpath>
+        </template>
+
+        <record id="inplast_report_picking_attachments" model="ir.ui.view">
+            <field name="name">inplast.report.picking.attachments</field>
+            <field name="inherit_id" ref="stock.report_delivery_document"/>
+            <field name="arch" type="xml">
+                <xpath expr="//table[@name='stock_move_line_table']/thead/tr" position="inside">
+                    <th class="text-center">
+                        <strong>Caja/Unidades</strong>
+                    </th>
+                    <th class="text-center">
+                        <strong>Unidades</strong>
+                    </th>
+                    <th class="text-center">
+                        <strong>Unidades x bulto</strong>
+                    </th>
+                </xpath>
+
+                <!-- Extender las vistas en el tbody -->
+                <xpath expr="//t[@t-call='stock.stock_report_delivery_has_serial_move_line']" position="replace">
+                    <t t-call="report_inplast.report_delivery_has_serial_move_line_inh"/>
+                </xpath>
+
+                <xpath expr="//t[@t-call='stock.stock_report_delivery_aggregated_move_lines']" position="replace">
+                    <t t-call="report_inplast.report_delivery_aggregated_move_lines_inh"/>
+                </xpath>
+
+                <xpath expr="//div[@t-if='not o.signature']" position="before">
+                    <div style="width: 65%;">
+
+                        <t t-set="company" t-value="o.company_id"/>
+                        <img style="margin-top:50px;" t-if="company.pnt_goods_state_table"
+                             t-att-src="image_data_uri(company.pnt_goods_state_table)"
+                             alt="Company Image"/>
+                    </div>
+                    <t t-set="lines" t-value="o.move_ids"/>
+
+                    <!-- Calcula las cantidades totales -->
                     <t t-set="total_quantity" t-value="sum(line.quantity for line in lines)"/>
-                    <t t-set="total_quantity_box" t-value="sum((line.product_id.pnt_box_qty)*line.quantity for line in lines)"/>
+                    <t t-set="total_quantity_box"
+                       t-value="sum((line.product_id.pnt_box_qty)*line.quantity for line in lines)"/>
 
-
-                    <t t-set="total_quantity_weight"
-                       t-value="sum(line.product_id.weight * line.quantity for line in lines)"/>
-                    <tr t-foreach="lines" t-as="move">
-                        <td>
-                            <span t-field="move.product_id">Customizable Desk</span>
-                            <p t-if="move.description_picking and move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name">
-                                <span t-field="move.description_picking">Description on transfer</span>
-                            </p>
-                        </td>
-                        <td>
-                            <span t-field="o.name">3.00</span>
-                        </td>
-                         <td>
-                            <span t-field="move.quantity">3.00</span>
-                        </td>
-                        <td>
-                            <span t-field="move.description_picking">3.00</span>
-                        </td>
-                        <td>
-                            <span t-field="move.product_id.pnt_parent_qty">3.00</span>
-                        </td>
-                    </tr>
-                </tbody>
-
-
-            </xpath> -->
-
-
-            <xpath expr="//div[@t-if='not o.signature']" position="before">
-
-
-
-                <div style="width: 65%;">
-                    <t t-set="company" t-value="o.company_id"/>
-                    <img t-if="company.pnt_goods_state_table" t-att-src="image_data_uri(company.pnt_goods_state_table)"
-                         alt="Company Image"/>
-                </div>
-                <div style="margin-top: 20px;">
-                    <strong>Total bultos:</strong>
-                    <span t-esc="total_quantity"/>
-                    <br/>
-                    <strong style="margin-top: 5px;">Total cajas:</strong>
-                    <span t-esc="total_quantity_box">0</span>
-                    <br/>
-                    <strong style="margin-top: 5px;">Total peso neto:</strong>
-                    <span t-esc="o.weight"/>
-                    <br/>
-                    <strong style="margin-top: 5px;">Total peso bruto:</strong>
-                    <span t-esc="o.shipping_weight"/>
-                    <br/>
-                </div>
-                <div class="row" style="margin-top: 20px;">
-                    <div class="col-4">
-                        <strong style="border: 2px solid #000000; padding: 5px; text-align: left;background-color:#D3D3D3;">
-                            Nº Pedido:
-                        </strong>
-                        <span style="margin-left: 5px" t-field="o.sale_id.client_order_ref"/>
+                    <div style="margin-top: 20px;">
+                        <strong>Total bultos:</strong>
+                        <span t-esc="total_quantity"/>
+                        <br/>
+                        <strong style="margin-top: 5px;">Total cajas:</strong>
+                        <span t-esc="total_quantity_box">0</span>
+                        <br/>
+                        <strong style="margin-top: 5px;">Total peso neto:</strong>
+                        <span t-esc="o.weight"/>
+                        <br/>
+                        <strong style="margin-top: 5px;">Total peso bruto:</strong>
+                        <span t-esc="o.shipping_weight"/>
+                        <br/>
                     </div>
-                    <div class="col-offset-8 col-4">
-                        <strong style="border: 2px solid #000000; padding: 5px; text-align: left;background-color:#D3D3D3;">
-                            Agencia de Transporte:
-                        </strong>
-                        <span style="margin-left: 5px" t-field="o.carrier_id"/>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-4">
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left;background-color:#D3D3D3;">
+                                Nº Pedido:
+                            </strong>
+                            <span style="margin-left: 5px" t-field="o.sale_id.client_order_ref"/>
+                        </div>
+                        <div class="col-offset-8 col-4">
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left;background-color:#D3D3D3;">
+                                Agencia de Transporte:
+                            </strong>
+                            <span style="margin-left: 5px" t-field="o.carrier_id"/>
+                        </div>
+                        <div class="col-offset-16 col-4 ">
+                            <strong style="border: 2px solid #000000; padding: 5px; text-align: left; background-color:#D3D3D3;">
+                                Fecha:
+                            </strong>
+                            <span style="margin-left: 5px" t-esc="o.date.strftime('%d/%m/%Y')"/>
+                        </div>
                     </div>
-                    <div class="col-offset-16 col-4 ">
-                        <strong style="border: 2px solid #000000; padding: 5px; text-align: left; background-color:#D3D3D3;">
-                            Fecha:
-                        </strong>
-                        <span style="margin-left: 5px" t-esc="o.date.strftime('%d/%m/%Y')"/>
-                    </div>
-                </div>
-                <div style="margin-top: 15px;">
-                    <p>El poseedor final de los residuos de envases y embalajes usados deberá entregarlos en condiciones
-                        adecuadas de separación por materiales a un agente ecológico para su reutilización a un
-                        recuperador, a un reciclador o a un valorizador autorizados.\n Inscrita en el Registro Mercantil
-                        de Alicante: Tomo 1.712 General, Folio 11. Hoja nº. A-27.348. Inscripción 1ª, 14-6-1994 - C.I.F.
-                        A-03946472
-                    </p>
-                </div>
+                    <div style="font-size: 14px;">
+                        <div class="row" style="margin-top: 15px; margin-bottom: 20px;">
+                            <div class="col-6">
+                                <t t-if="o.carrier_id.pnt_agency_or_carrier">
+                                    <strong>Transport Agent</strong>
+                                    <span t-field="o.carrier_id"/>
+                                    <br/>
+                                </t>
+                                <t t-if="o.carrier_id.pnt_address">
+                                    <strong>Address</strong>
+                                    <span t-field="o.carrier_id.pnt_address"/>
+                                    <br/>
+                                </t>
+                                <t t-if="o.carrier_id.pnt_cif">
+                                    <strong>CIF</strong>
+                                    <span t-field="o.carrier_id.pnt_cif"/>
+                                    <br/>
+                                </t>
+                            </div>
 
-
-            </xpath>
-            <xpath expr="//t[@t-set='address']" position="replace">
-                <div style="height:30px;"></div>
-                <div class="row">
-                    <div class="col-6">
+                            <div class="col-offset-15 col-5">
+                                <t t-if="o.carrier_id.pnt_driver_name">
+                                    <strong>Driver Name</strong>
+                                    <span t-field="o.carrier_id.pnt_driver_name"/>
+                                    <br/>
+                                </t>
+                                <t t-if="o.carrier_id.pnt_driver_id">
+                                    <strong>Driver ID</strong>
+                                    <span t-field="o.carrier_id.pnt_driver_id"/>
+                                    <br/>
+                                </t>
+                                <t t-if="o.carrier_id.pnt_license_plate">
+                                    <strong>License Plate</strong>
+                                    <span t-field="o.carrier_id.pnt_license_plate"/>
+                                    <br/>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <strong style="margin-top: 5px;">Comments</strong>
+                                <br/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-offset-6 col-6">
-                        <strong t-field="o.name">WH/OUT/0001</strong>
+                    <div style="margin-top: 15px;">
+                        <p>El poseedor final de los residuos de envases y embalajes usados deberá entregarlos en
+                            condiciones
+                            adecuadas de separación por materiales a un agente ecológico para su reutilización a un
+                            recuperador, a un reciclador o a un valorizador autorizados.\n Inscrita en el Registro
+                            Mercantil
+                            de Alicante: Tomo 1.712 General, Folio 11. Hoja nº. A-27.348. Inscripción 1ª, 14-6-1994 -
+                            C.I.F.
+                            A-03946472
+                        </p>
                     </div>
-                </div>
-                <div class="row justify-content-center align-items-center">
+                </xpath>
 
-                    <div class="col-6 text-center"
-                         style=" border: 1px solid black;height: 30px;background-color:#D3D3D3;">
-                        <strong style="text-align: center;width: 100%;">Cliente</strong>
+                <xpath expr="//t[@t-set='address']" position="replace">
+                    <div style="height:30px;"></div>
+                    <div class="row">
+                        <div class="col-6">
+                        </div>
+                        <div class="col-offset-6 col-6">
+                            <strong t-field="o.name">WH/OUT/0001</strong>
+                        </div>
                     </div>
-                    <div class="col-offset-6 col-6 text-center"
-                         style=" border: 1px solid black;height: 30px;background-color:#D3D3D3; margin-left 3px">
-                        <strong>Plaza</strong>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-6 text-center"
+                             style=" border: 1px solid black;height: 30px;background-color:#D3D3D3;">
+                            <strong style="text-align: center;width: 100%;">Cliente</strong>
+                        </div>
+                        <div class="col-offset-6 col-6 text-center"
+                             style=" border: 1px solid black;height: 30px;background-color:#D3D3D3; margin-left 3px">
+                            <strong>Plaza</strong>
+                        </div>
                     </div>
-                </div>
-                <div class="row gx-2">
-                    <div class="col-5 col-auto">
-                        <strong t-field="o.partner_id"/>
+                    <div class="row gx-2">
+                        <div class="col-5 col-auto">
+                            <strong t-field="o.partner_id"/>
+                        </div>
+                        <div class="col-2 col-auto">
+                            <span t-field="o.partner_id.phone"/>
+                            <span>  </span>
+                        </div>
+                        <div class="col-5 col-auto">
+                            <span t-field="o.partner_id.street" style="margin-left 15px"/>
+                            <span t-field="o.partner_id.zip"/>
+                        </div>
+                        <div class="col-2 col-auto">
+                            <span t-field="o.partner_id.state_id.name"/>
+                        </div>
                     </div>
-                    <div class="col-2 col-auto">
-                        <span t-field="o.partner_id.phone"/>
-                    </div>
-                    <div class="col-5 col-auto">
-                        <span t-field="o.partner_id.street" style="margin-left 15px"/>
-                        <span t-field="o.partner_id.zip"/>
-                    </div>
-                    <div class="col-2 col-auto">
-                        <span t-field="o.partner_id.state_id.name"/>
-                    </div>
-                </div>
+                </xpath>
 
-            </xpath>
-            <xpath expr="//div[@class='page']/h2/span[@t-field='o.name']" position="replace">
+                <xpath expr="//div[@class='page']/h2/span[@t-field='o.name']" position="replace">
+                </xpath>
 
-            </xpath>
-            <xpath expr="//div[contains(@class, 'row') and contains(@class, 'mt32') and contains(@class, 'mb32')]" position="replace">
-            </xpath>
-
-
-        </field>
-        <field name="priority">99</field>
-    </record>
-
-
+                <xpath expr="//div[contains(@class, 'row') and contains(@class, 'mt32') and contains(@class, 'mb32')]"
+                       position="replace">
+                </xpath>
+            </field>
+            <field name="priority">99</field>
+        </record>
+    </data>
 </odoo>

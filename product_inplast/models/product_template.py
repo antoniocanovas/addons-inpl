@@ -40,7 +40,7 @@ class ProductTemplate(models.Model):
         string="COA Handle",
     )
     pnt_product_coa_components = fields.Html(
-        string="Components"
+        string="Components table"
     )
 
     @api.depends('name', 'default_code', 'pnt_product_dye')
