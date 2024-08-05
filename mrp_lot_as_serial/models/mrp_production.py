@@ -40,7 +40,7 @@ class MrpProduction(models.Model):
             name = mo_lot.name + "." + str(seq)
             lot = self.env['stock.lot'].search([('product_id', '=', li.product_id.id), ('name', '=', name)])
             if not lot.id:
-                lot = self.env['stock.lot'].create({'product_id': li.product_id.id, 'name': name})
+                lot = self.env['stock.lot'].create({'product_id': li.product_id.id, 'name': name, 'parent_id': mo_lot.id})
             li.write({'lot_id': lot.id})
             seq += 1
 

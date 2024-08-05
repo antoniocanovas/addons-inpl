@@ -16,8 +16,8 @@
     <record id="quality_meassures_tree" model="ir.ui.view">
         <field name="active" eval="True"/>
         <field name="arch" type="xml">
-            <tree string="Quality Meassure">
-                <field name="lot_id"/>
+            <tree string="Quality Meassure" editable="bottom" >
+                <field name="lot_id" readonly="1"/>
                 <field name="figure"/>
                 <field name="external_plate"/>
                 <field name="internal_without_screw"/>

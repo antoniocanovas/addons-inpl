@@ -10,7 +10,7 @@
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
                 <div>
                     <p style="text-center">CERTIFICATE OF QUALITY</p>
-                    <t t-esc="line.product_id.pnt_product_coa.type"/>
+
                 </div>
                 <div style="border: 1px solid black; padding: 10px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
@@ -45,7 +45,7 @@
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
                             <t t-if="line.lot_id">
-                                <t t-esc="line.lot_id.name"/>
+                                <t t-esc="line.lot_id.parent_id.name"/>
                             </t>
 
                         </div>
@@ -54,7 +54,7 @@
                             <span>Quantity</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity"/>
+                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity_done_by_lot"/>
                         </div>
 
                     </div>
@@ -75,7 +75,7 @@
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
-                            <span>Waybill Nº &#1060;</span>
+                            <span>Waybill Nº</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
                             <span t-field="line.origin"/>
@@ -120,7 +120,9 @@
 
 
                 </div>
-
+                <div class="row">
+                    <div class="col" style="height:20px"></div>
+                </div>
                 <div style="width: 100%;">
                     <span t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
                 </div>
@@ -179,7 +181,7 @@
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
                 <div>
                     <p style="text-center">CERTIFICATE OF QUALITY ASA</p>
-                    <t t-esc="line.product_id.pnt_product_coa.type"/>
+
 
                 </div>
                 <div style="border: 1px solid black; padding: 10px;">
@@ -190,7 +192,7 @@
                             <span>Denomination</span>
                         </div>
                         <div style="border: 1px solid black; padding: 3px;margin:1px;" class="col-6">
-                            <span t-field="line.lot_id.name"/>
+                            <span t-field="line.lot_id.parent_id.name"/>
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
@@ -215,7 +217,7 @@
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
 
-                            <t t-esc="line.lot_id.name"/>
+                            <t t-esc="line.lot_id.parent_id.name"/>
 
 
                         </div>
@@ -224,7 +226,7 @@
                             <span>Quantity</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity"/>
+                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity_done_by_lot"/>
                         </div>
 
                     </div>
@@ -281,9 +283,14 @@
                     </div>
                 </div>
 
-                <div style="width: 100%;">
-                    <span t-raw="line.product_id.pnt_product_handle_coa.pnt_coa_body"/>
+                <div class="row">
+                    <div class="col" style="height:20px"></div>
                 </div>
+
+                <div style="width: 100%; background-color: gray; position: relative;">
+                    <span style="position: absolute;" t-raw="line.product_id.pnt_product_handle_coa.pnt_coa_body"/>
+                </div>
+
 
             </t>
         </t>
@@ -331,7 +338,7 @@
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
                             <t t-if="line.lot_id">
-                                <t t-esc="line.lot_id.name"/>
+                                <t t-esc="line.lot_id.parent_id.name"/>
                             </t>
 
                         </div>
@@ -340,7 +347,7 @@
                             <span>Quantity</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity"/>
+                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity_done_by_lot"/>
                         </div>
 
                     </div>
@@ -376,11 +383,12 @@
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
                             <span t-field="line.product_id.pnt_product_dye"/>
                         </div>
-                        <div style="margin:1px;" class="col-1">
+                        <div style="background-color:#03fdfd;border: 1px solid black; padding: 5px;margin:1px;"
+                             class="col-1">
                             <span>Colour lid</span>
 
                         </div>
-                        <div style="margin:1px;" class="col-2">
+                        <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
                             <span t-field="line.product_id.pnt_product_dye"/>
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
@@ -459,8 +467,6 @@
     </template>
 
 
-
-
     <!-- ############# COA BATCH CERTIFICATE ####### -->
     <template id="coa_product_batch_certificate_document" name="COA Document batch certificate document">
 
@@ -494,7 +500,7 @@
                                 <span>NESTLE MATERIAL NUMBER</span>
                             </div>
                             <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                                <span >CONSULTAR</span>
+                                <span t-field="line.product_id.pnt_product_coa.material_number"/>
                             </div>
                             <div style=" padding: 2px;margin:1px;" class="col-2">
 
@@ -517,7 +523,7 @@
                                 <span>NESTLE SPECIFICATION NUMBER</span>
                             </div>
                             <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                                <span >CONSULTAR</span>
+                                <span t-field="line.product_id.pnt_product_coa.specification_number"/>
                             </div>
                             <div style="margin:1px;" class="col-2">
 
@@ -528,7 +534,7 @@
                                 <span>QUANTIT</span>
                             </div>
                             <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                                <span t-field="line.quantity"/>
+                                <span t-field="line.quantity_done_by_lot"/>
                             </div>
 
                         </div>
@@ -540,7 +546,7 @@
                             </div>
                             <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                                  class="col-3">
-                                <span >CONSULTAR</span>
+                                <span t-field="line.product_id"/>
                             </div>
                         </div>
                     </div>
@@ -557,7 +563,7 @@
                             <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                                  class="col-4">
                                 <t t-if="line.lot_id">
-                                    <span t-esc="line.lot_id.name"/>
+                                    <span t-esc="line.lot_id.parent_id.name"/>
                                 </t>
                             </div>
 
@@ -565,13 +571,13 @@
                         <div class="row">
                             <div style="background-color:#03fdfd;border: 1px solid black; padding: 5px;margin:1px;"
                                  class="col-3">
-                                <span>DATE(S) OF PRODUCTION </span>
+                                <span>DATE(S) OF PRODUCTION</span>
                             </div>
                             <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                                  class="col-4">
                                 <t t-if="line.lot_id">
                                     <span t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"/>
-                                    <span> - </span>
+                                    <span>-</span>
                                     <span t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"/>
                                 </t>
                             </div>
@@ -580,7 +586,7 @@
                         <div class="row">
                             <div style="background-color:#03fdfd;border: 1px solid black; padding: 5px;margin:1px;"
                                  class="col-3">
-                                <span>FACTORY NAME </span>
+                                <span>FACTORY NAME</span>
                             </div>
                             <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                                  class="col-4">
@@ -595,7 +601,7 @@
                             </div>
                             <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                                  class="col-4">
-                                <span >CONSULTAR</span>
+                                <span t-field="line.product_id.pnt_product_coa.vendor_site_number"/>
                             </div>
 
                         </div>
@@ -644,7 +650,7 @@
                             </div>
                             <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                                  class="col-4">
-                                <span t-field="line.quantity"/>
+                                <span>YES</span>
                             </div>
 
                         </div>
@@ -655,7 +661,7 @@
                             </div>
                             <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                                  class="col-4">
-                                <span t-field="line.quantity"/>
+                                <span>YES</span>
                             </div>
 
                         </div>
@@ -667,7 +673,7 @@
 
                         <div class="row">
                             <div class="col-3" style="text-align:left;margin-bottom:5px;">
-                                <strong>BATCH ANALYSIS RESULTS </strong>
+                                <strong>BATCH ANALYSIS RESULTS</strong>
                             </div>
                         </div>
 
@@ -678,11 +684,11 @@
                             </div>
                             <div class="col-1"
                                  style="background-color:#03fdfd;border: 1px solid black; padding: 5px; margin-right: -1px;">
-                                <strong>UNIT </strong>
+                                <strong>UNIT</strong>
                             </div>
                             <div class="col-4"
                                  style="background-color:#03fdfd;border: 1px solid black; padding: 5px; margin-right: -1px;">
-                                <strong>SPECIFICATION </strong>
+                                <strong>SPECIFICATION</strong>
                             </div>
                             <div class="col-4"
                                  style="background-color:#03fdfd;border: 1px solid black; padding: 5px;">
@@ -715,11 +721,11 @@
                             </div>
                             <div class="col-1"
                                  style="background-color:#03fdfd;border: 1px solid black; padding: 5px; margin-right: -1px;">
-                                <strong>UNIT </strong>
+                                <strong>UNIT</strong>
                             </div>
                             <div class="col-4"
                                  style="background-color:#03fdfd;border: 1px solid black; padding: 5px; margin-right: -1px;">
-                                <strong>SPECIFICATION </strong>
+                                <strong>SPECIFICATION</strong>
                             </div>
                             <div class="col-4" style="background-color:#03fdfd;border: 1px solid black; padding: 5px;">
                                 <strong>ACTUAL/AVERAGE RESULT</strong>
@@ -774,7 +780,7 @@
                     <div name="PIE-PAGINA">
                         <div class="row">
                             <div class="col-3" style="text-align:left;margin-bottom:5px;">
-                                <strong>STATEMENT OF CONFORMANCE </strong>
+                                <strong>STATEMENT OF CONFORMANCE</strong>
                             </div>
                         </div>
 
@@ -806,9 +812,7 @@
                         </div>
                     </div>
 
-                    <div style="width: 100%;">
-                        <span t-raw="line.product_id.pnt_product_handle_coa.pnt_coa_body"/>
-                    </div>
+
                 </div>
             </t>
         </t>
@@ -884,8 +888,8 @@
                             <span>Batch Nº</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
-                            <t t-if="line.lot_id">
-                                <t t-esc="line.lot_id.name"/>
+                            <t t-if="line.lot_id.parent_id">
+                                <t t-esc="line.lot_id.parent_id.name"/>
                             </t>
 
                         </div>
@@ -894,7 +898,7 @@
                             <span>Quantity</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity"/>
+                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity_done_by_lot"/>
                         </div>
 
                     </div>
@@ -941,48 +945,52 @@
 
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col" style="height:20px"></div>
+                </div>
                 <table>
                     <thead>
                         <tr>
-                            <td>
-                                <span>Figure</span>
-                            </td>
-                            <td>
-                                <span>Ext Plate</span>
-                            </td>
-                            <td>
-                                <span>Internal w/o Screw</span><p>&#1060;</p>
-                            </td>
-                            <td>
-                                <span>Internal Screw</span>
-                            </td>
-                            <td>
-                                <span>Total Height</span><p>(13,65 +/- 0,30)</p>
-                            </td>
+                            <th style="width: 16.67%; background-color: #03fdfd; border: 1px solid #000; box-sizing: border-box; text-align: center; padding: 8px;">
+                                Figure
+                            </th>
+                            <th style="width: 16.67%; background-color: #03fdfd; border: 1px solid #000; box-sizing: border-box; text-align: center; padding: 8px;">
+                                &#1060;Ext Plate(<span>38,4&#177;0,3</span>)
+                            </th>
+                            <th style="width: 16.67%; background-color: #03fdfd; border: 1px solid #000; box-sizing: border-box; text-align: center; padding: 8px;">
+                                &#1060;Internal w/o Screw(<span>36,3&#177;0,15</span>)
+                            </th>
+                            <th style="width: 16.67%; background-color: #03fdfd; border: 1px solid #000; box-sizing: border-box; text-align: center; padding: 8px;">
+                                &#1060;Internal Screw(<span>34,9&#177;0,25</span>)
+                            </th>
+                            <th style="width: 16.67%; background-color: #03fdfd; border: 1px solid #000; box-sizing: border-box; text-align: center; padding: 8px;">
+                                Total Height
+                                (<span>13,65&#177;0,3</span>)
+                            </th>
                         </tr>
-
                     </thead>
                     <tbody>
-                        <t t-foreach="line.lot_id.quality_meassure_line_ids" t-as="meassure">
+                        <t t-foreach="line.lot_id.parent_id.quality_meassure_line_ids" t-as="meassure">
                             <tr>
-                                <td>
+                                <td style="text-align: center;">
                                     <span t-esc="meassure.figure"></span>
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
                                     <span t-esc="meassure.external_plate"></span>
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
                                     <span t-esc="meassure.internal_without_screw"></span>
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
                                     <span t-esc="meassure.total_internal"></span>
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
                                     <span t-esc="meassure.total_height"></span>
                                 </td>
                             </tr>
                         </t>
                     </tbody>
+
                 </table>
             </t>
         </t>

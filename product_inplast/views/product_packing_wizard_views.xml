@@ -46,7 +46,7 @@
                         <field name="pnt_pallet_box_id"
                                string="Empty boxes"
                                required="pnt_type == 'palletmat'"
-                               domain="[('pnt_parent_id', '=', False),('pnt_product_type','=','packaging')]"
+                               domain="[('pnt_parent_id', '=', False),('pnt_product_type','=','box')]"
                                invisible="pnt_type != 'palletmat'"/>
                         <field name="pnt_pallet_box_qty"/>
                         <field name="pnt_box_bag_id"
@@ -72,7 +72,6 @@
                                 name="create_packing_products"
                                 invisible="not pnt_type"
                                 string="Create packing products"/>
-                        or
                         <button string="Cancel" class="oe_link" special="cancel"/>
                     </footer>
                 </sheet>

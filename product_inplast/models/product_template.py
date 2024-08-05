@@ -3,7 +3,13 @@
 from odoo import fields, models, api
 from odoo.exceptions import UserError, ValidationError
 
-
+LABELS = [
+    ('standard','Standard'),
+    ('double','Double'),
+    ('sb','San Bernardo'),
+    ('buxton','Buxton'),
+    ('nestle','Nestle'),
+]
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
@@ -15,6 +21,8 @@ class ProductTemplate(models.Model):
                                          ('raw', 'Raw'),
                                          ('dye', 'Dye'),
                                          ('packaging', 'Packaging'),
+                                         ('box', 'BOX'),
+                                         ('pallet', 'Pallet'),
                                          ('tool', 'Tool'),
                                          ('other', 'Other')],
                                         store=True, copy=True, string='MRP type')
@@ -35,13 +43,10 @@ class ProductTemplate(models.Model):
         "pnt.coa",
         string="COA",
     )
-    pnt_product_handle_coa = fields.Many2one(
-        "pnt.coa",
-        string="COA Handle",
-    )
-    pnt_product_coa_components = fields.Html(
-        string="Components table"
-    )
+    pnt_label_type = fields.Selection(
+        selection=LABELS, string="Label type")
+    pnt_customer_code_print = fields.Boolean("Customer code on label")
+    pnt_customer_code = fields.Char("Customer code")
 
     @api.depends('name', 'default_code', 'pnt_product_dye')
     def _compute_display_name(self):

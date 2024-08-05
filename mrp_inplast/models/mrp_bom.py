@@ -58,3 +58,25 @@ class MrpBom(models.Model):
                 qty = record.product_tmpl_id.volume * factor
             record['pnt_raw_qty'] = qty
     pnt_raw_qty = fields.Float('UOM Qty', store=True, compute='_get_product_raw_qty', digits='Stock Weight')
+
+    @api.depends('bom_line_ids')
+    def compute_box_line_id(self):
+        for record in self:
+            box_line = self.env['mrp.bom.line'].search([('bom_id', '=', record.id),
+                                                      ('product_id.pnt_product_type', '=', 'box')], limit=1)
+            record.box_line_id = box_line.id
+    box_line_id = fields.Many2one('mrp.bom.line', compute="compute_box_line_id", store=True, index=True)
+    box_id = fields.Many2one('product.product', related="box_line_id.product_id", index=True)
+    box_count = fields.Float("Box count", related="box_line_id.product_qty")
+
+    @api.depends('bom_line_ids')
+    def compute_pallet_line_id(self):
+        for record in self:
+            pallet_line = self.env['mrp.bom.line'].search([('bom_id', '=', record.id),
+                                                           ('product_id.pnt_product_type', '=', 'pallet')], limit=1)
+            record.pallet_line_id = pallet_line.id
+
+    pallet_line_id = fields.Many2one('mrp.bom.line', compute="compute_pallet_line_id", store=True, index=True)
+    pallet_id = fields.Many2one('product.product', related="pallet_line_id.product_id", index=True)
+    pallet_count = fields.Float("Pallet count", related="pallet_line_id.product_qty")
+

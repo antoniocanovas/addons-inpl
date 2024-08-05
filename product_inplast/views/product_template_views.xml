@@ -33,9 +33,14 @@
                 />
             </field>
             <xpath expr="//page[@name='general_information']" position="after">
-                <page string="COA" name="COA">
-                    <group name="COA">
+                <page string="Reports" name="reports">
+                    <group name="coa" string="COA">
                         <field string="COA" name="pnt_product_coa"/>
+                    </group>
+                     <group name="label" string="Warehouse label">
+                        <field string="Label" name="pnt_label_type"/>
+                        <field string="Customer code" name="pnt_customer_code_print"/>
+                        <field string="Customer code" name="pnt_customer_code" invisible="pnt_customer_code_print == False"/>
                         <!--<field string="COA Handle" name="pnt_product_handle_coa"/>
                         <field string="Components" name="pnt_product_coa_components"/>-->
                     </group>

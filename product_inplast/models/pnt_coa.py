@@ -30,3 +30,6 @@ class PntCoa(models.Model):
     material_number = fields.Char("Material Number")
     specification_number = fields.Char("Specifitacion Number")
     vendor_site_number = fields.Char("Vendor Site Number")
+
+
+
