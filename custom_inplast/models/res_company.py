@@ -37,10 +37,3 @@ class ResCompany(models.Model):
 
         return sscc_completo
 
-    # Ejemplo de uso
-#    digito_extension = "0"
-#    numero_identificacion_empresa = "123456789"
-#    numero_serie = "000000123456"
-
-#    sscc = generar_sscc(self, digito_extension, numero_identificacion_empresa, numero_serie)
-#    print("El SSCC es:", sscc)
