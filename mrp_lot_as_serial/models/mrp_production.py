@@ -30,7 +30,6 @@ class MrpProduction(models.Model):
         for record in self:
             if record.product_id.pnt_mrp_as_serial:
                 record.get_split_mrp_as_serial()
-                record.update_sub_manufacturing_orders()
         return True
 
     def update_sub_manufacturing_orders(self)
@@ -71,4 +70,5 @@ class MrpProduction(models.Model):
         if self.product_id.pnt_mrp_as_serial:
             self.update_lot_as_serial()
             self.update_unreserve_reserve_primary_lot()
+            self.update_sub_manufacturing_orders()
         return res
