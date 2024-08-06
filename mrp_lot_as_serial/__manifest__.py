@@ -17,6 +17,7 @@
     "data": [
         "views/product_template_views.xml",
         "views/stock_lot_views.xml",
+        "views/mrp_production_views.xml",
     ],
     "installable": True,
 }
