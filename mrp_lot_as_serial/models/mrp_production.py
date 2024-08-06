@@ -30,7 +30,13 @@ class MrpProduction(models.Model):
         for record in self:
             if record.product_id.pnt_mrp_as_serial:
                 record.get_split_mrp_as_serial()
+                record.update_sub_manufacturing_orders()
         return True
+
+    def update_sub_manufacturing_orders(self)
+        for wo in self.workorder_ids:
+            if wo.state in ['draft']:
+                wo.lot_producing_id = self.lot_producing_id.id
 
     def update_lot_as_serial(self):
         seq = self.lot_producing_id.pnt_mrp_serial
