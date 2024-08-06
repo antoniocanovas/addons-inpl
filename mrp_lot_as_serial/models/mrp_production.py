@@ -37,12 +37,13 @@ class MrpProduction(models.Model):
         mo_lot = self.lot_producing_id
 
         for li in self.finished_move_line_ids:
-            name = mo_lot.name + "." + str(seq)
-            lot = self.env['stock.lot'].search([('product_id', '=', li.product_id.id), ('name', '=', name)])
-            if not lot.id:
-                lot = self.env['stock.lot'].create({'product_id': li.product_id.id, 'name': name, 'parent_id': mo_lot.id})
-            li.write({'lot_id': lot.id})
-            seq += 1
+            if not li.lot_id.id:
+                name = mo_lot.name + "." + str(seq)
+                lot = self.env['stock.lot'].search([('product_id', '=', li.product_id.id), ('name', '=', name)])
+                if not lot.id:
+                    lot = self.env['stock.lot'].create({'product_id': li.product_id.id, 'name': name, 'parent_id': mo_lot.id})
+                li.write({'lot_id': lot.id})
+                seq += 1
 
         mo_lot.write({'pnt_mrp_serial': seq})
 
