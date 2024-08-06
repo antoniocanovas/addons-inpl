@@ -70,5 +70,5 @@ class MrpProduction(models.Model):
 
     def update_sub_manufacturing_orders(self):
         for wo in self.backorder_ids:
-            if wo.state in ['draft']:
+            if wo.state in ['draft','confirmed']:
                 wo.lot_producing_id = self.lot_producing_id.id
