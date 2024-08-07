@@ -12,7 +12,7 @@
     "depends": [
         "product",
         "stock",
-        "mrp",
+        "mrp_workorder",
         "maintenance",
         "mrp_maintenance",
         "custom_inplast",
@@ -26,5 +26,11 @@
         "views/mrp_bom_views.xml",
         "data/server_actions.xml",
     ],
+'assets': {
+        'web.assets_backend': [
+            'mrp_inplast/static/src/**/*.js',
+            'mrp_inplast/static/src/**/*.xml',
+        ],
+    },
     "installable": True,
 }
