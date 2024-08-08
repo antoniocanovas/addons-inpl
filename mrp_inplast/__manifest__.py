@@ -25,10 +25,11 @@
         "views/product_template_views.xml",
         "views/mrp_bom_views.xml",
         "data/server_actions.xml",
+        "wizard/pallet_boxes_wizard_views.xml",
+        "security/ir.model.access.csv",
     ],
 'assets': {
         'web.assets_backend': [
-            'mrp_inplast/static/src/**/*.js',
             'mrp_inplast/static/src/**/*.xml',
         ],
     },
