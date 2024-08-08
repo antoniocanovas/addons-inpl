@@ -12,7 +12,7 @@
                     <field name="lot_producing_id"/>
                     <field name="pallet_id"/>
                     <field name="pnt_barcode_input"/>
-                    <field name="pnt_processed_barcodes" widget="many2many_tags"/>
+                    <field name="pnt_processed_barcodes" widget="many2many_tags" readonly="1"/>
                 </group>
                  <footer>
                     <button name="add_lots" type="object" string="Add Lots" class="btn btn-primary" data-hotkey="q"/>

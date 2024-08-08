@@ -24,6 +24,7 @@
         "views/maintenance_equipment_views.xml",
         "views/product_template_views.xml",
         "views/mrp_bom_views.xml",
+        "views/stocklot_view.xml",
         "data/server_actions.xml",
         "wizard/pallet_boxes_wizard_views.xml",
         "security/ir.model.access.csv",
