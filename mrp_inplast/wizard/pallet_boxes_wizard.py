@@ -57,9 +57,7 @@ class PalletBoxesWizard(models.TransientModel):
                             new_lot = self.env['stock.lot'].create({
                                 'product_id': subproduct.id,
                                 'name': lot_name,
-                                'pnt_originating_product_id': record.production_id.product_id.id,
                                 'parent_id': self.pallet_id.id,
-                                'pnt_originating_lot_id': self.pallet_id.id
                             })
                             boxes.append(new_lot.id)
                         else:
