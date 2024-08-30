@@ -14,7 +14,7 @@
                         <field name="box_product_id" invisible="1"/>
 
                         <!-- Add the related boxes field -->
-                        <field name="related_boxes_ids" widget="many2many_tags" readonly="1"/>
+                        <field name="related_boxes_ids" widget="many2many_tags" readonly="0"/>
                     </group>
                 </xpath>
             </field>

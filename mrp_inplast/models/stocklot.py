@@ -27,11 +27,22 @@ class StockLot(models.Model):
     def _compute_box_product_id(self):
         for record in self:
             if record.product_id:
+                matching_record = None
+                for packing_record in record.product_id.pnt_parent_id.pnt_packing_ids:
+                    pallet_qty = record.product_id.pnt_parent_qty
+                    box_qty = record.product_id.pnt_box_qty
+                    division = pallet_qty // box_qty
+                    check_qty = packing_record.pnt_parent_qty
+                    # Comprueba si la división es igual
+                    if division == check_qty:
+                        matching_record = packing_record
+                        break  # Si encuentras un registro que cumple, puedes salir del bucle
                 # Find the box product related to this lot's product
-                subproduct = self.env['product.product'].search([
-                    ('pnt_product_type', '=', 'box'),
-                    ('id', 'in', record.product_id.pnt_parent_id.pnt_packing_ids.ids)
-                ], limit=1)
-                record.box_product_id = subproduct
-            else:
-                record.box_product_id = False
+                if matching_record:
+                    subproduct = self.env['product.product'].search([
+                        ('pnt_product_type', '=', 'packing'),
+                        ('id', 'in', record.product_id.pnt_parent_id.pnt_packing_ids.ids)
+                    ], limit=1)
+                    record.box_product_id = subproduct
+                else:
+                    record.box_product_id = False

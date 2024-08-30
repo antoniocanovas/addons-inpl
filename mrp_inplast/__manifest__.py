@@ -5,7 +5,7 @@
     'category': 'MRP',
     "author": "Punt Sistemes",
     "website": "https://www.puntsistemes.es",
-    "Maintainers":[
+    "Maintainers": [
         "Punt Sistemes",
     ],
     "license": "LGPL-3",
@@ -27,9 +27,10 @@
         "views/stocklot_view.xml",
         "data/server_actions.xml",
         "wizard/pallet_boxes_wizard_views.xml",
+        "wizard/Confirm_Delete_Lot_Wizard_view.xml",
         "security/ir.model.access.csv",
     ],
-'assets': {
+    'assets': {
         'web.assets_backend': [
             'mrp_inplast/static/src/**/*.xml',
         ],
