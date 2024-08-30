@@ -58,7 +58,7 @@ class StockLot(models.Model):
                 for li in sm.move_line_ids.lot_id.related_boxes_ids:
                     boxeslot.append(li.id)
 
-        if not boxeslot:
+        if boxeslot == []:
             super().update_lot_as_serial()
         else:
             # Comprobar el número de lotes origen y destino, si no coinciden mensaje de error.
