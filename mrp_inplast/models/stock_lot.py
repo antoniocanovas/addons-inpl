@@ -46,3 +46,21 @@ class StockLot(models.Model):
                     record.box_product_id = subproduct
                 else:
                     record.box_product_id = False
+
+    # Sobreescribe la función de mrp_lot_as_serial para tener en cuenta los lotes de cajas documentadas al fabricar palet:
+    def update_lot_as_serial(self):
+        # Son stock.move, buscamos sólo los que son tipo packing = palet del campo raw_move_ids:
+        sms = self.env['stock.move'].search(
+            [('id', 'in', self.move_raw_ids.ids), ('product_id.pnt_product_type', '=', 'packing')])
+        boxeslot = []
+        for sm in sms:
+            if sm.move_line_ids.lot_id.related_boxes_ids:
+                for li in sm.move_line_ids.lot_id.related_boxes_ids:
+                    boxeslot.append(li.id)
+
+        if not boxeslot:
+            super().update_lot_as_serial()
+        else:
+            # Comprobar el número de lotes origen y destino, si no coinciden mensaje de error.
+            # Asignar los lotes que ya existen a las cajas desmontadas.
+            a = 0

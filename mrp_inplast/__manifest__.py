@@ -18,6 +18,7 @@
         "custom_inplast",
         "product_inplast",
         "base_automation",
+        "mrp_lot_as_serial",
     ],
     "data": [
         "views/res_company_views.xml",
