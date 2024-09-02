@@ -27,6 +27,7 @@ class MrpProduction(models.Model):
         }
         # Sobreescribe la función de mrp_lot_as_serial para tener en cuenta los lotes de cajas documentadas al fabricar palet:
 
+    @api.constrains('lot_producing_id')
     def update_lot_as_serial(self):
         # Son stock.move, buscamos sólo los que son tipo packing = palet del campo raw_move_ids:
         sms = self.env['stock.move'].search(
@@ -37,9 +38,9 @@ class MrpProduction(models.Model):
                 for li in sm.move_line_ids.lot_id.related_boxes_ids:
                     boxeslot.append(li.id)
 
-        if boxeslot == []:
+        if boxeslot == [] and len(self.move_raw_ids) > 1:
             super().update_lot_as_serial()
-        else:
+        elif len(boxeslot) > 0 and len(self.move_raw_ids) == 1 and self.move_raw_ids[0].picked:
             # Comprobar el número de lotes origen y destino, si no coinciden mensaje de error.
             # Asignar los lotes que ya existen a las cajas desmontadas.
             if len(boxeslot) != len(self.finished_move_line_ids):
@@ -49,4 +50,5 @@ class MrpProduction(models.Model):
                 for li in self.finished_move_line_ids:
                     li.write({'lot_id': boxeslot[i]})
                     i += 1
+
 

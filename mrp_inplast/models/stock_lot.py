@@ -47,3 +47,15 @@ class StockLot(models.Model):
                 else:
                     record.box_product_id = False
 
+    def action_open_stock_lot_boxes_wizard(self):
+        return {
+            'name': ('Add Boxes to Lot'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'stock.lot.boxes.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_lot_id': self.id,
+            },
+        }
+
