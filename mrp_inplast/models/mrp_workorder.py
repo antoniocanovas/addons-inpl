@@ -22,7 +22,7 @@ class MrpProduction(models.Model):
             'name': _('Add Boxes'),
             'target': 'new',
             'context': {
-                'production_id': self.id,
+                'production_id': self.production_id.id,
             }
         }
         # Sobreescribe la función de mrp_lot_as_serial para tener en cuenta los lotes de cajas documentadas al fabricar palet:

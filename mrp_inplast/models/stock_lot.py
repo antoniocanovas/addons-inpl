@@ -22,12 +22,18 @@ class StockLot(models.Model):
         help="Boxes related to this lot.",
         domain="[('product_id', '=', box_product_id), ('parent_id', '=', id)]"
     )
+    invisible_fields = fields.Boolean(
+        string="Invisible Fields",
+
+    )
 
     @api.depends('product_id')
     def _compute_box_product_id(self):
+        invisible_fields = True
         for record in self:
             if record.product_id:
                 matching_record = None
+
                 for packing_record in record.product_id.pnt_parent_id.pnt_packing_ids:
                     pallet_qty = record.product_id.pnt_parent_qty
                     box_qty = record.product_id.pnt_box_qty
@@ -44,8 +50,15 @@ class StockLot(models.Model):
                         ('id', 'in', record.product_id.pnt_parent_id.pnt_packing_ids.ids)
                     ], limit=1)
                     record.box_product_id = subproduct
+                    invisible_fields = (matching_record.id == record.product_id.id or record.parent_id.id == False)
+
+
+
+
                 else:
                     record.box_product_id = False
+        record.invisible_fields = invisible_fields
+
 
     def action_open_stock_lot_boxes_wizard(self):
         return {
