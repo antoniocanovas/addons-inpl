@@ -11,25 +11,25 @@
                     </div>
 
 
-                        <div class="row"
-                             style="background-color: #D3D3D3;padding: 5px; border: 1px solid black;margin-top: 10px;">
-                            <div class="col-2">Waybill N.</div>
-                            <div class="col-2">Date</div>
-                            <div class="col-2">Customer</div>
+                    <div class="row"
+                         style="background-color: #D3D3D3;padding: 5px; border: 1px solid black;margin-top: 10px;">
+                        <div class="col-2">Waybill N.</div>
+                        <div class="col-2">Date</div>
+                        <div class="col-2">Customer</div>
 
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <span t-field="o.name">WH/OUT/0001</span>
                         </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <span t-field="o.name">WH/OUT/0001</span>
-                            </div>
-                            <div class="col-2">
-                                <span t-esc="o.date.strftime('%d/%m/%Y')"></span>
-                            </div>
-                            <div class="col-2">
-                                <span t-field="o.partner_id.user_id"></span>
-                            </div>
+                        <div class="col-2">
+                            <span t-esc="o.date.strftime('%d/%m/%Y')"></span>
+                        </div>
+                        <div class="col-2">
+                            <span t-field="o.partner_id.user_id"></span>
+                        </div>
 
-                        </div>
+                    </div>
 
 
                     <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
@@ -55,11 +55,15 @@
                     </div>
 
 
-                    <div class="page">
+                    <div>
 
                         <div class="oe_structure"/>
 
                         <div class="oe_structure"/>
+                        <t t-set="lines" t-value="o.move_ids"/>
+                        <t t-set="total_quantity" t-value="sum(line.quantity for line in lines)"/>
+                        <t t-set="total_quantity_box"
+                           t-value="sum((line.product_id.pnt_box_qty)*line.quantity for line in lines)"/>
                         <table class="table table-sm" t-if="o.state!='done'" name="stock_move_table"
                                style="border: 1px solid black; padding: 5px;margin-top: 5px;">
                             <thead>
@@ -85,34 +89,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
-                                <t t-set="total_quantity" t-value="sum(line.quantity for line in lines)"/>
-                                <t t-set="total_quantity_box"
-                                   t-value="sum((line.product_id.pnt_parent_qty/line.product_id.pnt_parent_id.pnt_packing_ids[0].pnt_parent_qty)*line.quantity for line in lines)"/>
 
-                                <t t-set="total_quantity_weight"
-                                   t-value="sum(line.product_id.weight * line.quantity for line in lines)"/>
+
                                 <tr t-foreach="lines" t-as="move">
                                     <td>
-                                        <span t-field="move.product_id">Customizable Desk</span>
+                                        <span t-field="move.product_id"></span>
                                         <p t-if="move.description_picking and move.description_picking != move.product_id.name and move.description_picking != move.product_id.display_name">
-                                            <span t-field="move.description_picking">Description on transfer</span>
+                                            <span t-field="move.description_picking"></span>
                                         </p>
                                     </td>
                                     <td>
-                                        <span t-field="move.description_picking">3.00</span>
+                                        <span t-field="move.description_picking"></span>
                                     </td>
                                     <td>
-                                        <span t-field="move.lot_ids">3.00</span>
+                                        <span t-field="move.lot_ids"></span>
                                     </td>
                                     <td>
                                         <span t-esc="move.product_id.pnt_parent_qty * move.quantity">3.00</span>
                                     </td>
                                     <td>
-                                        <span t-field="move.quantity">3.00</span>
+                                        <span t-field="move.quantity"></span>
                                     </td>
                                     <td>
-                                        <span t-field="move.product_id.pnt_parent_qty">3.00</span>
+                                        <span t-field="move.product_id.pnt_parent_qty"></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -171,11 +170,11 @@
                             <div class="row">
                                 <div class="col">
                                     <strong style="margin-top: 5px;">Total Net Weight:</strong>
-                                    <span t-esc="total_quantity_weight"/>
+                                    <span t-esc="o.weight"/>
                                     <span>Kg.</span>
                                     <br/>
                                     <strong style="margin-top: 5px;">Total Gross Weight:</strong>
-                                    <span t-esc="total_quantity_weight"/>
+                                    <span t-esc="o.weight"/>
                                     <span>Kg.</span>
                                     <br/>
                                 </div>
@@ -185,7 +184,7 @@
                                     <strong style="margin-top: 5px;">Comments</strong>
                                     <br/>
                                     <strong style="margin-top: 5px;">Your P.O Number</strong>
-                                    <span t-field="o.name"/>
+                                    <span t-field="o.sale_id.client_order_ref"/>
                                 </div>
                             </div>
                         </div>

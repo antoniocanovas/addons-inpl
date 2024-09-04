@@ -64,7 +64,7 @@
                             <span>Raw Material</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <span t-field="line.product_id.pnt_product_dye"/>
+                            <span t-field="line.move_id.production_id.name"/>
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-1">
@@ -121,7 +121,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col" style="height:20px"></div>
+                    <div class="col" style="height:10px"></div>
                 </div>
                 <div style="width: 100%;">
                     <span t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
@@ -132,7 +132,7 @@
 
 
                     <div class="row">
-                        <div style="padding: 5px;margin:1px;"
+                        <div style="margin:1px;"
                              class="col-2">
                             <span>Container:</span>
                         </div>

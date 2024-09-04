@@ -1,0 +1,145 @@
+<odoo>
+    <template id="traceability_list_report_document">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report_inplast.traceability_list_report" t-lang="o._get_report_lang()"/>
+        </t>
+    </template>
+
+    <template id="traceability_list_report">
+
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+
+                <div class="container">
+                    <h1 style="border-bottom: 1px solid black; margin-bottom:20px;">
+                        TRACEABILITY LIST PER BOX CAPS
+                    </h1>
+
+
+                    <table class="table table-sm">
+                        <thead>
+                            <th colspan="8">
+                                <div class="row" style="border-bottom: 1px solid black; margin-bottom:20px;">
+                                    <div class="col-2">
+                                        <strong style="margin-right: 10px;">Fiscal year</strong>
+                                        <span t-esc="datetime.date.today().strftime('%Y')"></span>
+                                    </div>
+
+                                    <div class="col-1">
+                                        <Strong style="margin-left: 10px;">Serie</Strong>
+                                        <span></span>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <strong>Serial order number</strong>
+                                    </div>
+                                    <div class="col-2">
+                                        <span t-field="o.name"></span>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong>Cod. Warehouse</strong>
+                                    </div>
+                                    <div class="col-1">
+                                        <span></span>
+                                    </div>
+
+                                </div>
+
+                            </th>
+                        </thead>
+                        <thead>
+                            <tr style="border: 1px solid black; padding: 5px;">
+                                <th name="th_sm_reference">
+                                    <strong>REFERENCE</strong>
+                                </th>
+                                <th name="th_sm_description">
+                                    <strong>BATCH</strong>
+                                </th>
+                                <th name="th_sm_batch">
+                                    <strong>PALLET NO.</strong>
+                                </th>
+                                <th name="th_sm_units">
+                                    <strong>BOX NO.</strong>
+                                </th>
+                                <th name="th_sm_pallets_n">
+                                    <strong>UNITS</strong>
+                                </th>
+                                <th name="th_sm_units_x_pallet">
+                                    <strong>GTIN</strong>
+                                </th>
+                                <th name="th_sm_units_x_pallet">
+                                    <strong>SSCC</strong>
+                                </th>
+                                <th name="th_sm_units_x_pallet">
+                                    <strong>PRODUCT DATE</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <t t-set="lines" t-value="o.move_line_ids"/>
+                            <t t-foreach="lines" t-as="line">
+                                <t t-set="boxes" t-value="line.lot_id.related_boxes_ids"/>
+                                <t t-foreach="boxes" t-as="box">
+                                    <tr>
+                                        <td style="text-align: center;">
+                                            <strong t-field="line.product_id.default_code"></strong>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <strong t-field="line.lot_id.parent_id.name"></strong>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <strong t-field="line.lot_id.name"></strong>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <strong t-field="box.name"></strong>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <strong t-field="box.product_id.pnt_parent_qty"></strong>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <strong>gtin</strong>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <strong>sscc</strong>
+                                        </td>
+                                        <td style="text-align: center;">
+                                            <strong t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"></strong>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <!-- Add this after all boxes of the current line -->
+                                <tr>
+                                    <td colspan="8" style="text-align: center;">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <strong>No. Box for Pallet</strong>
+                                            </div>
+                                            <div class="col-4">
+                                                <span t-field="line.product_id.pnt_box_qty"></span>
+                                            </div>
+                                            <div class="col-2">
+                                                <strong>Total Uds Pallet</strong>
+                                            </div>
+                                            <div class="col-3">
+                                                <span t-field="line.product_id.pnt_parent_qty"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </t>
+
+                        </tbody>
+                    </table>
+
+
+                </div>
+
+            </t>
+
+        </t>
+
+    </template>
+
+
+</odoo>

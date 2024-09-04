@@ -31,5 +31,6 @@
         "reports/ir_action_report.xml",
         "reports/stock_warehouse_label.xml",
         "views/picking_report_views.xml",
+        "reports/traceability_list_report_document.xml",
     ],
 }

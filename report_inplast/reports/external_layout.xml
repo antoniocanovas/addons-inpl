@@ -4,28 +4,34 @@
         <field name="inherit_id" ref="web.external_layout_standard"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@t-attf-class='header o_company_#{company.id}_layout']" position="replace"
-                   style="border: none;">
-                <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style" style="margin-bottom:40px;">
-                    <div class="row" style="margin-bottom:40px;">
-                        <div class="col-9 mb4">
-                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 230px;"
+                   style="border: none; ">
+
+                <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                    <div class="row">
+                        <div class="col-4 mb4">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                 style="max-height: 150px;"
                                  alt="Logo"/>
-                            <img t-if="company.pnt_logo_cert_uno" t-att-src="image_data_uri(company.pnt_logo_cert_uno)"
-                                 alt="Company logo" style="height:130px;"/>
                         </div>
                         <div class="col-5">
-                            <img t-if="company.pnt_logo_cert_dos" t-att-src="image_data_uri(company.pnt_logo_cert_dos)"
-                                 alt="Company logo2" style="max-height:150px;"/>
+                            <img t-if="company.pnt_logo_cert_uno"
+                                 t-att-src="image_data_uri(company.pnt_logo_cert_uno)"
+                                 alt="Company logo2" style="max-height:120px;"/>
                         </div>
                         <div class="col-2">
-                            <img t-if="company.pnt_logo_cert_tres"
-                                 t-att-src="image_data_uri(company.pnt_logo_cert_tres)" alt="Company logo"
-                                 style="max-height: 150px;"/>
+                            <img t-if="company.pnt_logo_cert_dos"
+                                 t-att-src="image_data_uri(company.pnt_logo_cert_dos)" alt="Company logo"
+                                 style="max-height: 120px;"/>
                         </div>
+
+
 
                     </div>
 
+
                 </div>
+
+
             </xpath>
         </field>
     </record>
