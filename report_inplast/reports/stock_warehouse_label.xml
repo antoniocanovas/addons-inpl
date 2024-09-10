@@ -53,17 +53,17 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.product_id.barcode"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras gitn-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
                             <br/>
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.lot_id.sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -80,7 +80,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -141,17 +141,17 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.product_id.barcode"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras gitn-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
                             <br/>
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.lot_id.sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -168,7 +168,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -221,17 +221,17 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.product_id.barcode"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras gitn-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
                             <br/>
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.lot_id.sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -248,7 +248,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:30px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -327,21 +327,21 @@
                             <div class="row">
                                 <div class="col-4" style="text-align: center;">
 
-                                    <div t-field="line.location_id.barcode"
+                                    <div t-field="line.product_id.barcode"
                                          t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                                    <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
 
 
                                 </div>
                                 <div class="col-6" style="text-align: center;">
 
-                                    <div t-field="line.location_id.barcode"
+                                    <div t-field="line.lot_id.sscc"
                                          t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                                    <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
 
                                 </div>
 
@@ -362,7 +362,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
 
 
@@ -438,21 +438,21 @@
                             <div class="row">
                                 <div class="col-4" style="text-align: center;">
 
-                                    <div t-field="line.location_id.barcode"
+                                    <div t-field="line.product_id.barcode"
                                          t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                                    <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
 
 
                                 </div>
                                 <div class="col-6" style="text-align: center;">
 
-                                    <div t-field="line.location_id.barcode"
+                                    <div t-field="line.lot_id.sscc"
                                          t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                                    <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
 
                                 </div>
 
@@ -473,7 +473,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
 
 
@@ -534,17 +534,17 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.product_id.barcode"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
                             <br/>
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.lot_id.sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -561,7 +561,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -609,17 +609,17 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.product_id.barcode"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barra gtin-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
                             <br/>
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.lot_id.sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -636,7 +636,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -698,17 +698,17 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.product_id.barcode"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
                             <br/>
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.lot_id.sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -725,7 +725,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -778,17 +778,17 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.product_id.barcode"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.product_id.sscc"/>
                             <br/>
-                            <div t-field="line.location_id.barcode"
+                            <div t-field="line.lot_id.sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -805,7 +805,7 @@
                             <br/>
                             <span style="font-size:30px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
