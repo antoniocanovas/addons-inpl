@@ -25,6 +25,11 @@ class StockLot(models.Model):
     invisible_fields = fields.Boolean(
         string="Invisible Fields",
 
+
+    )
+    sscc = fields.Char(
+        string="SSCC",
+        help="SSCC number for the lot"
     )
 
     @api.depends('product_id')
