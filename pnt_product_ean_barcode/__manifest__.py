@@ -15,19 +15,15 @@
     ],
     "data": [
         "views/pnt_menu.xml",
-        'data/ir_sequence_data.xml',
+        "data/ir_sequence_data.xml",
         "views/pnt_ir_sequence_view.xml",
-        "views/pnt_product_category_view.xml",
-        "views/pnt_product_product_view.xml",
-        "views/pnt_product_template_view.xml",
-
     ],
     "external_dependencies": {
-        'python': [
-            'gtin',
+        "python": [
+            "gtin",
         ],
     },
-    'installable': True,
-    'application': False,
-    'auto_install': False,
+    "installable": True,
+    "application": False,
+    "auto_install": False,
 }
