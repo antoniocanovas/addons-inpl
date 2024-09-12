@@ -18,6 +18,17 @@
                     </group>
                 </page>
             </xpath>
+            <!--<xpath expr="//notebook" position="inside">
+                <page string="SSCC">
+                    <group>
+                        <group>
+                            <field name="pnt_sscc_prefix"/>
+                            <field name="pnt_sscc_serial"/>
+                            <field name="pnt_sscc_extension"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>-->
         </field>
     </record>
 

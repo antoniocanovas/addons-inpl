@@ -2,7 +2,7 @@
     "name": "MRP Inplast",
     "summary": "MRP Inplast",
     "version": "17.0.1.0.0",
-    'category': 'MRP',
+    "category": "MRP",
     "author": "Punt Sistemes",
     "website": "https://www.puntsistemes.es",
     "Maintainers": [
@@ -19,6 +19,7 @@
         "product_inplast",
         "base_automation",
         "mrp_lot_as_serial",
+        "pnt_sscc_generator_base",
     ],
     "data": [
         "views/res_company_views.xml",
@@ -31,9 +32,9 @@
         "wizard/view_stock_lot_boxes_wizard_form.xml",
         "security/ir.model.access.csv",
     ],
-    'assets': {
-        'web.assets_backend': [
-            'mrp_inplast/static/src/**/*.xml',
+    "assets": {
+        "web.assets_backend": [
+            "mrp_inplast/static/src/**/*.xml",
         ],
     },
     "installable": True,
