@@ -2,7 +2,7 @@
     <template id="traceability_list_report_document">
         <t t-foreach="docs" t-as="o">
             <t t-call="report_inplast.traceability_list_report" t-lang="o._get_report_lang()"/>
-            <t t-call="report_inplast.prueba" t-lang="o._get_report_lang()"/>
+
         </t>
     </template>
 
@@ -142,91 +142,7 @@
 
     </template>
 
-    <template id="prueba">
 
-        <t t-call="web.html_container">
-            <t t-call="web.external_layout">
-
-                <div>
-                    <div class="row" style="height: 10px;">
-                        <div class="col-3">
-                            <span
-                                    style="font-size: 14px; color: black;">
-                               01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
-                            </span>
-                        </div>
-                        <div class="col-9"></div>
-                    </div>
-                    <div class="row" style="height: 200px;">
-                        <!-- Fila vacía, combinando 20 filas -->
-                    </div>
-                    <div class="row" style="height: 10px;">
-                        <div class="col-3"></div>
-                        <div class="col-4"
-                             style="font-size: 12px; color: #ec0000;">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th
-                                                style="color: #ec0000;">
-                                            Header 1
-                                        </th>
-                                        <th
-                                                style="color: #ec0000;">
-                                            Header 2
-                                        </th>
-                                        <th
-                                                style="color: #ec0000;">
-                                            Header 3
-                                        </th>
-                                        <th
-                                                style="color: #ec0000;">
-                                            Header 4
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td
-                                                style="color: #ec0000;">
-                                            Data 1
-                                        </td>
-                                        <td
-                                                style="color: #ec0000;">
-                                            Data 2
-                                        </td>
-                                        <td
-                                                style="color: #ec0000;">
-                                            Data 3
-                                        </td>
-                                        <td
-                                                style="color: #ec0000;">
-                                            Data 4
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-5"></div>
-                    </div>
-                    <div class="row" style="height: 520px;">
-                        <!-- Fila vacía, combinando 52 filas -->
-                    </div>
-                    <div class="row" style="height: 10px;">
-                        <div class="col-3">
-                            <span
-                                    style="font-size: 12px; color: black;">
-                                aaaaa
-                            </span>
-                        </div>
-                        <div class="col-9"></div>
-                    </div>
-                </div>
-            </t>
-
-        </t>
-
-    </template>
 
 
 </odoo>

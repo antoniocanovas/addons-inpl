@@ -25,3 +25,4 @@ class ProductLabelLayout(models.TransientModel):
                 xml_id = "custom_azarey.pnt_report_producttemplate_label"
 
         return xml_id, data
+

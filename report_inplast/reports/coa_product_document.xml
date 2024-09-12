@@ -123,11 +123,12 @@
                 <div class="row">
                     <div class="col" style="height:10px"></div>
                 </div>
-                <div style="width: 100%;">
+                <div style="width: 100%; page-break-inside: avoid; text-align: center;">
                     <span t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
                 </div>
 
-                <div style="border: 1px solid black; padding: 10px;">
+
+                <div style="border: 1px solid black; padding: 10px; page-break-inside: avoid;">
                     <strong style="border-bottom: 1px solid black; width:40px">Remark</strong>
 
 
@@ -137,14 +138,14 @@
                             <span>Container:</span>
                         </div>
                         <div style="padding: 2px;margin:1px;" class="col-2">
-                            <span t-field="o.sale_id.client_order_ref"/>
+                            <span t-field="o.carrier_id.pnt_trailer_container"/>
                         </div>
                         <div style="padding: 5px;margin:1px;"
                              class="col-2">
                             <span>Bill Nº:</span>
                         </div>
                         <div style=" padding: 2px;margin:1px;" class="col-2">
-                            <span t-field="o.sale_id.client_order_ref"/>
+                            <span t-field="o.sale_id.name"/>
                         </div>
                         <div style="padding: 2px;margin:1px;"
                              class="col-2">
@@ -287,8 +288,8 @@
                     <div class="col" style="height:20px"></div>
                 </div>
 
-                <div style="width: 100%; background-color: gray; position: relative;">
-                    <span style="position: absolute;" t-raw="line.product_id.pnt_product_handle_coa.pnt_coa_body"/>
+                <div style="width: 100%; page-break-inside: avoid; display: flex; justify-content: center; align-items: center; text-align: center;">
+                    <span style="position: absolute;" t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
                 </div>
 
 
@@ -303,7 +304,7 @@
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
                 <div>
-                    <p style="text-center">coa product nmp document</p>
+                    <p style="text-center">COA PRODUCT NMP DOCUMENT</p>
                 </div>
                 <div style="border: 1px solid black; padding: 10px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
@@ -416,11 +417,11 @@
 
                 </div>
 
-                <div style="width: 100%;">
+                <div style="width: 100%; page-break-inside: avoid; display: flex; justify-content: center; align-items: center; text-align: center;margin-top:20px;">
                     <span t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
                 </div>
 
-                <div style="border: 1px solid black; padding: 10px;">
+                <div style="border: 1px solid black; padding: 10px;page-break-inside: avoid;">
                     <strong style="border-bottom: 1px solid black; width:40px">Remark</strong>
 
 
@@ -824,8 +825,9 @@
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-                <p>Components Attachment</p>
-                <div style="width: 100%;">
+
+                <div style="width: 100%; page-break-inside: avoid; display: flex; justify-content: center; align-items: center; text-align: center;">
+                    <h1 style="font-weight: bold; border-bottom: 2px solid black;margin-bottom:50px;">Components Attachment</h1>
                     <span t-raw="line.product_id.pnt_product_coa.body_components"/>
                 </div>
             </t>
@@ -839,8 +841,9 @@
             <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-                <p>Multicolor Attachment</p>
-                <div style="width: 100%;">
+
+                <div style="width: 100%; page-break-inside: avoid; display: flex; justify-content: center; align-items: center; text-align: center;">
+                    <h1 style="font-weight: bold; border-bottom: 2px solid black;margin-bottom:50px;">Multicolor Attachment</h1>
                     <span t-raw="line.product_id.pnt_product_coa.body_multicolor"/>
                 </div>
             </t>

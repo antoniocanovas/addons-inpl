@@ -7,12 +7,16 @@
             <t t-call="web.basic_layout">
                 <div class="container">
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span> <!--desconocido-->
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
 
                         <div class="col-3">
@@ -44,8 +48,7 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiarr
-                            </span><!--desconocido creo que un contador-->
+                                  t-field="line.product_id.default_code"></span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -53,17 +56,28 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.product_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras gitn-->
+                            <t t-set="barcode_value_gtin"
+                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <t t-set="barcode_value_gtin_text"
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <div>
+                                <span t-esc="barcode_value_gtin"
+                                      t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                            </div>
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
                             <br/>
-                            <div t-field="line.lot_id.sscc"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras sscc-->
+
+                            <t t-set="barcode_value_sscc"
+                               t-value="'00' + (line.lot_id.sscc or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                            <t t-set="barcode_value_sscc_text"
+                               t-value="'(00) ' + (line.lot_id.sscc or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                            <div t-esc="barcode_value_sscc"
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -72,15 +86,16 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -95,12 +110,16 @@
                 <div class="container">
 
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span><!--desconocido-->
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
@@ -132,26 +151,36 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiar
-                            </span><!--desconocido creo que un contador-->
+                                  t-field="line.product_id.default_code"></span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
-                            <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
+                            <strong style="font-size:20px;" t-esc="line.product_id.pnt_parent_qty/2"></strong>
                         </div>
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.product_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras gitn-->
+                            <t t-set="barcode_value_gtin"
+                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <t t-set="barcode_value_gtin_text"
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <div>
+                                <span t-esc="barcode_value_gtin"
+                                      t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                            </div>
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
                             <br/>
-                            <div t-field="line.lot_id.sscc"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras sscc-->
+
+                            <t t-set="barcode_value_sscc"
+                               t-value="'00' + (line.lot_id.sscc or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                            <t t-set="barcode_value_sscc_text"
+                               t-value="'(00) ' + (line.lot_id.sscc or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                            <div t-esc="barcode_value_sscc"
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -160,27 +189,32 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
                 <!--segunda etiqueta-->
                 <div class="container">
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;margin-top:40px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span>
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
@@ -212,26 +246,36 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiar
-                            </span><!--desconocido creo que un contador-->
+                                  t-field="line.product_id.default_code"></span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
-                            <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
+                            <strong style="font-size:20px;" t-esc="line.product_id.pnt_parent_qty/2"></strong>
                         </div>
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.product_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras gitn-->
+                            <t t-set="barcode_value_gtin"
+                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <t t-set="barcode_value_gtin_text"
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <div>
+                                <span t-esc="barcode_value_gtin"
+                                      t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                            </div>
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
                             <br/>
-                            <div t-field="line.lot_id.sscc"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo barras sscc-->
+
+                            <t t-set="barcode_value_sscc"
+                               t-value="'00' + (line.lot_id.sscc or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                            <t t-set="barcode_value_sscc_text"
+                               t-value="'(00) ' + (line.lot_id.sscc or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                            <div t-esc="barcode_value_sscc"
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -240,15 +284,16 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.lot_id.sscc"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -262,12 +307,16 @@
             <t t-call="web.basic_layout">
                 <div class="container">
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;margin-top:40px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span>
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
@@ -299,7 +348,7 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiar
+                                  t-field="line.product_id.default_code">
                             </span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
@@ -313,12 +362,18 @@
 
                             <div class="row">
                                 <div class="col-9" style="text-align: center;">
-
-                                    <div t-field="line.location_id.barcode"
-                                         t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/>
+                                    <t t-set="barcode_value_gtin"
+                                       t-value="'01' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '10' + str(line.lot_id.parent_id.name or '')"/>
+                                    <t t-set="barcode_value_gtin_text"
+                                       t-value="'(01) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '(10) ' + str(line.lot_id.parent_id.name or '')"/>
+                                    <div>
+                                        <span t-esc="barcode_value_gtin"
+                                              t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                                    </div>
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                                    <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
+
 
                                 </div>
 
@@ -327,21 +382,30 @@
                             <div class="row">
                                 <div class="col-4" style="text-align: center;">
 
-                                    <div t-field="line.product_id.barcode"
-                                         t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
+                                    <t t-set="barcode_value_gtin"
+                                       t-value="'37' + str(line.product_id.pnt_parent_qty or '')"/>
+                                    <t t-set="barcode_value_gtin_text"
+                                       t-value="'(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                                    <div>
+                                        <span t-esc="barcode_value_gtin"
+                                              t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                                    </div>
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
+                                    <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
 
 
                                 </div>
                                 <div class="col-6" style="text-align: center;">
-
-                                    <div t-field="line.lot_id.sscc"
-                                         t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
+                                    <t t-set="barcode_value_sscc"
+                                       t-value="'00' + (line.lot_id.sscc or '')"/>
+                                    <t t-set="barcode_value_sscc_text"
+                                       t-value="'(00) ' + (line.lot_id.sscc or '')"/>
+                                    <div t-esc="barcode_value_sscc"
+                                         t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                                    <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
 
                                 </div>
 
@@ -354,13 +418,14 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
                             <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
                         </div>
@@ -373,12 +438,16 @@
 
                 <div class="container">
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;margin-top:40px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span><!--desconocido-->
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
@@ -400,7 +469,7 @@
                             <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
                             <br/>
                             <div t-field="line.location_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:45%;'}"/>
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
                             <br/>
                             <t t-if="line.product_id.pnt_customer_code_print">
                                 <span style="font-weight:bold; font-size:20px;text-align: right;"
@@ -410,7 +479,7 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiar
+                                  t-field="line.product_id.default_code">
                             </span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
@@ -423,13 +492,19 @@
                         <div class="col-9" style="text-align: center;">
 
                             <div class="row">
-                                <div class="col-9" style="text-align: center;">
-
-                                    <div t-field="line.location_id.barcode"
-                                         t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/>
+                                <div class="col-9" style="text-align: center;font-size 10px">
+                                    <t t-set="barcode_value_gtin"
+                                       t-value="'01' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '10' + str(line.lot_id.parent_id.name or '')"/>
+                                    <t t-set="barcode_value_gtin_text"
+                                       t-value="'(01) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '(10) ' + str(line.lot_id.parent_id.name or '')"/>
+                                    <div>
+                                        <span t-esc="barcode_value_gtin"
+                                              t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                                    </div>
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
+                                    <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
+
 
                                 </div>
 
@@ -438,21 +513,30 @@
                             <div class="row">
                                 <div class="col-4" style="text-align: center;">
 
-                                    <div t-field="line.product_id.barcode"
-                                         t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
+                                    <t t-set="barcode_value_gtin"
+                                       t-value="'37' + str(line.product_id.pnt_parent_qty or '')"/>
+                                    <t t-set="barcode_value_gtin_text"
+                                       t-value="'(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                                    <div>
+                                        <span t-esc="barcode_value_gtin"
+                                              t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                                    </div>
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
+                                    <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
 
 
                                 </div>
                                 <div class="col-6" style="text-align: center;">
-
-                                    <div t-field="line.lot_id.sscc"
-                                         t-options="{'widget': 'barcode', 'symbology': 'auto', 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
+                                    <t t-set="barcode_value_sscc"
+                                       t-value="'00' + (line.lot_id.sscc or '')"/>
+                                    <t t-set="barcode_value_sscc_text"
+                                       t-value="'(00) ' + (line.lot_id.sscc or '')"/>
+                                    <div t-esc="barcode_value_sscc"
+                                         t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                                     <br/>
                                     <!-- Mostrar el valor del código de barras -->
-                                    <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                                    <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
 
                                 </div>
 
@@ -465,15 +549,16 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc"></strong>
                         </div>
 
 
@@ -492,12 +577,16 @@
                 <div class="container">
 
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span>
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
@@ -519,13 +608,13 @@
                             <span style="font-size:15px;" t-esc="line.location_id.barcode"/>
                             <br/>
                             <div t-field="line.location_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:45%;'}"/>
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
 
 
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiar
+                                  t-field="line.product_id.default_code">
                             </span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
@@ -533,18 +622,29 @@
                         </div>
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
-                        <div class="col-9" style="text-align: center;">
-                            <div t-field="line.product_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
+                        <div class="col-9" style="text-align: center;font-size:10px">
+                            <t t-set="barcode_value_gtin"
+                               t-value="'02' + (line.product_id.barcode or '') + '10' + (line.lot_id.sscc or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <t t-set="barcode_value_gtin_text"
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <div>
+                                <span t-esc="barcode_value_gtin"
+                                      t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                            </div>
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
                             <br/>
-                            <div t-field="line.lot_id.sscc"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
+
+                            <t t-set="barcode_value_sscc"
+                               t-value="'00' + (line.lot_id.sscc or '')"/>
+                            <t t-set="barcode_value_sscc_text"
+                               t-value="'(00) ' + (line.lot_id.sscc or '')"/>
+                            <div t-esc="barcode_value_sscc"
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -553,27 +653,32 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="container">
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;margin-top:40px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span>
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
@@ -600,7 +705,7 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiar
+                                  t-field="line.product_id.default_code">
                             </span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
@@ -608,18 +713,29 @@
                         </div>
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
-                        <div class="col-9" style="text-align: center;">
-                            <div t-field="line.product_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barra gtin-->
+                        <div class="col-9" style="text-align: center;font-size:10px">
+                            <t t-set="barcode_value_gtin"
+                               t-value="'02' + (line.product_id.barcode or '') + '10' + (line.lot_id.sscc or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <t t-set="barcode_value_gtin_text"
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <div>
+                                <span t-esc="barcode_value_gtin"
+                                      t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                            </div>
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
                             <br/>
-                            <div t-field="line.lot_id.sscc"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
+
+                            <t t-set="barcode_value_sscc"
+                               t-value="'00' + (line.lot_id.sscc or '')"/>
+                            <t t-set="barcode_value_sscc_text"
+                               t-value="'(00) ' + (line.lot_id.sscc or '')"/>
+                            <div t-esc="barcode_value_sscc"
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -628,15 +744,16 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -651,12 +768,16 @@
                 <div class="container">
 
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span>
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
@@ -689,7 +810,7 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiar
+                                  t-field="line.product_id.default_code">
                             </span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
@@ -698,17 +819,28 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.product_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
+                            <t t-set="barcode_value_gtin"
+                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <t t-set="barcode_value_gtin_text"
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <div>
+                                <span t-esc="barcode_value_gtin"
+                                      t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                            </div>
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.product_id.barcode"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
                             <br/>
-                            <div t-field="line.lot_id.sscc"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
+
+                            <t t-set="barcode_value_sscc"
+                               t-value="'00' + (line.lot_id.sscc or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                            <t t-set="barcode_value_sscc_text"
+                               t-value="'(00) ' + (line.lot_id.sscc or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                            <div t-esc="barcode_value_sscc"
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -717,27 +849,32 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
 
                 <div class="container">
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
-                        <div class="col-5">
+                        <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;margin-top:40px;">INPLAST,S.A.</span>
 
                         </div>
                         <div class="col-3">
-                            <span style="font-weight:bold; font-size:15px;">cambiar</span>
+                            <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
+                            <span style="font-weight:bold; font-size:15px;">/</span>
+                            <span t-esc="line.lot_id.name.split('.')[-1]"
+                                  style="font-weight:bold; font-size:15px;"></span>
+
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"></span>
@@ -769,7 +906,7 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <span style="font-weight:bold; font-size:30px;"
-                            >cambiar
+                                  t-field="line.product_id.default_code">
                             </span><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
@@ -778,17 +915,28 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                            <div t-field="line.product_id.barcode"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras gtin-->
+                            <t t-set="barcode_value_gtin"
+                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <t t-set="barcode_value_gtin_text"
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                            <div>
+                                <span t-esc="barcode_value_gtin"
+                                      t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+                            </div>
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.product_id.sscc"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
                             <br/>
-                            <div t-field="line.lot_id.sscc"
-                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:40%;'}"/><!--codigo de barras sscc-->
+
+                            <t t-set="barcode_value_sscc"
+                               t-value="'00' + (line.lot_id.sscc or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                            <t t-set="barcode_value_sscc_text"
+                               t-value="'(00) ' + (line.lot_id.sscc or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                            <div t-esc="barcode_value_sscc"
+                                 t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
                             <!-- Mostrar el valor del código de barras -->
-                            <span style="font-size:15px;" t-esc="line.lot_id.sscc"/>
+                            <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
                         </div>
 
                         <div class="col-3 col-offset-9">
@@ -797,15 +945,16 @@
                                     t-esc="line.lot_id.parent_id.name"></strong>
                             <br/>
                             <span style="font-size:30px;">NºPALET:</span>
-                            <span style="font-size:30px;" t-field="line.lot_id"></span>
+                            <span style="font-size:30px;magin-left:10px;"
+                                  t-esc="line.lot_id.name.split('.')[-1]"></span>
                             <br/>
-                            <span style="font-size:30px;">GTIN:</span>
+                            <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:30px;" t-field="line.product_id.pnt_parent_qty"></strong>
+                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
                             <br/>
-                            <span style="font-size:30px;">SSCC:</span>
+                            <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc"></strong>
                         </div>
                     </div>
                 </div>
@@ -824,8 +973,11 @@
     <template id="stock_warehouse_label">
         <t t-set="lines" t-value="o.move_line_ids"/>
         <t t-foreach="lines" t-as="line">
+            <t t-set="number_of_labels" t-value="line.product_id.number_of_labels"/>
 
-            <t t-if="line.product_id.pnt_label_type == 'standard'">
+            <t t-foreach="range(number_of_labels)" t-as="label">
+                <!-- Contenido que se repetirá 'number_of_labels' veces -->
+                <t t-if="line.product_id.pnt_label_type == 'standard'">
                 <t t-call="report_inplast.stock_warehouse_label_document_report" t-lang="o._get_report_lang()"/>
             </t>
             <t t-if="line.product_id.pnt_label_type == 'double'">
@@ -841,6 +993,11 @@
                 <t t-call="report_inplast.stock_warehouse_label_sanbernardo_document_report"
                    t-lang="o._get_report_lang()"/>
             </t>
+
+            </t>
+
+
+
 
         </t>
     </template>
