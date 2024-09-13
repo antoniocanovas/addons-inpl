@@ -49,7 +49,7 @@
                             </th>
                         </thead>
                         <thead>
-                            <tr style="border: 1px solid black; padding: 5px;">
+                            <tr style="border: 1px solid black; padding: 5px;font-size: 12px">
                                 <th name="th_sm_reference">
                                     <strong>REFERENCE</strong>
                                 </th>
@@ -82,7 +82,7 @@
                             <t t-foreach="lines" t-as="line">
                                 <t t-set="boxes" t-value="line.lot_id.related_boxes_ids"/>
                                 <t t-foreach="boxes" t-as="box">
-                                    <tr>
+                                    <tr style="font-size: 12px">
                                         <td style="text-align: center;">
                                             <strong t-field="line.product_id.default_code"></strong>
                                         </td>
@@ -90,7 +90,7 @@
                                             <strong t-field="line.lot_id.parent_id.name"></strong>
                                         </td>
                                         <td style="text-align: center;">
-                                            <strong t-field="line.lot_id.name"></strong>
+                                            <strong t-esc="line.lot_id.name.split('.')[-1]"></strong>
                                         </td>
                                         <td style="text-align: center;">
                                             <strong t-field="box.name"></strong>
@@ -102,7 +102,12 @@
                                             <strong t-field="line.product_id.barcode"></strong>
                                         </td>
                                         <td style="text-align: center;">
-                                            <strong t-field="line.lot_id.sscc"></strong>
+
+                                            <t t-set="concatenated_value"
+                                               t-value="(line.lot_id.sscc or '') + '  ' + (line.lot_id.sscc2 or '')"/>
+                                            <span t-esc="concatenated_value"/>
+
+
                                         </td>
                                         <td style="text-align: center;">
                                             <strong t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"></strong>
@@ -141,8 +146,6 @@
         </t>
 
     </template>
-
-
 
 
 </odoo>

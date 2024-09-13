@@ -28,6 +28,17 @@
                ref="custom_paperformat_warehouse_label"/> <!-- Aquí se vincula el formato de papel -->
     </record>
 
+    <record id="custom_paperformat_traceability_list" model="report.paperformat">
+        <field name="name">Traceability List Custom Paper</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">10</field>
+        <field name="margin_left">1</field>
+        <field name="margin_right">1</field>
+        <field name="header_line" eval="False"/>
+    </record>
 
     <record id="traceability_list" model="ir.actions.report">
         <field name="name">traceability list report document</field>
@@ -40,6 +51,8 @@
         <field name="attachment">'Traceability list - %s - %s' % (object.partner_id.name or '', object.name)</field>
         <field name="binding_model_id" ref="stock.model_stock_picking"/>
         <field name="binding_type">report</field>
+        <!-- Aquí vinculamos el formato de papel personalizado -->
+        <field name="paperformat_id" ref="custom_paperformat_traceability_list"/>
     </record>
 
 
