@@ -27,6 +27,8 @@
         "views/product_template_views.xml",
         "views/mrp_bom_views.xml",
         "views/stocklot_view.xml",
+        "views/stock_picking_view.xml",
+        "views/res_partner_view.xml",
         "data/server_actions.xml",
         "wizard/pallet_boxes_wizard_views.xml",
         "wizard/view_stock_lot_boxes_wizard_form.xml",

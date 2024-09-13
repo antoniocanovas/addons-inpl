@@ -6,3 +6,5 @@ from . import mrp_bom_line
 from . import mrp_production
 from . import mrp_workorder
 from . import stock_lot
+from . import stock_picking
+from . import res_partner

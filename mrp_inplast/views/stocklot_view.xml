@@ -41,7 +41,7 @@
                         <field name="invisible_fields" invisible="1"/>
                         <label for="sscc" invisible="invisible_fields"/>
                         <div class="o_row" invisible="invisible_fields">
-                            <field name="sscc" options="{'no_open':True,'no_create': True}"/>
+                            <field name="sscc" options="{'no_open':True,'no_create': True}" readonly="1"/>
                             <button name="get_next_sscc"
                                     type="object"
                                     string="Generate SSCC1"
@@ -52,7 +52,7 @@
                                     context="{'sscc_field': 'sscc'}"
                             />
                         </div>
-                        <label for="sscc2" invisible="invisible_fields"/>
+                        <label for="sscc2" invisible="invisible_fields" readonly="1"/>
                         <div class="o_row" invisible="invisible_fields">
                             <field name="sscc2" options="{'no_open':True,'no_create': True}"/>
                             <button name="get_next_sscc"
