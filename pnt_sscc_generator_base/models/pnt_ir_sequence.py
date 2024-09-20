@@ -16,7 +16,6 @@ class IrSequence(models.Model):
     pnt_extension_digit = fields.Integer(string="SSCC extension digit", size=1)
 
     def action_open_sscc_sequence(self):
-
         res_id = self.search([("code", "=", "pnt.sscc.code")], limit=1)
         return {
             "name": _("SSCC Sequence"),

@@ -10,10 +10,10 @@
         </field>
     </record>
 
-    <menuitem id="pnt_menu_ean_sequence"
+    <menuitem id="pnt_menu_sscc_sequence"
               name="SSCC sequence"
               action="pnt_action_sscc_sequence_open"
-              parent="stock.menu_stock_config_settings"
-              sequence="100"/>
+              parent="pnt_product_ean_barcode.pnt_menu_sequence_group"
+              sequence="3"/>
 
 </odoo>

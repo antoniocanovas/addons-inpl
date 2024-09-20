@@ -39,8 +39,8 @@
                     <group name="sscc_group" col="5">
 
                         <field name="invisible_fields" invisible="1"/>
-                        <label for="sscc" invisible="invisible_fields"/>
-                        <div class="o_row" invisible="invisible_fields">
+                        <!--<label for="sscc" />
+                        <div class="o_row" >
                             <field name="sscc" options="{'no_open':True,'no_create': True}" readonly="1"/>
                             <button name="get_next_sscc"
                                     type="object"
@@ -63,6 +63,18 @@
                                     icon="fa-refresh"
                                     confirm="This will generate a new SSCC2 code if it is not already set."
                                     context="{'sscc_field': 'sscc2'}"
+                            />
+                        </div>-->
+                        <label for="sscc_code_ids" readonly="1"/>
+                        <div class="o_row">
+                            <field name="sscc_code_ids" options="{'no_open':True,'no_create': True}" widget="many2many_tags"/>
+                            <button name="get_next_sscc"
+                                    type="object"
+                                    string="Generate SSCC"
+                                    help="Generate the SSCC code for the product."
+                                    class="btn-link mb-1 px-0"
+                                    icon="fa-refresh"
+                                    confirm="This will generate a new SSCC code."
                             />
                         </div>
 

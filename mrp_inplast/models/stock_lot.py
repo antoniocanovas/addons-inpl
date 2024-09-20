@@ -23,16 +23,12 @@ class StockLot(models.Model):
     invisible_fields = fields.Boolean(
         string="Invisible Fields",
     )
-    sscc = fields.Char(string="SSCC1", help="SSCC1 number for the lot")
-    sscc2 = fields.Char(string="SSCC2", help="SSCC2 number for the lot")
+    # sscc = fields.Char(string="SSCC1", help="SSCC1 number for the lot")
+    # sscc2 = fields.Char(string="SSCC2", help="SSCC2 number for the lot")
 
-    def get_next_sscc(self):
-        """Genera un SSCC completo sin usar la librería gtin."""
-        if self.env.context.get("sscc_field") == "sscc" and self.sscc:
-            return  # sscc1 is already filled, so we do not generate a new one
-        if self.env.context.get("sscc_field") == "sscc2" and self.sscc2:
-            return  # sscc2 is already filled, so we do not generate a new one
+    sscc_code_ids = fields.One2many("pnt.sscc.code", "lot_id", string="SSCC Codes")
 
+    def get_next_sscc(self, qty=1):
         seq = self.env["ir.sequence"].search([("code", "=", "pnt.sscc.code")], limit=1)
         pnt_extension_digit = seq.pnt_extension_digit
         SSCC = self.env["ir.sequence"].next_by_code("pnt.sscc.code")
@@ -42,21 +38,18 @@ class StockLot(models.Model):
             raise ValueError(
                 "El prefijo de la empresa debe tener entre 7 y 10 dígitos."
             )
-
-        # Crear el SSCC sin el dígito de control
-        # sscc_pre = str(pnt_extension_digit) + str(SSCC)
-
         sscc = (
             str(pnt_extension_digit) + str(SSCC) + str(GTIN(raw=str(SSCC)).check_digit)
         )
-        # Generar el dígito de control usando el algoritmo de Luhn
-        ##sscc = self.calculate_luhn(sscc_pre)
-
-        # Asignar el SSCC a sscc1 o sscc2 dependiendo del contexto
-        if self.env.context.get("sscc_field") == "sscc2":
-            self.sscc2 = sscc
-        else:
-            self.sscc = sscc
+        for i in range(qty):
+            sscc_object = self.env["pnt.sscc.code"].create(
+                {
+                    "name": sscc,
+                    "lot_id": self.id,
+                }
+            )
+            if sscc_object:
+                self.sscc_code_ids = [(4, sscc_object.id)]
 
     @api.depends("product_id")
     def _compute_box_product_id(self):

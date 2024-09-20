@@ -8,3 +8,4 @@ from . import mrp_workorder
 from . import stock_lot
 from . import stock_picking
 from . import res_partner
+from . import pnt_sscc_code

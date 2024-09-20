@@ -18,15 +18,19 @@
         </field>
     </record>
 
+     <menuitem id="pnt_menu_sequence_group"
+              name="Sequences"
+              parent="stock.menu_stock_config_settings"
+              sequence="100"/>
     <menuitem id="pnt_menu_ean_sequence"
               name="EAN sequence"
               action="pnt_action_ean_sequence_open"
-              parent="stock.menu_stock_config_settings"
-              sequence="100"/>
+              parent="pnt_product_ean_barcode.pnt_menu_sequence_group"
+              sequence="1"/>
     <menuitem id="pnt_menu_internal_ean_sequence"
               name="Internal EAN sequence"
               action="pnt_action_internal_ean_sequence_open"
-              parent="stock.menu_stock_config_settings"
-              sequence="101"/>
+              parent="pnt_product_ean_barcode.pnt_menu_sequence_group"
+              sequence="2"/>
 
 </odoo>

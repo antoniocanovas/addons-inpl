@@ -9,7 +9,9 @@
     "author": "Pedro Guirao Puntsistemes, Adrian Muñoz Puntsistemes",
     "website": "https://www.puntsistemes.es",
     "license": "AGPL-3",
-    "depends": [],
+    "depends": [
+        "pnt_product_ean_barcode",
+    ],
     "data": [
         "views/pnt_menu.xml",
         "data/ir_sequence_data.xml",
