@@ -70,9 +70,9 @@
                             <br/>
 
                             <t t-set="barcode_value_sscc"
-                               t-value="'00' + (line.lot_id.sscc_code_ids[0] or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '') + '10' + (line.lot_id.parent_id.name or '')"/>
                             <t t-set="barcode_value_sscc_text"
-                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
                             <div t-esc="barcode_value_sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
@@ -95,7 +95,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
                     </div>
                 </div>
@@ -173,9 +173,9 @@
                             <br/>
 
                             <t t-set="barcode_value_sscc"
-                               t-value="'00' + (line.lot_id.sscc_code_ids[0] or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '') + '10' + (line.lot_id.parent_id.name or '')"/>
                             <t t-set="barcode_value_sscc_text"
-                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
                             <div t-esc="barcode_value_sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
@@ -198,7 +198,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
                     </div>
                 </div>
@@ -268,9 +268,9 @@
                             <br/>
 
                             <t t-set="barcode_value_sscc"
-                               t-value="'00' + (line.lot_id.sscc_code_ids[0] or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '') + '10' + (line.lot_id.parent_id.name or '')"/>
                             <t t-set="barcode_value_sscc_text"
-                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
                             <div t-esc="barcode_value_sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
@@ -293,7 +293,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
                     </div>
                 </div>
@@ -398,9 +398,9 @@
                                 </div>
                                 <div class="col-6" style="text-align: center;">
                                     <t t-set="barcode_value_sscc"
-                                       t-value="'00' + (line.lot_id.sscc_code_ids[0] or '')"/>
+                                       t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '')"/>
                                     <t t-set="barcode_value_sscc_text"
-                                       t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '')"/>
+                                       t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '')"/>
                                     <div t-esc="barcode_value_sscc"
                                          t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                                     <br/>
@@ -427,7 +427,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:20px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
 
 
@@ -529,9 +529,9 @@
                                 </div>
                                 <div class="col-6" style="text-align: center;">
                                     <t t-set="barcode_value_sscc"
-                                       t-value="'00' + (line.lot_id.sscc_code_ids[0] or '')"/>
+                                       t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '')"/>
                                     <t t-set="barcode_value_sscc_text"
-                                       t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '')"/>
+                                       t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '')"/>
                                     <div t-esc="barcode_value_sscc"
                                          t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                                     <br/>
@@ -558,7 +558,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
 
 
@@ -624,9 +624,9 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;font-size:10px">
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode or '') + '10' + (line.lot_id.sscc_code_ids[0] or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'02' + (line.product_id.barcode or '') + '10' + (line.lot_id.sscc_code_ids[0].name or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc_code_ids[0] or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc_code_ids[0].name or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -637,9 +637,9 @@
                             <br/>
 
                             <t t-set="barcode_value_sscc"
-                               t-value="'00' + (line.lot_id.sscc_code_ids[0] or '')"/>
+                               t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '')"/>
                             <t t-set="barcode_value_sscc_text"
-                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '')"/>
+                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '')"/>
                             <div t-esc="barcode_value_sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
@@ -662,7 +662,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
                     </div>
                 </div>
@@ -715,9 +715,9 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;font-size:10px">
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode or '') + '10' + (line.lot_id.sscc_code_ids[0] or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'02' + (line.product_id.barcode or '') + '10' + (line.lot_id.sscc_code_ids[0].name or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc_code_ids[0] or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'(02) ' + (line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc_code_ids[0].name or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -728,9 +728,9 @@
                             <br/>
 
                             <t t-set="barcode_value_sscc"
-                               t-value="'00' + (line.lot_id.sscc_code_ids[0] or '')"/>
+                               t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '')"/>
                             <t t-set="barcode_value_sscc_text"
-                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '')"/>
+                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '')"/>
                             <div t-esc="barcode_value_sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
@@ -753,7 +753,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
                     </div>
                 </div>
@@ -833,9 +833,9 @@
                             <br/>
 
                             <t t-set="barcode_value_sscc"
-                               t-value="'00' + (line.lot_id.sscc_code_ids[0] or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '') + '10' + (line.lot_id.parent_id.name or '')"/>
                             <t t-set="barcode_value_sscc_text"
-                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
                             <div t-esc="barcode_value_sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
@@ -858,7 +858,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
                     </div>
                 </div>
@@ -929,9 +929,9 @@
                             <br/>
 
                             <t t-set="barcode_value_sscc"
-                               t-value="'00' + (line.lot_id.sscc_code_ids[0] or '') + '10' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'00' + (line.lot_id.sscc_code_ids[0].name or '') + '10' + (line.lot_id.parent_id.name or '')"/>
                             <t t-set="barcode_value_sscc_text"
-                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0] or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
+                               t-value="'(00) ' + (line.lot_id.sscc_code_ids[0].name or '') + '(10) ' + (line.lot_id.parent_id.name or '')"/>
                             <div t-esc="barcode_value_sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
@@ -954,7 +954,7 @@
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
-                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0]"></strong>
+                            <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0].name"></strong>
                         </div>
                     </div>
                 </div>
