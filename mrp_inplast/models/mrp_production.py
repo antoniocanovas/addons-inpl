@@ -13,7 +13,7 @@ from odoo.tools import file_open
 class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
-    @api.onchange('bom_id')
+    @api.depends('bom_id')
     def _get_mrp_tool(self):
         for record in self:
             record['mrp_tool_id'] = record.bom_id.mrp_tool_id.id
