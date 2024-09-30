@@ -80,3 +80,4 @@ class MrpBom(models.Model):
     pallet_id = fields.Many2one('product.product', related="pallet_line_id.product_id", index=True)
     pallet_count = fields.Float("Pallet count", related="pallet_line_id.product_qty")
 
+    mrp_tool_id = fields.Many2one('mrp.product.tool', string='Tool')
