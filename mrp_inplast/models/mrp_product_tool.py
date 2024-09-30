@@ -8,7 +8,14 @@ from odoo.exceptions import ValidationError
 class MrpProductTool(models.Model):
     _name = "mrp.product.tool"
 
-    name = fields.Char(related='product_tmpl_id.name')
+    def _get_product_tool_name(self):
+        for record in self:
+            name=""
+            if record.pnt_tool_id.name: name += record.pnt_tool_id.name
+            if record.pnt_accesory_id.name: name += " / " + record.pnt_accesory_id.name
+            if record.pnt_blade_id.name: name += " / " + record.pnt_blade_id.name
+            record['name'] = name
+    name = fields.Char('Name', compute='_get_product_tool_name')
 
 
     # Datos de empresa de categoría de moldes y accesorios para usar en dominios de equipos:
