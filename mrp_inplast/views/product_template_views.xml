@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <field name="description" position="after">
                 <field name="mrp_tool_ids" invisible="pnt_product_type not in ['final','semi']">
-                    <tree editable="top">
+                    <tree editable="bottom">
                         <field name="pnt_mrp_tool_categ_id" column_invisible="1"/>
                         <field name="pnt_mrp_accesory_categ_id" column_invisible="1"/>
                         <field name="pnt_mrp_blade_categ_id" column_invisible="1"/>
