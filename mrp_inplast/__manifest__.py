@@ -12,6 +12,7 @@
     "depends": [
         "product",
         "stock",
+        "stock_delivery",
         "mrp_workorder",
         "maintenance",
         "mrp_maintenance",
