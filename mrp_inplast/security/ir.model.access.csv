@@ -2,3 +2,5 @@
 "access_pallet_boxes_wizard","access.pallet.boxes.wizard","model_pallet_boxes_wizard","mrp.group_mrp_user",1,1,1,1
 "access_stock_lot_boxes_wizard","access_stock_lot_boxes_wizard","model_stock_lot_boxes_wizard","mrp.group_mrp_user",1,1,1,1
 "access_pnt_sscc_code","access_pnt_sscc_code","model_pnt_sscc_code","mrp.group_mrp_user",1,1,1,1
+"access_pnt_product_tool_user","access_pnt_product_tool","model_product_tool","base.group_user",1,0,0,0
+"access_pnt_product_tool_admin","access_pnt_product_tool","model_product_tool","mrp.group_mrp_admin",1,1,1,1
