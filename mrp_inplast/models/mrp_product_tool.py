@@ -12,10 +12,10 @@ class MrpProductTool(models.Model):
 
 
     # Datos de empresa de categoría de moldes y accesorios para usar en dominios de equipos:
-    def get_tool_categ(self):
-        self.pnt_mrp_tool_categ_id = self.env.company.pnt_mrp_tool_categ_id.id
+#    def get_tool_categ(self):
+#        self.pnt_mrp_tool_categ_id = self.env.company.pnt_mrp_tool_categ_id.id
     pnt_mrp_tool_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
-                                            compute='get_tool_categ')
+                                            default=lambda self: self.env.company.pnt_mrp_tool_categ_id)
     def get_accesory_categ(self):
         self.pnt_mrp_accesory_categ_id = self.env.company.pnt_mrp_accesory_categ_id.id
     pnt_mrp_accesory_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
