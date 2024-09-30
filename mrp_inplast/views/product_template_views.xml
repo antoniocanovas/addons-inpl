@@ -10,19 +10,19 @@
             <field name="description" position="after">
                 <field name="mrp_tool_ids" invisible="pnt_product_type not in ['final','semi']">
                     <tree editable="top">
-                        <field name="pnt_mrp_tool_categ_id" invisible="1"/>
-                        <field name="pnt_mrp_accesory_categ_id" invisible="1"/>
-                        <field name="pnt_mrp_blade_categ_id" invisible="1"/>
+                        <field name="pnt_mrp_tool_categ_id" column_invisible="1"/>
+                        <field name="pnt_mrp_accesory_categ_id" column_invisible="1"/>
+                        <field name="pnt_mrp_blade_categ_id" column_invisible="1"/>
                         <field name="pnt_tool_id"
                                domain="[('category_id', 'in', [pnt_mrp_tool_categ_id])]"
                                options="{'no_create_edit':true,'no_quick_create':true}"
                         />
-                        <field name="pnt_accesory_ids" invisible="1"/>
+                        <field name="pnt_accesory_ids" column_invisible="1"/>
                         <field name="pnt_accesory_id"
                                domain="[('category_id', 'in', [pnt_mrp_accesory_categ_id]),('id', 'in', pnt_accesory_ids)]"
                                options="{'no_create_edit':true,'no_quick_create':true}"
                         />
-                        <field name="pnt_blade_ids" invisible="1"/>
+                        <field name="pnt_blade_ids" column_invisible="1"/>
                         <field name="pnt_blade_id"
                                domain="[('category_id', 'in', [pnt_mrp_blade_categ_id]),('id', 'in', pnt_blade_ids)]"
                                options="{'no_create_edit':true,'no_quick_create':true}"
