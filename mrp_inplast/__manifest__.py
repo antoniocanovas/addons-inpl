@@ -31,7 +31,7 @@
         "views/stock_lot_views.xml",
         "views/stock_picking_view.xml",
         "views/res_partner_view.xml",
-        "views/mrp_production_view.xml",
+        "views/mrp_production_views.xml",
         "data/server_actions.xml",
         "wizard/pallet_boxes_wizard_views.xml",
         "wizard/view_stock_lot_boxes_wizard_form.xml",
