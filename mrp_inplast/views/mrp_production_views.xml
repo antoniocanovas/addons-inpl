@@ -5,9 +5,9 @@
         <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
         <field name="arch" type="xml">
             <!-- Inserta la herramienta utilizada en función de la lista de materiales: -->
-            <field name="bom_id" position="after">
+            <xpath expr="//div[@name='bom_div']" position="after">
                 <field name="mrp_tool_id" domain="[('product_tmpl_id','=',product_tmpl_id)]"/>
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>
