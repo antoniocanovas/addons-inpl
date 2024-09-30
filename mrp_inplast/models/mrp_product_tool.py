@@ -5,8 +5,8 @@ from odoo import fields, models, api
 from odoo.exceptions import ValidationError
 
 
-class ProductTool(models.Model):
-    _name = "product.tool"
+class MrpProductTool(models.Model):
+    _name = "mrp.product.tool"
 
     name = fields.Char(related='product_tmpl_id.name')
 

@@ -6,4 +6,4 @@ from odoo import fields, models, api
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    mrp_tool_ids = fields.One2many('product.tool', 'product_tmpl_id', string='Tools')
+    mrp_tool_ids = fields.One2many('mrp.product.tool', 'product_tmpl_id', string='Tools')

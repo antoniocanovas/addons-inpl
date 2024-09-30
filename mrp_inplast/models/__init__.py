@@ -9,4 +9,4 @@ from . import stock_lot
 from . import stock_picking
 from . import res_partner
 from . import pnt_sscc_code
-from . import product_tool
+from . import mrp_product_tool
