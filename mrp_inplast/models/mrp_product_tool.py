@@ -12,19 +12,14 @@ class MrpProductTool(models.Model):
 
 
     # Datos de empresa de categoría de moldes y accesorios para usar en dominios de equipos:
-#    def get_tool_categ(self):
-#        self.pnt_mrp_tool_categ_id = self.env.company.pnt_mrp_tool_categ_id.id
     pnt_mrp_tool_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
                                             default=lambda self: self.env.company.pnt_mrp_tool_categ_id)
-    def get_accesory_categ(self):
-        self.pnt_mrp_accesory_categ_id = self.env.company.pnt_mrp_accesory_categ_id.id
-    pnt_mrp_accesory_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
-                                                compute='get_accesory_categ')
 
-    def get_blade_categ(self):
-        self.pnt_mrp_blade_categ_id = self.env.company.pnt_mrp_blade_categ_id.id
+    pnt_mrp_accesory_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
+                                                default=lambda self: self.env.company.pnt_mrp_accesory_categ_id)
+
     pnt_mrp_blade_categ_id = fields.Many2one('maintenance.equipment.category', store=False,
-                                                compute='get_blade_categ')
+                                             default=lambda self: self.env.company.pnt_mrp_blade_categ_id)
 
     # El molde para usar en la fabricación (con o sin accesorio):
     pnt_tool_id = fields.Many2one('maintenance.equipment', string='Mold', store=True, copy=True)

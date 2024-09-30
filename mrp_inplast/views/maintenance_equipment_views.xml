@@ -12,10 +12,7 @@
                     <field name="pnt_mrp_tool_categ_id" invisible="1"/>
                     <field name="pnt_mrp_accesory_categ_id" invisible="1"/>
                     <field name="pnt_mrp_blade_categ_id" invisible="1"/>
-                    <!--<field name="pnt_tool_id"
-                           domain="[('id','!=',id),('category_id','=',pnt_mrp_tool_categ_id)]"
-                           required="category_id == pnt_mrp_accesory_categ_id"
-                           invisible="category_id != pnt_mrp_accesory_categ_id"/>-->
+
                     <field name="pnt_tool_accesory_ids" context="{'default_category_id': pnt_mrp_accesory_categ_id}" widget="many2many_tags" domain="[('category_id', '=', pnt_mrp_accesory_categ_id )]"
                            invisible="category_id != pnt_mrp_tool_categ_id"/>
                     <field name="pnt_accesory_tool_ids" context="{'default_category_id': pnt_mrp_tool_categ_id}" widget="many2many_tags" domain="[('category_id', '=', pnt_mrp_tool_categ_id )]"

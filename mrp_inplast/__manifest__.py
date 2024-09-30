@@ -28,7 +28,7 @@
         "views/maintenance_equipment_views.xml",
         "views/product_template_views.xml",
         "views/mrp_bom_views.xml",
-        "views/stocklot_view.xml",
+        "views/stock_lot_views.xml",
         "views/stock_picking_view.xml",
         "views/res_partner_view.xml",
         "data/server_actions.xml",
