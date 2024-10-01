@@ -74,7 +74,7 @@
                         <field name="pnt_pallet_label_qty" string="Labels qty"/>
                         <field name="pnt_picking_label_id" required="pnt_type == 'pallet'"/>
                         <field name="pnt_picking_label_qty" context="{'default_pnt_product_type':'packaging'}"/>
-                        <field name="pnt_prefix"/>
+
                     </group>
                 </sheet>
             </form>

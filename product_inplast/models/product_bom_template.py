@@ -83,19 +83,6 @@ class ProductBomTemplate(models.Model):
     )
     pnt_picking_label_qty = fields.Integer("Picking Label qty", default="1")
 
-    @api.onchange("pnt_type")
-    def _get_packing_prefix(self):
-        for record in self:
-            if record.pnt_type == "box":
-                prefix = "C."
-            else:
-                prefix = "P."
-            record["pnt_prefix"] = prefix
-
-    pnt_prefix = fields.Char(
-        "Prefix", store=True, readonly=False, compute="_get_packing_prefix"
-    )
-
     @api.depends("pnt_pallet_box_qty", "pnt_pallet_box_id")
     def _get_pallet_base_qty(self):
         for record in self:
