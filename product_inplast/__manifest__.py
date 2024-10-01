@@ -2,10 +2,10 @@
     "name": "Product Inplast",
     "summary": "Products Inplast",
     "version": "17.0.1.0.0",
-    'category': 'Product, Picking',
+    "category": "Product, Picking",
     "author": "Punt Sistemes",
     "website": "https://www.puntsistemes.es",
-    "Maintainers":[
+    "Maintainers": [
         "Equipo rojo",
     ],
     "license": "LGPL-3",
@@ -24,6 +24,7 @@
         "views/res_company_views.xml",
         "views/product_packing_wizard_views.xml",
         "views/product_template_views.xml",
+        "views/product_bom_template_views.xml",
         "views/menu_views.xml",
         "data/stock_package_type.xml",
     ],

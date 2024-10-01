@@ -11,7 +11,6 @@
     <menuitem id="coa_type"
               parent="stock.menu_stock_inventory_control"
               name="COA Type" action="action_coa_type"/>
-    />
 
 
     <record id="coa_type_form" model="ir.ui.view">
@@ -78,5 +77,10 @@
         <field name="priority">16</field>
         <field name="type">tree</field>
     </record>
+
+
+    <menuitem id="bom_template"
+              parent="stock.menu_stock_config_settings"
+              name="BOM Template" action="action_window_product_bom_template"/>
 
 </odoo>
