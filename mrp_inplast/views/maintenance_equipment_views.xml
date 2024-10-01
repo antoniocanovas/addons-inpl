@@ -17,7 +17,7 @@
                            invisible="category_id != pnt_mrp_tool_categ_id"/>
                     <field name="pnt_accesory_tool_ids" context="{'default_category_id': pnt_mrp_tool_categ_id}" widget="many2many_tags" domain="[('category_id', '=', pnt_mrp_tool_categ_id )]"
                            invisible="category_id != pnt_mrp_accesory_categ_id"/>
-                    <field name="pnt_tool_blade_ids" context="{'category_id': pnt_mrp_blade_categ_id}" widget="many2many_tags" domain="[('category_id', '=', pnt_mrp_blade_categ_id )]"
+                    <field name="pnt_tool_blade_ids" context="{'default_category_id': pnt_mrp_blade_categ_id}" widget="many2many_tags" domain="[('category_id', '=', pnt_mrp_blade_categ_id )]"
                            invisible="category_id != pnt_mrp_tool_categ_id"/>
                     <field name="pnt_blade_tool_ids" context="{'default_category_id': pnt_mrp_tool_categ_id}" widget="many2many_tags" domain="[('category_id', '=', pnt_mrp_tool_categ_id )]"
                            invisible="category_id != pnt_mrp_blade_categ_id"/>

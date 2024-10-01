@@ -42,52 +42,50 @@
 
                         </group>
                     </group>
-                    <group name="relations" string="Relations">
-                        <group string="Pricelist items">
-                            <field name="pnt_pricelist_item_ids" nolabel="1" readonly="1" colspan="2">
-                                <tree>
-                                    <field name="pricelist_id"/>
-                                    <field name="price"/>
-                                    <field name="price_surcharge"/>
-                                </tree>
-                            </field>
-                        </group>
-                        <group name="packing_products" string="Packing products">
-                            <field name="pnt_packing_ids" nolabel="1" readonly="1" colspan="2">
-                                <tree>
-                                    <field name="name"/>
-                                    <field name="pnt_parent_qty"/>
-                                    <field name="pnt_parent_qty"/>
-                                    <field name="pnt_product_type"/>
-                                </tree>
-                            </field>
-                        </group>
-                    </group>
-                    <group>
-                        <group string="Bom lines" name="bom_lines">
-                            <field name="pnt_bom_line_ids" nolabel="1" readonly="1" colspan="2">
-                                <tree>
-                                    <field name="bom_id"/>
-                                </tree>
-                            </field>
-                        </group>
-                    </group>
-                </page>
-            </xpath>
-
-            <xpath expr="//page[@name='general_information']" position="after">
-                <page string="Reports" name="reports">
-                    <group name="coa" string="COA">
-                        <field string="COA" name="pnt_product_coa"/>
-                    </group>
-                    <group name="label" string="Warehouse label">
-                        <field string="Label" name="pnt_label_type"/>
-                        <field string="number of labels" name="number_of_labels"/>
-                        <field string="Customer code" name="pnt_customer_code_print"/>
-                        <field string="Customer code" name="pnt_customer_code" invisible="pnt_customer_code_print == False"/>
-                        <!--<field string="COA Handle" name="pnt_product_handle_coa"/>
-                        <field string="Components" name="pnt_product_coa_components"/>-->
-                    </group>
+                    <notebook>
+                        <page string="Reports" name="reports">
+                            <group name="coa" string="COA">
+                                <field string="COA" name="pnt_product_coa"/>
+                            </group>
+                            <group name="label" string="Warehouse label">
+                                <field string="Label" name="pnt_label_type"/>
+                                <field string="number of labels" name="number_of_labels"/>
+                                <field string="Customer code" name="pnt_customer_code_print"/>
+                                <field string="Customer code" name="pnt_customer_code"
+                                       invisible="pnt_customer_code_print == False"/>
+                                <!--<field string="COA Handle" name="pnt_product_handle_coa"/>
+                                <field string="Components" name="pnt_product_coa_components"/>-->
+                            </group>
+                        </page>
+                        <page name="relations" string="Relations">
+                            <group string="Pricelist items">
+                                <field name="pnt_pricelist_item_ids" nolabel="1" readonly="1" colspan="2">
+                                    <tree>
+                                        <field name="pricelist_id"/>
+                                        <field name="price"/>
+                                        <field name="price_surcharge"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group name="packing_products" string="Packing products">
+                                <field name="pnt_packing_ids" nolabel="1" readonly="1" colspan="2">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="pnt_parent_qty"/>
+                                        <field name="pnt_parent_qty"/>
+                                        <field name="pnt_product_type"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group string="Bom lines" name="bom_lines">
+                                <field name="pnt_bom_line_ids" nolabel="1" readonly="1" colspan="2">
+                                    <tree>
+                                        <field name="bom_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
                 </page>
             </xpath>
         </field>
@@ -102,7 +100,8 @@
         <field name="inherit_id" ref="product.product_template_kanban_view"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('o_kanban_record_top')]" position="after">
-                <t t-if="record.pnt_product_dye.value">[<field name="pnt_product_dye"/>]</t>
+                <t t-if="record.pnt_product_dye.value">[<field name="pnt_product_dye"/>]
+                </t>
             </xpath>
         </field>
     </record>
