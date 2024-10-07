@@ -3,3 +3,5 @@ access_pnt_coa_template,user.coa.access,model_pnt_coa,base.group_user,1,1,1,1
 access_pnt_product_packing_wizard,user.product.packing.wizard,model_product_packing_wizard,base.group_user,1,1,1,1
 access_pnt_product_bom_template,user.product.bom.template,model_product_bom_template,base.group_user,1,0,0,0
 access_pnt_product_bom_template_admin,admin.product.bom.template,model_product_bom_template,mrp.group_mrp_manager,1,1,1,1
+access_pnt_coa_content_user,user.coa.content,model_pnt_coa_content,base.group_user,1,1,1,1
+access_pnt_coa_content_manager,manager.coa.content,model_pnt_coa_content,base.group_system,1,1,1,1
