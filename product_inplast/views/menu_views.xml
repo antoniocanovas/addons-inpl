@@ -24,9 +24,9 @@
                     <group name="basic_params" col="4">
                         <!-- Asegúrate de incluir los campos aquí -->
                         <field name="type"/>
-                        <field name="print_multicolor"/> <!-- Campo que falta -->
+
                         <field name="print_quality_meassure"/>
-                        <field name="print_components"/> <!-- Campo que falta -->
+
                         <field name="material_number"/>
                         <field name="specification_number"/>
                         <field name="vendor_site_number"/>
@@ -41,12 +41,12 @@
                         <field name="selected_multicolor_body" widget="html"
                                class="oe-bordered-editor"
                                options="{'style-inline': true, 'codeview': true, 'dynamic_placeholder': true}"
-                               invisible="1 if not print_multicolor else 0"/>
+                              />
 
                         <field name="selected_components_body" widget="html"
                                class="oe-bordered-editor"
                                options="{'style-inline': true, 'codeview': true, 'dynamic_placeholder': true}"
-                               invisible="1 if not print_components else 0"/>
+                              />
                     </group>
 
                     <notebook>
@@ -54,14 +54,13 @@
 
                                 <field name="content_ids" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="print_multicolor"/> <!-- Campo que falta -->
-                                        <field name="print_components"/>
+
                                         <field name="language_code"/>
                                         <field name="coa_body" widget="html"/>
                                         <field name="multicolor_body" widget="html"
-                                               invisible="print_multicolor"/>
+                                               />
                                         <field name="components_body" widget="html"
-                                               invisible="print_components"/>
+                                               />
                                     </tree>
                                 </field>
 

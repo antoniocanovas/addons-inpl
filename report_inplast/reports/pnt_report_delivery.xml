@@ -22,7 +22,7 @@
                                    t-call="report_inplast.coa_product_batch_certificate_document"/>
                             </t>
                             <t t-if="o.partner_id.pnt_picking_report_id.coa_multicolor
-                             and line.product_id.pnt_product_coa.print_multicolor"
+                             and line.product_id.pnt_product_coa.get_multicolor_body_for_partner_lang(o.partner_id.lang)"
                                t-call="report_inplast.coa_product_document_multicolor_attachment"/>
                             <t t-if="o.partner_id.pnt_picking_report_id.coa_milk
                              and line.product_id.pnt_product_coa.print_quality_meassure"
