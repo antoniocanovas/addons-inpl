@@ -105,6 +105,24 @@ class PntCoa(models.Model):
 
         return coa_record
 
+    def get_coa_body_for_partner_lang(self, partner_lang):
+        """Obtiene el contenido COA body adecuado basado en el idioma del partner."""
+        self.ensure_one()
+        content = self.content_ids.filtered(lambda c: c.language_code == partner_lang)
+        return content.coa_body if content else ""
+
+    def get_components_body_for_partner_lang(self, partner_lang):
+        """Obtiene el contenido Components body adecuado basado en el idioma del partner."""
+        self.ensure_one()
+        content = self.content_ids.filtered(lambda c: c.language_code == partner_lang)
+        return content.components_body if content else ""
+
+    def get_multicolor_body_for_partner_lang(self, partner_lang):
+        """Obtiene el contenido Multicolor body adecuado basado en el idioma del partner."""
+        self.ensure_one()
+        content = self.content_ids.filtered(lambda c: c.language_code == partner_lang)
+        return content.multicolor_body if content else ""
+
     def write(self, vals):
         res = super(PntCoa, self).write(vals)
         if "language_selection" in vals:

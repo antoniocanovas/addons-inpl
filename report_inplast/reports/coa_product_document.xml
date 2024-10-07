@@ -124,7 +124,7 @@
                     <div class="col" style="height:10px"></div>
                 </div>
                 <div style="width: 100%; page-break-inside: avoid; text-align: center;">
-                    <span t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
+                    <span t-raw="o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang)"/>
                 </div>
 
 
@@ -288,8 +288,8 @@
                     <div class="col" style="height:20px"></div>
                 </div>
 
-                <div style="width: 100%; page-break-inside: avoid; display: flex; justify-content: center; align-items: center; text-align: center;">
-                    <span style="position: absolute;" t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
+                <div style="width: 100%; page-break-inside: avoid; text-align: center;">
+                    <span t-raw="o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang)"/>
                 </div>
 
 
@@ -417,8 +417,8 @@
 
                 </div>
 
-                <div style="width: 100%; page-break-inside: avoid; display: flex; justify-content: center; align-items: center; text-align: center;margin-top:20px;">
-                    <span t-raw="line.product_id.pnt_product_coa.pnt_coa_body"/>
+                <div style="width: 100%; page-break-inside: avoid; text-align: center;">
+                    <span t-raw="o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang)"/>
                 </div>
 
                 <div style="border: 1px solid black; padding: 10px;page-break-inside: avoid;">
@@ -827,8 +827,11 @@
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
 
                 <div style="width: 100%; page-break-inside: avoid; display: flex; justify-content: center; align-items: center; text-align: center;">
-                    <h1 style="font-weight: bold; border-bottom: 2px solid black;margin-bottom:50px;">Components Attachment</h1>
-                    <span t-raw="line.product_id.pnt_product_coa.body_components"/>
+                    <h1 style="font-weight: bold; border-bottom: 2px solid black;margin-bottom:50px;">Components
+                        Attachment
+                    </h1>
+                    <span t-raw="line.product_id.pnt_product_coa.get_components_body_for_partner_lang(o.partner_id.lang)"/>
+
                 </div>
             </t>
 
@@ -843,8 +846,10 @@
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
 
                 <div style="width: 100%; page-break-inside: avoid; display: flex; justify-content: center; align-items: center; text-align: center;">
-                    <h1 style="font-weight: bold; border-bottom: 2px solid black;margin-bottom:50px;">Multicolor Attachment</h1>
-                    <span t-raw="line.product_id.pnt_product_coa.body_multicolor"/>
+                    <h1 style="font-weight: bold; border-bottom: 2px solid black;margin-bottom:50px;">Multicolor
+                        Attachment
+                    </h1>
+                    <span t-raw="line.product_id.pnt_product_coa.get_multicolor_body_for_partner_lang(o.partner_id.lang)"/>
                 </div>
             </t>
 
