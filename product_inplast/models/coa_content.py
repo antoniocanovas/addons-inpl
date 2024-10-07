@@ -14,5 +14,3 @@ class PntCoaContent(models.Model):
     coa_body = fields.Html(string="COA Body")
     multicolor_body = fields.Html(string="Multicolor Body")
     components_body = fields.Html(string="Components Body")
-    print_multicolor = fields.Html(related="coa_id.body_multicolor", readonly=False)
-    print_components = fields.Html(related="coa_id.body_components", readonly=False)

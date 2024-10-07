@@ -16,10 +16,8 @@ class PntCoa(models.Model):
     name = fields.Char(string="Name")
     type = fields.Selection(selection=TYPE)
     print_multicolor = fields.Boolean("Multicolor print")
-    body_multicolor = fields.Html("Multicolor table", translate=True)
     print_quality_meassure = fields.Boolean("Quality meassures")
     print_components = fields.Boolean("Components print")
-    body_components = fields.Html("Components table", translate=True)
 
     material_number = fields.Char("Material Number")
     specification_number = fields.Char("Specifitacion Number")
