@@ -23,8 +23,6 @@ class ProductBomTemplate(models.Model):
             ("packaging", "Packaging"),
             ("box", "BOX"),
             ("pallet", "Pallet"),
-            ("tool", "Tool"),
-            ("other", "Other"),
         ],
         store=True,
         copy=True,
