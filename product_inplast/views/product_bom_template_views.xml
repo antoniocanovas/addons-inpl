@@ -21,7 +21,7 @@
                     </h3>
 
                     <group>
-                        <field name="pnt_type" invisible="pnt_type" required="1"/>
+                        <field name="pnt_type" readonly="pnt_type" force_save="1" required="1"/>
                     </group>
 
                     <field name="line_ids">
