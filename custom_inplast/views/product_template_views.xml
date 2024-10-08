@@ -50,6 +50,7 @@
                         <field name="mig_unidades_palet" readonly="1"/>
                         <field name="mig_unidades_caja" readonly="1"/>
                         <field name="mig_etiqueta_esp_cliente" readonly="1"/>
+                        <field name="old_defauld_code" readonly="1"/>
                     </group>
                 </page>
             </xpath>

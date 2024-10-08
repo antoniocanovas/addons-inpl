@@ -49,3 +49,4 @@ class ProductTemplate(models.Model):
     mig_unidades_palet = fields.Integer('mig_unidades_palet')
     mig_unidades_caja = fields.Integer('mig_unidades_caja')
     mig_etiqueta_esp_cliente = fields.Char('mig_etiqueta_esp_cliente')
+    old_defauld_code = fields.Char('old_defauld_code')
