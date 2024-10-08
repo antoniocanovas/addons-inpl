@@ -34,14 +34,13 @@
 
 
 
-                    <div invisible="1">
+                    <!--
                     <group>
                         <field name="pnt_type" invisible="pnt_type"/>
                     </group>
                     <group name="box" string="Box" invisible="pnt_type != 'box'">
                         <field name="pnt_box_type_id" context="{'default_pnt_product_type':'box'}"
                                required="pnt_type == 'box'"/>
-                      <!--  <field name="pnt_box_base_qty"/>-->
                         <field name="pnt_box_bag_id" context="{'default_pnt_product_type':'packaging'}"
                                required="pnt_type == 'box'"/>
                         <field name="pnt_box_bag_qty"/>
@@ -77,7 +76,6 @@
                       <field name="pnt_box_bag_qty"
                                required="pnt_type == 'palletmat'" invisible="pnt_type != 'palletmat'"/>
 
-                      <!--  <field name="pnt_pallet_base_qty" readonly="pnt_type == 'pallet'"/>-->
 
                         <field name="pnt_pallet_film_id" context="{'default_pnt_product_type':'packaging'}"
                                required="pnt_type == 'pallet'"/>
@@ -92,7 +90,7 @@
                         <field name="pnt_picking_label_qty" context="{'default_pnt_product_type':'packaging'}"/>
 
                     </group>
-                    </div>
+                    -->
                 </sheet>
             </form>
         </field>
