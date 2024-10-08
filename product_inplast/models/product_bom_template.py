@@ -16,6 +16,14 @@ class ProductBomTemplate(models.Model):
         ],
         string="Packing type",
     )
+
+    line_ids = fields.One2many('product.bom.template.line', 'template_id', string='Lines')
+
+
+
+
+
+
     # Cajas:
 
     pnt_box_type_id = fields.Many2one(
