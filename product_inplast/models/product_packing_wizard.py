@@ -80,6 +80,7 @@ class ProductPackingWizard(models.TransientModel):
                 False,
                 False,
             )
+
             packagetype = self.env.ref("product_inplast.package_type_box_inplast")
             if record.pnt_type != "box":
                 boxqty = record.pnt_pallet_box_qty
@@ -160,6 +161,21 @@ class ProductPackingWizard(models.TransientModel):
                     "pnt_raw_type_id": uom_weight.id,
                 }
             )
+
+#### Nueva versión:
+            for li in record.bom_template_id.line_ids:
+                newbomboxline = self.env["mrp.bom.line"].create(
+                    {
+                        "product_id": li.product_id.id,
+                        "product_qty": li.quantity,
+                        "bom_id": newldm.id,
+                    }
+                )
+
+
+### Desde aquí lo que hay que revisar:
+
+            """
 
             # Crear componentes de la lista de materiales para CAJAS:
             if record.pnt_type == "box":
@@ -305,7 +321,8 @@ class ProductPackingWizard(models.TransientModel):
                                     "bom_id": newldm.id,
                                 }
                             )
-
+"""
+#### Hasta aquí lo que hay que revisar.
             # Crear en tarifas:
             pricelist = []
             pricelist_item = self.env["product.pricelist.item"].search(
