@@ -13,3 +13,4 @@ from . import mrp_product_tool
 from . import product_bom_template
 from . import product_bom_template_line
 from . import product_packing_wizard
+from . import mrp_workcenter

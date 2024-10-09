@@ -25,6 +25,7 @@
     "depends": [
         'analytic_distribution_base',
         'mrp',
+        'mrp_inplast',
     ],
     "author": "Punt Sistemes",
     "category": 'Account',
