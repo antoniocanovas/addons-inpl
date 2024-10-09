@@ -10,7 +10,7 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Analytic distribution">
                     <group>
-                        <group>
+                        <group string="Account analytic default plans">
                             <field name="analytic_product_plan"/>
                             <field name="analytic_categ_plan"/>
                             <field name="analytic_department_plan"/>
