@@ -55,7 +55,7 @@ class AnalyticDistribution(models.Model):
                  ('date_start', '>=', datefrom),
                  ('date_start', '<=', dateto),
                  ('product_id','=',product.id)])
-            for pwo = productworkorders:
+            for pwo in productworkorders:
                 # Consumo:
                 a = 1
                 # Nº tapones:
