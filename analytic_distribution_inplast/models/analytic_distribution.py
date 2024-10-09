@@ -36,9 +36,9 @@ class AnalyticDistribution(models.Model):
         dateto = self.date_to
         total_kwh = 0  # Total de kWh consumidos por todas las máquinas
         workcenters = self.workcenter_ids
-        amount = self.amount  # El máximo coste a distribuir
+        amount = self.amount  # El coste a distribuir
 
-        # Órdenes de manufactura consideradas entre fechas:
+        # Wororders entre fechas:
         workorders = self.env["mrp.workorder"].search(
             [
                 ("workcenter_id", "in", workcenters.ids),
@@ -74,7 +74,7 @@ class AnalyticDistribution(models.Model):
         if total_kwh == 0:
             raise UserError("No hay consumo de energía registrado.")
 
-        # Crear o actualizar entradas analíticas para cada producto
+        # Crear entradas analíticas para cada producto
         for i in range(len(mrpproducts)):
             product = mrpproducts[i]
             product_kwh = product_total_kwh[i]
@@ -82,14 +82,21 @@ class AnalyticDistribution(models.Model):
             machine_percentage = (product_kwh / total_kwh) * 100
             machine_cost = (amount * machine_percentage) / 100
 
-            existing_line = self.env["account.analytic.line"].search(
-                [
-                    ("product_id", "=", product.id),
-                    ("date", ">=", datefrom),
-                    ("date", "<=", dateto),
-                ],
-                limit=1,
-            )
+            # Buscar la cuenta analítica para el producto base tapón, o crearla:
+            analytic_product = product
+            if product.pnt_product_type == 'packing':
+                analytic_product = product.pnt_parent_id
+
+            analytic_account = self.env['account.analytic.account'].search([
+                ('product_id','=',analytic_product.id)
+            ])
+            if not analytic_account.id:
+                analytic_account = self.env['account.analytic.account'].create({
+                    'product_id': analytic_product.id,
+                    'plan_id': self.env.company.product_analytic_plan_id.id,
+                    'name': analytic_product.name,
+                })
+
 
             self.env["account.analytic.line"].create(
                 {
@@ -98,6 +105,7 @@ class AnalyticDistribution(models.Model):
                     "product_id": product.id,
                     "date": fields.Date.today(),
                     "analytic_distribution_id": self.id,
+                    "account_id": analytic_account.id,
                 }
             )
 
@@ -144,22 +152,13 @@ class AnalyticDistribution(models.Model):
         if total_duration == 0:
             raise UserError("No hay consumo de energía registrado.")
 
-        # Crear o actualizar entradas analíticas para cada producto
+        # Crear entradas analíticas para cada producto
         for i in range(len(mrpproducts)):
             product = mrpproducts[i]
             product_kwh = product_total_duration[i]
 
             machine_percentage = (product_kwh / total_duration) * 100
             machine_cost = (amount * machine_percentage) / 100
-
-            existing_line = self.env["account.analytic.line"].search(
-                [
-                    ("product_id", "=", product.id),
-                    ("date", ">=", datefrom),
-                    ("date", "<=", dateto),
-                ],
-                limit=1,
-            )
 
             self.env["account.analytic.line"].create(
                 {

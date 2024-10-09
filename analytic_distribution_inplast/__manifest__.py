@@ -35,6 +35,7 @@
     """,
     "data": [
         'views/analytic_distribution_views.xml',
+        'views/res_company_views.xml',
     ],
     "demo": [],
     "installable": True,
