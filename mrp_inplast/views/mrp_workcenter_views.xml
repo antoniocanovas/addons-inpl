@@ -5,7 +5,7 @@
         <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
         <field name="arch" type="xml">
             <!-- Inserta el consumo eléctrito teórico para usar en analítica: -->
-            <xpath expr="//field[@name='time_start']" position="before">
+            <xpath expr="//field[@name='resource_calendar_id']" position="after">
                 <field name="power_kw"/>
             </xpath>
         </field>
