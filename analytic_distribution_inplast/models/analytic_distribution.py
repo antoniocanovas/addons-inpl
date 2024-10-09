@@ -11,9 +11,11 @@ class AnalyticDistribution(models.Model):
 
     compute_mode = fields.Selection([
         ('demo','demo INPLAST'),
-        ('r13', 'R13.- Electricidad')
+        ('r13', 'R13.- Electricidad'),
     ])
+
     workcenter_ids = fields.Many2many('mrp.workcenter', string="Workcenters")
+
 
     def compute_distribution(self):
         """ Extend this function with custom Inplast analytic compute modes
@@ -30,13 +32,14 @@ class AnalyticDistribution(models.Model):
     def compute_r13(self):
         datefrom = self.date_from
         dateto = self.date_to
-        total_kw, mainproducts = 0, []
+        total_kw, mrpproducts = 0, []
         # Array de máquinas a considerar:
         workcenters = self.workcenter_ids
         # Manufacturing order consideradas entre fechas:
-        workorders = self.env['mpr.workorder'].search([('workcenter_id','in',workcenter.ids),
-                                                       ('date_start', '>=', datefrom),
-                                                       ('date_start', '<=', dateto)])
+        workorders = self.env['mpr.workorder'].search(
+            [('workcenter_id','in',workcenter.ids),
+             ('date_start', '>=', datefrom),
+             ('date_start', '<=', dateto)])
 
         # Cálculo del total de kw en todos los workcenter en base al tiempo trabajado:
         for wo in workorders:
@@ -44,10 +47,20 @@ class AnalyticDistribution(models.Model):
             if wo.product_id not in mainproducts:
                 mainproducts.append(wo.product_id)
 
-        # Bucle para recorrer las operaciones de cada producto entre fechas
+        # Bucle para recorrer las operaciones de cada producto entre fechas:
         # (consumo teórico por máquina, consumo teórico total, tapones por máquina, tapones total):
+        for product in mrpproducts:
+            productworkorders = self.env['mpr.workorder'].search(
+                [('workcenter_id','in',workcenter.ids),
+                 ('date_start', '>=', datefrom),
+                 ('date_start', '<=', dateto),
+                 ('product_id','=',product.id)])
+            for pwo = productworkorders:
+                # Consumo:
+                a = 1
+                # Nº tapones:
 
+                # Búsqueda de cuenta analítica, creación si no existe:
 
-        # Chequeo e imputación analítica sobre la cuenta del tapón:
+                # Creación de la imputación:
 
-        # Reparto proporcional por tapón en función del consumo (esto es cuadro de mandos y se hará en otro desarrollo):
