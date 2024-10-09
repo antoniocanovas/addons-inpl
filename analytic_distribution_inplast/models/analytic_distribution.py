@@ -50,6 +50,7 @@ class AnalyticDistribution(models.Model):
         # Bucle para recorrer las operaciones de cada producto entre fechas:
         # (consumo teórico por máquina, consumo teórico total, tapones por máquina, tapones total):
         for product in mrpproducts:
+            power = 0
             productworkorders = self.env['mrp.workorder'].search(
                 [('workcenter_id','in',workcenter.ids),
                  ('date_start', '>=', datefrom),
@@ -57,7 +58,7 @@ class AnalyticDistribution(models.Model):
                  ('product_id','=',product.id)])
             for pwo in productworkorders:
                 # Consumo:
-                a = 1
+                power += 1
                 # Nº tapones:
 
                 # Búsqueda de cuenta analítica, creación si no existe:
