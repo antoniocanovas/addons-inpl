@@ -10,3 +10,6 @@ from . import stock_picking
 from . import res_partner
 from . import pnt_sscc_code
 from . import mrp_product_tool
+from . import product_bom_template
+from . import product_bom_template_line
+from . import product_packing_wizard

@@ -97,9 +97,4 @@
         <field name="type">tree</field>
     </record>
 
-
-    <menuitem id="bom_template"
-              parent="stock.menu_stock_config_settings"
-              name="BOM Template" action="action_window_product_bom_template"/>
-
 </odoo>
