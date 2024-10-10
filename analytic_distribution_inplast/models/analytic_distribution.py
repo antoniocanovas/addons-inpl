@@ -10,6 +10,7 @@ class AnalyticDistribution(models.Model):
             ("demo", "demo INPLAST"),
             ("r13", "R13.- Electricidad"),
             ("r14", "Reparto 14"),
+            ("r15", "Reparto 15"),
         ]
     )
 
@@ -28,7 +29,7 @@ class AnalyticDistribution(models.Model):
             raise UserError("ok")
         elif self.compute_mode == "r13":
             self.compute_r13()
-        elif self.compute_mode == "r14":
+        elif self.compute_mode in ["r14","r15"]:
             self.compute_r14()
 
     def compute_r13(self):
