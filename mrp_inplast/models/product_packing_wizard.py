@@ -12,19 +12,19 @@ class ProductPackingWizard(models.TransientModel):
     base_qty = fields.Integer('Base qty')
     box_qty = fields.Integer('Box qty', default=1)
 
-    @api.onchange("type")
-    def _get_packing_sufix(self):
-        for record in self:
-            sufix = "."
-            if record.type == "box":
-                sufix = ".C" + record.bom_template_id.code
-            elif record.type == "pallet":
-                sufix = ".P" + record.bom_template_id.code
-            record["sufix"] = sufix
+# Eliminado 10/24 para usar el sufijo siempre de la plantilla:
+#    @api.onchange("type")
+#    def _get_packing_sufix(self):
+#        for record in self:
+#            sufix = "."
+#            if record.type == "box":
+#                sufix = ".C" + record.bom_template_id.code
+#            elif record.type == "pallet":
+#                sufix = ".P" + record.bom_template_id.code
+#            record["sufix"] = sufix
 
-    sufix = fields.Char(
-        "Sufix", store=True, readonly=False, compute="_get_packing_sufix"
-    )
+    sufix = fields.Char("Sufix", related='bom_template_id.code')
+#        store=True, readonly=False, compute="_get_packing_sufix")
 
     def create_packing_products(self):
         for record in self:
