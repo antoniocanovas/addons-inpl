@@ -163,7 +163,7 @@ class AnalyticDistribution(models.Model):
             self.env["account.analytic.line"].create(
                 {
                     "name": f"Consumo {product.name}",
-                    "amount": -machine_cost,
+                    "amount": machine_cost,
                     "product_id": product.id,
                     "date": fields.Date.today(),
                     "analytic_distribution_id": self.id,
