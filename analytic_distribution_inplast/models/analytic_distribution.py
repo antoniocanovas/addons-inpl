@@ -93,7 +93,7 @@ class AnalyticDistribution(models.Model):
             if not analytic_account.id:
                 analytic_account = self.env['account.analytic.account'].create({
                     'product_id': analytic_product.id,
-                    'plan_id': self.env.company.product_analytic_plan_id.id,
+                    'plan_id': self.env.company.analytic_product_plan_id.id,
                     'name': analytic_product.name,
                 })
 
