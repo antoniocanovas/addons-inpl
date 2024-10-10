@@ -2,7 +2,7 @@
 <odoo>
 
     <!-- WINDOW ACTIONS analytic.distribution Model: -->
-    <record model="ir.actions.act_window" id="analytic_distribution_action_window" >
+    <record id="analytic_distribution_action_window" model="ir.actions.act_window">
         <field name="name">Custom Analytic Distributions</field>
         <field name="type">ir.actions.act_window</field>
         <field name="binding_model_id" eval="False"/>
@@ -52,7 +52,7 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" icon="fa-spinner" type="action" invisible="not analytic_line_count"
-                                name="%(analytic_distribution_action_window)d">
+                                name="%(action_view_analytic_lines)d">
                             <field widget="statinfo" name="analytic_line_count" string="Lines"/>
                         </button>
                         <button class="oe_stat_button" icon="fa-puzzle-piece" type="object"
