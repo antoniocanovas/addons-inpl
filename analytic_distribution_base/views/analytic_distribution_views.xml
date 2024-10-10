@@ -18,7 +18,7 @@
 
     <!-- WINDOW ACTION o2m buttom to analytic lines: -->
     <record id="action_view_analytic_lines" model="ir.actions.act_window">
-        <field name="binding_model_id" eval="False"/>
+        <field name="binding_model_id">account.analytic.line</field>
         <field name="binding_type">action</field>
         <field name="context">{'search_default_analytic_distribution_id': active_id,'default_analytic_distribution_id': active_id}</field>
         <field name="domain">[('analytic_distribution_id', '=', active_id)]</field>
