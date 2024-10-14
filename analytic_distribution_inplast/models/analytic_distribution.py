@@ -180,7 +180,11 @@ class AnalyticDistribution(models.Model):
     def compute_r22(self):
         # El chequeo de región es el siguiente: país = España (ES), o posición fiscal "intracomuntaria" (EU) y otros.
         # La parametrización está hecha:
-        if not self.env.company.analytic_spain_account_id.id or not self.env.companyanalytic_eu_account_id.id or not self.env.company.analytic_non_eu_account_id.id:
+        analytic_spain = self.env.company.analytic_spain_account_id.id
+        analytic_eu= self.env.companyanalytic_eu_account_id.id
+        analytic_noneu = self.env.company.analytic_non_eu_account_id.id
+
+        if not analytic_spain.id or not analytic_eu.id or not analytic_non_eu.id:
             raise UserError('Go to company => Analytic parametrization and assign region accounts.')
 
         return True
