@@ -9,8 +9,9 @@ class AnalyticDistribution(models.Model):
         [
             ("demo", "demo INPLAST"),
             ("r13", "R13.- Electricidad"),
-            ("r14", "Reparto 14"),
-            ("r15", "Reparto 15"),
+            ("r14", "R14.- Calidad"),
+            ("r15", "R15.- Calidad"),
+            ("r22", "R22.- Ventas por región y subfamilia"),
         ]
     )
 
@@ -31,6 +32,9 @@ class AnalyticDistribution(models.Model):
             self.compute_r13()
         elif self.compute_mode in ["r14","r15"]:
             self.compute_r14()
+        elif self.compute_mode == "r22":
+            self.compute_r22()
+
 
     def compute_r13(self):
         datefrom = self.date_from
@@ -170,5 +174,15 @@ class AnalyticDistribution(models.Model):
                     "analytic_distribution_id": self.id,
                 }
             )
+
+        return True
+
+    def compute_r22(self):
+        # El chequeo de región es el siguiente: país = España (ES), o posición fiscal "intracomuntaria" (EU) y otros.
+        # La parametrización está hecha:
+        if not self.env.company.analytic_spain_account_id.id or
+            not self.env.companyanalytic_eu_account_id.id or
+            not self.env.company.analytic_non_eu_account_id.id:
+            raise UserError('Go to company => Analytic parametrization and assign region accounts.')
 
         return True
