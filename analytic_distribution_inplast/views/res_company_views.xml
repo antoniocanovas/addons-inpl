@@ -9,12 +9,15 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page string="Analytic distribution">
-                    <group>
-                        <group string="Account analytic default plans">
-                            <field name="analytic_product_plan_id"/>
-                            <field name="analytic_categ_plan_id"/>
-                            <field name="analytic_department_plan_id"/>
-                        </group>
+                    <group string="Account analytic default plans">
+                        <field name="analytic_product_plan_id"/>
+                        <field name="analytic_categ_plan_id"/>
+                        <field name="analytic_department_plan_id"/>
+                    </group>
+                    <group string="Account analytic by Region">
+                        <field name="analytic_spain_account_id"/>
+                        <field name="analytic_eu_account_id"/>
+                        <field name="analytic_non_eu_account_id"/>
                     </group>
                 </page>
             </xpath>

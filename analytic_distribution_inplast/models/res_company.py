@@ -10,3 +10,7 @@ class ResCompany(models.Model):
     analytic_product_plan_id = fields.Many2one('account.analytic.plan', string='Product')
     analytic_categ_plan_id = fields.Many2one('account.analytic.plan', string='Category')
     analytic_department_plan_id = fields.Many2one('account.analytic.plan', string='Department')
+
+    analytic_spain_account_id = fields.Many2one('account.analytic.account', string='Spain account')
+    analytic_eu_account_id = fields.Many2one('account.analytic.account', string='Europe account')
+    analytic_non_eu_account_id = fields.Many2one('account.analytic.account', string='Non Europe account')
