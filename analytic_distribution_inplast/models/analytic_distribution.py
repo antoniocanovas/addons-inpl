@@ -184,7 +184,7 @@ class AnalyticDistribution(models.Model):
         analytic_eu= self.env.companyanalytic_eu_account_id.id
         analytic_noneu = self.env.company.analytic_non_eu_account_id.id
 
-        if not analytic_spain.id or not analytic_eu.id or not analytic_non_eu.id:
+        if not analytic_spain.id or not analytic_eu.id or not analytic_noneu.id:
             raise UserError('Go to company => Analytic parametrization and assign region accounts.')
 
         return True
