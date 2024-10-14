@@ -192,7 +192,7 @@ class AnalyticDistribution(models.Model):
         if not analytic_spain.id or not analytic_eu.id or not analytic_noneu.id:
             raise UserError('Go to company => Analytic parametrization and assign region accounts.')
 
-        # Cálculo para España: Todos los account.move.line de las cuentas 7, cuyo partner.country_id es España.
+        # Cálculo para España: Todos los account.move.line de las cuentas, cuyo partner.country_id es España.
         #  Es UE si la posición fiscal es partner_eu.id; el resto a "Resto del mundo".
 
         #  Se hace el porcentaje sobre el total de venta,
