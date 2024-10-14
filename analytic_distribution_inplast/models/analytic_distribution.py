@@ -183,8 +183,22 @@ class AnalyticDistribution(models.Model):
         analytic_spain = self.env.company.analytic_spain_account_id.id
         analytic_eu= self.env.companyanalytic_eu_account_id.id
         analytic_noneu = self.env.company.analytic_non_eu_account_id.id
+        sale_amount = self.income_debit - self.income_credit
+        expense_amount = self.expense_debit - self.expense_credit
+
+        fiscal_position_eu_external_id = "account." + self.company.id + "_" + "fp_intra"
+        partner_eu = self.env.ref(fiscal_position_eu_external_id)
 
         if not analytic_spain.id or not analytic_eu.id or not analytic_noneu.id:
             raise UserError('Go to company => Analytic parametrization and assign region accounts.')
 
+        # Cálculo para España: Todos los account.move.line de las cuentas 7, cuyo partner.country_id es España.
+        #  Es UE si la posición fiscal es partner_eu.id; el resto a "Resto del mundo".
+
+        #  Se hace el porcentaje sobre el total de venta,
+        #  Se crea array de familia que ha sido cada venta (por array de venta, familia),
+        #  Si existe cuenta analítica para esta familia, se añade apunte contable, en otro caso se crea y después añade.
+
+        # El array podría ser: [ 'region', 'familia' , 'importe']
+        # Después calcular en base al array.
         return True
