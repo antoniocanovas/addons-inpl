@@ -401,6 +401,7 @@ for li in records:
     #    'fixed_price': float(li.preciooferta) - producto.pnt_plastic_1000unit_tax / 1000
         'fixed_price': float(li.preciooferta)
     })
+    li.lineatarifa_id = pricelistitem.id
 
         </field>
     </record>
