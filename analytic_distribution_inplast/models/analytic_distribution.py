@@ -183,8 +183,7 @@ class AnalyticDistribution(models.Model):
         analytic_spain = self.env.company.analytic_spain_account_id.id
         analytic_eu= self.env.companyanalytic_eu_account_id.id
         analytic_noneu = self.env.company.analytic_non_eu_account_id.id
-        sale_amount = self.income_debit - self.income_credit
-        expense_amount = self.expense_debit - self.expense_credit
+        amount = self.amount
 
         fiscal_position_eu_external_id = "account." + self.company.id + "_" + "fp_intra"
         partner_eu = self.env.ref(fiscal_position_eu_external_id)
