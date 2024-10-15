@@ -22,6 +22,13 @@
                     <field name="pnt_blade_tool_ids" context="{'default_category_id': pnt_mrp_tool_categ_id}" widget="many2many_tags" domain="[('category_id', '=', pnt_mrp_tool_categ_id )]"
                            invisible="category_id != pnt_mrp_blade_categ_id"/>
                 </xpath>
+
+                <!-- Revoluciones para máquinas de inyección y huecos para las de compresión: -->
+                <xpath expr="//field[@name='scrap_date']" position="after">
+                    <field name="estimated_rpm"/>
+                    <field name="hole_count"/>
+                </xpath>
+
                 <xpath expr="//field[@name='category_id']" position="attributes">
                     <attribute name="readonly">category_id == pnt_mrp_accesory_categ_id</attribute>
                     <attribute name="force_save">1</attribute>
