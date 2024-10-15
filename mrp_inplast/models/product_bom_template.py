@@ -14,4 +14,4 @@ class ProductBomTemplate(models.Model):
         string="Packing type",
     )
 
-    line_ids = fields.One2many('product.bom.template.line', 'template_id', string='Lines')
+    line_ids = fields.One2many('product.bom.template.line', 'template_id', string='Lines', copy=True)

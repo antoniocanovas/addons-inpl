@@ -13,7 +13,7 @@ class AnalyticDistribution(models.Model):
 
     name = fields.Char("Name", required=True)
     amount = fields.Float("Amount", copy=False)
-    compute_mode = fields.Selection([("demo", "Demo")], string="Compute method")
+    compute_mode = fields.Selection([("demo", "Demo")], string="Compute method", copy=True)
     date_from = fields.Date("From date", copy=False)
     date_to = fields.Date("To date", copy=False, default=lambda self: datetime.today())
     analytic_line_ids = fields.One2many(
@@ -40,6 +40,7 @@ class AnalyticDistribution(models.Model):
         relation="income_account_rel",
         column1="distribution_id",
         column2="account_id",
+        copy=True,
     )
 
     expense_account_ids = fields.Many2many(
@@ -48,6 +49,7 @@ class AnalyticDistribution(models.Model):
         relation="expense_account_rel",
         column1="distribution_id",
         column2="account_id",
+        copy=True,
     )
 
     def compute_distribution(self):
