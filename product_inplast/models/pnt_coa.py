@@ -14,7 +14,7 @@ class PntCoa(models.Model):
     _description = "COA fields"
 
     name = fields.Char(string="Name")
-    type = fields.Selection(selection=TYPE)
+    type = fields.Selection(selection=TYPE, default="normal")
     print_multicolor = fields.Boolean("Multicolor print")
     print_quality_meassure = fields.Boolean("Quality meassures")
     print_components = fields.Boolean("Components print")

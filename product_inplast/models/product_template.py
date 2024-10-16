@@ -50,7 +50,9 @@ class ProductTemplate(models.Model):
         "pnt.coa",
         string="COA",
     )
-    pnt_label_type = fields.Selection(selection=LABELS, string="Label type")
+    pnt_label_type = fields.Selection(
+        selection=LABELS, string="Label type", default="standard"
+    )
 
     pnt_customer_code_print = fields.Boolean("Customer code on label")
     pnt_customer_code = fields.Char("Customer code")

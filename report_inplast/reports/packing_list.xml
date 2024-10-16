@@ -9,8 +9,6 @@
                     <div style="border-bottom: 2px solid black;font-size: 25px;">
                         <strong>Packing list</strong>
                     </div>
-
-
                     <div class="row"
                          style="background-color: #D3D3D3;padding: 5px; border: 1px solid black;margin-top: 10px;">
                         <div class="col-2">Waybill N.</div>
@@ -23,7 +21,7 @@
                             <span t-field="o.name">WH/OUT/0001</span>
                         </div>
                         <div class="col-2">
-                            <span t-esc="o.date.strftime('%d/%m/%Y')"></span>
+                            <span t-if="o.date" t-esc="o.date.strftime('%d/%m/%Y')"></span>
                         </div>
                         <div class="col-2">
                             <span t-field="o.partner_id.user_id"></span>

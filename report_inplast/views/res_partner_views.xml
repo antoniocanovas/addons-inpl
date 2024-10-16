@@ -10,11 +10,9 @@
                 <xpath expr="//notebook" position="inside">
                 <page name="Reports">
                     <group name="reports_field">
-                    <!--    <field name="pnt_sale_report_id" options="{'no_create': True}"/>
+                    <!--<field name="pnt_sale_report_id" options="{'no_create': True}"/>
                         <field name="pnt_invoice_report_id"  options="{'no_create': True}"/>-->
                         <field name="pnt_picking_report_id"/>
-                        <!--<field name="pnt_label_box_type_id" options="{'no_create': True}"/>
-                        <field name="pnt_label_pallet_type_id" options="{'no_create': True}"/>-->
                     </group>
                 </page>
             </xpath>

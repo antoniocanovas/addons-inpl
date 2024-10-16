@@ -80,17 +80,17 @@
 
                             <t t-set="lines" t-value="o.move_line_ids"/>
                             <t t-foreach="lines" t-as="line">
-                                <t t-set="boxes" t-value="line.lot_id.related_boxes_ids"/>
+                                <t t-set="boxes" t-value="line.lot_id.related_boxes_ids" t-if="line.lot_id"/>
                                 <t t-foreach="boxes" t-as="box">
                                     <tr style="font-size: 12px">
                                         <td style="text-align: center;">
                                             <strong t-field="line.product_id.default_code"></strong>
                                         </td>
                                         <td style="text-align: center;">
-                                            <strong t-field="line.lot_id.parent_id.name"></strong>
+                                            <strong t-field="line.lot_id.parent_id.name" t-if="line.lot_id"></strong>
                                         </td>
                                         <td style="text-align: center;">
-                                            <strong t-esc="line.lot_id.name.split('.')[-1]"></strong>
+                                            <strong t-esc="line.lot_id.name.split('.')[-1]" t-if="line.lot_id"></strong>
                                         </td>
                                         <td style="text-align: center;">
                                             <strong t-field="box.name"></strong>
@@ -104,13 +104,13 @@
                                         <td style="text-align: center;">
 
                                             <t t-set="concatenated_value"
-                                               t-value="(line.lot_id.sscc_code_ids[0].name or '')"/>
+                                               t-value="(line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '')"/>
                                             <span t-esc="concatenated_value"/>
 
 
                                         </td>
                                         <td style="text-align: center;">
-                                            <strong t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"></strong>
+                                            <strong t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')" t-if="line.lot_id.create_date"></strong>
                                         </td>
                                     </tr>
                                 </t>

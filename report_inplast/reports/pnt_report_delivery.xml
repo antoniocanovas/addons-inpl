@@ -9,27 +9,29 @@
                     <!-- ITERATE BATCHES Para cada Lote -->
                     <t t-foreach="o.get_move_lines_by_parent_lot()" t-as="line">
                         <t t-if="o.partner_id.pnt_picking_report_id.coa">
-                            <t t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
-                               t-call="report_inplast.coa_product_document_a"/>
-                            <t t-if="line.product_id.pnt_product_coa.type == 'nmp'"
-                               t-call="report_inplast.coa_product_nmp_document"/>
-                            <t t-if="line.product_id.pnt_product_coa.type == 'asas'"
-                               t-call="report_inplast.coa_product_handle_document"/>
+                            <t t-if="line.product_id.pnt_product_coa">
+                                <t t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
+                                   t-call="report_inplast.coa_product_document_a"/>
+                                <t t-if="line.product_id.pnt_product_coa.type == 'nmp'"
+                                   t-call="report_inplast.coa_product_nmp_document"/>
+                                <t t-if="line.product_id.pnt_product_coa.type == 'asas'"
+                                   t-call="report_inplast.coa_product_handle_document"/>
 
-                            <!-- same as above for buxton -->
-                            <t t-if="line.product_id.pnt_product_coa.type == 'buxton'">
-                                <t t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
-                                   t-call="report_inplast.coa_product_batch_certificate_document"/>
-                            </t>
-                            <t t-if="o.partner_id.pnt_picking_report_id.coa_multicolor
+                                <!-- same as above for buxton -->
+                                <t t-if="line.product_id.pnt_product_coa.type == 'buxton'">
+                                    <t t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
+                                       t-call="report_inplast.coa_product_batch_certificate_document"/>
+                                </t>
+                                <t t-if="o.partner_id.pnt_picking_report_id.coa_multicolor
                              and line.product_id.pnt_product_coa.get_multicolor_body_for_partner_lang(o.partner_id.lang)"
-                               t-call="report_inplast.coa_product_document_multicolor_attachment"/>
-                            <t t-if="o.partner_id.pnt_picking_report_id.coa_milk
+                                   t-call="report_inplast.coa_product_document_multicolor_attachment"/>
+                                <t t-if="o.partner_id.pnt_picking_report_id.coa_milk
                              and line.product_id.pnt_product_coa.print_quality_meassure"
-                               t-call="report_inplast.coa_product_document_meassures_attachment"/>
-                            <t t-if="line.product_id.pnt_product_coa.print_components"
-                               t-call="report_inplast.coa_product_document_attachment"/>
-                            <!-- BOX TRACKING MISSING if customer box tracking and boxes? ... box report-->
+                                   t-call="report_inplast.coa_product_document_meassures_attachment"/>
+                                <t t-if="line.product_id.pnt_product_coa.print_components"
+                                   t-call="report_inplast.coa_product_document_attachment"/>
+                                <!-- BOX TRACKING MISSING if customer box tracking and boxes? ... box report-->
+                            </t>
                         </t>
                     </t>
                     <t t-if="o.carrier_id.pnt_print_picking_list" t-call="report_inplast.packing_list"/>
@@ -103,7 +105,7 @@
                 </xpath>-->
 
                 <xpath expr="//div[@t-if='not o.signature']" position="before">
-                    <div style="width: 50%;page-break-inside: avoid;" >
+                    <div style="width: 50%;page-break-inside: avoid;">
 
                         <t t-set="company" t-value="o.company_id"/>
                         <img style="margin-top:30px;" t-if="company.pnt_goods_state_table"
@@ -148,7 +150,8 @@
                                 <strong style="border: 2px solid #000000; padding: 5px; text-align: left; background-color:#D3D3D3;">
                                     Date:
                                 </strong>
-                                <span style="margin-left: 5px" t-esc="o.date.strftime('%d/%m/%Y')"/>
+                                <span style="margin-left: 5px" t-esc="o.date"
+                                      t-if="o.date"/>
                             </div>
                         </div>
                         <div style="font-size: 14px;">
