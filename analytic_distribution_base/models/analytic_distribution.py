@@ -13,7 +13,9 @@ class AnalyticDistribution(models.Model):
 
     name = fields.Char("Name", required=True)
     amount = fields.Float("Amount", copy=False)
-    compute_mode = fields.Selection([("demo", "Demo")], string="Compute method", copy=True)
+    compute_mode = fields.Selection(
+        [("demo", "Demo")], string="Compute method", copy=True
+    )
     date_from = fields.Date("From date", copy=False)
     date_to = fields.Date("To date", copy=False, default=lambda self: datetime.today())
     analytic_line_ids = fields.One2many(
