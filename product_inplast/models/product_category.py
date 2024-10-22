@@ -18,3 +18,5 @@ class ProductCategory(models.Model):
                                          ('packaging', 'Packaging'),
                                          ('other', 'Other')],
                                         store=True, copy=True, string='Product type')
+
+    pnt_code = fields.Char('Code')

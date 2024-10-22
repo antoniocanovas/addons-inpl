@@ -29,6 +29,7 @@
                             <field name="pnt_product_dye"
                                    invisible="pnt_product_type not in ['final','semi','packing']"
                             />
+                            <field name="pnt_code"/>
                         </group>
                         <group name="wisecap_product_right">
 
