@@ -79,20 +79,53 @@ class ProductTemplate(models.Model):
         "mrp.bom.line", "product_tmpl_id", string="BOM lines"
     )
 
-    pnt_code = fields.Selection([
-        ('a', 'A'), ('b', 'B'), ('c', 'C'), ('d', 'D'), ('e', 'E'), ('f', 'F'), ('g', 'G'),
-        ('h', 'H'), ('i', 'I'), ('j', 'J'), ('k', 'K'), ('l', 'L'), ('m', 'M'), ('n', 'N'),
-        ('o', 'O'), ('p', 'P'), ('q', 'Q'), ('r', 'R'), ('s', 'S'), ('t', 'T'), ('u', 'U'),
-        ('v', 'V'), ('w', 'W'), ('x', 'X'), ('y', 'Y'), ('z', 'Z')
-    ])
+    pnt_code = fields.Selection(
+        [
+            ("a", "A"),
+            ("b", "B"),
+            ("c", "C"),
+            ("d", "D"),
+            ("e", "E"),
+            ("f", "F"),
+            ("g", "G"),
+            ("h", "H"),
+            ("i", "I"),
+            ("j", "J"),
+            ("k", "K"),
+            ("l", "L"),
+            ("m", "M"),
+            ("n", "N"),
+            ("o", "O"),
+            ("p", "P"),
+            ("q", "Q"),
+            ("r", "R"),
+            ("s", "S"),
+            ("t", "T"),
+            ("u", "U"),
+            ("v", "V"),
+            ("w", "W"),
+            ("x", "X"),
+            ("y", "Y"),
+            ("z", "Z"),
+        ]
+    )
 
-    @api.depends('pnt_code','categ_id.pnt_code','categ_id.parent_id.pnt_code','bom_ids.code')
+    @api.depends(
+        "pnt_code", "categ_id.pnt_code", "categ_id.parent_id.pnt_code", "bom_ids.code"
+    )
     def _get_inplast_default_code(self):
-        code = ""
-        if self.categ_id.parent_id.pnt_code: code += self.categ_id.parent_id.pnt_code
-        if self.categ_id.pnt_code: code += self.categ_id.pnt_code
-        if self.pnt_code: code += self.pnt_code
-        if self.bom_ids.ids:
-            bom = self.bom_ids[0]
-            if bom.code: code += bom.code
-    default_code = fields.Char(compute='_get_inplast_default_code')
+        if self.pnt_product_type == "final":
+            code = ""
+            if self.categ_id.parent_id.pnt_code:
+                code += self.categ_id.parent_id.pnt_code
+            if self.categ_id.pnt_code:
+                code += self.categ_id.pnt_code
+            if self.pnt_code:
+                code += self.pnt_code
+            if self.bom_ids.ids:
+                bom = self.bom_ids[0]
+                if bom.code:
+                    code += bom.code
+            self.default_code = code
+
+    default_code = fields.Char(compute="_get_inplast_default_code")
