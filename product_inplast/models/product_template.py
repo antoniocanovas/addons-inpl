@@ -110,22 +110,21 @@ class ProductTemplate(models.Model):
         ]
     )
 
-    @api.depends(
-        "pnt_code", "categ_id.pnt_code", "categ_id.parent_id.pnt_code", "bom_ids.code"
-    )
+    @api.depends("pnt_code", "categ_id.pnt_code", "categ_id.parent_id.pnt_code", "bom_ids.code")
     def _get_inplast_default_code(self):
-        if self.pnt_product_type == "final":
-            code = ""
-            if self.categ_id.parent_id.pnt_code:
-                code += self.categ_id.parent_id.pnt_code
-            if self.categ_id.pnt_code:
-                code += self.categ_id.pnt_code
-            if self.pnt_code:
-                code += self.pnt_code
-            if self.bom_ids.ids:
-                bom = self.bom_ids[0]
-                if bom.code:
-                    code += bom.code
-            self.default_code = code
+        for record in self:  # Loop over each record in case multiple records are passed
+            if record.pnt_product_type == "final":
+                code = ""
+                if record.categ_id.parent_id.pnt_code:
+                    code += record.categ_id.parent_id.pnt_code
+                if record.categ_id.pnt_code:
+                    code += record.categ_id.pnt_code
+                if record.pnt_code:
+                    code += record.pnt_code
+                if record.bom_ids:
+                    bom = record.bom_ids[0]
+                    if bom.code:
+                        code += bom.code
+                record.default_code = code
 
     default_code = fields.Char(compute="_get_inplast_default_code")
