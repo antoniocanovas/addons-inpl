@@ -110,10 +110,7 @@ class ProductTemplate(models.Model):
         ]
     )
 
-    @api.depends(
-        "pnt_code", "categ_id.pnt_code", "categ_id.parent_id.pnt_code", "bom_ids.code"
-    )
-    def _get_inplast_default_code(self):
+    def get_inplast_default_code(self):
         for record in self:  # Loop over each record in case multiple records are passed
             if record.pnt_product_type == "final":
                 code = ""
