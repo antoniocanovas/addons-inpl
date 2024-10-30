@@ -4,7 +4,7 @@
     <record id="ba_update_invoices_risk_batch" model="base.automation">
         <field name="name">=> BA Update invoices risk batch</field>
         <field name="model_id" ref="account_financial_risk_contract.model_risk_batch"/>
-        <field name="trigger">on_write</field>
+        <field name="trigger">on_create_or_write</field>
         <field name="active" eval="True"/>
     </record>
 
