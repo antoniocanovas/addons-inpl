@@ -77,6 +77,8 @@ for li in records:
         semis.append(li.name)
 for semi in semis:
     producto = env['product.product'].search([('default_code','=',semi)])
+    if len(producto.ids) != 1:
+        continue
     materiales = env['mig.materialesarticulo'].search([('name','=',semi),('bom_line_id','=',False)])
     bom = env['mrp.bom'].search([('code','=',semi)])
     if not bom.id:
@@ -88,6 +90,8 @@ for semi in semis:
             'pnt_raw_type_id':uompeso.id})
     for mat in materiales:
         material = env['product.product'].search([('default_code','=',mat.componente)])
+        if len(material.ids) != 1:
+            continue
         pesoproducto = producto.mig_peso_neto_gr
         newbomline = env['mrp.bom.line'].create({
             'bom_id':bom.id,
