@@ -83,6 +83,22 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="action_mig_crearpacking" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="domain" eval="False"/>
+        <field name="filter" eval="False"/>
+        <field name="limit">80</field>
+        <field name="name">MIG Crear packing (oct24)</field>
+        <field name="res_model">mig.crearpacking</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="usage" eval="False"/>
+        <field name="view_id" eval="False"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- MENUS: -->
 
     <record id="mig_material_articulo_menu" model="ir.ui.menu">
@@ -129,6 +145,15 @@
         <field name="name">MIG Líneas tarifa</field>
         <field name="parent_id" ref="stock.menu_stock_config_settings"/>
         <field name="sequence">140</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+    <record id="mig_crearpacking_menu" model="ir.ui.menu">
+        <field name="action" ref="action_mig_crearpacking"/>
+        <field name="active" eval="True"/>
+        <field name="name">MIG Crear packing (oct24)</field>
+        <field name="parent_id" ref="stock.menu_stock_config_settings"/>
+        <field name="sequence">150</field>
         <field name="web_icon" eval="False"/>
     </record>
 
