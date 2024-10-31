@@ -11,7 +11,7 @@ class MigCrearpacking(models.Model):
     # Campos de importación:
     name = fields.Char('Producto')
     mrp_type = fields.Char('mrp_type')
-    sufix = fields.Float('sufix')
+    sufix = fields.Char('sufix')
     box_base_qty = fields.Integer('box_base_qty')
     pallet_base_qty = fields.Float('pallet_base_qty')
     box_qty = fields.Integer('box_qty')
