@@ -31,9 +31,10 @@ for r in records:
 
     # Comprobar si el producto ya existía (nombre similar creado automáticamente):
     name = migproducto.name + dye + type + r.sufix
-    exist = env["product.template"].search([("name", "=", name)])
+    default_code = r.name + r.sufix
+    exist = env["product.template"].search([("default_code", "=", default_code)])
     if exist.ids:
-        raise UserError("Este producto ya existe.")
+        raise UserError("(" + r.name + "). ""Este producto ya existe: " + name)
 
     # Asignar un código similar al producto padre pero no repetido:
     if migproducto.default_code:
