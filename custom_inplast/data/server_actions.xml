@@ -8,21 +8,20 @@
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
-# Crear packings versión octubre 2024:
-for r in records: #for record in self:
+for r in records:
     # El producto ahora no es "name" sino "r"
     migproducto = env['product.template'].search([('default_code','=',r.name)])
     if (not migproducto.id) or (migproducto.pnt_product_type != 'final'): continue
 
 
     type, sale_ok, purchase_ok =  " - C", False, False                      # El tipo es por defecto caja, que no se venden.
-    #baseqty, boxqty = record.base_qty, record.box_qty                       # Existen tanto para caja como pallet en el wizard, para migración hay que cambiar.
     baseqty, boxqty = r.box_base_qty, r.box_qty                             # Cambiado para cajas según plantilla.
-    packagetype = self.env.ref("product_inplast.package_type_box_inplast")  # Ok
+    packagetype = env.ref("product_inplast.package_type_box_inplast")  # Ok
 
     if r.mrp_type != "box":
         type = " - P"
-        packagetype = self.env.ref("product_inplast.package_type_pallet_inplast")
+        baseqty = r.pallet_base_qty
+        packagetype = env.ref("product_inplast.package_type_pallet_inplast")
         sale_ok, purchase_ok = True, True
 
     # Crear producto:
@@ -31,16 +30,16 @@ for r in records: #for record in self:
         dye = " " + migproducto.pnt_product_dye
 
     # Comprobar si el producto ya existía (nombre similar creado automáticamente):
-    name = migproducto.name + dye + type + record.sufix
-    exist = self.env["product.template"].search([("name", "=", name)])
+    name = migproducto.name + dye + type + r.sufix
+    exist = env["product.template"].search([("name", "=", name)])
     if exist.ids:
         raise UserError("Este producto ya existe.")
 
     # Asignar un código similar al producto padre pero no repetido:
     if migproducto.default_code:
-        code = migproducto.default_code + record.sufix
+        code = migproducto.default_code + r.sufix
         # Desarrollo para que no repita default_code (13/06/24):
-        existcode = self.env["product.template"].search(
+        existcode = env["product.template"].search(
             [("default_code", "=", code)]
         )
         if existcode.ids:
@@ -49,8 +48,8 @@ for r in records: #for record in self:
             )
 
     # Continuamos, si no existe el producto y default_code es único:
-    routemrp = self.env.ref("mrp.route_warehouse0_manufacture")
-    newpacking = self.env["product.template"].create(
+    routemrp = env.ref("mrp.route_warehouse0_manufacture")
+    newpacking = env["product.template"].create(
         {
             "name": name,
             "pnt_product_type": "packing",
@@ -86,8 +85,8 @@ for r in records: #for record in self:
     r['newpacking_id'] = newpacking.id
 
     # Crear lista de materiales
-    uom_weight = self.env.ref("uom.product_uom_categ_kgm")
-    newldm = self.env["mrp.bom"].create(
+    uom_weight = env.ref("uom.product_uom_categ_kgm")
+    newldm = env["mrp.bom"].create(
         {
             "code": name,
             "product_tmpl_id": newpacking.id,
@@ -102,7 +101,7 @@ for r in records: #for record in self:
     if len(bomtemplate.ids) > 1: raise UserError('código de plantilla duplicado: ' + r.sufix)
 
     for li in bomtemplate.line_ids:
-        newbomboxline = self.env["mrp.bom.line"].create(
+        newbomboxline = env["mrp.bom.line"].create(
             {
                 "product_id": li.product_id.id,
                 "product_qty": li.quantity,
@@ -120,7 +119,7 @@ for r in records: #for record in self:
     else:
         bom = migproducto.bom_ids[0]
         for li in bom.bom_line_ids:
-            newbomline = self.env["mrp.bom.line"].create(
+            newbomline = env["mrp.bom.line"].create(
                 {
                     "product_id": li.product_id.id,
                     "pnt_raw_percent": li.pnt_raw_percent,
@@ -133,12 +132,12 @@ for r in records: #for record in self:
 
     # Crear en tarifas:
     pricelist = []
-    pricelist_item = self.env["product.pricelist.item"].search(
+    pricelist_item = env["product.pricelist.item"].search(
         [("product_tmpl_id", "=", migproducto.id)]
     )
     for item in pricelist_item:
         if item.pricelist_id.id not in pricelist:
-            pricelistitem = self.env["product.pricelist.item"].create(
+            pricelistitem = env["product.pricelist.item"].create(
                 {
                     "pricelist_id": item.pricelist_id.id,
                     "product_tmpl_id": newpacking.id,
@@ -151,11 +150,11 @@ for r in records: #for record in self:
             pricelist.append(item.pricelist_id.id)
 
     # Asignar packaging_ids (product.packaging) al nuevo producto del tipo CAJA o PALET para huecos disponibles:
-    product = self.env["product.product"].search(
+    product = env["product.product"].search(
         [("product_tmpl_id", "=", newpacking.id)])[0]
-    newpackingtype = self.env["product.packaging"].create(
+    newpackingtype = env["product.packaging"].create(
         {
-            "name": record.type + " " + str(baseqty),
+            "name": r.mrp_type + " " + str(baseqty),
             "package_type_id": packagetype.id,
             "product_id": product.id,
             "product_uom_id": product.uom_id.id,
@@ -165,12 +164,12 @@ for r in records: #for record in self:
         }
     )
     # Asignar packaging_ids (product.packaging) al producto base para vender por múltiplos:
-    product = self.env["product.product"].search(
+    product = env["product.product"].search(
         [("product_tmpl_id", "=", migproducto.id)])[0]
 
-    newpackingtype = self.env["product.packaging"].create(
+    newpackingtype = env["product.packaging"].create(
         {
-            "name": record.type + " " + str(baseqty),
+            "name": r.mrp_type + " " + str(baseqty),
             "package_type_id": packagetype.id,
             "product_id": product.id,
             "product_uom_id": product.uom_id.id,
