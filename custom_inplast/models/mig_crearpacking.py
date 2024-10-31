@@ -14,6 +14,6 @@ class MigCrearpacking(models.Model):
     sufix = fields.Float('sufix')
     box_base_qty = fields.Integer('box_base_qty')
     pallet_base_qty = fields.Float('pallet_base_qty')
+    box_qty = fields.Integer('box_qty')
     # Campos de control:
-    pallet_id = fields.Many2one('product.template', string="pallet_id")
-    box_id = fields.Many2one('product.template', string="box_id")
+    newpacking_id = fields.Many2one('product.template', string="newpacking_id")
