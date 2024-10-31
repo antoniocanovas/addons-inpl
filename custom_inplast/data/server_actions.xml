@@ -11,7 +11,7 @@
 for r in records:
     # El producto ahora no es "name" sino "r"
     migproducto = env['product.template'].search([('default_code','=',r.name)])
-    if (not migproducto.id) or (migproducto.pnt_product_type != 'final'): continue
+    if (not migproducto.id) or (migproducto.pnt_product_type not in ['final','semi']): continue
 
 
     type, sale_ok, purchase_ok =  " - C", False, False                      # El tipo es por defecto caja, que no se venden.
