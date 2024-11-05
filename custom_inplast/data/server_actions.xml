@@ -588,7 +588,7 @@ for li in records:
         'compute_price': 'fixed',
     #    'price_surcharge': producto.pnt_plastic_1000unit_tax / 1000,
     #    'fixed_price': float(li.preciooferta) - producto.pnt_plastic_1000unit_tax / 1000
-        'fixed_price': float(li.preciooferta)
+        'fixed_price': float (li.preciooferta.replace( ',' , '.' ))
     })
     li['lineatarifa_id'] = pricelistitem.id
 
