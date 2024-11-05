@@ -21,6 +21,7 @@ Recálculo de tarifas en base a datos de familia, productos y materia prima.
         'product_category_chatter',
         'l10n_es_aeat_mod592',
         'product_inplast',
+        'mrp_inplast',
     ],
     'data': [
         'views/account_move_views.xml',
