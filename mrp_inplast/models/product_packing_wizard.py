@@ -132,23 +132,20 @@ class ProductPackingWizard(models.TransientModel):
 
 
             # Crear en tarifas:
-            pricelist = []
+            # Buscar las tarifas (líneas) existentes del producto base:
             pricelist_item = self.env["product.pricelist.item"].search(
                 [("product_tmpl_id", "=", record.name.id)]
             )
+            # Crear en cada tarifa encontrada del producto la entrada del packing:
             for item in pricelist_item:
-                if item.pricelist_id.id not in pricelist:
-                    pricelistitem = self.env["product.pricelist.item"].create(
-                        {
-                            "pricelist_id": item.pricelist_id.id,
-                            "product_tmpl_id": newpacking.id,
-                            "applied_on": "1_product",
-                            "compute_price": "fixed",
-                            #'price_surcharge': newpacking.pnt_plastic_1000unit_tax / 1000,
-                            "fixed_price": newpacking.list_price,
-                        }
-                    )
-                    pricelist.append(item.pricelist_id.id)
+                pricelistitem = self.env["product.pricelist.item"].create(
+                    {
+                        "pricelist_id": item.pricelist_id.id,
+                        "product_tmpl_id": newpacking.id,
+                        "applied_on": "1_product",
+                        "compute_price": "fixed",
+                        "fixed_price": item.fixed_price * record.base_qty,
+                    })
 
             # Asignar packaging_ids (product.packaging) al nuevo producto del tipo CAJA o PALET para huecos disponibles:
             product = self.env["product.product"].search(
