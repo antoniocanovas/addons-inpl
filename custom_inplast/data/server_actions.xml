@@ -14,7 +14,7 @@ for r in records:
     if (not migproducto.id) or (migproducto.pnt_product_type not in ['final','semi']): continue
 
     type, sale_ok, purchase_ok =  " - C", False, False                      # El tipo es por defecto caja, que no se venden.
-    baseqty, boxqty = r.box_base_qty, r.box_qty                             # Cambiado para cajas según plantilla.
+    baseqty, boxqty = r.box_base_qty, 1                            # Cambiado para cajas según plantilla.
     packagetype = env.ref("product_inplast.package_type_box_inplast")  # Ok
 
     if r.mrp_type != "box":
@@ -22,6 +22,7 @@ for r in records:
         baseqty = r.pallet_base_qty
         packagetype = env.ref("product_inplast.package_type_pallet_inplast")
         sale_ok, purchase_ok = True, True
+        boxqty = r.box_qty
 
     # Crear producto:
     dye, code = "", ""
@@ -195,7 +196,8 @@ for li in records:
 
     # Cliente con referencia de la línea (si tiene delegaciones sólo encuentra la empresa principal):
     partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
-    if not partnerfactura.id: raise UserError("No encuentro " + str(li.clientecod))
+    if not partnerfactura.id: continue
+            #raise UserError("No encuentro " + str(li.clientecod))
 
     # Aquí busca la dirección de entrega de la empresa anterior:
     partner = env['res.partner'].search([('name','=',li.name),('parent_id','=',partnerfactura.id)])
@@ -567,12 +569,14 @@ for r in records:
 # Migrar líneas de tarifas:
 for li in records:
     partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
-    if not partnerfactura: raise UserError("No encuentro cliente ref: " + li.clientecod)
+    if not partnerfactura: continue
+            #raise UserError("No encuentro cliente ref: " + li.clientecod)
     partner = env['res.partner'].search([('name','=',li.name),('parent_id','=',partnerfactura.id)])
     if not partner.id: partner = partnerfactura
 
     tarifa = partner.property_product_pricelist
-    if (not tarifa.id) or (tarifa.id == 1): raise UserError("Revisa tarifa para: " + li.clientecod + " " + li.name)
+    if (not tarifa.id) or (tarifa.id == 1): continue
+            #raise UserError("Revisa tarifa para: " + li.clientecod + " " + li.name)
 
     producto = env['product.template'].search([('default_code','=',li.articulo)])
     if not producto.id: continue
