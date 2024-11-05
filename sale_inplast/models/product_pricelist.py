@@ -44,14 +44,15 @@ class ProductPricelist(models.Model):
     # Productos en la lista de precios, para ser usados como exclusivamente disponibles en ventas y facturas:
     @api.depends('item_ids.product_tmpl_id')
     def _get_pricelist_products(self):
-        products = []
-        for li in self.item_ids:
-            if (li.product_tmpl_id.id) and not (li.product_id.id):
-                pnt_product_ids = self.env['product.product'].search([('product_tmpl_id', '=', li.product_tmpl_id.id)])
-                for pro in pnt_product_ids: products.append(pro.id)
-            else:
-                products.append(li.product_id.id)
-        self.pnt_product_ids = [(6,0,products)]
+        for record in self:
+            products = []
+            for li in record.item_ids:
+                if (li.product_tmpl_id.id) and not (li.product_id.id):
+                    pnt_product_ids = self.env['product.product'].search([('product_tmpl_id', '=', li.product_tmpl_id.id)])
+                    for pro in pnt_product_ids: products.append(pro.id)
+                else:
+                    products.append(li.product_id.id)
+        record['pnt_product_ids'] = [(6,0,products)]
     pnt_product_ids = fields.Many2many('product.product', store=True, compute='_get_pricelist_products')
 
     # Categorías utilizadas en esta tarifa:
