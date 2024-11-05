@@ -9,3 +9,5 @@ class ProductTemplate(models.Model):
     mrp_tool_ids = fields.One2many(
         "mrp.product.tool", "product_tmpl_id", string="Tools", copy=True
     )
+
+    mrp_bom_template = fields.Many2one("product.bom.template", string="BOM Template")

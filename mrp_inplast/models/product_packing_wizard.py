@@ -88,6 +88,7 @@ class ProductPackingWizard(models.TransientModel):
                     "pnt_mrp_as_serial": True,
                     "route_ids": [(6, 0, [routemrp.id])],
                     "pnt_box_qty": boxqty,
+                    "mrp_bom_template": record.bom_template_id.id,
                 }
             )
             newpacking.write(
