@@ -31,12 +31,12 @@ class ProductPackingWizard(models.TransientModel):
             # Tipo de empaquetado PALET o Caja:
             # Cantidades base:
 
-            type, sale_ok, purchase_ok =  " - C", False, False
+            sale_ok, purchase_ok =  False, False
+            type = record.name.printed_code
             baseqty, boxqty = record.base_qty, record.box_qty
             packagetype = self.env.ref("product_inplast.package_type_box_inplast")
 
             if record.type != "box":
-                type = " - P"
                 packagetype = self.env.ref(
                     "product_inplast.package_type_pallet_inplast"
                 )
@@ -49,8 +49,6 @@ class ProductPackingWizard(models.TransientModel):
                 dye = " " + record.name.pnt_product_dye
 
             # Comprobar si el producto ya existía (nombre similar creado automáticamente):
-# Para eliminar, cambiado el 15/10/24:
-#            name = record.name.name + dye + type + str(baseqty)
             name = record.name.name + dye + type + record.sufix
             exist = self.env["product.template"].search([("name", "=", name)])
             if exist.ids:

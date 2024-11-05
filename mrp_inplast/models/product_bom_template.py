@@ -6,6 +6,7 @@ class ProductBomTemplate(models.Model):
 
     name = fields.Char("Name")
     code = fields.Char("Sufix code")
+    printed_code = fields.Char("Printed code")
     type = fields.Selection(
         [
             ("box", "Box"),
@@ -13,5 +14,7 @@ class ProductBomTemplate(models.Model):
         ],
         string="Packing type",
     )
+
+    box_template_id = fields.Many2one("product.bom.template", domain="[('type','=','box')]")
 
     line_ids = fields.One2many('product.bom.template.line', 'template_id', string='Lines', copy=True)
