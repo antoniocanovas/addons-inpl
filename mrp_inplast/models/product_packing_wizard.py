@@ -49,7 +49,7 @@ class ProductPackingWizard(models.TransientModel):
                 dye = " " + record.name.pnt_product_dye
 
             # Comprobar si el producto ya existía (nombre similar creado automáticamente):
-            name = record.name.name + dye + type + record.sufix
+            name = record.name.name + dye + " - " + type
             exist = self.env["product.template"].search([("name", "=", name)])
             if exist.ids:
                 raise UserError("Este producto ya existe.")
