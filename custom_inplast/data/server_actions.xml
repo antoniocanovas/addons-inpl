@@ -164,6 +164,7 @@ for r in records:
             "sales": True,
             "purchase": True,
             "qty": 1,
+            "bom_template_id": bomtemplate.id,
         }
     )
     # Asignar packaging_ids (product.packaging) al producto base para vender por múltiplos:
@@ -179,6 +180,7 @@ for r in records:
             "sales": True,
             "purchase": True,
             "qty": baseqty,
+            "bom_template_id": bomtemplate.id,
         }
     )
 
