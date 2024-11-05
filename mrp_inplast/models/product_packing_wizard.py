@@ -32,7 +32,7 @@ class ProductPackingWizard(models.TransientModel):
             # Cantidades base:
 
             sale_ok, purchase_ok =  False, False
-            type = record.name.printed_code
+            type = record.bom_template_id.printed_code
             baseqty, boxqty = record.base_qty, record.box_qty
             packagetype = self.env.ref("product_inplast.package_type_box_inplast")
 

@@ -13,7 +13,7 @@ for r in records:
     migproducto = env['product.template'].search([('default_code','=',r.name)])
     if (not migproducto.id) or (migproducto.pnt_product_type not in ['final','semi']): continue
 
-    type, sale_ok, purchase_ok =  " - C", False, False                      # El tipo es por defecto caja, que no se venden.
+    type, sale_ok, purchase_ok =  " - C", False, False             # El tipo es por defecto caja, que no se venden.
     baseqty, boxqty = r.box_base_qty, 1                            # Cambiado para cajas según plantilla.
     packagetype = env.ref("product_inplast.package_type_box_inplast")  # Ok
 
