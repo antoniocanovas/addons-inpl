@@ -592,6 +592,11 @@ for li in records:
     })
     li['lineatarifa_id'] = pricelistitem.id
 
+#Actualizar productos disponibles para venta, que al importar no los toma:
+tarifas = env['product.pricelist'].search([('id','!=',0)])
+for t in tarifas:
+    t._get_pricelist_products()
+
         </field>
     </record>
 
