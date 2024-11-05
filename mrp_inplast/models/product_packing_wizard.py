@@ -162,7 +162,7 @@ class ProductPackingWizard(models.TransientModel):
                     "sales": True,
                     "purchase": True,
                     "qty": 1,
-                    "bom_template_id": record.bom_template_id.id,
+                    "mrp_bom_template_id": record.bom_template_id.id,
                 }
             )
             # Asignar packaging_ids (product.packaging) al producto base para vender por múltiplos:
@@ -178,6 +178,6 @@ class ProductPackingWizard(models.TransientModel):
                     "sales": True,
                     "purchase": True,
                     "qty": baseqty,
-                    "bom_template_id": record.bom_template_id.id,
+                    "mrp_bom_template_id": record.bom_template_id.id,
                 }
             )

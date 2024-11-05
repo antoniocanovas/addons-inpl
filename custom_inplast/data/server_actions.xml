@@ -75,7 +75,7 @@ for r in records:
             "pnt_mrp_as_serial": True,
             "route_ids": [(6, 0, [routemrp.id])],
             "pnt_box_qty": boxqty,
-            "bom_template_id": bomtemplate.id,
+            "mrp_bom_template_id": bomtemplate.id,
         }
     )
     newpacking.write(
@@ -164,7 +164,7 @@ for r in records:
             "sales": True,
             "purchase": True,
             "qty": 1,
-            "bom_template_id": bomtemplate.id,
+            "mrp_bom_template_id": bomtemplate.id,
         }
     )
     # Asignar packaging_ids (product.packaging) al producto base para vender por múltiplos:
@@ -180,7 +180,7 @@ for r in records:
             "sales": True,
             "purchase": True,
             "qty": baseqty,
-            "bom_template_id": bomtemplate.id,
+            "mrp_bom_template_id": bomtemplate.id,
         }
     )
 

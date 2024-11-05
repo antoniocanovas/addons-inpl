@@ -10,4 +10,4 @@ class ProductTemplate(models.Model):
         "mrp.product.tool", "product_tmpl_id", string="Tools", copy=True
     )
 
-    mrp_bom_template = fields.Many2one("product.bom.template", string="BOM Template")
+    mrp_bom_template_id = fields.Many2one("product.bom.template", string="BOM Template")
