@@ -9,8 +9,8 @@ class MigArticuloIdioma(models.Model):
     _description = 'MIG Articulo Idioma'
 
     name = fields.Char('Producto')
-    almacen = fields.Char('Almacén')
-    ubicacion = fields.Char('Ubicación')
+    ubicacion = fields.Char('ubicación')
+    ubicacion_old = fields.Chart('Ubicacion_old')
     lote = fields.Char('Lote')
     lotefecha = fields.Date('LoteFecha')
     sscc1 = fields.Char('sscc1')

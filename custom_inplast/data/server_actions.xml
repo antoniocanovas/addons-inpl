@@ -12,10 +12,11 @@
 for r in records:
   if not r.sil_id.id:
     producto = env['product.product'].search([('default_code','=',r.name)])
-    localizacion = env['stock.location'].search([('name','=',r.ubicacion)])
-    if producto.id and localizacion.id:
+    nombreubicacion = r.ubicación + " (" + r.ubicacion_old + ")"
+    ubicacion = env['stock.location'].search([('name','=',nombreubicacion)])
+    if producto.id and ubicacion.id:
       newsil = env['stock.inventory.line'].create({'inventory_id':1, 'product_id':producto.id, 'product_qty':1,
-        'location_id':localizacion.id})
+        'location_id':ubicacion.id})
       r['sil_id'] = newsil.id
         </field>
     </record>

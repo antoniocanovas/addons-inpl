@@ -40,8 +40,8 @@
             <field name="arch" type="xml">
                 <tree string="MIG Inventario">
                     <field name="name"/>
-                    <field name="almacen"/>
                     <field name="ubicacion"/>
+                    <field name="ubicacion_old"/>
                     <field name="lote"/>
                     <field name="lotefecha"/>
                     <field name="sscc1"/>
