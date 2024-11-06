@@ -11,6 +11,7 @@ class ProductPackingWizard(models.TransientModel):
     type = fields.Selection(related="bom_template_id.type")
     base_qty = fields.Integer('Base qty')
     box_qty = fields.Integer('Box qty', default=1)
+    partner_ids = fields.Many2many('res.partner', string='Customers', required=True)
 
     sufix = fields.Char("Sufix", related='bom_template_id.code')
 
