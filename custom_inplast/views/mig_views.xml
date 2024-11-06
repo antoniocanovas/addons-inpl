@@ -35,6 +35,31 @@
             <field name="priority">99</field>
         </record>
 
+        <record id="mig_inventario_default_tree" model="ir.ui.view">
+            <field name="active" eval="True"/>
+            <field name="arch" type="xml">
+                <tree string="MIG Inventario">
+                    <field name="name"/>
+                    <field name="almacen"/>
+                    <field name="ubicacion"/>
+                    <field name="lote"/>
+                    <field name="lotefecha"/>
+                    <field name="sscc1"/>
+                    <field name="sscc2"/>
+                    <field name="palet"/>
+                    <field name="sil_id"/>
+                </tree>
+            </field>
+            <field name="groups_id" eval="[(6, 0, [])]"/>
+            <field name="inherit_id" eval="False"/>
+            <field name="key" eval="False"/>
+            <field name="mode">primary</field>
+            <field name="model">mig.inventario</field>
+            <field name="name">Default tree view for MIG Inventario</field>
+            <field name="priority">16</field>
+            <field name="type">tree</field>
+        </record>
+
 
         <record id="mig_materialesarticulo_default_tree" model="ir.ui.view">
             <field name="active" eval="True"/>

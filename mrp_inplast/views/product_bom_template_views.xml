@@ -9,11 +9,10 @@
         <field name="target">current</field>
     </record>
 
-
     <menuitem id="bom_template"
-              parent="stock.menu_stock_config_settings"
-              name="BOM Template" action="action_window_product_bom_template"/>
-
+              parent="custom_inplast.inplast_stock_menu"
+              sequence="10"
+              name="BOM Templates" action="action_window_product_bom_template"/>
 
     <record id="product_bom_template_form" model="ir.ui.view">
         <field name="name">product.bom.template.form</field>
