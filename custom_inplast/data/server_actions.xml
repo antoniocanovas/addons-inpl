@@ -17,7 +17,7 @@
 # nota.- se hace así para aprovechar la creación automática de SML, Quants, etc del proceso de importación !!
 
 for r in records:
-    no_pt, no_location = False,False
+    no_pt, no_location, ssccs = False,False, []
     # Busco la ubicación:
     locationname = r.ubicacion.strip() + " (" + r.ubicacion_old.strip() + ")"
     location = env['stock.location'].search([('name','=',locationname)])
@@ -35,12 +35,12 @@ for r in records:
     if len(product.ids) > 1: raise UserError('Varios productos con la misma referencia: ' + productname)
 
     # Crear lotes, si no existen:
+    if (not no_pt) and
     nombrelote = r.lote + "/" + r.palet
     lot = env['stock.lot'].search([('name','=',nombrelote),('product_id','=',product.id)])
     if lot.ids:
         raise UserError('El lote ya existe: ' + nombrelote)
     else:
-        ssccs = []
         if r.sscc1:
             sscc1 = env['pnt.sscc.code'].create({'name':r.sscc1})
             ssccs.append(sscc1.id)

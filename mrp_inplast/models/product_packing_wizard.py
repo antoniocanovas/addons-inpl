@@ -30,7 +30,7 @@ class ProductPackingWizard(models.TransientModel):
             for partner in record.partner_ids:
                 base_pricelist_item = self.env['product.pricelist.item'].search([
                     ('pricelist','=', partner.property_product_pricelist.id),
-                    ('product_tmpl_id','=',name.id),
+                    ('product_tmpl_id','=',record.name.id),
                 ])
                 if base_pricelist_item.ids:
                     pricelist_item.append(base_pricelist_item)
