@@ -5,8 +5,8 @@ from odoo import api, fields, models, _
 
 
 class MigArticuloIdioma(models.Model):
-    _name = 'mig.articuloidioma'
-    _description = 'MIG Articulo Idioma'
+    _name = 'mig.inventario'
+    _description = 'MIG Inventario'
 
     name = fields.Char('Producto')
     ubicacion = fields.Char('ubicación')
