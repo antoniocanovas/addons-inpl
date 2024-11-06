@@ -4,7 +4,7 @@ from odoo import fields, models, api
 
 
 class ProductPricelistItem(models.Model):
-    _inherit = "product_pricelist_item"
+    _inherit = "product.pricelist.item"
 
 
     # Campos de migración facilitados por el cliente, se pueden eliminar en un futuro:
