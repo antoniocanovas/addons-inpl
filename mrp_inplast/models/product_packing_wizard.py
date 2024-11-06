@@ -25,6 +25,20 @@ class ProductPackingWizard(models.TransientModel):
             baseqty, boxqty = record.base_qty, record.box_qty
             packagetype = self.env.ref("product_inplast.package_type_box_inplast")
 
+            # Chequeo de que todos los partner deseados tienen precio en su tarifa para el producto base:
+            pricelist_item = []
+            for partner in record.partner_ids:
+                base_pricelist_item = self.env['product.pricelist.item'].search([
+                    ('pricelist','=', partner.property_product_pricelist.id),
+                    ('product_tmpl_id','=',name.id),
+                ])
+                if base_pricelist_item.ids:
+                    pricelist_item.append(base_pricelist_item)
+                else:
+                    message = "Missing base price in " + partner.name + " pricelist."
+                    raise UserError(message)
+
+            # Cambiar variables si no es tipo caja (será palet):
             if record.type != "box":
                 packagetype = self.env.ref(
                     "product_inplast.package_type_pallet_inplast"
@@ -132,12 +146,7 @@ class ProductPackingWizard(models.TransientModel):
                     )
 
 
-            # Crear en tarifas:
-            # Buscar las tarifas (líneas) existentes del producto base:
-            pricelist_item = self.env["product.pricelist.item"].search(
-                [("product_tmpl_id", "=", record.name.id)]
-            )
-            # Crear en cada tarifa encontrada del producto la entrada del packing:
+            # Crear en cada tarifa de cliente la entrada del packing:
             for item in pricelist_item:
                 pricelistitem = self.env["product.pricelist.item"].create(
                     {

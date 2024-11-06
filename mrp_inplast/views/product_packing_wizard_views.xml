@@ -14,7 +14,14 @@
 
                     <group>
                         <field name="bom_template_id"/>
-                        <field name="partner_ids"/>
+                        <field name="partner_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="parent_id"/>
+                                    <field name="user_id"/>
+                                    <field name="type"/>
+                                </tree>
+                        </field>
                         <field name="type"/>
                         <field name="base_qty"/>
                         <field name="box_qty" invisible="'type' == 'box' or not bom_template_id"/>
