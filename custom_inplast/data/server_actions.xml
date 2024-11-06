@@ -35,19 +35,20 @@ for r in records:
     if len(product.ids) > 1: raise UserError('Varios productos con la misma referencia: ' + productname)
 
     # Crear lotes, si no existen:
-    if (not no_pt) and
-    nombrelote = r.lote + "/" + r.palet
-    lot = env['stock.lot'].search([('name','=',nombrelote),('product_id','=',product.id)])
-    if lot.ids:
-        raise UserError('El lote ya existe: ' + nombrelote)
-    else:
-        if r.sscc1:
-            sscc1 = env['pnt.sscc.code'].create({'name':r.sscc1})
-            ssccs.append(sscc1.id)
-        if r.sscc2:
-            sscc2 = env['pnt.sscc.code'].create({'name':r.sscc2})
-            ssccs.append(sscc2.id)
-        nuevolote = env['stock.lot'].create({'name':nombrelote, 'product_id':product.id, 'sscc_code_ids':[(6,0,ssccs)]})
+    if (no_pt == False) and (product.id):
+        nombrelote = r.lote + "/" + r.palet
+        lot = env['stock.lot'].search([('name','=',nombrelote),('product_id','=',product.id)])
+        if lot.ids:
+            raise UserError('El lote ya existe: ' + nombrelote)
+        else:
+            ssccs = []
+            if r.sscc1:
+                sscc1 = env['pnt.sscc.code'].create({'name':r.sscc1})
+                ssccs.append(sscc1.id)
+            if r.sscc2:
+                sscc2 = env['pnt.sscc.code'].create({'name':r.sscc2})
+                ssccs.append(sscc2.id)
+            nuevolote = env['stock.lot'].create({'name':nombrelote, 'product_id':product.id, 'sscc_code_ids':[(6,0,ssccs)]})
 
     # Cumplimentamos datos que después se exportarán:
     r.write({'pt_id':product.product_tmpl_id.id, 'pp_id':product.id, 'location_id':location.id, 'no_pt':no_pt, 'no_location':no_location, 'lot_id':nuevolote.id})
