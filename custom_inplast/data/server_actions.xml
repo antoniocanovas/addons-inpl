@@ -8,16 +8,31 @@
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
-# Importar inventario:
+# PROCEDIMIENTO:
+# 1. Exportar inventario con PT desde v14 con su external_id y también el de la ubicación.
+# 2. Importar registros en Odoo 17 "Mig Inventario" y ejecutar acción para que busque product.product y chequee que existen todas las ubicaciones.
+# 3. Exportar estos registros de migración con los campos: location_id/id, pp_id/id y qty.
+# 4. Importar desde Inventario => Operaciones => Inventario físico (no hay que "Establecer"). FIN
+# nota.- se hace así para aprovechar la creación automática de SML, Quants, etc del proceso de importación !!
+
 for r in records:
-  if not r.sil_id.id:
-    producto = env['product.product'].search([('default_code','=',r.name)])
-    nombreubicacion = r.ubicación + " (" + r.ubicacion_old + ")"
-    ubicacion = env['stock.location'].search([('name','=',nombreubicacion)])
-    if producto.id and ubicacion.id:
-      newsil = env['stock.inventory.line'].create({'inventory_id':1, 'product_id':producto.id, 'product_qty':1,
-        'location_id':ubicacion.id})
-      r['sil_id'] = newsil.id
+    # Busco la ubicación por id externo:
+    try:    location = env.ref(r.id_location)
+    except:
+        r.write({'no_location':True})
+        continue
+        #raise UserError("No location found")
+
+    # Busco el producto por id externo:
+    try:    pt = env.ref(r.id_pt)
+    except:
+        r.write({'no_pt':True})
+        continue
+        #raise UserError("No product found")
+
+    # Creo el quant:
+    pp = env['product.product'].search([('product_tmpl_id','=',pt.id)])
+    r.write({'pt_id':pt.id, 'pp_id':pp.id, 'location_id':location.id})
         </field>
     </record>
 

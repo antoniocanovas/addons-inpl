@@ -47,7 +47,11 @@
                     <field name="sscc1"/>
                     <field name="sscc2"/>
                     <field name="palet"/>
-                    <field name="sil_id"/>
+                    <field name="pt_id"/>
+                    <field name="pp_id"/>
+                    <field name="location_id"/>
+                    <field name="no_pt"/>
+                    <field name="no_location"/>
                 </tree>
             </field>
             <field name="groups_id" eval="[(6, 0, [])]"/>
