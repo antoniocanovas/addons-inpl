@@ -17,7 +17,7 @@
 # nota.- se hace así para aprovechar la creación automática de SML, Quants, etc del proceso de importación !!
 
 for r in records:
-    no_pt, no_location, ssccs = False,False, []
+    no_pt, no_location, nuevolote, ssccs = False,False,False, []
     # Busco la ubicación:
     locationname = r.ubicacion.strip() + " (" + r.ubicacion_old.strip() + ")"
     location = env['stock.location'].search([('name','=',locationname)])
