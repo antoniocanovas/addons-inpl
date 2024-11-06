@@ -4,11 +4,11 @@
 from odoo import api, fields, models, _
 
 
-class MigArticuloIdioma(models.Model):
+class MigInventario(models.Model):
     _name = 'mig.inventario'
     _description = 'MIG Inventario'
 
-    name = fields.Char('Producto')
+    name = fields.Char('Nombre Prod')
     ubicacion = fields.Char('ubicación')
     ubicacion_old = fields.Char('Ubicacion_old')
     lote = fields.Char('Lote')
@@ -18,5 +18,5 @@ class MigArticuloIdioma(models.Model):
     palet = fields.Char('Palet')
 
     lot_id = fields.Many2one('stock.lot', string='lot_id')
-    product_id = fields.Many2one('product.product', string='pp')
+    product_id = fields.Many2one('product.product', string='Producto')
     location_id = fields.Many2one('stock.location', string='location')
