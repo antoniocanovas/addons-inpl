@@ -17,6 +17,7 @@ class MigArticuloIdioma(models.Model):
     sscc1 = fields.Char('sscc1')
     sscc2 = fields.Char('sscc2')
     palet = fields.Char('Palet')
+    lot_id = fields.Many2one('stock.lot', string='lot_id')
 
     pt_id = fields.Many2one('product.template', string='pt_id')
     pp_id = fields.Many2one('product.product', string='pp')
