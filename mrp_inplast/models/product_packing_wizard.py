@@ -29,7 +29,7 @@ class ProductPackingWizard(models.TransientModel):
             pricelist_item = []
             for partner in record.partner_ids:
                 base_pricelist_item = self.env['product.pricelist.item'].search([
-                    ('pricelist','=', partner.property_product_pricelist.id),
+                    ('pricelist_id','=', partner.property_product_pricelist.id),
                     ('product_tmpl_id','=',record.name.id),
                 ])
                 if base_pricelist_item.ids:
