@@ -193,7 +193,7 @@ for r in records:
         [("product_tmpl_id", "=", migproducto.id),("mig_codigopalet","=", code)]
     )
     for item in pricelist_item:
-        if item.pricelist_id.id not in pricelist:
+        if item.pricelist_id.id:
             pricelistitem = env["product.pricelist.item"].create(
                 {
                     "pricelist_id": item.pricelist_id.id,
