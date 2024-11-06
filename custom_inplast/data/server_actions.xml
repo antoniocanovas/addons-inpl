@@ -17,25 +17,20 @@
 # nota.- se hace así para aprovechar la creación automática de SML, Quants, etc del proceso de importación !!
 
 for r in records:
-    no_pt, no_location, nuevolote, ssccs = False,False,False, []
+    nuevolote, ssccs = False, []
+
     # Busco la ubicación:
     locationname = r.ubicacion.strip() + " (" + r.ubicacion_old.strip() + ")"
     location = env['stock.location'].search([('name','=',locationname)])
-    if not location.ids:
-        no_location = True
-        #raise UserError('No encuentro la ubicación: ' + locationname)
     if len(location.ids) > 1: raise UserError('Varias ubicaciones con el mismo nombre: ' + locationname)
 
     # Busco el producto:
     productname = r.name.strip()
     product = env['product.product'].search([('default_code','=',productname)])
-    if not product.ids:
-        no_pt = True
-        #raise UserError('No encuentro el producto: ' + productname)
     if len(product.ids) > 1: raise UserError('Varios productos con la misma referencia: ' + productname)
 
     # Crear lotes, si no existen:
-    if (no_pt == False) and (product.id):
+    if product.id and location.id:
         nombrelote = r.lote + "/" + r.palet
         lot = env['stock.lot'].search([('name','=',nombrelote),('product_id','=',product.id)])
         if lot.ids:
@@ -51,7 +46,7 @@ for r in records:
             nuevolote = env['stock.lot'].create({'name':nombrelote, 'product_id':product.id, 'sscc_code_ids':[(6,0,ssccs)]})
 
     # Cumplimentamos datos que después se exportarán:
-    r.write({'pt_id':product.product_tmpl_id.id, 'pp_id':product.id, 'location_id':location.id, 'no_pt':no_pt, 'no_location':no_location, 'lot_id':nuevolote.id})
+    r.write({'product_id':product.id, 'location_id':location.id, 'lot_id':nuevolote.id})
 
         </field>
     </record>
