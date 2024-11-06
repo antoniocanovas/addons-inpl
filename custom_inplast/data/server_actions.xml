@@ -642,7 +642,8 @@ for li in records:
         'product_tmpl_id': producto.id,
         'applied_on': '1_product',
         'compute_price': 'fixed',
-        'fixed_price': float (li.preciooferta.replace( ',' , '.' ))
+        'fixed_price': float (li.preciooferta.replace( ',' , '.' )),
+        'mig_codigopalet': li.codigopalet,
     })
     li['lineatarifa_id'] = pricelistitem.id
 
