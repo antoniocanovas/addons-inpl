@@ -243,8 +243,8 @@ for r in records:
         <field name="state">code</field>
         <field name="code">
 # Importar tarifa para los clientes y direcciones de entrega que la tienen:
-partners = []
 for li in records:
+    partners = set()
 
     # Cliente con referencia de la línea (si tiene delegaciones sólo encuentra la empresa principal):
     partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
@@ -257,11 +257,7 @@ for li in records:
 
     refpricelist = str(li.clientecod) + "." + str(li.name)
     pricelist = env['product.pricelist'].search([('mig_codigocliente','=',refpricelist)])
-    if (partner.id) and (partner.id not in partners):
-        if not pricelist.id:
-        #    impuestoalplastico = True
-        #    if partner.country_id.code != 'ES': impuestoalplastico = False
-        #    if partner.country_id.code == 'ES' and partner.state_id.code in ['TF','GC']: impuestoalplastico = False
+    if (not pricelist.id) and (partner.id not in partners):
             pricelist = env['product.pricelist'].create({
                 'name': partner.name,
                 'mig_codigocliente': refpricelist,
@@ -269,14 +265,11 @@ for li in records:
                 'pnt_last_update': li.fechaactualizacion,
                 'pnt_lock_date': li.fechalimitepedido,
                 'pnt_ethylene_price': li.precioetileno,
-        #        'pnt_plastic_tax': impuestoalplastico,
             })
-
-    partners.append(partner.id)
-
+    partners.add(partner.id)
     li['pricelist_id'] = pricelist.id
 
-    if (partner.property_product_pricelist.mig_codigocliente != li.clientecod):
+    if (partner.property_product_pricelist.mig_codigocliente != refpricelist):
         partner.write({'property_product_pricelist': pricelist.id})
         </field>
     </record>
