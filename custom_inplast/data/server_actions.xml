@@ -11,8 +11,6 @@
         <field name="code">
 # Importar tarifa para los clientes y direcciones de entrega que la tienen:
 for li in records:
-    partners = set()
-
     # Cliente con referencia de la línea (si tiene delegaciones sólo encuentra la empresa principal):
     partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
     if not partnerfactura.id: continue
@@ -24,7 +22,7 @@ for li in records:
 
     refpricelist = str(li.clientecod) + "." + str(li.name)
     pricelist = env['product.pricelist'].search([('mig_codigocliente','=',refpricelist)])
-    if (not pricelist.id) and (partner.id not in partners):
+    if (not pricelist.id):
             pricelist = env['product.pricelist'].create({
                 'name': partner.name,
                 'mig_codigocliente': refpricelist,
@@ -33,11 +31,8 @@ for li in records:
                 'pnt_lock_date': li.fechalimitepedido,
                 'pnt_ethylene_price': li.precioetileno,
             })
-    partners.add(partner.id)
-    li['pricelist_id'] = pricelist.id
 
-#    if (partner.property_product_pricelist.mig_codigocliente != refpricelist):
-#        partner.write({'property_product_pricelist': pricelist.id})
+    li.write({'pricelist_id':pricelist.id, 'partner_id':partner.id})
         </field>
     </record>
 
@@ -49,18 +44,9 @@ for li in records:
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
-
 # Migrar líneas de tarifas:
 for li in records:
-    partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
-    if not partnerfactura: continue
-            #raise UserError("No encuentro cliente ref: " + li.clientecod)
-    partner = env['res.partner'].search([('name','=',li.name),('parent_id','=',partnerfactura.id)])
-    if not partner.id: partner = partnerfactura
-
-    tarifa = partner.property_product_pricelist
-    if (not tarifa.id) or (tarifa.id == 1): continue
-            #raise UserError("Revisa tarifa para: " + li.clientecod + " " + li.name)
+    if not (li.pricelist_id.id) or (li.lineatarifa_id.id): continue
 
     producto = env['product.template'].search([('default_code','=',li.articulo.strip())])
     if not producto.id: continue
@@ -69,7 +55,7 @@ for li in records:
     else: codigopalet=""
 
     pricelistitem = env['product.pricelist.item'].create({
-        'pricelist_id': tarifa.id,
+        'pricelist_id': li.pricelist_id.id,
         'product_tmpl_id': producto.id,
         'applied_on': '1_product',
         'compute_price': 'fixed',
@@ -95,9 +81,21 @@ for t in tarifas:
         <field name="evaluation_type">value</field>
         <field name="state">code</field>
         <field name="code">
+# Para evitar repetidos:
+partners = set()
+# Primero las empresas:
 for r in records:
-    if (partner.property_product_pricelist.mig_codigocliente != refpricelist):
-        partner.write({'property_product_pricelist': pricelist.id})
+    partner = r.partner_id
+    if (r.partner_id.id not in partners) and (not r.partner_id.parent_id.id):
+        partner['property_product_pricelist'] = r.pricelist_id.id
+        partners.add(r.partner_id)
+# Ahora las delegaciones, si no se hace en este orden al poner tarifa en las empresas cambia las delegaciones:
+for r in records:
+    partner = r.partner_id
+    if (r.partner_id.id not in partners) and (r.partner_id.parent_id.id):
+        partner['property_product_pricelist'] = r.pricelist_id.id
+        partners.add(r.partner_id)
+
         </field>
     </record>
 
