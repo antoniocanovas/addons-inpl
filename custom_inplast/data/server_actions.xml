@@ -623,7 +623,7 @@ for li in records:
     if (not tarifa.id) or (tarifa.id == 1): continue
             #raise UserError("Revisa tarifa para: " + li.clientecod + " " + li.name)
 
-    producto = env['product.template'].search([('default_code','=',li.articulo)])
+    producto = env['product.template'].search([('default_code','=',li.articulo.strip())])
     if not producto.id: continue
 
     pricelistitem = env['product.pricelist.item'].create({
@@ -632,7 +632,7 @@ for li in records:
         'applied_on': '1_product',
         'compute_price': 'fixed',
         'fixed_price': float (li.preciooferta.replace( ',' , '.' )),
-        'mig_codigopalet': li.codigopalet,
+        'mig_codigopalet': li.codigopalet.strip(),
     })
     li['lineatarifa_id'] = pricelistitem.id
 
