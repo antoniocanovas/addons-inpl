@@ -626,14 +626,18 @@ for li in records:
     producto = env['product.template'].search([('default_code','=',li.articulo.strip())])
     if not producto.id: continue
 
+    if li.codigopalet: codigopalet=li.codigopalet.strip()
+    else: codigopalet=""
+
     pricelistitem = env['product.pricelist.item'].create({
         'pricelist_id': tarifa.id,
         'product_tmpl_id': producto.id,
         'applied_on': '1_product',
         'compute_price': 'fixed',
         'fixed_price': float (li.preciooferta.replace( ',' , '.' )),
-        'mig_codigopalet': li.codigopalet.strip(),
+        'mig_codigopalet': codigopalet,
     })
+
     li['lineatarifa_id'] = pricelistitem.id
 
 #Actualizar productos disponibles para venta, que al importar no los toma:
