@@ -1,6 +1,109 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 
+    <!-- TARIFAS: CREAR TARIFA, ASGINAR PARTNER EN LÍNEA, ASIGNAR TARIFA EN LÍNEA: -->
+    <record id="mig_tarifas_cliente_as" model="ir.actions.server">
+        <field name="name">=> 1T. Crear tarifas por cadena</field>
+        <field name="model_id" ref="custom_inplast.model_mig_lineastarifa"/>
+        <field name="binding_model_id" ref="custom_inplast.model_mig_lineastarifa"/>
+        <field name="evaluation_type">value</field>
+        <field name="state">code</field>
+        <field name="code">
+# Importar tarifa para los clientes y direcciones de entrega que la tienen:
+for li in records:
+    partners = set()
+
+    # Cliente con referencia de la línea (si tiene delegaciones sólo encuentra la empresa principal):
+    partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
+    if not partnerfactura.id: continue
+            #raise UserError("No encuentro " + str(li.clientecod))
+
+    # Aquí busca la dirección de entrega de la empresa anterior:
+    partner = env['res.partner'].search([('name','=',li.name),('parent_id','=',partnerfactura.id)])
+    if not partner.id: partner = partnerfactura
+
+    refpricelist = str(li.clientecod) + "." + str(li.name)
+    pricelist = env['product.pricelist'].search([('mig_codigocliente','=',refpricelist)])
+    if (not pricelist.id) and (partner.id not in partners):
+            pricelist = env['product.pricelist'].create({
+                'name': partner.name,
+                'mig_codigocliente': refpricelist,
+                'pnt_next_update': li.fechavalideztarifa,
+                'pnt_last_update': li.fechaactualizacion,
+                'pnt_lock_date': li.fechalimitepedido,
+                'pnt_ethylene_price': li.precioetileno,
+            })
+    partners.add(partner.id)
+    li['pricelist_id'] = pricelist.id
+
+#    if (partner.property_product_pricelist.mig_codigocliente != refpricelist):
+#        partner.write({'property_product_pricelist': pricelist.id})
+        </field>
+    </record>
+
+    <!-- ASIGNAR LÍNEAS EN TARIFAS: -->
+    <record id="mig_lineas_de_tarifa_as" model="ir.actions.server">
+        <field name="name">=> 2T. Líneas de tarifa</field>
+        <field name="model_id" ref="custom_inplast.model_mig_lineastarifa"/>
+        <field name="binding_model_id" ref="custom_inplast.model_mig_lineastarifa"/>
+        <field name="evaluation_type">value</field>
+        <field name="state">code</field>
+        <field name="code">
+
+# Migrar líneas de tarifas:
+for li in records:
+    partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
+    if not partnerfactura: continue
+            #raise UserError("No encuentro cliente ref: " + li.clientecod)
+    partner = env['res.partner'].search([('name','=',li.name),('parent_id','=',partnerfactura.id)])
+    if not partner.id: partner = partnerfactura
+
+    tarifa = partner.property_product_pricelist
+    if (not tarifa.id) or (tarifa.id == 1): continue
+            #raise UserError("Revisa tarifa para: " + li.clientecod + " " + li.name)
+
+    producto = env['product.template'].search([('default_code','=',li.articulo.strip())])
+    if not producto.id: continue
+
+    if li.codigopalet: codigopalet=li.codigopalet.strip()
+    else: codigopalet=""
+
+    pricelistitem = env['product.pricelist.item'].create({
+        'pricelist_id': tarifa.id,
+        'product_tmpl_id': producto.id,
+        'applied_on': '1_product',
+        'compute_price': 'fixed',
+        'fixed_price': float (li.preciooferta.replace( ',' , '.' )),
+        'mig_codigopalet': codigopalet,
+    })
+
+    li['lineatarifa_id'] = pricelistitem.id
+
+#Actualizar productos disponibles para venta, que al importar no los toma:
+tarifas = env['product.pricelist'].search([('id','!=',0)])
+for t in tarifas:
+    t._get_pricelist_products()
+
+        </field>
+    </record>
+
+    <!-- TARIFAS: CREAR TARIFA, ASGINAR PARTNER EN LÍNEA, ASIGNAR TARIFA EN LÍNEA: -->
+    <record id="mig_tarifa_en_partner_as" model="ir.actions.server">
+        <field name="name">=> 3T. Tarifa asignada a cada partner</field>
+        <field name="model_id" ref="custom_inplast.model_mig_lineastarifa"/>
+        <field name="binding_model_id" ref="custom_inplast.model_mig_lineastarifa"/>
+        <field name="evaluation_type">value</field>
+        <field name="state">code</field>
+        <field name="code">
+for r in records:
+    if (partner.property_product_pricelist.mig_codigocliente != refpricelist):
+        partner.write({'property_product_pricelist': pricelist.id})
+        </field>
+    </record>
+
+
+
+    <!-- INVENTARIO: -->
     <record id="mig_inventario_as" model="ir.actions.server">
         <field name="name">=> 1. Importar inventario</field>
         <field name="model_id" ref="custom_inplast.model_mig_inventario"/>
@@ -232,45 +335,6 @@ for r in records:
         }
     )
 
-        </field>
-    </record>
-
-    <record id="mig_tarifas_cliente_as" model="ir.actions.server">
-        <field name="name">=> 1. Crear tarifas por cadena</field>
-        <field name="model_id" ref="custom_inplast.model_mig_lineastarifa"/>
-        <field name="binding_model_id" ref="custom_inplast.model_mig_lineastarifa"/>
-        <field name="evaluation_type">value</field>
-        <field name="state">code</field>
-        <field name="code">
-# Importar tarifa para los clientes y direcciones de entrega que la tienen:
-for li in records:
-    partners = set()
-
-    # Cliente con referencia de la línea (si tiene delegaciones sólo encuentra la empresa principal):
-    partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
-    if not partnerfactura.id: continue
-            #raise UserError("No encuentro " + str(li.clientecod))
-
-    # Aquí busca la dirección de entrega de la empresa anterior:
-    partner = env['res.partner'].search([('name','=',li.name),('parent_id','=',partnerfactura.id)])
-    if not partner.id: partner = partnerfactura
-
-    refpricelist = str(li.clientecod) + "." + str(li.name)
-    pricelist = env['product.pricelist'].search([('mig_codigocliente','=',refpricelist)])
-    if (not pricelist.id) and (partner.id not in partners):
-            pricelist = env['product.pricelist'].create({
-                'name': partner.name,
-                'mig_codigocliente': refpricelist,
-                'pnt_next_update': li.fechavalideztarifa,
-                'pnt_last_update': li.fechaactualizacion,
-                'pnt_lock_date': li.fechalimitepedido,
-                'pnt_ethylene_price': li.precioetileno,
-            })
-    partners.add(partner.id)
-    li['pricelist_id'] = pricelist.id
-
-    if (partner.property_product_pricelist.mig_codigocliente != refpricelist):
-        partner.write({'property_product_pricelist': pricelist.id})
         </field>
     </record>
 
@@ -602,50 +666,5 @@ for r in records:
         </field>
     </record>
 
-
-    <record id="mig_lineas_de_tarifa_as" model="ir.actions.server">
-        <field name="name">=> 5. Líneas de tarifa</field>
-        <field name="model_id" ref="custom_inplast.model_mig_lineastarifa"/>
-        <field name="binding_model_id" ref="custom_inplast.model_mig_lineastarifa"/>
-        <field name="evaluation_type">value</field>
-        <field name="state">code</field>
-        <field name="code">
-
-# Migrar líneas de tarifas:
-for li in records:
-    partnerfactura = env['res.partner'].search([('ref','=',li.clientecod)])
-    if not partnerfactura: continue
-            #raise UserError("No encuentro cliente ref: " + li.clientecod)
-    partner = env['res.partner'].search([('name','=',li.name),('parent_id','=',partnerfactura.id)])
-    if not partner.id: partner = partnerfactura
-
-    tarifa = partner.property_product_pricelist
-    if (not tarifa.id) or (tarifa.id == 1): continue
-            #raise UserError("Revisa tarifa para: " + li.clientecod + " " + li.name)
-
-    producto = env['product.template'].search([('default_code','=',li.articulo.strip())])
-    if not producto.id: continue
-
-    if li.codigopalet: codigopalet=li.codigopalet.strip()
-    else: codigopalet=""
-
-    pricelistitem = env['product.pricelist.item'].create({
-        'pricelist_id': tarifa.id,
-        'product_tmpl_id': producto.id,
-        'applied_on': '1_product',
-        'compute_price': 'fixed',
-        'fixed_price': float (li.preciooferta.replace( ',' , '.' )),
-        'mig_codigopalet': codigopalet,
-    })
-
-    li['lineatarifa_id'] = pricelistitem.id
-
-#Actualizar productos disponibles para venta, que al importar no los toma:
-tarifas = env['product.pricelist'].search([('id','!=',0)])
-for t in tarifas:
-    t._get_pricelist_products()
-
-        </field>
-    </record>
 
 </odoo>

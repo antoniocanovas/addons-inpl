@@ -159,19 +159,21 @@
                     <field name="clientecod"/>
                     <field name="cliente"/>
                     <field name="articulo"/>
-                    <field name="familia"/>
-                    <field name="subfamilia"/>
                     <field name="fechavalideztarifa"/>
-                    <field name="fechalimitepedido"/>
-                    <field name="fechaactualizacion"/>
-                    <field name="eneuros"/>
-                    <field name="codigodivisa"/>
                     <field name="preciooferta"/>
-                    <field name="precioetileno"/>
-                    <field name="comentario"/>
-                    <field name="articulocodcliente"/>
+                    <field name="partner_id"/>
                     <field name="pricelist_id"/>
-                    <field name="codigopalet"/>
+                    <field name="lineatarifa_id"/>
+                    <field name="codigopalet" optional="hide"/>
+                    <field name="familia" optional="hide"/>
+                    <field name="subfamilia" optional="hide"/>
+                    <field name="fechalimitepedido" optional="hide"/>
+                    <field name="fechaactualizacion" optional="hide"/>
+                    <field name="eneuros" optional="hide"/>
+                    <field name="codigodivisa" optional="hide"/>
+                    <field name="precioetileno" optional="hide"/>
+                    <field name="comentario" optional="hide"/>
+                    <field name="articulocodcliente" optional="hide"/>
                 </tree>
             </field>
             <field name="groups_id" eval="[(6, 0, [])]"/>

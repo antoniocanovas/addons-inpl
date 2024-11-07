@@ -23,6 +23,7 @@ class MigLineasTarifa(models.Model):
     precioetileno = fields.Char('precioetileno')
     comentario = fields.Char('comentario')
     articulocodcliente = fields.Char('articulocodcliente')
+    partner_id = fields.Many2one('res.partner', string='Partner')
     pricelist_id = fields.Many2one('product.pricelist', string="pricelist")
     lineatarifa_id = fields.Many2one('product.pricelist.item', string="lineatarifa")
     codigopalet = fields.Char('codigopalet')
