@@ -126,25 +126,35 @@ class ProductPackingWizard(models.TransientModel):
                 )
 
 
-            # Incluir materiales desde la ldm de producto base:
-            if not record.name.bom_ids.ids:
-                raise UserError(
-                    "Haz una lista de materiales con componentes o materiales en el producto base "
-                    "antes de crear empaquetados."
-                )
-            else:
-                bom = record.name.bom_ids[0]
-                for li in bom.bom_line_ids:
-                    newbomline = self.env["mrp.bom.line"].create(
-                        {
-                            "product_id": li.product_id.id,
-                            "pnt_raw_percent": li.pnt_raw_percent,
-                            "product_qty": li.product_qty * baseqty,
-                            "product_uom_id": li.product_uom_id.id,
-                            "bom_id": newldm.id,
-                        }
+            # Incluir materiales desde la ldm de producto base, para palets y cajas que fabricamos nosotros:
+            if record.type in ["box", "pallet"]:
+                if not record.name.bom_ids.ids:
+                    raise UserError(
+                        "Haz una lista de materiales con componentes o materiales en el producto base "
+                        "antes de crear empaquetados."
                     )
-
+                else:
+                    bom = record.name.bom_ids[0]
+                    for li in bom.bom_line_ids:
+                        newbomline = self.env["mrp.bom.line"].create(
+                            {
+                                "product_id": li.product_id.id,
+                                "pnt_raw_percent": li.pnt_raw_percent,
+                                "product_qty": li.product_qty * baseqty,
+                                "product_uom_id": li.product_uom_id.id,
+                                "bom_id": newldm.id,
+                            }
+                        )
+            # Para productos que compramos sólo una línea con las asas o tapones adquiridos:
+            else:
+                newbomline = self.env["mrp.bom.line"].create(
+                    {
+                        "product_id": record.name.id,
+                        "product_qty": baseqty,
+                        "product_uom_id": record.name.product_uom_id.id,
+                        "bom_id": newldm.id,
+                    }
+                )
 
             # Crear en cada tarifa de cliente la entrada del packing:
             for item in pricelist_item:

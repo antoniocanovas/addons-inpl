@@ -11,6 +11,8 @@ class ProductBomTemplate(models.Model):
         [
             ("box", "Box"),
             ("pallet", "Pallet"),
+            ("box_nonmrp", "Box third parties"),
+            ("pallet_nonmrp", "Pallet third parties"),
         ],
         string="Packing type",
     )
