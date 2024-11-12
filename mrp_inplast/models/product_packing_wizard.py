@@ -151,7 +151,7 @@ class ProductPackingWizard(models.TransientModel):
                     {
                         "product_id": record.name.id,
                         "product_qty": baseqty,
-                        "product_uom_id": record.name.product_uom_id.id,
+                        "product_uom_id": record.name.uom_id.id,
                         "bom_id": newldm.id,
                     }
                 )
