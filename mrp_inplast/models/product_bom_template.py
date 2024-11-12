@@ -17,6 +17,6 @@ class ProductBomTemplate(models.Model):
         string="Packing type",
     )
 
-    box_template_id = fields.Many2one("product.bom.template", domain="[('type','=','box')]")
+    box_template_id = fields.Many2one("product.bom.template", domain="[('type','in',['box','box_nonmrp'])]")
 
     line_ids = fields.One2many('product.bom.template.line', 'template_id', string='Lines', copy=True)
