@@ -29,7 +29,7 @@
                         <field name="type" readonly="type" force_save="1" required="1"/>
                         <field name="code" required="1"/>
                         <field name="printed_code" required="1"/>
-                        <field name="box_template_id" required="type == 'pallet'" invisible="type == 'box'"/>
+                        <field name="box_template_id" required="type in ['pallet','pallet_nonmrp']" invisible="type in ['box','box_nonmrp']"/>
                     </group>
 
                     <field name="line_ids">
