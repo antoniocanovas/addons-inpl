@@ -21,7 +21,7 @@
     <!-- MENUS: -->
 
     <record id="container_type_menu" model="ir.ui.menu">
-        <field name="action" ref="action_mig_inventario"/>
+        <field name="action" ref="action_container_type"/>
         <field name="active" eval="True"/>
         <field name="name">Container type</field>
         <field name="parent_id" ref="custom_inplast.inplast_stock_menu"/>
