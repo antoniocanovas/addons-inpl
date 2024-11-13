@@ -1,8 +1,8 @@
 from odoo import _, api, fields, models
 
 class ContainerType(models.Model):
-    _name = "container.type"
-    _description = "Container type"
+    _name = "container.type.line"
+    _description = "Container type line"
 
     name = fields.Many2one("container.type", string="Name")
     sequence = fields.Integer('Sequence')
