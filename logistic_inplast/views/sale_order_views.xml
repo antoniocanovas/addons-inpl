@@ -24,7 +24,7 @@
                     </group>
                     <!-- Tipo de carga en la vista de logística: -->
                     <group name="logistic_container_type" string="Container type">
-                        <field name="container_type_id" domain="[('id','in',container_type_ids')]"/>
+                        <field name="container_type_id" domain="[('id','in',container_type_ids)]"/>
                         <field name="container_type_ids" invisible="1"/>
                     </group>
                 </page>
