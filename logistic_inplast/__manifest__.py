@@ -11,6 +11,7 @@ Gestión de envíos y compras en contenedores y camiones.
         'contacts',
         'product',
         'stock',
+        'sale_stock',
         'sale_management',
     ],
     'data': [

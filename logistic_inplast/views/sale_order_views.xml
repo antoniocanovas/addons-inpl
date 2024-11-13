@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="inplast_sale_order_inh_form" model="ir.ui.view">
-        <field name="name">sale.order.azarey.inh.form</field>
+        <field name="name">sale.order.inplast.inh.form</field>
         <field name="model">sale.order</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
