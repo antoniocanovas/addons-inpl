@@ -8,13 +8,15 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//field[@name='property_product_pricelist']" position="after">
-                    <field name="container_line_ids">
-                        <tree editable="bottom">
-                            <field name="sequence" widget="handle"/>
-                            <field name="container_type_id"/>
-                        </tree>
-                    </field>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Containing types">
+                        <field name="container_line_ids">
+                            <tree editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="container_type_id"/>
+                            </tree>
+                        </field>
+                    </page>
                 </xpath>
 
             </data>

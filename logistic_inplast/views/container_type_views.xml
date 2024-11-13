@@ -1,6 +1,34 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
+    <!-- WINDOW ACTIONS: -->
+    <record id="action_container_type" model="ir.actions.act_window">
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_type">action</field>
+        <field name="domain" eval="False"/>
+        <field name="filter" eval="False"/>
+        <field name="limit">80</field>
+        <field name="name">Container type</field>
+        <field name="res_model">container.type</field>
+        <field name="search_view_id" eval="False"/>
+        <field name="target">current</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="usage" eval="False"/>
+        <field name="view_id" eval="False"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- MENUS: -->
+    <record id="container_type_menu" model="ir.ui.menu">
+        <field name="action" ref="action_container_type"/>
+        <field name="active" eval="True"/>
+        <field name="name">Container type</field>
+        <field name="parent_id" ref="custom_inplast.inplast_stock_menu"/>
+        <field name="sequence">90</field>
+        <field name="web_icon" eval="False"/>
+    </record>
+
+    <!-- VIEWS: -->
     <record id="container_type_form" model="ir.ui.view">
         <field name="name">container.type.form</field>
         <field name="model">container.type</field>

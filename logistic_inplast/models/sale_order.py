@@ -7,7 +7,18 @@ class SaleOrder(models.Model):
         self.container_type_ids = self.partner_ids.container_type_ids.ids
     container_type_ids = fields.Many2many('container.type', compute='_get_container_type_ids')
 
-    container_type_id = fields.Many2one('container.type', string='Container type')
+
+    @api.depends('partner_id')
+    def _get_default_container_type_id(self):
+        container = False
+        if container_type_ids.ids:
+            container = self.env['container.type.line'].search([
+                ('partner_id','=',self.partner_id.id),
+                ('id', 'in', self.container_type_ids.ids),
+            ], order='sequence desc', limit=1).id
+        self.container_type_id = container
+    container_type_id = fields.Many2one('container.type', string='Container type', editable=True, copy=True,
+                                        store=True, compute='_get_default_container_type_id')
 
     logistic1_start = fields.Date("Logistic 1 start")
     logistic1_stop = fields.Date("Logistic 1 stop")
