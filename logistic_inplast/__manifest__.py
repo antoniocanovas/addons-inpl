@@ -14,11 +14,9 @@ Gestión de envíos y compras en contenedores y camiones.
         'sale_management',
     ],
     'data': [
-#        'views/ir_actions_report_templates.xml',
-        #        'views/product_category_views.xml',
-        #'views/product_pricelist_views.xml',
-        #'views/res_partner_views.xml',
-        #'views/sale_order_views.xml',
+        'security/ir.model.access.csv',
+        'views/res_partner_views.xml',
+        'views/sale_order_views.xml',
     ],
     'installable': True,
 }
