@@ -9,8 +9,7 @@
         <field name="arch" type="xml">
             <data>
                 <xpath expr="//field[@name='property_product_pricelist']" position="after">
-                    <field name="pnt_pricelist_state" string="Pricelist state"/>
-                    <field name="pnt_next_update" string="Pricelist update"/>
+                    <field name="container_type_ids" widget="many2many_tags"/>
                 </xpath>
 
             </data>
