@@ -3,7 +3,10 @@ from odoo import _, api, fields, models
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    container_type_ids = fields.One2many(related='partner_id.container_type_ids')
+    def _get_container_type_ids(self):
+        self.container_type_ids = self.partner_ids.container_type_ids.ids
+    container_type_ids = fields.Many2many('container.type', compute='_get_container_type_ids')
+
     container_type_id = fields.Many2one('container.type', string='Container type')
 
     logistic1_start = fields.Date("Logistic 1 start")
