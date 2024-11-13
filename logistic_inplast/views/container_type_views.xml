@@ -28,7 +28,7 @@
             <tree string="Container types">
                 <field name="name"/>
                 <field name="type"/>
-                <field name="description" widget="html"/>
+                <field name="description" widget="html" optional="hide"/>
             </tree>
         </field>
         <field name="groups_id" eval="[(6, 0, [])]"/>
