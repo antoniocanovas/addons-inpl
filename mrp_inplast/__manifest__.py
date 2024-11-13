@@ -32,7 +32,7 @@
         "views/product_template_views.xml",
         "views/mrp_bom_views.xml",
         "views/stock_lot_views.xml",
-        "views/stock_picking_view.xml",
+        "views/stock_picking_views.xml",
         "views/res_partner_view.xml",
         "views/mrp_production_views.xml",
         "views/product_bom_template_views.xml",
