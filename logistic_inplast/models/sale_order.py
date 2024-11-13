@@ -11,7 +11,7 @@ class SaleOrder(models.Model):
     @api.depends('partner_id')
     def _get_default_container_type_id(self):
         container = False
-        if container_type_ids.ids:
+        if self.container_type_ids.ids:
             container = self.env['container.type.line'].search([
                 ('partner_id','=',self.partner_id.id),
                 ('id', 'in', self.container_type_ids.ids),
