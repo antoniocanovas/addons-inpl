@@ -4,7 +4,7 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     def _get_container_type_ids(self):
-        self.container_type_ids = self.partner_ids.container_type_ids.ids
+        self.container_type_ids = self.partner_id.container_type_ids.ids
     container_type_ids = fields.Many2many('container.type', compute='_get_container_type_ids')
 
 
