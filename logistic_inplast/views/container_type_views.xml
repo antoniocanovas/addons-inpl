@@ -13,6 +13,7 @@
                     </h3>
 
                     <group>
+                        <field name="container_type_id"/>
                         <field name="type"/>
                         <field name="description"/>
                     </group>
@@ -26,7 +27,7 @@
         <field name="active" eval="True"/>
         <field name="arch" type="xml">
             <tree string="Container types">
-                <field name="name"/>
+                <field name="container_type_id"/>
                 <field name="type"/>
                 <field name="description" widget="html" optional="hide"/>
             </tree>
