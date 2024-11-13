@@ -18,6 +18,7 @@ Gestión de envíos y compras en contenedores y camiones.
         'security/ir.model.access.csv',
         'views/res_partner_views.xml',
         'views/sale_order_views.xml',
+        'views/stock_picking_views.xml',
     ],
     'installable': True,
 }

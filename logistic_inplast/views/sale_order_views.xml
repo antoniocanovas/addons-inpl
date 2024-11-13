@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <odoo>
 
-    <record id="logistic_inplast_sale_order_inh_form" model="ir.ui.view">
-        <field name="name">logistic.sale.order.inplast.inh.form</field>
+    <record id="logistic_inplast_inh_form" model="ir.ui.view">
+        <field name="name">logistic.inplast.inh.form</field>
         <field name="model">sale.order</field>
         <field name="type">form</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
@@ -23,7 +23,7 @@
                         </group>
                     </group>
                     <!-- Tipo de carga en la vista de logística: -->
-                    <group name="container_type" string="Container type">
+                    <group name="logistic_container_type" string="Container type">
                         <field name="container_type_id" domain="[('id','in',container_type_ids')]"/>
                         <field name="container_type_ids" invisible="1"/>
                     </group>
