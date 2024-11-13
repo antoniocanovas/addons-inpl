@@ -12,5 +12,6 @@ class ContainerType(models.Model):
             ("plane", "Plane"),
         ],
         string="Type",
+        required=True,
     )
     description = fields.Html('Description')

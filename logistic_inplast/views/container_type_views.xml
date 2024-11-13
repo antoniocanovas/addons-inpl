@@ -13,7 +13,7 @@
                     </h3>
 
                     <group>
-                        <field name="type" required="1"/>
+                        <field name="type"/>
                         <field name="description"/>
                     </group>
 
