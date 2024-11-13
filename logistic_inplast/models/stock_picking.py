@@ -1,4 +1,4 @@
-from odoo import models
+from odoo import _, api, fields, models
 
 
 class StockPicking(models.Model):
