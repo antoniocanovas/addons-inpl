@@ -1,13 +1,10 @@
-# Copyright 2024 Antonio Cánovas <acanovas@puntsistemes.es>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
-from odoo import api, models, fields, _
-from odoo.exceptions import UserError
-
+from odoo import _, api, fields, models
 
 class SaleOrder(models.Model):
-    _name = "sale.order"
-    _inherit = ["sale.order"]
+    _inherit = 'sale.order'
+
+    container_type_ids = fields.One2many(related='partner_id.container_type_ids')
+    container_type_id = fields.Many2one('container.type', string='Container type')
 
     logistic1_start = fields.Date("Logistic 1 start")
     logistic1_stop = fields.Date("Logistic 1 stop")

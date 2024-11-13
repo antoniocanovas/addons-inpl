@@ -11,6 +11,5 @@ from . import res_partner
 from . import mig_lineastarifa
 from . import product_pricelist
 from . import hr_employee
-from . import sale_order
 from . import sale_order_line
 from . import product_pricelist_item
