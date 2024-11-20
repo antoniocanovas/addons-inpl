@@ -15,7 +15,7 @@
         <field name="code">
             record.update_packing_products_price()
         </field>
-        <field name="base_automation_id" ref="account_financial_risk_contract.ba_update_invoices_risk_batch"/>
+        <field name="base_automation_id" ref="sale_inplast.ba_update_packing_prices_from_base_product"/>
     </record>
 
 </odoo>
