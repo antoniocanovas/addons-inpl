@@ -20,7 +20,7 @@ class ProductPricelistItem(models.Model):
             if record.pnt_product_type == 'final':
                 packing_lines = self.env['product.pricelist.item'].search([
                     ('pricelist_id','=',record.pricelist_id.id),
-                    ('pnt_parent_id','=',record.id),
+                    ('pnt_parent_id','=',record.product_tmpl_id.id),
                 ])
                 for li in packing_lines:
                     li['fixed_price'] = record.fixed_price * li.product_tmpl_id.pnt_parent_qty
