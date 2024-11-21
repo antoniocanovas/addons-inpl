@@ -102,6 +102,10 @@
                 <attribute name="domain">[('id','in', pnt_product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
             </xpath>
 
+            <xpath expr="//field[@name='payment_mode_id']" position="after">
+                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+            </xpath>
+
         </field>
         <field name="priority">99</field>
     </record>
