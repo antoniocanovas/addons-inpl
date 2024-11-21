@@ -47,12 +47,15 @@ class ProductPackingWizard(models.TransientModel):
                 purchase_ok = True
 
             # Crear producto:
-            dye, code = "", ""
-            if record.name.pnt_product_dye:
-                dye = " " + record.name.pnt_product_dye
+            code = ""
+            # 2024/11 Raúl solicita que se quite dye del nombre porque ya sale en la línea de ventas:
+            # dye = ""
+            #if record.name.pnt_product_dye:
+            #    dye = " " + record.name.pnt_product_dye
 
             # Comprobar si el producto ya existía (nombre similar creado automáticamente):
-            name = record.name.name + dye + " - " + type
+            # name = record.name.name + dye + " - " + type
+            name = record.name.name + " - " + type
             exist = self.env["product.template"].search([("name", "=", name)])
             if exist.ids:
                 raise UserError("Este producto ya existe.")
