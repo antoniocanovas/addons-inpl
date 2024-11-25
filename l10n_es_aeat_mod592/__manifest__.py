@@ -3,6 +3,8 @@
 # Copyright 2024 Tecnativa - Víctor Martínez
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+# VERSIÓN MIGRADA POR PUNT, HAY QUE COMPROBAR QUE ES COMPATIBLE CON MÓDULOS IPNR (25/11/24)
+
 {
     "name": "AEAT modelo 592",
     "version": "17.0.1.0.0",
@@ -28,5 +30,5 @@
         "report/mod592_csv.xml",
     ],
     "development_status": "Beta",
-    "installable": True,
+    "installable": False,
 }

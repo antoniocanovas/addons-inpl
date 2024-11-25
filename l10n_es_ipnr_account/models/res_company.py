@@ -3,7 +3,7 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-
+from datetime import datetime
 
 class ResCompany(models.Model):
     _inherit = "res.company"
@@ -15,6 +15,26 @@ class ResCompany(models.Model):
         help="If active, IPNR amount is shown in reports.",
     )
 
+    plastic_journal_id = fields.Many2one('account.journal', string='Tax journal')
+    plastic_commercial_account_id = fields.Many2one('account.account', string='Commercial account',
+                                                        help='Plastic AEAT account for commercial operations with plastic.')
+    plastic_manufacture_account_id = fields.Many2one('account.account', string='Manufactured account',
+                                                         help='Plastic AEAT account for manufacturing plastics.')
+
+    company_plastic_acquirer = fields.Boolean(string="Plastic Acquirer", default=True)
+    company_plastic_manufacturer = fields.Boolean(string="Plastic Manufacturer", default=False)
+
+
+    def _get_today_plastic_tax(self):
+        price = 0
+        today = datetime.today()
+        line = self.env['l10n.es.ipnr.amount'].search([
+            ('price','>',0),('date_from','<=',today),'|',('date_to','=',False),('date_to','>=',today)],limit=1)
+        if line.id: price = line.price
+        self.plastic_tax = price
+    plastic_tax = fields.Monetary('IPNR Tax', compute='_get_today_plastic_tax')
+
+#    @api.depends('company_plastic_acquirer', 'company_plastic_manufacturer')
     @api.depends('company_plastic_acquirer', 'company_plastic_manufacturer')
     def check_ipnr_enable(self):
         for record in self:

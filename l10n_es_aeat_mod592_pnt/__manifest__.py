@@ -3,7 +3,7 @@
     'version': '17.0.1.0.0',
     'category': '',
     'description': u"""
-Impuesto al plástico.
+Impuesto al plástico (versión primera antes de sigaus, crea apuntes).
 """,
     'author': 'Punt Sistemes SL',
     'depends': [
@@ -27,5 +27,5 @@ Impuesto al plástico.
         'views/res_company_views.xml',
         'views/product_template_views.xml',
     ],
-    'installable': True,
+    'installable': False,
 }

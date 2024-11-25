@@ -1,7 +1,7 @@
 # Copyright 2023 Manuel Regidor <manuel.regidor@sygel.es>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import fields, models, _
 
 
 class ProductTemplate(models.Model):
@@ -12,4 +12,21 @@ class ProductTemplate(models.Model):
         default="category",
         string="Subject To IPNR",
         required=True,
+    )
+
+    tax_plastic_type = fields.Selection(
+        selection=[
+            ("manufacturer", _("Manufacturer")),
+            ("acquirer", _("Acquirer")),
+            #("both", _("Both")),
+        ],
+    )
+
+    plastic_tax_weight = fields.Float(
+        string="Plastic weight",
+        digits="MOD592 Weight",
+    )
+    plastic_weight_non_recyclable = fields.Float(
+        string="Plastic weight non recyclable",
+        digits="MOD592 Weight",
     )

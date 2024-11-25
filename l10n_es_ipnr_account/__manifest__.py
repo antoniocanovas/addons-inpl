@@ -9,7 +9,9 @@
     "author": "Pedro guirao, Antonio Cánovas, Odoo Community Association (OCA)",
     "category": "Accounting",
     "website": "https://github.com/OCA/l10n-spain",
-    "depends": ["account", 'l10n_es_aeat_mod592'],
+    "depends": [
+        "account", "contacts",
+    ],
     "data": [
         "data/data.xml",
         "data/exception_templates.xml",
@@ -20,7 +22,7 @@
         "views/account_move_views.xml",
         "views/report_invoice.xml",
         "views/res_company_views.xml",
-        "views/account_fiscal_position_views.xml",
+        "views/res_partner_views.xml",
     ],
     "pre_init_hook": "pre_init_hook",
     "installable": True,
