@@ -17,7 +17,7 @@
         "report_qweb_pdf_watermark",
         "mrp_lot_name",
         "custom_inplast",
-        "l10n_es_aeat_mod592",
+        "l10n_es_ipnr_account",
     ],
     "data": [
         "security/ir.model.access.csv",
