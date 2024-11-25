@@ -51,6 +51,8 @@ class MrpProductTool(models.Model):
         "maintenance.equipment", string="Blade", store=True, copy=True
     )
 
+    pnt_rpm = fields.Integer('RPM')
+
     pnt_accesory_ids = fields.Many2many(related="pnt_tool_id.pnt_tool_accesory_ids")
     pnt_blade_ids = fields.Many2many(related="pnt_tool_id.pnt_tool_blade_ids")
     product_tmpl_id = fields.Many2one("product.template", string="Product")

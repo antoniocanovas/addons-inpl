@@ -51,5 +51,4 @@ class MaintenanceEquipment(models.Model):
 
     pnt_workcenter_ids = fields.Many2many('mrp.workcenter', store=True, copy=True, string='Other workcenters')
 
-    estimated_rpm = fields.Integer("Estimated RPM")
     hole_count = fields.Integer("Hole Count")
