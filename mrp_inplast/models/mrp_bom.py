@@ -81,3 +81,16 @@ class MrpBom(models.Model):
     pallet_count = fields.Float("Pallet count", related="pallet_line_id.product_qty")
 
     mrp_tool_id = fields.Many2one('mrp.product.tool', string='Tool')
+
+    def bom_product_color_update(self):
+        for record in self:
+            name = ""
+            colors = env['mrp.bom.line'].search([('bom_id', '=', record.id), ('product_id.pnt_product_type', '=', 'dye')])
+            if len(colors.ids) == 1:
+                name = colors.product_id.name
+            if len(colors.ids) == 2:
+                name = colors[0].product_id.name + " + " + colors[1].product_id.name
+            if len(colors.ids) > 2:
+                name = "MULTICOLOR"
+            if name != "":
+                record.product_id['pnt_product_dye'] = name
