@@ -30,5 +30,5 @@
         "report/mod592_csv.xml",
     ],
     "development_status": "Beta",
-    "installable": False,
+    "installable": True,
 }
