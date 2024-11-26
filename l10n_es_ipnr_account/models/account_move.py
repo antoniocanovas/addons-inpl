@@ -251,6 +251,7 @@ class AccountMove(models.Model):
             for li in self.invoice_line_ids:
                 if ((li.product_id.ipnr_subject != 'no') and (li.product_id.id) and (li.quantity != 0) and
                         (li.product_id.plastic_weight_non_recyclable != 0) and (li.id != taxline.id)):
+
                     taxplasticaccount = self.env.company.plastic_manufacture_account_id.id
                     if li.product_id.tax_plastic_type == 'acquirer':
                         taxplasticaccount = self.env.company.plastic_acquirer_account_id.id
@@ -311,15 +312,19 @@ class AccountMove(models.Model):
 
         for li in self.invoice_line_ids:
             if ((li.product_id.ipnr_subject != 'no') and (li.product_id.id) and (li.quantity != 0) and
-                    (li.product_id.plastic_weight_non_recyclable != 0) and
-                    (li.id != taxline.id) and (li.product_id.tax_plastic_type == 'acquirer')):
+                    (li.product_id.plastic_weight_non_recyclable != 0) and (li.id != taxline.id)):
+
+                taxplasticaccount = self.env.company.plastic_manufacture_account_id.id
+                if li.product_id.tax_plastic_type == 'acquirer':
+                    taxplasticaccount = self.env.company.plastic_acquirer_account_id.id
+
                 tax_entry['line_ids'] = [(0, 0, {
                     'product_id': li.product_id.id,
                     'display_type': li.display_type,
                     'name': li.product_id.name,
                     'price_unit': abs(taxunit),
                     'debit': abs(li.quantity * li.product_id.plastic_weight_non_recyclable * taxunit),
-                    'account_id': self.env.company.plastic_manufacture_account_id.id,
+                    'account_id': taxplasticaccount,
                     'analytic_distribution': li.analytic_distribution,
                     'partner_id': self.partner_id.id,
                     'quantity': li.quantity * li.product_id.plastic_weight_non_recyclable,
