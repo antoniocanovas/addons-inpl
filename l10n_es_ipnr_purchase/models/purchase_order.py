@@ -15,10 +15,14 @@ class PurchaseOrder(models.Model):
         "editable_states": ["draft", "sent"],
     }
 
-    @api.depends("dest_address_id", "company_id")
+    @api.depends("dest_address_id", "company_id", "partner_id")
     def _compute_is_ipnr(self):
         for rec in self:
-            rec.is_ipnr = rec.company_id.ipnr_enable and rec.dest_address_id.ipnr_tax_zone
+            if rec.picking_type_id.code == 'dropship':
+                rec.is_ipnr = rec.company_id.ipnr_enable and rec.dest_address_id.ipnr_tax_zone
+            else:
+                rec.is_ipnr = (rec.company_id.ipnr_enable and
+                               rec.picking_type_id.default_location_dest_id.warehouse_id.partner_id.ipnr_tax_zone)
 
     @api.depends("is_ipnr", "date_order", "company_id")
     def _compute_ipnr_is_date(self):
