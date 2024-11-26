@@ -45,7 +45,7 @@
                                    options="{'no_create_edit':true,'no_quick_create':true}"
                             />
                             <field name="pnt_cps"/>
-                            <field name="pnt_ppm"/>
+                            <field name="pnt_ppm" readonly="pnt_cps != 0"/>
                         </tree>
                     </field>
                 </page>
