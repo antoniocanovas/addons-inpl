@@ -24,7 +24,7 @@
                             invisible="ipnr_enable == False"
                             required="ipnr_date_from ==  True"
                         />
-                        <field name="plastic_commercial_account_id"
+                        <field name="plastic_acquirer_account_id"
                             invisible="ipnr_enable == False"
                             required="ipnr_date_from ==  True"
                         />

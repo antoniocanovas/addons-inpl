@@ -16,8 +16,8 @@ class ResCompany(models.Model):
     )
 
     plastic_journal_id = fields.Many2one('account.journal', string='Tax journal')
-    plastic_commercial_account_id = fields.Many2one('account.account', string='Commercial account',
-                                                        help='Plastic AEAT account for commercial operations with plastic.')
+    plastic_acquirer_account_id = fields.Many2one('account.account', string='Acquirer account',
+                                                        help='Plastic AEAT account for acquirer operations with plastic.')
     plastic_manufacture_account_id = fields.Many2one('account.account', string='Manufactured account',
                                                          help='Plastic AEAT account for manufacturing plastics.')
 
