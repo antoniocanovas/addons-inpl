@@ -202,7 +202,8 @@ class AccountMove(models.Model):
                     # Si vendemos en España plástico PRODUCIDO aquí, hemos de pagar (si venta en el extranjero, no):
                     if (self.ipnr_tax_zone) and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.tax_plastic_type == 'manufacturer'):
                         show_button = True
-                    if not (self.ipnr_tax_zone) and (self.move_type in [['out_invoice','out_refund']) and (li.product_id.tax_plastic_type == 'acquirer'):
+                    # Si vendemos producto comercializado en Canarias o extranjero, podemos recuperar el impuesto:
+                    if not (self.ipnr_tax_zone) and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.tax_plastic_type == 'acquirer'):
                         show_button = True
         self.plastic_tax = show_button
     plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_show_button_plastic_tax')
