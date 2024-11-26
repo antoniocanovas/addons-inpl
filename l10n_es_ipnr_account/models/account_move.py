@@ -202,6 +202,8 @@ class AccountMove(models.Model):
                     # Si vendemos en España plástico PRODUCIDO aquí, hemos de pagar (si venta en el extranjero, no):
                     if (self.ipnr_tax_zone) and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.tax_plastic_type == 'manufacturer'):
                         show_button = True
+                    if not (self.ipnr_tax_zone) and (self.move_type in [['out_invoice','out_refund']) and (li.product_id.tax_plastic_type == 'acquirer'):
+                        show_button = True
         self.plastic_tax = show_button
     plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_show_button_plastic_tax')
 
@@ -457,7 +459,7 @@ class AccountMove(models.Model):
                 if not (record.ipnr_tax_zone) and not (record.plastictax_move_id.id):
                     for li in record.invoice_line_ids:
                         if ((li.product_id.ipnr_subject != 'no') and (li.product_id.plastic_weight_non_recyclable != 0)
-                                and (li.product_id.tax_plastic_type != 'manufacturer')):
+                                and (li.product_id.tax_plastic_type == 'acquirer')):
                             message = "El producto " + li.product_id.name + " es susceptible de recuperar el impuesto al plástico, crea o asigna el apunte correspondiente en esta factura"
                             raise UserError(message)
                 # Caso de venta en España de plástico fabricado por nosotros en España, requiere impuesto:
