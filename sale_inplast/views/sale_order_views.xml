@@ -102,8 +102,9 @@
                 <attribute name="domain">[('id','in', pnt_product_ids),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]</attribute>
             </xpath>
 
+            <!-- TAG_IDS en vista principal con la opción de NO crear etiquetas desde pedido de ventas: -->
             <xpath expr="//field[@name='payment_mode_id']" position="after">
-                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True}"/>
             </xpath>
 
         </field>
