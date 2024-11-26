@@ -93,8 +93,7 @@ class MrpBom(models.Model):
                     name = colors.product_id.name
                 elif colors.product_id.pnt_product_dye:
                     name = colors.product_id.pnt_product_dye
-                else:
-                    name = "NO color"
+
             if len(colors.ids) == 2:
                 names = []
                 for li in colors:
@@ -103,7 +102,7 @@ class MrpBom(models.Model):
                     elif li.product_id.pnt_product_dye:
                         names.append(li.product_id.pnt_product_dye)
                     else:
-                        names.append("- NO Color -")
+                        names.append("")
                 name = names[0] + " + " + names[1]
 
             if len(colors.ids) > 2:
