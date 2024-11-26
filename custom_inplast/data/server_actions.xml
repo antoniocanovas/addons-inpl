@@ -232,12 +232,10 @@ for r in records:
     )
     newpacking.write(
         {
+            "ipnr_subject": migproduct.ipnr_subject,
             "plastic_weight_non_recyclable": migproducto.plastic_weight_non_recyclable * baseqty,
             "plastic_tax_weight": migproducto.plastic_tax_weight * baseqty,
             "tax_plastic_type": migproducto.tax_plastic_type,
-            "plastic_tax_regime_manufacturer": migproducto.plastic_tax_regime_manufacturer,
-            "plastic_type_key": migproducto.plastic_type_key,
-            "plastic_tax_regime_acquirer": migproducto.plastic_tax_regime_acquirer,
         }
     )
 

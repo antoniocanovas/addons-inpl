@@ -99,12 +99,10 @@ class ProductPackingWizard(models.TransientModel):
             )
             newpacking.write(
                 {
+                    "ipnr_subject": record.ipnr_subject,
+                    "tax_plastic_type": record.name.tax_plastic_type,
                     "plastic_weight_non_recyclable": record.name.plastic_weight_non_recyclable * baseqty,
                     "plastic_tax_weight": record.name.plastic_tax_weight * baseqty,
-                    "tax_plastic_type": record.name.tax_plastic_type,
-                    "plastic_tax_regime_manufacturer": record.name.plastic_tax_regime_manufacturer,
-                    "plastic_type_key": record.name.plastic_type_key,
-                    "plastic_tax_regime_acquirer": record.name.plastic_tax_regime_acquirer,
                 }
             )
 
