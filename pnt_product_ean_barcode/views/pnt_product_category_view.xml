@@ -6,7 +6,7 @@
         <field name="type">form</field>
         <field name="inherit_id" ref="stock.product_category_form_view_inherit"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='removal_strategy_id']" position="after">
+            <xpath expr="//field[@name='parent_id']" position="after">
                 <field name="pnt_ean_required"/>
             </xpath>
 

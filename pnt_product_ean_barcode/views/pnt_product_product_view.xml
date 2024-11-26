@@ -23,7 +23,7 @@
             </xpath>
 
             <xpath expr="//field[@name='barcode']" position="after">
-                <field name="pnt_ean_required" invisible="1"/>
+                <field name="pnt_ean_required" invisible="0"/>
             </xpath>
         </field>
     </record>
