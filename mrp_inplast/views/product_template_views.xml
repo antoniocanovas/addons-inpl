@@ -44,7 +44,8 @@
                                    domain="[('category_id', '=', pnt_mrp_blade_categ_id),('id', 'in', pnt_blade_ids)]"
                                    options="{'no_create_edit':true,'no_quick_create':true}"
                             />
-                            <field name="pnt_rpm"/>
+                            <field name="pnt_cps"/>
+                            <field name="pnt_ppm"/>
                         </tree>
                     </field>
                 </page>

@@ -25,7 +25,7 @@
 
                 <!-- Revoluciones para máquinas de inyección y huecos para las de compresión: -->
                 <xpath expr="//field[@name='scrap_date']" position="after">
-                    <field name="hole_count"/>
+                    <field name="pnt_hole_count"/>
                 </xpath>
 
                 <xpath expr="//field[@name='category_id']" position="attributes">

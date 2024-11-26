@@ -51,7 +51,16 @@ class MrpProductTool(models.Model):
         "maintenance.equipment", string="Blade", store=True, copy=True
     )
 
-    pnt_rpm = fields.Integer('RPM')
+
+    @api.depends('pnt_cps', 'pnt_tool_id', 'pnt_tool_id.pnt_hole_count')
+    def _get_pnt_piecesperminute(self):
+        for record in self:
+            ppm = 0
+            if record.pnt_tool_id.id:
+                ppm = record.pnt_tool_id.pnt_hole_count * 60 * record.pnt_cps
+            record['pnt_ppm'] = ppm
+    pnt_ppm = fields.Integer('PPM', store=True, readonly=False, compute='_get_pnt_piecesperminute')
+    pnt_cps = fields.Integer('CPS')
 
     pnt_accesory_ids = fields.Many2many(related="pnt_tool_id.pnt_tool_accesory_ids")
     pnt_blade_ids = fields.Many2many(related="pnt_tool_id.pnt_tool_blade_ids")

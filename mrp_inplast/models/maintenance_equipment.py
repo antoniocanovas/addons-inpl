@@ -51,4 +51,4 @@ class MaintenanceEquipment(models.Model):
 
     pnt_workcenter_ids = fields.Many2many('mrp.workcenter', store=True, copy=True, string='Other workcenters')
 
-    hole_count = fields.Integer("Hole Count")
+    pnt_hole_count = fields.Integer("Hole Count")
