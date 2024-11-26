@@ -85,7 +85,7 @@ class MrpBom(models.Model):
     def bom_product_color_update(self):
         for record in self:
             name = ""
-            colors = env['mrp.bom.line'].search([('bom_id', '=', record.id), ('product_id.pnt_product_type', '=', 'dye')])
+            colors = self.env['mrp.bom.line'].search([('bom_id', '=', record.id), ('product_id.pnt_product_type', '=', 'dye')])
             if len(colors.ids) == 1:
                 name = colors.product_id.name
             if len(colors.ids) == 2:
