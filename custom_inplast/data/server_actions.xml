@@ -167,7 +167,9 @@ for r in records:
 
     # Busco plantilla para ser usada en lista de materiales:
     bomtemplate = env['product.bom.template'].search([('code','=',r.sufix)])
-    if not bomtemplate.id: raise UserError('No encuentro la plantilla')
+    if not bomtemplate.id:
+        continue
+        raise UserError('No encuentro la plantilla')
     if len(bomtemplate.ids) > 1: raise UserError('código de plantilla duplicado: ' + r.sufix)
 
     type = " - " + bomtemplate.printed_code
@@ -175,7 +177,7 @@ for r in records:
     baseqty, boxqty = r.box_base_qty, 1
     packagetype = env.ref("product_inplast.package_type_box_inplast")
 
-    if r.mrp_type != "box":
+    if r.mrp_type not in ["box","box_nonmrp"]:
         baseqty = r.pallet_base_qty
         packagetype = env.ref("product_inplast.package_type_pallet_inplast")
         sale_ok, purchase_ok = True, True
@@ -264,23 +266,24 @@ for r in records:
 
 
     # Incluir materiales desde la ldm de producto base:
-    if not migproducto.bom_ids.ids:
-        raise UserError(
-            "Haz una lista de materiales con componentes o materiales en el producto base "
-            "antes de crear empaquetados: " + r.name
-        )
-    else:
-        bom = migproducto.bom_ids[0]
-        for li in bom.bom_line_ids:
-            newbomline = env["mrp.bom.line"].create(
-                {
-                    "product_id": li.product_id.id,
-                    "pnt_raw_percent": li.pnt_raw_percent,
-                    "product_qty": li.product_qty * baseqty,
-                    "product_uom_id": li.product_uom_id.id,
-                    "bom_id": newldm.id,
-                }
+    if record.mrp_type in ["box", "pallet"]:
+        if not migproducto.bom_ids.ids:
+            raise UserError(
+                "Haz una lista de materiales con componentes o materiales en el producto base "
+                "antes de crear empaquetados: " + r.name
             )
+        else:
+            bom = migproducto.bom_ids[0]
+            for li in bom.bom_line_ids:
+                newbomline = env["mrp.bom.line"].create(
+                    {
+                        "product_id": li.product_id.id,
+                        "pnt_raw_percent": li.pnt_raw_percent,
+                        "product_qty": li.product_qty * baseqty,
+                        "product_uom_id": li.product_uom_id.id,
+                        "bom_id": newldm.id,
+                    }
+                )
 
 
     # Crear en tarifas:
@@ -330,7 +333,6 @@ for r in records:
             "mrp_bom_template_id": bomtemplate.id,
         }
     )
-
         </field>
     </record>
 
