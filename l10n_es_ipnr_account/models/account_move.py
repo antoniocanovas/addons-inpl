@@ -193,10 +193,10 @@ class AccountMove(models.Model):
                 # Con esta condición verificamos que es plástico:
                 if (li.product_id.ipnr_subject != 'no') and (li.product_id.plastic_weight_non_recyclable != 0) and (li.quantity != 0):
                     # Operaciones de compra fuera de España:
-                    if not (self.ipnr_tax_zone) and (self.move_type in ['in_invoice','in_refund']):
+                    if (self.ipnr_tax_zone) and (self.move_type in ['in_invoice','in_refund']):
                         show_button = True
                     # Operaciones de venta fuera de España, sólo recuperamos si es comercio (no fabricados):
-                    if not (self.ipnr_tax_zone) and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.tax_plastic_type == 'acquirer'):
+                    if (self.ipnr_tax_zone) and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.tax_plastic_type == 'acquirer'):
                         show_button = True
                     # Si vendemos o compramos plástico en España, el impuesto va en PVP o ya lo pagó el proveedor.
                     # Si vendemos en España plástico PRODUCIDO aquí, hemos de pagar (si venta en el extranjero, no):
@@ -432,7 +432,7 @@ class AccountMove(models.Model):
                     raise UserError('Pon la provincia al proveedor para poder controlar el impuesto al plástico: ' + record.picking_partner_id.name)
 
                 # Si el país es España quien vende ha pagado impuesto y no podemos repercutirlo, si extranjero hemos de pagar:
-                if not (record.ipnr_tax_zone) and not (record.plastictax_move_id.id):
+                if (record.ipnr_tax_zone) and not (record.plastictax_move_id.id):
                     for li in record.invoice_line_ids:
                         if (li.product_id.ipnr_subject != 'no') and (li.product_id.plastic_weight_non_recyclable != 0):
                             message = "El producto " + li.product_id.name + " requiere impuesto al plástico, crea o asigna el apunte correspondiente en esta factura"
