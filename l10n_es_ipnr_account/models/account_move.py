@@ -145,16 +145,26 @@ class AccountMove(models.Model):
 
 
 
-    # DESARROLLO ANTONIO CÁNOVAS PARA CREAR APUNTES:
+       # DESARROLLO ANTONIO CÁNOVAS PARA CREAR APUNTES
+    @api.depends("partner_id", "partner_shipping_id")
     def _get_picking_partner(self):
-        destination = self.partner_id
-        if (self.move_type in ['out_invoice','out_refund']) and (self.partner_shipping_id.id):
-            destination = self.partner_shipping_id
-        if (self.move_type in ['in_invoice','in_refund']):
-            destination = self.env.company.partner_id
-        self.picking_partner_id = destination.id
-    picking_partner_id = fields.Many2one('res.partner', string='Picking destination', store=False, index=True,
-                                             compute='_get_picking_partner')
+        for record in self:
+            destination = record.partner_id
+            if (record.move_type in ["out_invoice", "out_refund"]) and (
+                record.partner_shipping_id.id
+            ):
+                destination = record.partner_shipping_id
+            if record.move_type in ["in_invoice", "in_refund"]:
+                destination = record.env.company.partner_id
+            record.picking_partner_id = destination.id
+
+    picking_partner_id = fields.Many2one(
+        "res.partner",
+        string="Picking destination",
+        store=True,
+        index=True,
+        compute="_get_picking_partner",
+    )
 
     plastictax_move_id = fields.Many2one('account.move', store=True, string='Plastic tax entry', copy=False,
                                  help='El impuesto al plástico graba la introducción o fabricación del mismo en España. \n'
