@@ -39,7 +39,7 @@ class ProductPackingWizard(models.TransientModel):
                     raise UserError(message)
 
             # Cambiar variables si no es tipo caja (será palet):
-            if record.type != "box":
+            if record.type not in ["box","box_nonmrp"]:
                 packagetype = self.env.ref(
                     "product_inplast.package_type_pallet_inplast"
                 )
@@ -99,7 +99,7 @@ class ProductPackingWizard(models.TransientModel):
             )
             newpacking.write(
                 {
-                    "ipnr_subject": record.ipnr_subject,
+                    "ipnr_subject": record.name.ipnr_subject,
                     "tax_plastic_type": record.name.tax_plastic_type,
                     "plastic_weight_non_recyclable": record.name.plastic_weight_non_recyclable * baseqty,
                     "plastic_tax_weight": record.name.plastic_tax_weight * baseqty,
