@@ -85,11 +85,27 @@ class MrpBom(models.Model):
     def bom_product_color_update(self):
         for record in self:
             name = ""
-            colors = self.env['mrp.bom.line'].search([('bom_id', '=', record.id), ('product_id.pnt_product_type', '=', 'dye')])
+            colors = self.env['mrp.bom.line'].search([
+                ('bom_id', '=', record.id),
+                ('product_id.pnt_product_type', 'in', ['dye','semi'])])
             if len(colors.ids) == 1:
-                name = colors.product_id.name
+                if colors.product_id.pnt_product_type == 'dye':
+                    name = colors.product_id.name
+                elif colors.product_id.pnt_product_dye:
+                    name = colors.product_id.pnt_product_dye
+                else:
+                    name = "NO color"
             if len(colors.ids) == 2:
-                name = colors[0].product_id.name + " + " + colors[1].product_id.name
+                names = []
+                for li in colors:
+                    if li.product_id.pnt_product_type == 'dye':
+                        names.append(li.product_id.name)
+                    elif li.product_id.pnt_product_dye:
+                        names.append(li.product_id.pnt_product_dye)
+                    else:
+                        names.append("- NO Color -")
+                name = names[0] + " + " + names[1]
+
             if len(colors.ids) > 2:
                 name = "MULTICOLOR"
             if name != "":
