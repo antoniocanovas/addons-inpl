@@ -15,6 +15,7 @@
                 <field name="supplier_id" optional="show"/>
                 <field name="demand" optional="show"/>
                 <field name="amount" optional="show"/>
+                <field name="internal_risk" optional="show"/>
                 <field name="margin" optional="hide"/>
                 <field name="claim" optional="hide"/>
                 <field name="state" optional="show"/>
@@ -50,6 +51,7 @@
                         </group>
                         <group string="Granted">
                             <field name="amount"/>
+                            <field name="internal_risk"/>
                             <field name="date_begin" required="(state == 'done')"/>
                             <field name="date_end"/>
                             <field name="coverage"/>

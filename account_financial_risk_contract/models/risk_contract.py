@@ -42,6 +42,7 @@ class RiskContract(models.Model):
     )
     demand = fields.Monetary("Demand", store=True, copy=True, required=True)
     amount = fields.Monetary("Amount", store=True, copy=True, tracking=100)
+    internal_risk = fields.Monetary("Internal", store=True, copy=True, tracking=100)
     currency_id = fields.Many2one("res.currency", store=True, default=1, required=True)
     active = fields.Boolean(
         "Active", store=True, copy=False, default=True, tracking=100
@@ -61,11 +62,11 @@ class RiskContract(models.Model):
     def update_risk_partner(self):
         for record in self:
             partner = record.partner_id
-            if record.date_end and record.date_end > date.today():
+            if record.date_end and record.date_end < date.today():
                 raise UserError("Expiration date must be after today")
             else:
                 partner.write(
-                    {"credit_limit": record.amount, "risk_contract_id": record.id}
+                    {"credit_limit": record.amount + record.internal_risk, "risk_contract_id": record.id}
                 )
 
         _sql_constraints = [("unique_name", "unique(name)", "This code already exists")]
