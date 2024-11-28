@@ -65,12 +65,10 @@
 
                     <group name="risk_contract_plus" string="Plus coberture" invisible="not plus">
                         <group>
-                            <group>
-                                <field name="plus_amount"/>
-                            </group>
-                            <group>
-                                <field name="plus_margin"/>
-                            </group>
+                            <field name="plus_amount"/>
+                        </group>
+                        <group>
+                            <field name="plus_margin"/>
                         </group>
                     </group>
 

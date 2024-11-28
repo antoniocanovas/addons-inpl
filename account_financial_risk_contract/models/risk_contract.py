@@ -71,10 +71,8 @@ class RiskContract(models.Model):
             if record.date_end and record.date_end < date.today():
                 raise UserError("Expiration date must be after today")
             else:
-                partner.write(
-                    {"credit_limit": record.amount + record.internal_risk, "risk_contract_id": record.id}
-                )
+                amount = record.amount + record.internal_risk
+                if record.plus: amount += record.plus_amount
+                partner.write({"credit_limit": amount, "risk_contract_id": record.id})
 
         _sql_constraints = [("unique_name", "unique(name)", "This code already exists")]
-
-    _sql_constraints = [("unique_name", "unique(name)", "This code already exists")]
