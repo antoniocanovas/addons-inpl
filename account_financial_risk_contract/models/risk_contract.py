@@ -43,7 +43,7 @@ class RiskContract(models.Model):
     demand = fields.Monetary("Demand", store=True, copy=True, required=True)
     amount = fields.Monetary("Amount", store=True, copy=True, tracking=100)
     internal_risk = fields.Monetary("Internal", store=True, copy=True, tracking=100)
-    currency_id = fields.Many2one("res.currency", store=True, default=1, required=True)
+    currency_id = fields.Many2one("res.currency", required=True, default=lambda self: self.env.company.currency_id)
     active = fields.Boolean(
         "Active", store=True, copy=False, default=True, tracking=100
     )
@@ -58,6 +58,12 @@ class RiskContract(models.Model):
     description = fields.Text("Notes", store=True, copy=False)
     margin = fields.Float("Supplier margin (%)", store=True, copy=True)
     claim = fields.Integer("Claim period (days)", store=True, copy=True)
+
+    # Plus contract:
+    plus = fields.Boolean('Plus option',
+                          help='Enables you to extend coverage under conditions other than the original for the extended amount.')
+    plus_amount = fields.Monetary("Plus amount", store=True, copy=True, tracking=100)
+    plus_margin = fields.Float("Plus margin (%)", store=True, copy=True)
 
     def update_risk_partner(self):
         for record in self:

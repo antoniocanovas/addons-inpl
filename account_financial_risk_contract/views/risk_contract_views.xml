@@ -19,6 +19,8 @@
                 <field name="margin" optional="hide"/>
                 <field name="claim" optional="hide"/>
                 <field name="state" optional="show"/>
+                <field name="plus" optional="show"/>
+                <field name="plus_amount" optional="show"/>
                 <field name="currency_id" optional="hide"/>
             </tree>
         </field>
@@ -48,6 +50,7 @@
                             <field name="currency_id"/>
                             <field name="create_uid"/>
                             <field name="claim"/>
+                            <field name="plus"/>
                         </group>
                         <group string="Granted">
                             <field name="amount"/>
@@ -59,6 +62,18 @@
                             <field name="risk_level"/>
                         </group>
                     </group>
+
+                    <group name="risk_contract_plus" string="Plus coberture" invisible="not plus">
+                        <group>
+                            <group>
+                                <field name="plus_amount"/>
+                            </group>
+                            <group>
+                                <field name="plus_margin"/>
+                            </group>
+                        </group>
+                    </group>
+
                     <group string="Notes"/>
                     <field name="description" nolabel="1" class="field_description" placeholder="Description..."/>
                 </sheet>
