@@ -6,35 +6,44 @@
             <t t-name="pnt_report_delivery_document">
                 <t t-call="web.html_container">
                     <t t-call="stock.report_delivery_document"/>
-                    <!-- ITERATE BATCHES Para cada Lote -->
-                    <t t-foreach="o.get_move_lines_by_parent_lot()" t-as="line">
-                        <t t-if="o.partner_id.pnt_picking_report_id.coa">
-                            <t t-if="line.product_id.pnt_product_coa">
-                                <t t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
-                                   t-call="report_inplast.coa_product_document_a"/>
-                                <t t-if="line.product_id.pnt_product_coa.type == 'nmp'"
-                                   t-call="report_inplast.coa_product_nmp_document"/>
-                                <t t-if="line.product_id.pnt_product_coa.type == 'asas'"
-                                   t-call="report_inplast.coa_product_handle_document"/>
 
-                                <!-- same as above for buxton -->
-                                <t t-if="line.product_id.pnt_product_coa.type == 'buxton'">
-                                    <t t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
-                                       t-call="report_inplast.coa_product_batch_certificate_document"/>
-                                </t>
-                                <t t-if="o.partner_id.pnt_picking_report_id.coa_multicolor
+                </t>
+            </t>
+        </template>
+        <template id="pnt_report_delivery_attachments" name="Custom attachments Document">
+            <t t-name="pnt_report_delivery_attachments">
+                <t t-call="web.html_container">
+                    <t t-foreach="docs" t-as="o">
+                        <!-- ITERATE BATCHES Para cada Lote -->
+                        <t t-foreach="o.get_move_lines_by_parent_lot()" t-as="line">
+                            <t t-if="o.partner_id.pnt_picking_report_id.coa">
+                                <t t-if="line.product_id.pnt_product_coa">
+                                    <t t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
+                                       t-call="report_inplast.coa_product_document_a"/>
+                                    <t t-if="line.product_id.pnt_product_coa.type == 'nmp'"
+                                       t-call="report_inplast.coa_product_nmp_document"/>
+                                    <t t-if="line.product_id.pnt_product_coa.type == 'asas'"
+                                       t-call="report_inplast.coa_product_handle_document"/>
+
+                                    <!-- same as above for buxton -->
+                                    <t t-if="line.product_id.pnt_product_coa.type == 'buxton'">
+                                        <t t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
+                                           t-call="report_inplast.coa_product_batch_certificate_document"/>
+                                    </t>
+                                    <t t-if="o.partner_id.pnt_picking_report_id.coa_multicolor
                              and line.product_id.pnt_product_coa.get_multicolor_body_for_partner_lang(o.partner_id.lang)"
-                                   t-call="report_inplast.coa_product_document_multicolor_attachment"/>
-                                <t t-if="o.partner_id.pnt_picking_report_id.coa_milk
+                                       t-call="report_inplast.coa_product_document_multicolor_attachment"/>
+                                    <t t-if="o.partner_id.pnt_picking_report_id.coa_milk
                              and line.product_id.pnt_product_coa.print_quality_meassure"
-                                   t-call="report_inplast.coa_product_document_meassures_attachment"/>
-                                <t t-if="line.product_id.pnt_product_coa.print_components"
-                                   t-call="report_inplast.coa_product_document_attachment"/>
-                                <!-- BOX TRACKING MISSING if customer box tracking and boxes? ... box report-->
+                                       t-call="report_inplast.coa_product_document_meassures_attachment"/>
+                                    <t t-if="line.product_id.pnt_product_coa.print_components"
+                                       t-call="report_inplast.coa_product_document_attachment"/>
+                                    <!-- BOX TRACKING MISSING if customer box tracking and boxes? ... box report-->
+                                </t>
                             </t>
                         </t>
+                        <t t-if="o.carrier_id.pnt_print_picking_list" t-call="report_inplast.packing_list"/>
                     </t>
-                    <t t-if="o.carrier_id.pnt_print_picking_list" t-call="report_inplast.packing_list"/>
                 </t>
             </t>
         </template>
