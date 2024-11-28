@@ -11,6 +11,7 @@ class PntCoaContent(models.Model):
         "pnt.coa", string="COA Reference", required=True, ondelete="cascade"
     )
     language_code = fields.Char(string="Language Code", required=True)
-    coa_body = fields.Html(string="COA Body")
-    multicolor_body = fields.Html(string="Multicolor Body")
-    components_body = fields.Html(string="Components Body")
+
+    coa_body = fields.Binary(string="COA Body")
+    multicolor_body = fields.Binary(string="Multicolor Body")
+    components_body = fields.Binary(string="Components Body")
