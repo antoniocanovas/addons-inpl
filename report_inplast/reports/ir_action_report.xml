@@ -40,20 +40,21 @@
         <field name="header_line" eval="False"/> <!-- Si no quieres una línea en el encabezado -->
     </record>
 
-    <record id="report_delivery_attachment" model="ir.actions.report">
-        <field name="name">Attachments</field>
+    <record id="report_delivery_attachments" model="ir.actions.report">
+        <field name="name">attachments</field>
         <field name="model">stock.picking</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">report_inplast.pnt_report_delivery_attachments</field>
         <field name="report_file">report_inplast.pnt_report_delivery_attachments</field>
         <field name="print_report_name">'attachments - %s - %s' % (object.partner_id.name or '', object.name)
         </field>
-        <field name="attachment">'Attachments  - %s - %s' % (object.partner_id.name or '', object.name)</field>
+        <field name="attachment">'attachments  - %s - %s' % (object.partner_id.name or '', object.name)</field>
         <field name="binding_model_id" ref="stock.model_stock_picking"/>
         <field name="binding_type">report</field>
         <field name="paperformat_id"
                ref="custom_paperformat_attachments"/> <!-- Aquí se vincula el formato de papel -->
     </record>
+
 
     <record id="custom_paperformat_traceability_list" model="report.paperformat">
         <field name="name">Traceability List Custom Paper</field>

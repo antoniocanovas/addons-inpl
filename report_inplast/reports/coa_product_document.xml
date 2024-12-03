@@ -5,7 +5,10 @@
 
 
         <t t-name="coa_product_document_a">
-                <t t-call="web.basic_layout">
+
+                <t t-call="web.external_layout">
+
+
                     <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                     <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
                     <div>
@@ -123,7 +126,7 @@
 
                     </div>
                     <div class="row">
-                        <div class="col" style="height:5px"></div>
+                        <div class="col" style="height:10px"></div>
                     </div>
                     <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 800px;">
                         <img t-att-src="image_data_uri(o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang))"
@@ -172,6 +175,7 @@
                             </div>
                         </div>
 
+
                     </div>
 
                 </t>
@@ -181,7 +185,7 @@
     <!-- ############# COA Handle ##################### -->
     <template id="coa_product_handle_document" name="COA Document Handle">
         <t t-name="coa_product_handle_document">
-            <t t-call="web.basic_layout">
+            <t t-call="web.external_layout">
 
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
@@ -289,16 +293,13 @@
                     </div>
                 </div>
 
-
                 <div class="row">
-                        <div class="col" style="height:5px"></div>
-                    </div>
-                    <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 800px;">
-                        <img t-att-src="image_data_uri(o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang))"
-                             alt="COA Body Image"
-                             style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 800px;"/>
-                    </div>
+                    <div class="col" style="height:20px"></div>
+                </div>
 
+                <div style="width: 100%; page-break-inside: avoid; text-align: center;">
+                    <span t-raw="o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang)"/>
+                </div>
 
 
             </t>
@@ -308,7 +309,7 @@
     <template id="coa_product_nmp_document" name="coa product nmp document">
 
         <t t-name="coa_product_nmp_document">
-            <t t-call="web.basic_layout">
+            <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
                 <div>
@@ -428,15 +429,9 @@
 
                 </div>
 
-
-                <div class="row">
-                        <div class="col" style="height:5px"></div>
-                    </div>
-                    <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 800px;">
-                        <img t-att-src="image_data_uri(o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang))"
-                             alt="COA Body Image"
-                             style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 800px;"/>
-                    </div>
+                <div style="width: 100%; page-break-inside: avoid; text-align: center;">
+                    <span t-raw="o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang)"/>
+                </div>
 
                 <div style="border: 1px solid black; padding: 10px;page-break-inside: avoid;">
                     <strong style="border-bottom: 1px solid black; width:40px">Remark</strong>
@@ -489,7 +484,7 @@
     <template id="coa_product_batch_certificate_document" name="COA Document batch certificate document">
 
         <t t-name="coa_product_batch_certificate_document">
-            <t t-call="web.basic_layout">
+            <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
                 <div>
@@ -843,7 +838,7 @@
     <template id="coa_product_document_attachment" name="COA Document attachment">
         <t t-name="coa_product_document_attachment">
 
-            <t t-call="web.basic_layout">
+            <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
 
@@ -851,15 +846,7 @@
                     <h1 style="font-weight: bold; border-bottom: 2px solid black;margin-bottom:50px;">Components
                         Attachment
                     </h1>
-
-                    <div class="row">
-                        <div class="col" style="height:5px"></div>
-                    </div>
-                    <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 800px;">
-                        <img t-att-src="image_data_uri(line.product_id.pnt_product_coa.get_components_body_for_partner_lang(o.partner_id.lang))"
-                             alt="COA Body Image"
-                             style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 800px;"/>
-                    </div>
+                    <span t-raw="line.product_id.pnt_product_coa.get_components_body_for_partner_lang(o.partner_id.lang)"/>
 
                 </div>
             </t>
@@ -870,7 +857,7 @@
     <template id="coa_product_document_multicolor_attachment" name="COA Document attachment">
         <t t-name="coa_product_document_multicolor_attachment">
 
-            <t t-call="web.basic_layout">
+            <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
 
@@ -878,15 +865,7 @@
                     <h1 style="font-weight: bold; border-bottom: 2px solid black;margin-bottom:50px;">Multicolor
                         Attachment
                     </h1>
-
-                    <div class="row">
-                        <div class="col" style="height:5px"></div>
-                    </div>
-                    <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 800px;">
-                        <img t-att-src="image_data_uri(line.product_id.pnt_product_coa.get_multicolor_body_for_partner_lang(o.partner_id.lang))"
-                             alt="COA Body Image"
-                             style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 800px;"/>
-                    </div>
+                    <span t-raw="line.product_id.pnt_product_coa.get_multicolor_body_for_partner_lang(o.partner_id.lang)"/>
                 </div>
             </t>
 
@@ -896,7 +875,7 @@
     <template id="coa_product_document_meassures_attachment" name="COA Meassures Document attachment">
         <t t-name="coa_product_document_meassures_attachment">
 
-            <t t-call="web.basic_layout">
+            <t t-call="web.external_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
 
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>

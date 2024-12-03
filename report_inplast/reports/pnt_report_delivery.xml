@@ -7,19 +7,23 @@
                 <t t-call="web.html_container">
                     <t t-call="stock.report_delivery_document"/>
 
+
                 </t>
             </t>
         </template>
         <template id="pnt_report_delivery_attachments" name="Custom attachments Document">
             <t t-name="pnt_report_delivery_attachments">
-                <t t-call="web.html_container">
-                    <t t-foreach="docs" t-as="o">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.html_container">
+
                         <!-- ITERATE BATCHES Para cada Lote -->
                         <t t-foreach="o.get_move_lines_by_parent_lot()" t-as="line">
                             <t t-if="o.partner_id.pnt_picking_report_id.coa">
                                 <t t-if="line.product_id.pnt_product_coa">
-                                    <t t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
-                                       t-call="report_inplast.coa_product_document_a"/>
+                                    <t t-call="web.basic_layout">
+                                        <t t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
+                                           t-call="report_inplast.coa_product_document_a"/>
+                                    </t>
                                     <t t-if="line.product_id.pnt_product_coa.type == 'nmp'"
                                        t-call="report_inplast.coa_product_nmp_document"/>
                                     <t t-if="line.product_id.pnt_product_coa.type == 'asas'"
@@ -42,7 +46,7 @@
                                 </t>
                             </t>
                         </t>
-                        <t t-if="o.carrier_id.pnt_print_picking_list" t-call="report_inplast.packing_list"/>
+                        <!--<t t-if="o.carrier_id.pnt_print_picking_list" t-call="report_inplast.packing_list"/>-->
                     </t>
                 </t>
             </t>
@@ -166,57 +170,61 @@
                         <div style="font-size: 14px;">
                             <div class="row" style="margin-top: 15px; margin-bottom: 20px;">
                                 <div class="col-6">
-                                    <t t-if="o.carrier_id.pnt_agency_or_carrier">
-                                        <strong>Transport Agent</strong>
-                                        <span t-field="o.carrier_id"/>
-                                        <br/>
-                                    </t>
-                                    <t t-if="o.carrier_id.pnt_address">
-                                        <strong>Address</strong>
-                                        <span t-field="o.carrier_id.pnt_address"/>
-                                        <br/>
-                                    </t>
-                                    <t t-if="o.carrier_id.pnt_cif">
-                                        <strong>CIF</strong>
-                                        <span t-field="o.carrier_id.pnt_cif"/>
-                                        <br/>
-                                    </t>
-                                </div>
+                                    <!-- <t t-if="o.carrier_id.pnt_agency_or_carrier">
+                                         <strong>Transport Agent</strong>
+                                         <span t-field="o.carrier_id"/>
+                                         <br/>
+                                     </t>
+                                     <t t-if="o.carrier_id.pnt_address">
+                                         <strong>Address</strong>
+                                         <span t-field="o.carrier_id.pnt_address"/>
+                                         <br/>
+                                     </t>
+                                     <t t-if="o.carrier_id.pnt_cif">
+                                         <strong>CIF</strong>
+                                         <span t-field="o.carrier_id.pnt_cif"/>
+                                         <br/>
+                                     </t>
+                                 </div>
 
-                                <div class="col-offset-15 col-5">
-                                    <t t-if="o.carrier_id.pnt_driver_name">
-                                        <strong>Driver Name</strong>
-                                        <span t-field="o.carrier_id.pnt_driver_name"/>
+                                 <div class="col-offset-15 col-5">
+                                     <t t-if="o.carrier_id.pnt_driver_name">
+                                         <strong>Driver Name</strong>
+                                         <span t-field="o.carrier_id.pnt_driver_name"/>
+                                         <br/>
+                                     </t>
+                                     <t t-if="o.carrier_id.pnt_driver_id">
+                                         <strong>Driver ID</strong>
+                                         <span t-field="o.carrier_id.pnt_driver_id"/>
+                                         <br/>
+                                     </t>
+                                     <t t-if="o.carrier_id.pnt_license_plate">
+                                         <strong>License Plate</strong>
+                                         <span t-field="o.carrier_id.pnt_license_plate"/>
+                                         <br/>
+                                     </t>
+                                 </div>
+                                 -->
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <strong style="margin-top: 5px;">Comments</strong>
                                         <br/>
-                                    </t>
-                                    <t t-if="o.carrier_id.pnt_driver_id">
-                                        <strong>Driver ID</strong>
-                                        <span t-field="o.carrier_id.pnt_driver_id"/>
-                                        <br/>
-                                    </t>
-                                    <t t-if="o.carrier_id.pnt_license_plate">
-                                        <strong>License Plate</strong>
-                                        <span t-field="o.carrier_id.pnt_license_plate"/>
-                                        <br/>
-                                    </t>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col">
-                                    <strong style="margin-top: 5px;">Comments</strong>
-                                    <br/>
-                                </div>
+                            <div style="margin-top: 15px;">
+                                <p>The final holder of used packaging waste must deliver it in
+                                    appropriate conditions for separation by materials to an ecological agent for reuse
+                                    to a
+                                    collector, recycler, or authorized valorizer.\n Registered in the Commercial
+                                    Registry
+                                    of Alicante: Volume 1,712 General, Folio 11. Sheet no. A-27.348. Registration 1st,
+                                    14-6-1994 -
+                                    C.I.F.
+                                    A-03946472
+                                </p>
                             </div>
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <p>The final holder of used packaging waste must deliver it in
-                                appropriate conditions for separation by materials to an ecological agent for reuse to a
-                                collector, recycler, or authorized valorizer.\n Registered in the Commercial Registry
-                                of Alicante: Volume 1,712 General, Folio 11. Sheet no. A-27.348. Registration 1st,
-                                14-6-1994 -
-                                C.I.F.
-                                A-03946472
-                            </p>
                         </div>
                     </div>
                 </xpath>
