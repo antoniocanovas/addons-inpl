@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <template id="coa_error" name="coa_error">
+        <t t-name="coa_error">
 
+                <t t-call="web.external_layout">
+
+
+                    <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
+                    <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
+                    <div>
+                        <p style="text-center">Configure a report on the client</p>
+
+                    </div>
+
+                </t>
+
+        </t>
+    </template>
     <template id="coa_product_document_a" name="COA Document A">
 
 

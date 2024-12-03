@@ -45,6 +45,7 @@
                                     <!-- BOX TRACKING MISSING if customer box tracking and boxes? ... box report-->
                                 </t>
                             </t>
+                            <t t-if="not o.partner_id.pnt_picking_report_id.coa" t-call="report_inplast.coa_error">
                         </t>
                         <!--<t t-if="o.carrier_id.pnt_print_picking_list" t-call="report_inplast.packing_list"/>-->
                     </t>
