@@ -10,7 +10,7 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock_delivery.view_picking_withcarrier_out_form" />
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='delivery_details']" position="inside">
+            <xpath expr="//group[@name='carrier_data']" position="inside">
                 <field
                     name="driver_id"
                     context="{'show_driver': True}"
