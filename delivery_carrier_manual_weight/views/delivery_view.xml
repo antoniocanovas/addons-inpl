@@ -21,9 +21,9 @@
                 <field name="is_manual_weight" invisible="1" />
                 <label
                     for="weight_manual"
-                    attrs="{'invisible': [('is_manual_weight', '=', False)]}"
+                    invisible="not is_manual_weight"
                 />
-                <div attrs="{'invisible': [('is_manual_weight', '=', False)]}">
+                <div invisible="not is_manual_weight">
                     <field name="weight_manual" class="oe_inline" />
                     <field
                         name="weight_uom_name"
@@ -34,9 +34,9 @@
                 </div>
                 <label
                     for="shipping_weight_manual"
-                    attrs="{'invisible': [('is_manual_weight', '=', False)]}"
+                    invisible="not is_manual_weight"
                 />
-                <div attrs="{'invisible': [('is_manual_weight', '=', False)]}">
+                <div invisible="not is_manual_weight">
                     <field name="shipping_weight_manual" class="oe_inline" />
                     <field
                         name="weight_uom_name"
