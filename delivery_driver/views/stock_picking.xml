@@ -19,7 +19,7 @@
             </xpath>
         </field>
     </record>
-
+    <!--
     <record id="vpicktree_view_tree_inherit_delivery_driver" model="ir.ui.view">
         <field name="name">Stock Picking Driver Tree</field>
         <field name="model">stock.picking</field>
@@ -56,5 +56,5 @@
             </xpath>
         </field>
     </record>
-
+    -->
 </odoo>
