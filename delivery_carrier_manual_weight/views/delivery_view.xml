@@ -5,7 +5,7 @@
             name="name"
         >delivery.carrier.form - delivery_carrier_manual_weight</field>
         <field name="model">delivery.carrier</field>
-        <field name="inherit_id" ref="stock_delivery.view_delivery_carrier_form" />
+        <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
         <field name="arch" type="xml">
             <field name="integration_level" position="before">
                 <field name="is_manual_weight" />
