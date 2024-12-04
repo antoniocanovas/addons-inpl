@@ -14,6 +14,18 @@
                         icon="fa-refresh"
                         confirm="This will generate a new SSCC code if it is not already set."/>
             </xpath>
+            <!-- El empaquetado es incompatible con el cliente: -->
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="incompatible_bom_template" invisible="1"/>
+            </xpath>
+
+            <!-- Mensajes de aviso y bloqueo por empaquetado no compatible con el cliente:  -->
+            <xpath expr="//header" position="after">
+                <div class="alert alert-danger mb-0" role="alert" invisible="not incompatible_bom_template">
+                    Revisa los empaquetados de los productos reservados, son incompatibles con el cliente.
+                </div>
+            </xpath>
+
         </field>
     </record>
 </odoo>
