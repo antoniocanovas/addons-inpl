@@ -20,7 +20,7 @@
     ],
     "data": [
         "views/delivery_carrier.xml",
-        # "views/stock_picking.xml",
+        "views/stock_picking.xml",
         "views/stock_move_line.xml",
         "views/res_partner.xml",
     ],
