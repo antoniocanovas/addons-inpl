@@ -103,7 +103,7 @@
             </xpath>
 
             <!-- TAG_IDS en vista principal con la opción de NO crear etiquetas desde pedido de ventas: -->
-            <xpath expr="//field[@name='payment_mode_id']" position="after">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True}"/>
             </xpath>
 
