@@ -7,6 +7,7 @@ from odoo import fields, models, api
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    def _compute_customer_lead(self):
-        super(SaleOrderLine, self)._compute_customer_lead()
-        self.order_id._get_logistic_days()
+    # Quito este recálculo ya que finalmente se pone "customer_arrival_date" en SOL (dejar manual o computar este)
+#    def _compute_customer_lead(self):
+#        super(SaleOrderLine, self)._compute_customer_lead()
+#        self.order_id._get_logistic_days()
