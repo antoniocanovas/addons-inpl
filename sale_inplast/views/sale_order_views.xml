@@ -63,8 +63,11 @@
                 <field name="pnt_product_ids" column_invisible="1"/>
             </xpath>
 
-            <!-- Campos para apuntar la cantidad y tapones y nos proponga los palets o cajas estimadas (quitado marzo24): -->
+            <!-- Campos para:
+                indicar la fecha comprometida de llegada a casa del cliente (customer_arrival_date),
+                apuntar la cantidad y tapones y nos proponga los palets o cajas estimadas (quitado marzo24): -->
             <xpath expr="//field[@name='order_line']/tree/field[@name='tax_id']" position="after">
+                <field name="customer_arrival_date" optional="show"/>
                 <field name="pnt_base_qty" optional="hide"/>
                 <field name="pnt_product_type" invisible="1"/>
                 <field name="pnt_base_1k_price" optional="show"

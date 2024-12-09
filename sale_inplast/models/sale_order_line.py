@@ -42,3 +42,6 @@ class SaleOrderLine(models.Model):
                 price = record.price_subtotal / record.pnt_base_qty * 1000
             record['pnt_base_1k_price'] =  price
     pnt_base_1k_price = fields.Float('1K', compute='_get_1k_price')
+
+    # Fecha manual para que el comercial indique la comprometida de llegada a casa del cliente:
+    customer_arrival_date = fields.Date('Arrival date', help='Arrival date')

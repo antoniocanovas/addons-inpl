@@ -9,7 +9,7 @@
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
                 <page name="custom_logistic" string="Logistics">
-                    <group>
+                    <group name="logistic_delivery_transports" string="Transports on delivery">
                         <group>
                             <field name="logistic1_stop" invisible="1"/>
                             <field name="logistic1_start" string="First" widget="daterange" options="{'end_date_field': 'logistic1_stop'}"/>
