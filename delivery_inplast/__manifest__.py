@@ -10,7 +10,7 @@
     ],
     "license": "LGPL-3",
     "application": False,
-    "installable": False,
+    "installable": True,
     "depends": [
         "sale_management",
         "account",

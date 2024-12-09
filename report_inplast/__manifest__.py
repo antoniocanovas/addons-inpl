@@ -16,7 +16,7 @@
         "account",
         "stock",
         "web",
-        "delivery_inplast(no_usado)",
+        "delivery_inplast",
     ],
     "data": [
         "security/ir.model.access.csv",
