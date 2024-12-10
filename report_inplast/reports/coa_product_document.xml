@@ -9,7 +9,7 @@
                     <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                     <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
                     <div>
-                        <p style="text-center">Configure a report on the client</p>
+                        <p style="text-center">Se ha producido un error revise que el cliente tenga un report configurado al igual que los productos</p>
 
                     </div>
 
