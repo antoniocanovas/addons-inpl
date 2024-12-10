@@ -13,6 +13,7 @@ Commision wizard to add several categs with the same commission.
     'data': [
         'security/ir.model.access.csv',
         'views/commission_plan_wizard_views.xml',
+        'views/commission_plan_views.xml',
     ],
     'installable': True,
 }
