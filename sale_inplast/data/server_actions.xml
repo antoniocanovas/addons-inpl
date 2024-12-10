@@ -12,6 +12,7 @@
         <field name="name">=> AS Actualiza precios de PACKING al cambiar el de producto base</field>
         <field name="model_id" ref="product.model_product_pricelist_item"/>
         <field name="evaluation_type">value</field>
+        <field name="state">code</field>
         <field name="code">
             record.update_packing_products_price()
         </field>
