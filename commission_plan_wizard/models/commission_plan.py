@@ -12,7 +12,7 @@ class CommissionPlan(models.Model):
         return {
             "name": _("Comission Plan Categories Wizard"),
             "view_mode": "form",
-            "view_id": self.env.ref("commission_plan_wizard.commission_plan_wizard_view").id,
+            "view_id": self.env.ref("commission_plan_wizard.commission_plan_wizard_views").id,
             "view_type": "form",
             "res_model": "commission.plan.wizard",
             "type": "ir.actions.act_window",
