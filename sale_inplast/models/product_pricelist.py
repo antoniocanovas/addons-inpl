@@ -140,7 +140,7 @@ class ProductPricelist(models.Model):
                     if packing.sale_ok == True:
                         pricelistitem = self.env['product.pricelist.item'].search([('product_tmpl_id','=',packing.id)])
                         if len(pricelistitem.ids) > 1:
-                            raise UserError('Producto duplicado en tarifa: ' + str(packing.name))
+                            raise UserError('Producto duplicado en tarifa: ' + str(pricelistitem.product_tmpl_id.name))
                         elif len(pricelistitem.ids) == 1:
                             pricelistitem.write({'pnt_new_price': li.pnt_new_price * packing.pnt_parent_qty})
                         else:
