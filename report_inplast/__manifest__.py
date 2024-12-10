@@ -5,9 +5,7 @@
     "category": "Customizations",
     "website": "https://www.puntsistemes.es",
     "author": "Punt Sistemes",
-    "maintainers": [
-        "PuntSistemes S.L.U"
-    ],
+    "maintainers": ["PuntSistemes S.L.U"],
     "license": "LGPL-3",
     "application": False,
     "installable": True,
@@ -16,7 +14,8 @@
         "account",
         "stock",
         "web",
-        "delivery_inplast",
+        "delivery_driver",
+        "delivery_carrier_manual_weight",
     ],
     "data": [
         "security/ir.model.access.csv",
