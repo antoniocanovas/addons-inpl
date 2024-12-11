@@ -48,7 +48,7 @@
                                         <tree>
                                             <field name="partner_id"/>
                                             <field name="name"/>
-                                            <field name="product_tmpl_id" invisible="1"/>
+                                            <field name="product_tmpl_id" column_invisible="1"/>
                                         </tree>
                                 </field>
 
