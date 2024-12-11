@@ -43,10 +43,10 @@
                             <group name="label" string="Warehouse label">
                                 <field string="Label" name="pnt_label_type"/>
                                 <field string="number of labels" name="number_of_labels"/>
-                                <field string="Customer code" name="pnt_customer_code_print"/>
-                                <field string="Customer code" name="pnt_customer_code"
-                                       invisible="pnt_customer_code_print == False"/>
-                                <!--<field string="COA Handle" name="pnt_product_handle_coa"/>
+                                <!-- <field string="Customer code" name="pnt_customer_code_print"/> -->
+                                <field string="Customer code" name="pnt_customer_code_ids"/>
+                                <!--       invisible="pnt_customer_code_print == False"/>
+                                <field string="COA Handle" name="pnt_product_handle_coa"/>
                                 <field string="Components" name="pnt_product_coa_components"/>-->
                             </group>
                         </page>

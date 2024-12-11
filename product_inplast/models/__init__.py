@@ -4,3 +4,4 @@ from . import product_template
 from . import product_category
 from . import product_product
 from . import coa_content
+from . import product_customer_code

@@ -47,7 +47,7 @@ class ProductTemplate(models.Model):
     )
 
     pnt_customer_code_print = fields.Boolean("Customer code on label")
-    pnt_customer_code = fields.Char("Customer code")
+    pnt_customer_code_ids = fields.One2many('product.customer.code','product_tmpl_id', string='Customer codes')
     number_of_labels = fields.Integer(
         string="Number of labels", required=False, default="1"
     )
