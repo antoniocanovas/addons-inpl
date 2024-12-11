@@ -21,7 +21,7 @@ class RiskBatch(models.Model):
         "res.partner", string="Supplier", store=True, copy=True, required=True
     )
     date = fields.Date("Date", store=True, copy=False, tracking=100)
-    currency_id = fields.Many2one("res.currency", store=True, default=1, required=True)
+    currency_id = fields.Many2one("res.currency", default=lambda self: self.env.company)
     state = fields.Selection(
         selection=STATE,
         string="State",
