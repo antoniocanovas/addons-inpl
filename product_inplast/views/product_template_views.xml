@@ -45,7 +45,7 @@
                                 <field string="number of labels" name="number_of_labels"/>
                                 <!-- <field string="Customer code" name="pnt_customer_code_print"/> -->
                                 <field string="Customer code" name="pnt_customer_code_ids">
-                                        <tree>
+                                        <tree editable="bottom">
                                             <field name="partner_id"/>
                                             <field name="name"/>
                                             <field name="product_tmpl_id" column_invisible="1"/>
