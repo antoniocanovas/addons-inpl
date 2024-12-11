@@ -44,7 +44,14 @@
                                 <field string="Label" name="pnt_label_type"/>
                                 <field string="number of labels" name="number_of_labels"/>
                                 <!-- <field string="Customer code" name="pnt_customer_code_print"/> -->
-                                <field string="Customer code" name="pnt_customer_code_ids"/>
+                                <field string="Customer code" name="pnt_customer_code_ids">
+                                        <tree>
+                                            <field name="partner_id"/>
+                                            <field name="name"/>
+                                            <field name="product_tmpl_id" invisible="1"/>
+                                        </tree>
+                                </field>
+
                                 <!--       invisible="pnt_customer_code_print == False"/>
                                 <field string="COA Handle" name="pnt_product_handle_coa"/>
                                 <field string="Components" name="pnt_product_coa_components"/>-->
