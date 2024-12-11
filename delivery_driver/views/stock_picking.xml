@@ -14,7 +14,7 @@
             <xpath expr="//group[@name='carrier_data']" position="inside">
                 <field
                         name="driver_id"
-                        context="{'show_driver': True}"
+                        context="{'show_driver': True,'default_is_driver' : True}"
                         options='{"always_reload": True}'
                 />
             </xpath>
