@@ -10,4 +10,20 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_stock_picking_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='extra']" position="inside">
+                <group string="Transport Information">
+                    <field name="pnt_truck_license_plate" string="Truck License Plate"/>
+                    <field name="pnt_trailer_license_plate" string="Trailer License Plate"/>
+                    <field name="pnt_container_number" string="Container Number"/>
+                    <field name="pnt_security_seal" string="Security Seal"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
 </odoo>
