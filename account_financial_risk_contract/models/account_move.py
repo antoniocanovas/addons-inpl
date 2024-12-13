@@ -7,4 +7,4 @@ class AccountMove(models.Model):
     risk_batch_id = fields.Many2one(
         "risk.batch", string="Risk batch", store=True, copy=False
     )
-    pnt_credit_limit = fields.Float(related="partner_id.credit_limit")
+    credit_limit = fields.Float(related="partner_id.credit_limit")

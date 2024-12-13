@@ -11,6 +11,7 @@
                 <field name="date" optional="hide"/>
                 <field name="supplier_id" optional="show"/>
                 <field name="amount" optional="show"/>
+                <field name="insurance_amount" optional="show"/>
                 <field name="state" optional="show"/>
                 <field name="currency_id" optional="hide"/>
             </tree>
@@ -42,7 +43,7 @@
                         </group>
                     </group>
                     <group>
-                        <field name="invoice_ids" domain="[('pnt_credit_limit', '>', 0),
+                        <field name="invoice_ids" domain="[('credit_limit', '>', 0),
                         ('payment_state', 'in', ['not_paid', 'in_payment', 'partial']),('state','in', ['posted']),
                         ('risk_batch_id','=',False),('move_type', 'in', ['out_invoice'])]">
                             <tree create="False">
@@ -50,7 +51,9 @@
                                 <field name="invoice_date_due"/>
                                 <field name="partner_id"/>
                                 <field name="activity_ids"/>
-                                <field name="amount_untaxed_signed"/>
+                                <field name="amount_untaxed_signed" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_total" optional="show"/>
+                                <field name="amount_residual_signed" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                 <field name="payment_state" widget="badge"
                                        decoration-danger="payment_state == 'not_paid'"
                                        decoration-warning="payment_state in ('partial', 'in_payment')"
@@ -58,6 +61,7 @@
                                        invisible="(payment_state in ['invoicing_legacy'])"
                                        optional="show"/>
                                 <field name="state" widget="badge" decoration-success="state == 'posted'" decoration-info="state == 'draft'" optional="show"/>
+                                <field name="currency_id" column_invisible="1"/>
                             </tree>
                         </field>
                     </group>
