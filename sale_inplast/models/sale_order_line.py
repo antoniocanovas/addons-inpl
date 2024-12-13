@@ -44,4 +44,4 @@ class SaleOrderLine(models.Model):
     pnt_base_1k_price = fields.Float('1K', compute='_get_1k_price')
 
     # Fecha manual para que el comercial indique la comprometida de llegada a casa del cliente:
-    customer_arrival_date = fields.Date('Arrival date', help='Arrival date')
+    customer_arrival_date = fields.Date('Customer date', help='Customer committed date')
