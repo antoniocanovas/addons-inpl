@@ -44,9 +44,12 @@
                             <div t-field="line.location_id.barcode"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:45%;'}"/>
                             <br/>
-                            <t t-if="line.product_id.pnt_customer_code_print">
-                                <span style="font-size:15px;" t-esc="line.product_id.pnt_customer_code"/>
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:25px;" t-esc="matching_code[0].name"/>
                             </t>
+
 
                         </div>
                         <div class="col-3 col-offset-9">
