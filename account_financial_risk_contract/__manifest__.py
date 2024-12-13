@@ -3,7 +3,7 @@
 
 {
     'name': 'Account financial risk contracts',
-    'version': '17.0.2.0.0',
+    'version': '17.0.3.0.0',
     'category': '',
     "license": "AGPL-3",
     'website': "https://www.ingenieriacloud.com",
@@ -13,6 +13,8 @@
         'account',
         'account_financial_risk',
         'base_automation',
+        'account_payment_mode',
+        'account_payment_partner',
     ],
     'data': [
         'views/res_partner_views.xml',
@@ -20,6 +22,7 @@
         'views/risk_batch_views.xml',
         'views/account_move_views.xml',
         'views/menu_views.xml',
+        'views/account_payment_mode_views.xml',
         'security/user_groups.xml',
         'security/ir.model.access.csv',
         'data/server_actions.xml',
