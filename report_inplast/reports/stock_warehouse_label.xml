@@ -47,14 +47,23 @@
                             <t t-set="matching_code"
                                t-value="[code for code in line.product_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
                             <t t-if="matching_code">
-                                <span style="font-weight:bold; font-size:25px;" t-esc="matching_code[0].name"/>
+                                <span style="font-weight:bold; font-size:20px;"
+                                      t-field="line.product_id.default_code"></span>
+
                             </t>
 
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code"></span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t><!--desconocido creo que un contador-->
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -107,7 +116,7 @@
                         </div>
                     </div>
                 </div>
-                <span style="font-weight:bold; font-size:15px;">codigo cliente.</span>
+
             </t>
         </t>
     </template>
