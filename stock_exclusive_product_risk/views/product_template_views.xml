@@ -10,7 +10,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='uom_po_id']" position="after">
-                <field name="partner_requesting_id"/>
+                <field name="partner_requesting_id" domain="[('is_company','=',True)]"/>
             </xpath>
 
         </field>
