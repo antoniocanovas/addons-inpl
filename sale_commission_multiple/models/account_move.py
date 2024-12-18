@@ -21,6 +21,7 @@ class AccountMove(models.Model):
     referrer_plan_ids = fields.One2many('referrer.plan.rel', 'invoice_id', string='Referrers', store=True,
                                         compute='_get_partner_referrers')
 
+    """
     # Sobreescribir la regla enterprise para considerar varios, es requerido por la búsqueda de campos m2o estándar:
     def _make_commission(self):
         for move in self.filtered(lambda m: m.move_type in ['out_invoice', 'in_invoice', 'out_refund']):
@@ -150,3 +151,4 @@ class AccountMove(models.Model):
             })
         return super(AccountMove, self)._reverse_moves(default_values_list=default_values_list, cancel=cancel)
 
+    """
