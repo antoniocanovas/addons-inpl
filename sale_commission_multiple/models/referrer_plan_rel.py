@@ -15,15 +15,16 @@ class ReferrerPlanRel(models.Model):
     invoice_id = fields.Many2one('account.move', string="Invoice")
     # Registro de comisión creada (único por factura y comisionista):
     commission_po_line_id = fields.Many2one('purchase.order.line', string="Purchase line")
+    credit_commission_po_line_id = fields.Many2one('purchase.order.line', string="Purchase credit")
 
     @api.depends('partner_id','referrer_id')
     def _get_name(self):
         for record in self:
             name = ""
-            if record.partner_id.id:
-                name += record.partner_id.name
             if record.referrer_id.id:
-                name += " => " + record.referrer_id.name
+                name += record.referrer_id.name
+            if record.commission_plan_id.id:
+                name += " (" + record.commission_plan_id.name + ")"
             record['name'] = name
 
     @api.depends('referrer_id')

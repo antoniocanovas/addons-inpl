@@ -1,5 +1,7 @@
 from odoo import models, fields, api, _
-
+from collections import defaultdict
+from dateutil.relativedelta import relativedelta
+from odoo.tools import formatLang, format_date
 
 class AccountMove(models.Model):
     _inherit = "account.move"
@@ -10,18 +12,31 @@ class AccountMove(models.Model):
         for record in self:
             lines = []
             if record.partner_id.referrer_plan_ids.ids and record.id:
-                for li in record.partner_id.referrer_plan_ids:
+                # Factura nueva, tiramos de comisionistas del contacto:
+                referrers = record.partner_id.referrer_plan_ids
+                # Si la factura viene desde pedido de venta:
+                amsalelines = self.env['account.move.line'].search([('move_id','=',record.id),('sale_line_ids','!=',False)])
+                if amsalelines.ids:
+                    referrers = amsalelines[0].sale_line_ids[0].order_id.referrer_plan_ids
+                # Si es factura rectificativa:
+                original_invoice = self.env['account.move'].search([('reversal_move_id','in',record.id)])
+                if record.move_type in ['in_refund','out_refund'] and original_invoice.ids:
+                    referrers = original_invoice[0].referrer_plan_ids
+
+                for li in referrers:
                     newline = self.env['referrer.plan.rel'].create({
                         'referrer_id': li.referrer_id.id,
-                        'commission_plan_id': li.commission_plan_id.id,
                         'invoice_id': record.id,
+                        'credit_commission_po_line_id': li.commission_po_line_id.id,
                     })
+                    # Para evitar que en la creación ponga el valor por defecto y tome el de la factura:
+                    newline.write({'commission_plan_id':li.commission_plan_id.id})
                     lines.append(newline.id)
+
             record['referrer_plan_ids'] = [(6,0,lines)]
     referrer_plan_ids = fields.One2many('referrer.plan.rel', 'invoice_id', string='Referrers', store=True,
                                         compute='_get_partner_referrers')
 
-    """
     # Sobreescribir la regla enterprise para considerar varios, es requerido por la búsqueda de campos m2o estándar:
     def _make_commission(self):
         for move in self.filtered(lambda m: m.move_type in ['out_invoice', 'in_invoice', 'out_refund']):
@@ -33,7 +48,7 @@ class AccountMove(models.Model):
             else:
                 sign = -1
                 # (original) if not move.commission_po_line_id:
-                if not move.referrer_plan_ids.commission_po_line_id:
+                if not move.referrer_plan_ids.credit_commission_po_line_id.ids:
                     continue
 
             # Aquí creamos el bucle para varios comisionistas (alcanza el resto del método):
@@ -43,8 +58,30 @@ class AccountMove(models.Model):
                 order = None
                 desc_lines = ""
                 for line in move.invoice_line_ids:
-                    # (original) rule = line._get_commission_rule()
-                    rule = li.commission_plan_id
+                    # (original, ponemos aquí el método completo: rule = line._get_commission_rule()
+                    template = line.env['sale.order.template']
+                    sale_order = line.subscription_id or line.sale_line_ids.order_id
+                    if len(sale_order) == 1:
+                        template = sale_order.sale_order_template_id
+                    # check whether the product is part of the subscription template
+                    template_products = template.sale_order_template_line_ids.product_id.mapped('product_tmpl_id')
+                    template_id = template.id if template and line.product_id.product_tmpl_id.id in template_products.ids else None
+                    sub_pricelist = line.subscription_id.pricelist_id
+                    pricelist_id = sub_pricelist and sub_pricelist.id or line.sale_line_ids.mapped(
+                        'order_id.pricelist_id')[:1].id
+
+                    # In order of precedence, the commission plan can be one of:
+                    # 1. the commission plan set on the subscription
+                    # 2. the commission plan set on the sale order
+                    # 3. the referrer's commission plan
+                    plan = line.sale_line_ids.order_id.commission_plan_id or li.commission_plan_id
+                    if line.subscription_id:
+                        plan = line.subscription_id.commission_plan_id
+                    #if not plan: (siempre va a haber, si hay "li" ya que es un campo requerido)
+                    #    return self.env['commission.rule']
+                    rule = plan._match_rules(line.product_id, template_id, pricelist_id)
+
+                    # Aquí continúa el estándar enterprise:
                     if rule:
                         if not product:
                             product = rule.plan_id.product_id
@@ -63,6 +100,7 @@ class AccountMove(models.Model):
                         comm_by_rule[r] = amount
 
                 total = sum(comm_by_rule.values())
+
                 if not total:
                     continue
 
@@ -73,6 +111,7 @@ class AccountMove(models.Model):
                     partner=move.partner_id.name,
                     amount=formatLang(self.env, move.amount_untaxed, currency_obj=move.currency_id),
                 )
+
                 if order:
                     desc += f"\n{order.name}, {desc_lines}"
                     # extend the description to show the number of months to defer the expense over
@@ -137,18 +176,3 @@ class AccountMove(models.Model):
                                  move._get_html_link(),
                                  formatLang(self.env, total, currency_obj=move.currency_id))
                 purchase.message_post(body=msg_body)
-
-
-
-    # PENDIENTE DE REVISAR ESTO, PARA CANCELAR COMISIONES:
-    def _reverse_moves(self, default_values_list=None, cancel=False):
-        if not default_values_list:
-            default_values_list = [{} for move in self]
-        for move, default_values in zip(self, default_values_list):
-            default_values.update({
-                'referrer_id': move.referrer_id.id,
-                'commission_po_line_id': move.commission_po_line_id.id,
-            })
-        return super(AccountMove, self)._reverse_moves(default_values_list=default_values_list, cancel=cancel)
-
-    """
