@@ -23,7 +23,7 @@ class ProductPricelist(models.Model):
 
     def _get_pnt_partner_id(self):
         self.pnt_partner_id = self.env['res.partner'].search([('property_product_pricelist','=',self.id)], limit=1)
-    pnt_partner_id = fields.Many2one('res.partner', string='Customer', compute='_get_pnt_parnter_id')
+    pnt_partner_id = fields.Many2one('res.partner', string='Customer', compute='_get_pnt_partner_id')
 
     @api.depends('pnt_next_update')
     def _get_pnt_lock_date(self):
@@ -165,8 +165,9 @@ class ProductPricelist(models.Model):
             product = li.product_tmpl_id
             # Cálculos para actualizar o añadir los productos PACKING de cada producto en la tarifa:
             if product.pnt_product_type == 'final':
+                valid_bom_templates = self.pnt_partner_id.mrp_bom_template_ids.ids
                 for packing in product.pnt_packing_ids:
-                    if packing.sale_ok == True:
+                    if (packing.sale_ok == True) and (packing.id in valid_bom_templates.ids):
                         pricelistitem = self.env['product.pricelist.item'].search([('product_tmpl_id','=',packing.id)])
                         if not pricelistitem.ids:
                             pricelistitem = self.env['product.pricelist.item'].create({
