@@ -16,6 +16,8 @@ class SaleOrder(models.Model):
                         'commission_plan_id': li.commission_plan_id.id,
                         'sale_id': record.id,
                     })
+                    # Para evitar que en la creación ponga el valor por defecto y tome el de la factura:
+                    newline.write({'commission_plan_id':li.commission_plan_id.id})
                     lines.append(newline.id)
             record['referrer_plan_ids'] = [(6,0,lines)]
     referrer_plan_ids = fields.One2many('referrer.plan.rel', 'sale_id', string='Referrers', store=True,
