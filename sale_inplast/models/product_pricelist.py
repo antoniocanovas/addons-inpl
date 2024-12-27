@@ -21,6 +21,10 @@ class ProductPricelist(models.Model):
                                             store=True, copy=True, string='Pricelist mode', default='standard')
     pnt_ethylene_price = fields.Float('Ethylene price')
 
+    def _get_pnt_partner_id(self):
+        self.pnt_partner_id = self.env['res.partner'].search([('property_product_pricelist','=',self.id)], limit=1)
+    pnt_partner_id = fields.Many2one('res.partner', string='Customer', compute='_get_pnt_parnter_id')
+
     @api.depends('pnt_next_update')
     def _get_pnt_lock_date(self):
         for record in self:
