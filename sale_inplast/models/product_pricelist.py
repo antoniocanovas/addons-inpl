@@ -167,15 +167,16 @@ class ProductPricelist(models.Model):
             if product.pnt_product_type == 'final':
                 valid_bom_templates = self.pnt_partner_id.mrp_bom_template_ids.ids
                 for packing in product.pnt_packing_ids:
-                    if (packing.sale_ok == True) and (packing.id in valid_bom_templates or not valid_bom_templates):
-                        pricelistitem = self.env['product.pricelist.item'].search([('product_tmpl_id','=',packing.id)])
-                        if not pricelistitem.ids:
-                            pricelistitem = self.env['product.pricelist.item'].create({
-                                'pricelist_id':self.id,
-                                'product_tmpl_id': packing.id,
-                                'compute_price': 'fixed',
-                                'applied_on': '1_product',
-                                'fixed_price': li.fixed_price * packing.pnt_parent_qty,
-                                'price_surcharge': li.price_surcharge * packing.pnt_parent_qty,
-                                'pnt_new_price': li.pnt_new_price * packing.pnt_parent_qty,
-                            })
+                    if (packing.sale_ok == True):
+                        if (packing.id in valid_bom_templates) or not valid_bom_templates:
+                            pricelistitem = self.env['product.pricelist.item'].search([('product_tmpl_id','=',packing.id)])
+                            if not pricelistitem.ids:
+                                pricelistitem = self.env['product.pricelist.item'].create({
+                                    'pricelist_id':self.id,
+                                    'product_tmpl_id': packing.id,
+                                    'compute_price': 'fixed',
+                                    'applied_on': '1_product',
+                                    'fixed_price': li.fixed_price * packing.pnt_parent_qty,
+                                    'price_surcharge': li.price_surcharge * packing.pnt_parent_qty,
+                                    'pnt_new_price': li.pnt_new_price * packing.pnt_parent_qty,
+                                })
