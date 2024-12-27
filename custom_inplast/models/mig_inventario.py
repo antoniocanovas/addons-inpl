@@ -20,3 +20,4 @@ class MigInventario(models.Model):
     lot_id = fields.Many2one('stock.lot', string='lot_id')
     product_id = fields.Many2one('product.product', string='Producto')
     location_id = fields.Many2one('stock.location', string='location')
+    mig_fechafabricacion = fields.Date('Fecha fabricación')
