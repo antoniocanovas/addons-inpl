@@ -14,6 +14,7 @@
     "author": "ForgeFlow,Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "depends": [
+        "stock",
         "delivery",
     ],
     "data": ["views/delivery_view.xml"],
