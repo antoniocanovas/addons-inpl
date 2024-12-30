@@ -16,6 +16,7 @@
     "depends": [
         "sale_stock",
         "delivery",
+        "stock_delivery",
     ],
     "data": ["views/delivery_view.xml"],
     "application": False,
