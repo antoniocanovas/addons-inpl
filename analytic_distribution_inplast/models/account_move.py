@@ -4,10 +4,11 @@
 
 from odoo import fields, models, api
 
-class ResCompany(models.Model):
-    _inherit = 'res.company'
+class AccountMove(models.Model):
+    _inherit = 'account.move'
 
-    analytic_product_plan_id = fields.Many2one('account.analytic.plan', string='Product')
+    analytic_distribution_account_id = fields.Many2one('account.analytic.account', string='Distribution',
+                                                       help='Analytic distribution account')
 
     # Eliminado tras reunión con Ibarra (enero 2025):
     #analytic_categ_plan_id = fields.Many2one('account.analytic.plan', string='Category')
