@@ -1,8 +1,8 @@
 {
-    "name": "MRP Inplast",
-    "summary": "MRP Inplast",
+    "name": "sale order line ref",
+    "summary": "Adds client reference to sale order lines",
     "version": "17.0.1.0.0",
-    "category": "MRP",
+    "category": "sale",
     "author": "Punt Sistemes",
     "website": "https://www.puntsistemes.es",
     "Maintainers": [
