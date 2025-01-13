@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 class AnalyticDistribution(models.Model):
     _inherit = "analytic.distribution"
 
-    compute_mode = fields.Selection(
+    compute_method = fields.Selection(
         [
             ("demo", "demo INPLAST"),
             ("r13", "R13.- Electricidad"),
@@ -14,6 +14,33 @@ class AnalyticDistribution(models.Model):
             ("r22", "R22.- Ventas por región y subfamilia"),
         ]
     )
+
+    def _get_analytic_distribution_plan(self):
+        self.analytic_distribution_plan_id = self.env.company.analytic_distribution_plan_id.id
+    analytic_distribution_plan_id = fields.Many2one('account.analytic.plan', string='Distribution plan',
+                                                    compute='_get_analytic_distribution_plan')
+
+    income_analytic_distribution_account_ids = fields.Many2many(
+        'account.analytic.account',
+        string='Income distrib.',
+        help='Analytic distribution account',
+        relation = "income_ada_rel",
+        column1 = "distribution_id",
+        column2 = "analytic_account_id",
+        copy = True,
+    )
+
+    expense_analytic_distribution_account_ids = fields.Many2many(
+        'account.analytic.account',
+        string='Expense distrib',
+        help='Analytic distribution account',
+        relation = "expense_ada_rel",
+        column1 = "distribution_id",
+        column2 = "analytic_account_id",
+        copy = True,
+    )
+
+
 
     workcenter_ids = fields.Many2many("mrp.workcenter", string="Workcenters")
 
