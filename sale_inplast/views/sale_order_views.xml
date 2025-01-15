@@ -17,6 +17,16 @@
                         invisible="pnt_update_prices or pnt_pricelist_state != 'locked'"/>
             </xpath>
 
+            <!-- Entrega y facturación como sólo lectura (tarifa es de dir de entrega y ha de estar en campo partner_id): -->
+            <xpath expr="//form[1]/sheet[1]/group[@name='sale_header']/group[@name='partner_details']/field[@name='partner_invoice_id']" position="attributes">
+                <attribute name="force_save">1</attribute>
+                <attribute name="readonly">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="attributes">
+                <attribute name="force_save">1</attribute>
+                <attribute name="readonly">True</attribute>
+            </xpath>
+
             <!-- Change base products to MRP BOX AND PALLETS: -->
             <xpath expr="//header" position="inside">
                 <button name="update_order_lines_with_related_box_pallet_products" type="object" data-hotkey="shift+m"
