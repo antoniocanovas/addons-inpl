@@ -6,5 +6,6 @@ class ProductCustomerCode(models.Model):
     _description = "Product Customer Code"
 
     name = fields.Char(string="Code", required=True)
+    gtin = fields.Char(string="GTIN")
     partner_id = fields.Many2one('res.partner', string="Customer", required=True)
     product_tmpl_id = fields.Many2one('product.template', string="Product")
