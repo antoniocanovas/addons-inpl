@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-
+    <!--standar-->
     <template id="stock_warehouse_label_document_report">
         <t t-call="web.html_container">
             <t t-call="web.basic_layout">
@@ -9,7 +9,6 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:40px;padding: 10px 0;">
                         <div class="col-4">
                             <span style="font-weight:bold; font-size:15px;">INPLAST,S.A.</span>
-
                         </div>
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"
@@ -17,9 +16,7 @@
                             <span style="font-weight:bold; font-size:15px;">/</span>
                             <span t-if="line.lot_id" t-esc="line.lot_id.name.split('.')[-1]"
                                   style="font-weight:bold; font-size:15px;"></span>
-
                         </div>
-
                         <div class="col-3">
                             <span style="font-weight:bold; font-size:15px;" t-esc="line.lot_id.parent_id.name"
                                   t-if="line.lot_id"></span>
@@ -29,7 +26,6 @@
                                   t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"
                                   t-if="line.lot_id.create_date"></span>
                         </div>
-
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:140px;padding: 10px 0;">
                         <div class="col-5">
@@ -45,25 +41,22 @@
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:45%;'}"/>
                             <br/>
                             <t t-set="matching_code"
-                               t-value="[code for code in line.product_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
                             <t t-if="matching_code">
                                 <span style="font-weight:bold; font-size:20px;"
-                                      t-field="line.product_id.default_code"></span>
-
+                                      t-field="line.product_id.pnt_parent_id.default_code"></span>
                             </t>
-
-
                         </div>
                         <div class="col-3 col-offset-9">
                             <t t-set="matching_code"
-                               t-value="[code for code in line.product_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
                             <t t-if="not matching_code">
                                 <span style="font-weight:bold; font-size:30px;"
                                       t-field="line.product_id.default_code"></span>
                             </t>
                             <t t-if="matching_code">
                                 <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
-                            </t><!--desconocido creo que un contador-->
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -71,20 +64,22 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode if line.product_id.barcode else '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(int(line.product_id.pnt_parent_qty or 0) / 2)"/>
+                               t-value="'02' + (gtin or line.product_id.barcode or '') + '11' + (line.lot_id.create_date.strftime('%y%m%d') if line.lot_id.create_date else '') + '37' + str(int(line.product_id.pnt_parent_qty or 0) // 2)"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode if line.product_id.barcode else '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') if line.lot_id.create_date else '') + '(37) ' + str(int(line.product_id.pnt_parent_qty or 0) / 2)"/>
-
+                               t-value="'(02) ' + (gtin or line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date.strftime('%y%m%d') if line.lot_id.create_date else '') + '(37) ' + str(int(line.product_id.pnt_parent_qty or 0) / 2)"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
                             </div>
                             <br/>
-                            <!-- Mostrar el valor del código de barras -->
                             <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
                             <br/>
-
                             <t t-set="barcode_value_sscc"
                                t-value="'00' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '10' + (line.lot_id.parent_id.name or '')"/>
                             <t t-set="barcode_value_sscc_text"
@@ -92,10 +87,8 @@
                             <div t-esc="barcode_value_sscc"
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35%;'}"/><!--codigo barras sscc-->
                             <br/>
-                            <!-- Mostrar el valor del código de barras -->
                             <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_sscc_text"/>
                         </div>
-
                         <div class="col-3 col-offset-9">
                             <span>LOTE:</span>
                             <strong style="font-weight:bold; font-size:30px;"
@@ -107,7 +100,17 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -116,11 +119,10 @@
                         </div>
                     </div>
                 </div>
-
             </t>
         </t>
     </template>
-
+    <!--nestle-->
     <template id="stock_warehouse_label_nestle_document_report">
         <t t-call="web.html_container">
             <t t-call="web.basic_layout">
@@ -170,8 +172,15 @@
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code"></span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <strong style="font-size:20px;" t-esc="line.product_id.pnt_parent_qty/2"></strong>
@@ -179,10 +188,15 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str((line.product_id.pnt_parent_qty or 0) / 2)"/>
+                               t-value="'02' + (gtin or line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str((line.product_id.pnt_parent_qty or 0) / 2)"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str((line.product_id.pnt_parent_qty or 0) / 2)"/>
+                               t-value="'(02) ' + (gtin or line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str((line.product_id.pnt_parent_qty or 0) / 2)"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -214,7 +228,18 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
+                            <br/>
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -269,8 +294,15 @@
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code"></span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <strong style="font-size:20px;" t-esc="line.product_id.pnt_parent_qty/2"></strong>
@@ -278,10 +310,15 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str((line.product_id.pnt_parent_qty or 0) / 2)"/>
+                               t-value="'02' + (gtin or line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str((line.product_id.pnt_parent_qty or 0) / 2)"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str((line.product_id.pnt_parent_qty or 0) / 2)"/>
+                               t-value="'(02) ' + (gtin or line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str((line.product_id.pnt_parent_qty or 0) / 2)"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -314,7 +351,17 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -325,7 +372,7 @@
                         </div>
                     </div>
                 </div>
-                <span style="font-weight:bold; font-size:15px;">nestle</span>
+
             </t>
         </t>
     </template>
@@ -378,9 +425,15 @@
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code">
-                            </span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -393,10 +446,15 @@
 
                             <div class="row">
                                 <div class="col-9" style="text-align: center;">
+                                    <t t-set="matching_gtin"
+                                       t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                                    <t t-if="matching_gtin and matching_gtin[0]">
+                                        <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                                    </t>
                                     <t t-set="barcode_value_gtin"
-                                       t-value="'01' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '10' + str(line.lot_id.parent_id.name or '')"/>
+                                       t-value="'01' + (gtin or line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '10' + str(line.lot_id.parent_id.name or '')"/>
                                     <t t-set="barcode_value_gtin_text"
-                                       t-value="'(01) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(10) ' + str(line.lot_id.parent_id.name or '')"/>
+                                       t-value="'(01) ' + (gtin or line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(10) ' + str(line.lot_id.parent_id.name or '')"/>
                                     <div>
                                         <span t-esc="barcode_value_gtin"
                                               t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -454,7 +512,17 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -513,9 +581,15 @@
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code">
-                            </span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -528,10 +602,15 @@
 
                             <div class="row">
                                 <div class="col-9" style="text-align: center;font-size 10px">
+                                    <t t-set="matching_gtin"
+                                       t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                                    <t t-if="matching_gtin and matching_gtin[0]">
+                                        <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                                    </t>
                                     <t t-set="barcode_value_gtin"
-                                       t-value="'01' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '10' + str(line.lot_id.parent_id.name or '')"/>
+                                       t-value="'01' + (gtin or line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '10' + str(line.lot_id.parent_id.name or '')"/>
                                     <t t-set="barcode_value_gtin_text"
-                                       t-value="'(01) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(10) ' + str(line.lot_id.parent_id.name or '')"/>
+                                       t-value="'(01) ' + (gtin or line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(10) ' + str(line.lot_id.parent_id.name or '')"/>
                                     <div>
                                         <span t-esc="barcode_value_gtin"
                                               t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -589,7 +668,17 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -602,7 +691,6 @@
 
 
                 </div>
-                <span style="font-weight:bold; font-size:15px;">buxton</span>
             </t>
         </t>
     </template>
@@ -651,9 +739,15 @@
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code">
-                            </span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -661,10 +755,15 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;font-size:10px">
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode or '') + '10' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'02' + (gtin or line.product_id.barcode or '') + '10' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'(02) ' + (gtin or line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -696,7 +795,17 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -744,9 +853,15 @@
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code">
-                            </span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -754,10 +869,15 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;font-size:10px">
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode or '') + '10' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'02' + (gtin or line.product_id.barcode or '') + '10' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'(02) ' + (gtin or line.product_id.barcode or '') + '(10) ' + (line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0] and line.lot_id.sscc_code_ids[0].name or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -789,7 +909,17 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -851,9 +981,15 @@
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code">
-                            </span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -861,10 +997,15 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'02' + (gtin or line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'(02) ' + (gtin or line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -896,7 +1037,19 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
+                            <br/>
+
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -949,9 +1102,15 @@
 
                         </div>
                         <div class="col-3 col-offset-9">
-                            <span style="font-weight:bold; font-size:30px;"
-                                  t-field="line.product_id.default_code">
-                            </span><!--desconocido creo que un contador-->
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span style="font-weight:bold; font-size:30px;" t-esc="matching_code[0].name"/>
+                            </t>
                             <br/>
                             <span>CANTIDAD:</span>
                             <span style="font-size:15px;" t-field="line.product_id.pnt_parent_qty"></span>
@@ -959,10 +1118,15 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
+                                                        <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
                             <t t-set="barcode_value_gtin"
-                               t-value="'02' + (line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'02' + (gtin or line.product_id.barcode or '') + '11' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '37' + str(line.product_id.pnt_parent_qty or '')"/>
                             <t t-set="barcode_value_gtin_text"
-                               t-value="'(02) ' + (line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
+                               t-value="'(02) ' + (gtin or line.product_id.barcode or '') + '(11) ' + (line.lot_id.create_date and line.lot_id.create_date.strftime('%y%m%d') or '') + '(37) ' + str(line.product_id.pnt_parent_qty or '')"/>
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
@@ -994,7 +1158,17 @@
                             <br/>
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
-                            <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="matching_gtin and matching_gtin[0]">
+                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                            </t>
+                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                <strong style="font-size:20px;" t-field="line.product_id.barcode"></strong>
+                            </t>
                             <br/>
                             <span style="font-size:20px;">SSCC:</span>
                             <br/>
@@ -1007,7 +1181,6 @@
             </t>
         </t>
     </template>
-
 
     <template id="stock_warehouse_label_report_document">
         <t t-foreach="docs" t-as="o">

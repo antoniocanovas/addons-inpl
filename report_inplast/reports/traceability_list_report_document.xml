@@ -100,7 +100,19 @@
                                             <strong t-field="box.product_id.pnt_parent_qty"></strong>
                                         </td>
                                         <td style="text-align: center;">
-                                            <strong t-field="line.product_id.barcode"></strong>
+                                            <t t-set="matching_gtin"
+                                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                                            <t t-if="matching_gtin and matching_gtin[0]">
+                                                <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
+                                            </t>
+                                            <t t-if="matching_gtin and matching_gtin[0]">
+                                                <strong t-set="gtin" t-esc="matching_gtin[0].gtin"/>
+                                            </t>
+                                            <t t-if="not matching_gtin or not matching_gtin[0]">
+                                                <strong style="font-size:20px;"
+                                                        t-field="line.product_id.barcode"></strong>
+                                            </t>
+                                            <br/>
                                         </td>
                                         <td style="text-align: center;">
 
@@ -111,7 +123,8 @@
 
                                         </td>
                                         <td style="text-align: center;">
-                                            <strong t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')" t-if="line.lot_id.create_date"></strong>
+                                            <strong t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"
+                                                    t-if="line.lot_id.create_date"></strong>
                                         </td>
                                     </tr>
                                 </t>
