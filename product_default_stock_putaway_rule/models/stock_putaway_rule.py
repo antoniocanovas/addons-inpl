@@ -6,7 +6,8 @@ from odoo import fields, models, api
 class StockPutawayRule(models.Model):
     _inherit = "stock.putaway.rule"
 
-    name = fields.Char('Name', compute='_get_name')
+    name = fields.Char('Name', store=True, compute='_get_name')
+    @api.depends('product_id','location_in_id','location_out_id')
     def _get_name(self):
         for record in self:
             name = ""
