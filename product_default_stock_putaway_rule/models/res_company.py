@@ -7,4 +7,4 @@ from odoo import fields, models, api
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    default_stock_putaway_rule_id = fields.Many2one('stock.putaway.rule', string='Default stock rule')
+    default_stock_putaway_rule_id = fields.Many2one('stock.putaway.rule', string='Default putaway rule')
