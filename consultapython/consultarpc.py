@@ -3,11 +3,11 @@ import json
 import xmlrpc.client
 
 # Configuración
-url = "https://odoo.inplast.es/"
-db = "PRO"
+url = "https://odoo-dev.inplast.es/"
+db = "DEV"
 # Solicitar credenciales al usuario
-username = "Introduce tu usuario"
-password = "Introduce tu contraseña"
+username = "usuario"
+password = "contraseña"
 
 output_csv = "sale_order_lines_filtered.csv"
 output_json = "sale_order_lines_filtered.json"
@@ -39,7 +39,7 @@ try:
     # Obtener las líneas de pedido de las órdenes filtradas
     sale_order_line_ids = models.execute_kw(db, uid, password, 'sale.order.line', 'search', [[('order_id', 'in', sale_order_ids)]])
     sale_order_lines = models.execute_kw(db, uid, password, 'sale.order.line', 'read', [sale_order_line_ids],
-                                          {'fields': ['order_id', 'product_id', 'product_uom_qty', 'price_unit', 'price_subtotal', 'commitment_date', 'customer_arrival_date']})
+                                          {'fields': ['order_id', 'product_id', 'product_uom_qty', 'price_unit', 'price_subtotal','old_default_code', 'commitment_date', 'customer_arrival_date']})
 
     # Obtener IDs de productos y socios (partner_id)
     product_ids = list(set(line['product_id'][0] for line in sale_order_lines if line.get('product_id')))
@@ -63,7 +63,7 @@ try:
     with open(output_csv, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         # Escribir encabezados
-        writer.writerow(['Order Name', 'Customer', 'Customer Reference', 'Product', 'Product Code', 'Quantity', 'Unit Price', 'Subtotal', 'Commitment Date', 'Customer Arrival Date', 'Order Date'])
+        writer.writerow(['Order Name', 'Customer', 'Customer Reference', 'Product', 'Product Code','Product old Code', 'Quantity', 'Unit Price', 'Subtotal', 'Commitment Date', 'Customer Arrival Date', 'Order Date'])
 
         # Escribir datos
         for line in sale_order_lines:
@@ -77,6 +77,7 @@ try:
                 partner.get('ref', '') if partner else '',
                 product.get('name', ''),
                 product.get('default_code', ''),
+                line.get('old_default_code', ''),
                 line.get('product_uom_qty'),
                 line.get('price_unit'),
                 line.get('price_subtotal'),
@@ -102,6 +103,7 @@ try:
             'Customer Reference': partner.get('ref', '') if partner else '',
             'Product': product.get('name', ''),
             'Product Code': product.get('default_code', ''),
+            'Product old Code': line.get('old_default_code', ''),
             'Quantity': line.get('product_uom_qty'),
             'Unit Price': line.get('price_unit'),
             'Subtotal': line.get('price_subtotal'),
