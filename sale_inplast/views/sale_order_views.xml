@@ -74,6 +74,7 @@
             <!-- Limitar productos que no están en tarifa en la línea de venta (desinstalar sale_product_configurator): -->
             <xpath expr="//field[@name='order_line']/tree/field[@name='company_id']" position="after">
                 <field name="pnt_product_ids" column_invisible="1"/>
+                <field name="old_default_code" optional="show"/>
             </xpath>
 
             <!-- Campos para:

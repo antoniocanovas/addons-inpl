@@ -45,3 +45,6 @@ class SaleOrderLine(models.Model):
 
     # Fecha manual para que el comercial indique la comprometida de llegada a casa del cliente:
     customer_arrival_date = fields.Date('Customer date', help='Customer committed date')
+
+    # Campo para referencia antigua mientras se mantiene el sistema de producción anterior a Odoo, borrar después:
+    old_default_code = fields.Char('Ref antigua')
