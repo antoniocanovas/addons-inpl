@@ -118,7 +118,7 @@ for r in records:
 # nota.- se hace así para aprovechar la creación automática de SML, Quants, etc del proceso de importación !!
 
 for r in records:
-    nuevolote, ssccs = False, []
+    lote, ssccs = False, []
 
     # Busco la ubicación:
     locationname = r.ubicacion.strip() + " (" + r.ubicacion_old.strip() + ")"
@@ -135,7 +135,9 @@ for r in records:
         nombrelote = r.lote + "/" + r.palet
         lot = env['stock.lot'].search([('name','=',nombrelote),('product_id','=',product.id)])
         if lot.ids:
-            raise UserError('El lote ya existe: ' + nombrelote)
+            lote = lot[0].id
+            # Cambiado 15/Enero/25 para considerar lotes que ya existen:
+            #raise UserError('El lote ya existe: ' + nombrelote)
         else:
             ssccs = []
             if r.sscc1:
@@ -144,10 +146,10 @@ for r in records:
             if r.sscc2:
                 sscc2 = env['pnt.sscc.code'].create({'name':r.sscc2})
                 ssccs.append(sscc2.id)
-            nuevolote = env['stock.lot'].create({'name':nombrelote, 'mig_fechafabricacion':r.mig_fechafabricacion, 'product_id':product.id, 'sscc_code_ids':[(6,0,ssccs)]})
+            lote = env['stock.lot'].create({'name':nombrelote, 'mig_fechafabricacion':r.mig_fechafabricacion, 'product_id':product.id, 'sscc_code_ids':[(6,0,ssccs)]}).id
 
     # Cumplimentamos datos que después se exportarán:
-    r.write({'product_id':product.id, 'location_id':location.id, 'lot_id':nuevolote.id})
+    r.write({'product_id':product.id, 'location_id':location.id, 'lot_id':lote})
 
         </field>
     </record>
