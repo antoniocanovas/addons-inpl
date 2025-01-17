@@ -7,7 +7,7 @@ from odoo import fields, models, api
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    @api.depends('product_id')
+    @api.depends('move_type')
     def _get_analytic_distribution_account(self):
         for record in self:
             analytic_account = False
@@ -17,7 +17,7 @@ class AccountMoveLine(models.Model):
             record['analytic_distribution_account_id'] = analytic_account
     analytic_distribution_account_id = fields.Many2one('account.analytic.account', string='Department',
                                                        help='Analytic distribution account',
-                                                       default='_get_analytic_distribution_account')
+                                                       compute='_get_analytic_distribution_account')
     @api.depends('name')
     def _get_analytic_distribution_plan(self):
         self.analytic_distribution_plan_id = self.env.company.analytic_distribution_plan_id.id
