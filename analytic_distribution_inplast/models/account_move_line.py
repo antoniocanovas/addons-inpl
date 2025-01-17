@@ -16,8 +16,10 @@ class AccountMoveLine(models.Model):
                 analytic_account = default_analytic_account.id
             record['analytic_distribution_account_id'] = analytic_account
     analytic_distribution_account_id = fields.Many2one('account.analytic.account', string='Department',
+                                                       readonly=False, store=True,
+                                                       compute='_get_analytic_distribution_account',
                                                        help='Analytic distribution account',
-                                                       compute='_get_analytic_distribution_account')
+                                                       )
     @api.depends('name')
     def _get_analytic_distribution_plan(self):
         self.analytic_distribution_plan_id = self.env.company.analytic_distribution_plan_id.id
