@@ -144,7 +144,7 @@ for r in records:
             if r.sscc2:
                 sscc2 = env['pnt.sscc.code'].create({'name':r.sscc2})
                 ssccs.append(sscc2.id)
-            nuevolote = env['stock.lot'].create({'name':nombrelote, 'mig_fechafabricación':r.mig_fechafabricacion, 'product_id':product.id, 'sscc_code_ids':[(6,0,ssccs)]})
+            nuevolote = env['stock.lot'].create({'name':nombrelote, 'mig_fechafabricacion':r.mig_fechafabricacion, 'product_id':product.id, 'sscc_code_ids':[(6,0,ssccs)]})
 
     # Cumplimentamos datos que después se exportarán:
     r.write({'product_id':product.id, 'location_id':location.id, 'lot_id':nuevolote.id})
