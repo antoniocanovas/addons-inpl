@@ -12,7 +12,7 @@ class AccountMoveLine(models.Model):
         for record in self:
             analytic_account = False
             default_analytic_account = self.env.company.default_sale_analytic_distribution_account_id
-            if record.move_type in ['out_invoice','out_refund']:
+            if record.move_id.move_type in ['out_invoice','out_refund']:
                 analytic_account = default_analytic_account.id
             record['analytic_distribution_account_id'] = analytic_account
     analytic_distribution_account_id = fields.Many2one('account.analytic.account', string='Department',
