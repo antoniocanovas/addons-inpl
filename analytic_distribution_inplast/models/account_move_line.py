@@ -7,7 +7,7 @@ from odoo import fields, models, api
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    @api.depends('move_type')
+    @api.depends('product_id')
     def _get_analytic_distribution_account(self):
         for record in self:
             analytic_account = False
