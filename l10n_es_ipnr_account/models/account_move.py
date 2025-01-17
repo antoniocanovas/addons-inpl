@@ -30,14 +30,16 @@ class AccountMove(models.Model):
                 # Control de que el destino de la compra va a España o no está definido:
                 if ((record.partner_id.country_id.code != 'ES') and
                         (not record.picking_partner_id.country_id.id or
-                        not record.picking_partner_id.state_id.id or
+                        #Se comenta la provincia porque no todos los países tienen (15/01/25):
+                        #not record.picking_partner_id.state_id.id or
                         record.ipnr_tax_zone == True)):
                     is_ipnr = True
 
             # PARA LAS VENTAS:
             if ((record.move_type in ['out_invoice', 'out_refund']) and
                 (not record.picking_partner_id.country_id.id or
-                 not record.picking_partner_id.state_id.id or
+                 # Se comenta la provincia porque no todos los países tienen (15/01/25):
+                 #not record.picking_partner_id.state_id.id or
                  record.ipnr_tax_zone)):
                 is_ipnr = True
 
