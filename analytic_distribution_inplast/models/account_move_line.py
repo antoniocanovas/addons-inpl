@@ -7,6 +7,7 @@ from odoo import fields, models, api
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
+    # Las ventas se asignan por defecto a Producción, asignación del valor parametrizado desde res.company:
     @api.depends('move_type')
     def _get_analytic_distribution_account(self):
         for record in self:
