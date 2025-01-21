@@ -24,7 +24,7 @@ class PurchaseOrder(models.Model):
                                rec.partner_id.country_id =='ES')
             else:
                 rec.is_ipnr = (rec.company_id.ipnr_enable and
-                               rec.picking_type_id.warehouse_id.partner_id.ipnr_tax_zone
+                               rec.picking_type_id.warehouse_id.partner_id.ipnr_tax_zone and
                                rec.partner_id.country_id =='ES')
 
     @api.depends("is_ipnr", "date_order", "company_id")
