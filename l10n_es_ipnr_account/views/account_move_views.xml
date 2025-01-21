@@ -40,7 +40,7 @@
                 </div>
             </xpath>
 
-            <xpath expr="//field[@name='partner_id']" position="after">
+            <xpath expr="//field[@name='partner_shipping_id']" position="before">
                 <field name="plastictax_move_id" invisible="move_type not in ('out_invoice', 'out_refund','in_invoice','in_refund')"/>
                 <field name="plastic_tax" invisible="1"/>
             </xpath>
