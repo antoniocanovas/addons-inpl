@@ -26,14 +26,15 @@ class AccountMove(models.Model):
         for record in self:
             is_ipnr = False
             # PARA LAS COMPRAS:
-            if (record.move_type in ['in_invoice', 'in_refund']):
+#            if (record.move_type in ['in_invoice', 'in_refund']):
                 # Control de que el destino de la compra va a España o no está definido:
-                if ((record.partner_id.country_id.code != 'ES') and
-                        (not record.picking_partner_id.country_id.id or
+                # Eliminado 21/01/25 porque las facturas de extranjero no indican  impuesto, lo haremos en apunte externo:
+#                if ((record.partner_id.country_id.code != 'ES') and
+#                        (not record.picking_partner_id.country_id.id or
                         #Se comenta la provincia porque no todos los países tienen (15/01/25):
                         #not record.picking_partner_id.state_id.id or
-                        record.ipnr_tax_zone == True)):
-                    is_ipnr = True
+#                        record.ipnr_tax_zone == True)):
+#                    is_ipnr = True
 
             # PARA LAS VENTAS:
             if ((record.move_type in ['out_invoice', 'out_refund']) and
@@ -389,7 +390,10 @@ class AccountMove(models.Model):
                     [('move_id', '=', self.id), ('product_id', '=', taxproduct.id)])
                 taxunit = self.env.company.plastic_tax
 
-                if (taxline.quantity > 0):
+                # Si estamos en España, las lineas vienen de compras o calcula automáticamente por is_ipnr:
+                # Si compramos fuera, no habrá línea de impuestos:
+#                if (taxline.quantity > 0) (cambio 21/01/25):
+                if self.plastic_tax:
                     for li in self.invoice_line_ids:
                         if ((li.product_id.ipnr_subject != 'no') and (li.product_id.id) and (li.quantity != 0) and
                                 (li.product_id.plastic_weight_non_recyclable != 0) and (li.id != taxline.id)):
@@ -418,7 +422,8 @@ class AccountMove(models.Model):
                 taxline = self.env['account.move.line'].search([('move_id', '=', self.id), ('product_id', '=', taxproduct.id)])
                 taxunit = self.env.company.plastic_tax
 
-                if (taxline.quantity > 0):
+                #if (taxline.quantity > 0) (cambio 21/01/25):
+                if self.plastic_tax:
                     for li in self.invoice_line_ids:
                         if ((li.product_id.ipnr_subject != 'no') and (li.product_id.id) and (li.quantity != 0) and
                                 (li.product_id.plastic_weight_non_recyclable != 0) and (li.id != taxline.id)):

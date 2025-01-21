@@ -19,10 +19,13 @@ class PurchaseOrder(models.Model):
     def _compute_is_ipnr(self):
         for rec in self:
             if rec.picking_type_id.code == 'dropship':
-                rec.is_ipnr = rec.company_id.ipnr_enable and rec.dest_address_id.ipnr_tax_zone
+                rec.is_ipnr = (rec.company_id.ipnr_enable and
+                               rec.dest_address_id.ipnr_tax_zone and
+                               rec.partner_id.country_id =='ES')
             else:
                 rec.is_ipnr = (rec.company_id.ipnr_enable and
-                               rec.picking_type_id.warehouse_id.partner_id.ipnr_tax_zone)
+                               rec.picking_type_id.warehouse_id.partner_id.ipnr_tax_zone
+                               rec.partner_id.country_id =='ES')
 
     @api.depends("is_ipnr", "date_order", "company_id")
     def _compute_ipnr_is_date(self):
