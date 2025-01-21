@@ -15,6 +15,7 @@ class PurchaseOrder(models.Model):
         "editable_states": ["draft", "sent"],
     }
 
+    # 21/01/25 Se incluye la condición ES porque las facturas del extranjero no consideran impuesto y no es deuda de prov:
     @api.depends("dest_address_id", "company_id", "partner_id")
     def _compute_is_ipnr(self):
         for rec in self:
