@@ -34,7 +34,7 @@
                         invisible="not plastic_tax or plastictax_move_id"/>
             </xpath>
             <xpath expr="//header" position="after">
-                <div class="alert alert-info mb-0" role="alert" invisible="not plastic_tax and not plastictax_move_id">
+                <div class="alert alert-info mb-0" role="alert" invisible="not plastic_tax or plastictax_move_id">
                     Esta operación requiere impuesto al plástico, pulse el botón "Crear apunte" para crearlo en modo borrador
                     y revísión posterior para confirmar, o elija uno creado previamente.
                 </div>
