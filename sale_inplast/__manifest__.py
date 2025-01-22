@@ -31,6 +31,7 @@ Recálculo de tarifas en base a datos de familia, productos y materia prima.
         'views/res_partner_views.xml',
         'views/sale_order_views.xml',
         'views/res_company_views.xml',
+        'views/product_product_views.xml',
         'data/server_actions.xml',
     ],
     'installable': True,
