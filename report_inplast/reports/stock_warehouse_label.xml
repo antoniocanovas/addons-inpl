@@ -65,7 +65,8 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
+                            <span t-esc="matching_gtin"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -76,6 +77,7 @@
                             <div>
                                 <span t-esc="barcode_value_gtin"
                                       t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:35%;'}"/>
+
                             </div>
                             <br/>
                             <span style="font-size:15px;margin-top:-10px" t-esc="barcode_value_gtin_text"/>
@@ -101,7 +103,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -117,7 +119,10 @@
                             <strong style="font-size:15px;" t-field="line.lot_id.sscc_code_ids[0].name"
                                     t-if="line.lot_id and line.lot_id.sscc_code_ids and line.lot_id.sscc_code_ids[0]"></strong>
                         </div>
+                        <br/>
+
                     </div>
+
                 </div>
             </t>
         </t>
@@ -189,7 +194,7 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -229,7 +234,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -311,7 +316,7 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -352,7 +357,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -447,7 +452,7 @@
                             <div class="row">
                                 <div class="col-9" style="text-align: center;">
                                     <t t-set="matching_gtin"
-                                       t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                                       t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                                     <t t-if="matching_gtin and matching_gtin[0]">
                                         <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                                     </t>
@@ -513,7 +518,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -603,7 +608,7 @@
                             <div class="row">
                                 <div class="col-9" style="text-align: center;font-size 10px">
                                     <t t-set="matching_gtin"
-                                       t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                                       t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                                     <t t-if="matching_gtin and matching_gtin[0]">
                                         <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                                     </t>
@@ -669,7 +674,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -756,7 +761,7 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;font-size:10px">
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -796,7 +801,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -870,7 +875,7 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;font-size:10px">
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -910,7 +915,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -998,7 +1003,7 @@
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -1038,7 +1043,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -1118,8 +1123,8 @@
                     </div>
                     <div class="row" style="border-bottom: 1px solid #000; height:370px;padding: 10px 0;">
                         <div class="col-9" style="text-align: center;">
-                                                        <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                            <t t-set="matching_gtin"
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>
@@ -1159,7 +1164,7 @@
                             <span style="font-size:20px;">GTIN:</span>
                             <br/>
                             <t t-set="matching_gtin"
-                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id]"/>
+                               t-value="[gtin for gtin in line.product_id.pnt_parent_id.pnt_customer_code_ids if gtin.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_gtin and matching_gtin[0]">
                                 <t t-set="gtin" t-value="matching_gtin[0].gtin"/>
                             </t>

@@ -7,5 +7,5 @@ class ProductCustomerCode(models.Model):
 
     name = fields.Char(string="Code", required=True)
     gtin = fields.Char(string="GTIN")
-    partner_id = fields.Many2one('res.partner', string="Customer", required=True)
+    partner_id = fields.Many2one('res.partner', string="Customer", required=True, domain="[('is_company', '=', True)]")
     product_tmpl_id = fields.Many2one('product.template', string="Product")
