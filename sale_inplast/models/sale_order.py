@@ -61,8 +61,9 @@ class SaleOrder(models.Model):
                 pppackaging = self.env['product.product'].search(
                     [('pnt_parent_id', '=', li.product_id.product_tmpl_id.id),
                      ('pnt_parent_qty', '=', li.product_packaging_id.qty),
-                     ('mrp_bom_template_id','=',li.product_packaging_id.mrp_bom_template_id.id)
-                     ])
+                     ('mrp_bom_template_id','=',li.product_packaging_id.mrp_bom_template_id.id),
+                     ('pnt_product_type','=','packing')
+                     ], limit=1)
                 mrppackaging = self.env['product.packaging'].search(
                     [('product_id','=',pppackaging.id),('qty','=',1)])
                 if pppackaging.id and mrppackaging.id:
