@@ -3,7 +3,7 @@
     <template id="coa_error" name="coa_error">
         <t t-name="coa_error">
 
-            <t t-call="web.external_layout">
+            <t t-call="web.basic_layout">
 
 
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
