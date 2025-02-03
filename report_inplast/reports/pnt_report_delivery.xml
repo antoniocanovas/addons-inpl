@@ -18,7 +18,8 @@
                     <t t-call="web.html_container">
 
                         <!-- ITERATE BATCHES Para cada Lote -->
-                        <t t-if="o and o.get_move_lines_by_parent_lot()">
+                        <t t-if="o and o.get_move_lines_by_parent_lot() and o.partner_id.pnt_picking_report_id.coa">
+
                             <t t-foreach="o.get_move_lines_by_parent_lot()" t-as="line">
                                 <t t-if="o.partner_id.pnt_picking_report_id.coa">
                                     <t t-if="line.product_id.pnt_product_coa">
