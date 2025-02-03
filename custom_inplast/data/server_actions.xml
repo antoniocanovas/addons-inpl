@@ -139,14 +139,19 @@ for r in records:
             # Cambiado 15/Enero/25 para considerar lotes que ya existen:
             #raise UserError('El lote ya existe: ' + nombrelote)
         else:
-            ssccs = []
+            ssccs, parentlotname = [], False
+            parentlotname = nombrelote.split(".")
+            parentlot = env['stock.lot'].search([('name','=',parentlotname[0]),('product_id','=',product.id)])
+            if not parentlot.id and parentlotname:
+                parentlot = env['stock.lot'].create({'name':parentlotname[0], 'mig_fechafabricacion':r.mig_fechafabricacion, 'product_id':product.id})
+
             if r.sscc1:
                 sscc1 = env['pnt.sscc.code'].create({'name':r.sscc1})
                 ssccs.append(sscc1.id)
             if r.sscc2:
                 sscc2 = env['pnt.sscc.code'].create({'name':r.sscc2})
                 ssccs.append(sscc2.id)
-            lote = env['stock.lot'].create({'name':nombrelote, 'mig_fechafabricacion':r.mig_fechafabricacion, 'product_id':product.id, 'sscc_code_ids':[(6,0,ssccs)]}).id
+            lote = env['stock.lot'].create({'name':nombrelote, 'mig_fechafabricacion':r.mig_fechafabricacion, 'product_id':product.id, 'parent_id':parentlot.id, 'sscc_code_ids':[(6,0,ssccs)]}).id
 
     # Cumplimentamos datos que después se exportarán:
     r.write({'product_id':product.id, 'location_id':location.id, 'lot_id':lote})
