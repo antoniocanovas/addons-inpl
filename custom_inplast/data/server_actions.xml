@@ -156,6 +156,16 @@ for r in records:
     # Cumplimentamos datos que después se exportarán:
     r.write({'product_id':product.id, 'location_id':location.id, 'lot_id':lote})
 
+# Procedimiento de inventariado automático desde acción planificada:
+newinventory = env['mig.inventario'].search([('sml_id','=',False),('product_id','!=',False),('location_id','!=',False)])
+for li in newinventory:
+    newsm = env['stock.move'].create({'name':record.product_id.name, 'product_id':li.product_id.id,'location_id':14 ,'location_dest_id':li.location_id.id, 'product_uom_qty':li.qty, 'company_id':env.company.id, 'state':'done'})
+    newsml = env['stock.move.line'].create({
+        'product_id':li.product_id.id, 'location_id':14, 'location_dest_id':li.location_id.id, 'qty_done':li.qty, 'company_id':env.company.id,
+        'lot_id':li.lot_id.id,'move_id':newsm.id, 'state':'done'})
+    li['sml_id'] = newsml.id
+
+
         </field>
     </record>
 
