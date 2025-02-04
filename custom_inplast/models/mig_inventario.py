@@ -25,13 +25,13 @@ class MigInventario(models.Model):
 
 
     @api.model
-    def _update_mig_inventario(self):
+    def _cron_update_mig_inventario(self):
         # PROCEDIMIENTO:
         # 1. Los registros llegan a mig_inventario por creación manual o comunicación RPC desde sistema antiguo.
         # 2. Este método regulariza inventario automáticamente para los registros con ubicación y producto detectados.
         # Quedan excluídos los que ya han sido regularizados (tienen sml_id asignado).
-
-        for r in self:
+        recs = self.env['mig.inventario'].search([('sml_id','=',False)])
+        for r in recs:
             lote, ssccs = False, []
 
             # Busco la ubicación:
