@@ -59,9 +59,20 @@
                              class="col-2">
                             <span>Reference Nº</span>
                         </div>
+
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <span t-field="line.product_id.name"/>
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id.commercial_partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span t-esc="matching_code[0].name"/>
+                            </t>
+                            
                         </div>
+
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-1">
                             <span>Batch Nº</span>
@@ -137,7 +148,7 @@
                         </div>
                         <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                              class="col-10">
-                            <span t-field="o.partner_id"/>
+                            <span t-field="o.partner_id.commercial_partner_id"/>
                         </div>
 
 
@@ -306,7 +317,7 @@
                         </div>
                         <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                              class="col-10">
-                            <span t-field="o.partner_id"/>
+                            <span t-field="o.partner_id.commercial_partner_id"/>
                         </div>
 
 
@@ -442,7 +453,7 @@
                         </div>
                         <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                              class="col-10">
-                            <span t-field="o.partner_id"/>
+                            <span t-field="o.partner_id.commercial_partner_id"/>
                         </div>
 
 
@@ -653,7 +664,7 @@
                             </div>
                             <div style="border: 1px solid black; padding: 5px;margin:1px; text-align: center;"
                                  class="col-4">
-                                <span t-field="o.partner_id"/>
+                                <span t-field="o.partner_id.commercial_partner_id"/>
                             </div>
 
                         </div>
@@ -985,7 +996,7 @@
                             <span>Destination</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-6">
-                            <span t-field="o.partner_id"/>
+                            <span t-field="o.partner_id.commercial_partner_id"/>
                         </div>
 
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"

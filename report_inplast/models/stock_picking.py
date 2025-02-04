@@ -16,5 +16,6 @@ class StockPicking(models.Model):
                 parent_lot = line.lot_id.parent_id.name
                 lines.append(line)
         print(lines)
+
         return lines
 

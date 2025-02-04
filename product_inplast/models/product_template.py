@@ -36,6 +36,9 @@ class ProductTemplate(models.Model):
     pnt_parent_id = fields.Many2one("product.template", string="Main product")
     pnt_parent_qty = fields.Integer("Parent qty")
     pnt_product_dye = fields.Char(string="Product dye", store=True, copy=True, translate=True)
+    pnt_product_raw = fields.Char(string="Product raw", store=True, copy=True, translate=True)
+    product_base_dye = fields.Char(string=" Main product dye", copy=True, translate=True,compute="_compute_product_base_fields",)
+    product_base_raw = fields.Char(string="Main product raw",  copy=True, translate=True,compute="_compute_product_base_fields",)
     pnt_box_qty = fields.Integer("Box quantity")
 
     pnt_product_coa = fields.Many2one(
@@ -99,7 +102,8 @@ class ProductTemplate(models.Model):
             ("x", "X"),
             ("y", "Y"),
             ("z", "Z"),
-        ]
+        ],
+    string="Code"
     )
 
     def get_inplast_default_code(self):
@@ -119,3 +123,24 @@ class ProductTemplate(models.Model):
                 record.default_code = code
 
     default_code = fields.Char(compute="_get_inplast_default_code")
+    @api.depends(
+        "pnt_product_type",
+        "pnt_product_dye",
+        "pnt_product_raw",
+        "pnt_parent_id.pnt_product_dye",
+        "pnt_parent_id.pnt_product_raw",
+    )
+    def _compute_product_base_fields(self):
+        for record in self:
+            if record.pnt_product_type == "final" or record.pnt_product_type == "semi":
+                # Para productos finales se usan los valores propios
+                record.product_base_dye = record.pnt_product_dye
+                record.product_base_raw = record.pnt_product_raw
+            elif record.pnt_product_type == "packing":
+                # Para productos de empaque se heredan los datos del producto padre
+                record.product_base_dye = record.pnt_parent_id.pnt_product_dye if record.pnt_parent_id else ""
+                record.product_base_raw = record.pnt_parent_id.pnt_product_raw if record.pnt_parent_id else ""
+            else:
+                # En otros casos, se pueden dejar en blanco o definir otro comportamiento
+                record.product_base_dye = ""
+                record.product_base_raw = ""

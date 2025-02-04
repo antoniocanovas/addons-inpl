@@ -41,7 +41,7 @@
                                  t-options="{'widget': 'barcode', 'symbology': 'auto', 'width': 600, 'height': 150, 'img_style': 'width:100%;height:45%;'}"/>
                             <br/>
                             <t t-set="matching_code"
-                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="matching_code">
                                 <span style="font-weight:bold; font-size:20px;"
                                       t-field="line.product_id.pnt_parent_id.default_code"></span>
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-3 col-offset-9">
                             <t t-set="matching_code"
-                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id]"/>
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="not matching_code">
                                 <span style="font-weight:bold; font-size:30px;"
                                       t-field="line.product_id.default_code"></span>

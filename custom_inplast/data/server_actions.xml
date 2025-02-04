@@ -235,7 +235,6 @@ for r in records:
             "weight": migproducto.weight * baseqty,
             "detailed_type": "product",
             "default_code": code,
-            "pnt_product_dye": migproducto.pnt_product_dye,
             "list_price": migproducto.list_price * baseqty,
             "ipnr_subject": "yes" if migproducto.ipnr_subject else "category",
             "categ_id": migproducto.categ_id.id,
