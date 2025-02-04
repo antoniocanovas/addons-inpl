@@ -75,7 +75,7 @@ class MigInventario(models.Model):
                 # Procedimiento de inventariado automático:
                 newsm = self.env['stock.move'].create(
                     {'name': product.name, 'product_id': product.id, 'location_id': 14, 'location_dest_id': location.id,
-                     'product_uom_qty': r.qty, 'company_id': env.company.id, 'state': 'done'})
+                     'product_uom_qty': r.qty, 'company_id': self.env.company.id, 'state': 'done'})
                 newsml = self.env['stock.move.line'].create({
                     'product_id': product.id, 'location_id': 14, 'location_dest_id': location.id, 'qty_done': r.qty,
                     'company_id': self.env.company.id, 'lot_id': lote, 'move_id': newsm.id, 'state': 'done'})
