@@ -24,6 +24,7 @@ class MigInventario(models.Model):
     mig_fechafabricacion = fields.Date('Fecha fabricación')
 
 
+    @api.model
     def _update_mig_inventario(self):
         # PROCEDIMIENTO:
         # 1. Los registros llegan a mig_inventario por creación manual o comunicación RPC desde sistema antiguo.
