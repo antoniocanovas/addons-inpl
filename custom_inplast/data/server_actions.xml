@@ -101,7 +101,7 @@ for r in records:
 
 
 
-    <!-- INVENTARIO: -->
+    <!-- INVENTARIO: (04/02/2025 esta acción sobra porque ya hay una en CRON con código similar; borrar, no mantener) -->
     <record id="mig_inventario_as" model="ir.actions.server">
         <field name="name">=> 1. Importar inventario</field>
         <field name="model_id" ref="custom_inplast.model_mig_inventario"/>
