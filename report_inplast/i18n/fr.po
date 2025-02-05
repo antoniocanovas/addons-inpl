@@ -1,0 +1,1106 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* report_inplast
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-04 15:41+0000\n"
+"PO-Revision-Date: 2025-02-05 08:31+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: report_inplast
+#: model:ir.actions.report,print_report_name:report_inplast.traceability_list
+msgid ""
+"'Traceability list - %s - %s' % (object.partner_id.name or '', object.name)\n"
+"        "
+msgstr "Liste de traçabilité - %s - %s' % (object.partner_id.name or '', object.name)"
+
+#. module: report_inplast
+#: model:ir.actions.report,print_report_name:report_inplast.stock_warehouse_label_report
+msgid ""
+"'Warehouse Labels - %s - %s' % (object.partner_id.name or '', object.name)\n"
+"        "
+msgstr "'Étiquettes d'entrepôt - %s - %s' % (object.partner_id.name or '', object.name)"
+
+#. module: report_inplast
+#: model:ir.actions.report,print_report_name:report_inplast.report_delivery_attachments
+msgid ""
+"'attachments - %s - %s' % (object.partner_id.name or '', object.name)\n"
+"        "
+msgstr "'pièces jointes - %s - %s' % (object.partner_id.name or '', object.name)"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "3.00"
+msgstr "3,00"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_invoice_document
+msgid "9.00"
+msgstr "9.00"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+msgid ""
+"<br/>\n"
+"\n"
+"                            <br/>\n"
+"                            <span style=\"font-size:20px;\">SSCC:</span>\n"
+"                            <br/>"
+msgstr ""
+"<br/>\n"
+"\n"
+"                            <br/>\n"
+"                            <span style=\"font-size:20px;\">SSCC :</span>\n"
+"                            <br/>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+msgid ""
+"<br/>\n"
+"                            <br/>\n"
+"                            <span style=\"font-size:20px;\">SSCC:</span>\n"
+"                            <br/>"
+msgstr ""
+"<br/>\n"
+"                            <br/>\n"
+"                            <span style=\"font-size:20px;\">Code SSCC :</span>\n"
+"                            <br/>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_buxton_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid ""
+"<br/>\n"
+"                            <span style=\"font-size:20px;\">GTIN:</span>\n"
+"                            <br/>"
+msgstr ""
+"<br/>\n"
+"                            <span style=\"font-size:20px;\">GTIN :</span>\n"
+"                            <br/>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_buxton_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid ""
+"<br/>\n"
+"                            <span style=\"font-size:20px;\">SSCC:</span>\n"
+"                            <br/>"
+msgstr ""
+"<br/>\n"
+"                            <span style=\"font-size:20px;\">SSCC :</span>\n"
+"                            <br/>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_buxton_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid ""
+"<br/>\n"
+"                            <span style=\"font-size:30px;\">NºPALET:</span>"
+msgstr ""
+"<br/>\n"
+"                            <span style=\"font-size:30px;\">Numéro de palette :</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_buxton_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid ""
+"<br/>\n"
+"                            <span>CANTIDAD:</span>"
+msgstr ""
+"<br/>\n"
+"                            <span>QUANTITÉ :</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid ""
+"<br/>\n"
+"                            <strong style=\"margin-top: 5px;\">Total boxes:</strong>"
+msgstr ""
+"<br/>\n"
+"<strong style=\"margin-top: 5px;\">Nombre total de boîtes :</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid ""
+"<br/>\n"
+"                            <strong style=\"margin-top: 5px;\">Total gross weight:</strong>"
+msgstr ""
+"<br/>\n"
+"                            <strong style=\"margin-top: 5px;\">Poids brut total :</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid ""
+"<br/>\n"
+"                            <strong style=\"margin-top: 5px;\">Total net weight:</strong>"
+msgstr ""
+"<br/>\n"
+"                            <strong style=\"margin-top: 5px;\">Poids net total :</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_buxton_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid "<span style=\"font-weight:bold; font-size:15px;\">/</span>"
+msgstr "<span style=\"font-weight:bold; font-size:15px;\">/</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid "<span style=\"font-weight:bold; font-size:15px;\">INPLAST,S.A.</span>"
+msgstr "<span style=\"font-weight:bold; font-size:15px;\">INPLAST, S.A.</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+msgid "<span style=\"font-weight:bold; font-size:15px;\">doble</span>"
+msgstr "<span style=\"font-weight:bold; font-size:15px;\">double</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid "<span style=\"font-weight:bold; font-size:15px;\">sanbernardo</span>"
+msgstr "<span style=\"font-weight:bold; font-size:15px;\">saint-bernard</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_buxton_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid "<span style=\"font-weight:bold; font-size:15px;margin-top:40px;\">INPLAST,S.A.</span>"
+msgstr "<span style=\"font-weight:bold; font-size:15px;margin-top:40px;\">INPLAST, S.A.</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.report_delivery_has_serial_move_line_inh
+msgid "<span>(</span>"
+msgstr "<span>(</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>-</span>"
+msgstr "<span>-</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>ASPE (ALICANTE) SPAIN</span>"
+msgstr "<span>ASPE (ALICANTE) ESPAGNE</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>BATCH NUMBER</span>"
+msgstr "<span>NUMÉRO DE LOT</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Batch Nº</span>"
+msgstr "<span>Numéro de lot</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Bill Nº:</span>"
+msgstr "<span>Numéro de facture :</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>COLOUR</span>"
+msgstr "<span>COULEUR</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+msgid "<span>Cod.CLI</span>"
+msgstr "<span>Code client</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Colour lid</span>"
+msgstr "<span>Couvercle de couleur</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Colour</span>"
+msgstr "<span>Couleur</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+msgid "<span>Container:</span>"
+msgstr "<span>Conteneur :</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Counter</span>"
+msgstr "<span>Compteur</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<span>Customer</span>"
+msgstr "<span>Client</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>DATE(S) OF PRODUCTION</span>"
+msgstr "<span>DATE(S) DE PRODUCTION</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>DESTINATION</span>"
+msgstr "<span>DESTINATION</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<span>Delivery</span>"
+msgstr "<span>Livraison</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Denomination</span>"
+msgstr "<span>Dénomination</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Destination</span>"
+msgstr "<span>Destination</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>FACTORY NAME</span>"
+msgstr "<span>NOM DE L'USINE</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>Gustavo Tosso Laboratory Quality dept.</span>"
+msgstr "<span>Service Qualité Laboratoire de Gustavo Tosso</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid ""
+"<span>Kg.</span>\n"
+"                                    <br/>"
+msgstr ""
+"<span>Kg.</span>\n"
+"                                    <br/>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid ""
+"<span>Kg.</span>\n"
+"                                    <br/>\n"
+"                                    <strong style=\"margin-top: 5px;\">Total Gross Weight:</strong>"
+msgstr ""
+"<span>Kg.</span>\n"
+"                                    <br/>\n"
+"                                    <strong style=\"margin-top: 5px;\">Poids brut total :</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_buxton_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_doble_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_nestle_document_report
+#: model_terms:ir.ui.view,arch_db:report_inplast.stock_warehouse_label_sanbernardo_document_report
+msgid "<span>LOTE:</span>"
+msgstr "<span>LOT :</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>NESTLE MATERIAL NUMBER</span>"
+msgstr "<span>NUMÉRO DE MATÉRIEL NESTLÉ</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>NESTLE SPECIFICATION NUMBER</span>"
+msgstr "<span>NUMÉRO DE SPÉCIFICATION DE NESTLÉ</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>NESTLE VENDOR SITE NUMBER</span>"
+msgstr "<span>NUMÉRO DE SITE FOURNISSEUR DE NESTLÉ</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>OPENING TORQUE</span>"
+msgstr "<span>COUPLE D'OUVERTURE</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>ORGANOLEPTIC</span>"
+msgstr "<span>ORGANOLEPTIQUE</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>P.O Number:</span>"
+msgstr "<span>Numéro de commande :</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>PRINTED</span>"
+msgstr "<span>IMPRIMÉ</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_invoice_document
+msgid "<span>Price (Milar)</span>"
+msgstr "<span>Prix (Milar)</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Prod. Date</span>"
+msgstr "<span>Date de production</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>QUANTIT</span>"
+msgstr "<span>QUANTITÉ</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Quantity</span>"
+msgstr "<span>Quantité</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>REFERENCE INPLAST</span>"
+msgstr "<span>RÉFÉRENCE INPLAST</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>RESIN USED</span>"
+msgstr "<span>RÉSINE UTILISÉE</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Raw Material</span>"
+msgstr "<span>Matière Première</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Reference Nº</span>"
+msgstr "<span>Référence Nº</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>SLIPPING AGENT</span>"
+msgstr "<span>AGENT DE GLISSEMENT</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.report_delivery_has_serial_move_line_inh
+msgid ""
+"<span>Units / Box</span>\n"
+"                    <span>)</span>"
+msgstr ""
+"<span>Unités par boîte</span>\n"
+"                    <span>)</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>VISUAL DEFECTS</span>"
+msgstr "<span>DÉFAUTS VISUELS</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>WAYBILL Nº</span>"
+msgstr "<span>NUMÉRO DE CONNAISSEMENT</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>WEIGHT</span>"
+msgstr "<span>POIDS</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>Waybill Nº</span>"
+msgstr "<span>Numéro de bulletin de transport</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.report_delivery_has_serial_move_line_inh
+msgid "<span>X</span>"
+msgstr "<span>X</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<span>YES</span>"
+msgstr "<span>OUI</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<span>comments</span>"
+msgstr "<span>commentaires</span>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<strong style=\"border-bottom: 1px solid black; width:40px\">Product purchase data</strong>"
+msgstr "<strong style=\"border-bottom: 1px solid black; width:40px\">Données d'achat de produit</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "<strong style=\"border-bottom: 1px solid black; width:40px\">Remark</strong>"
+msgstr "<strong style=\"border-bottom: 1px solid black; width:40px\">Remarque</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid ""
+"<strong style=\"border: 2px solid #000; padding: 5px; text-align: left; background-color:#D3D3D3;\">\n"
+"                                    Date:\n"
+"                                </strong>"
+msgstr ""
+"<strong style=\"border: 2px solid #000; padding: 5px; text-align: left; background-color:#D3D3D3;\">\n"
+"                                    Date :\n"
+"                                </strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid ""
+"<strong style=\"border: 2px solid #000; padding: 5px; text-align: left; background-color:#D3D3D3;\">\n"
+"                                    Order No.:\n"
+"                                </strong>"
+msgstr ""
+"<strong style=\"border: 2px solid #000; padding: 5px; text-align: left; background-color:#D3D3D3;\">\n"
+"                                    Numéro de commande :\n"
+"                                </strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid ""
+"<strong style=\"border: 2px solid #000; padding: 5px; text-align: left; background-color:#D3D3D3;\">\n"
+"                                    Transport Agency:\n"
+"                                </strong>"
+msgstr ""
+"<strong style=\"border: 2px solid #000; padding: 5px; text-align: left; background-color:#D3D3D3;\">\n"
+"                                    Agence de transport :\n"
+"                                </strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong style=\"margin-right: 10px;\">Fiscal year</strong>"
+msgstr "<strong style=\"margin-right: 10px;\">Exercice fiscal</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid ""
+"<strong style=\"margin-top: 5px;\">Comments</strong>\n"
+"                                        <br/>"
+msgstr ""
+"<strong style=\"margin-top: 5px;\">Commentaires</strong>\n"
+"                                        <br/>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid ""
+"<strong style=\"margin-top: 5px;\">Comments</strong>\n"
+"                                    <br/>\n"
+"                                    <strong style=\"margin-top: 5px;\">Your P.O Number</strong>"
+msgstr ""
+"<strong style=\"margin-top: 5px;\">Commentaires</strong>\n"
+"                                    <br/>\n"
+"                                    <strong style=\"margin-top: 5px;\">Votre numéro de commande</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong style=\"margin-top: 5px;\">Total Net Weight:</strong>"
+msgstr "<strong style=\"margin-top: 5px;\">Poids net total :</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid "<strong style=\"width: 100%;\">Customer</strong>"
+msgstr "<strong style=\"width: 100%;\">Client</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<strong>ACTUAL/AVERAGE RESULT</strong>"
+msgstr "<strong>RÉSULTAT ACTUEL/MOYEN</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Address</strong>"
+msgstr "<strong>Adresse</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<strong>BATCH ANALYSIS RESULTS</strong>"
+msgstr "<strong>RÉSULTATS DE L'ANALYSE PAR LOT</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>BATCH</strong>"
+msgstr "<strong>LOT</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>BOX NO.</strong>"
+msgstr "<strong>NUMÉRO DE BOÎTE</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Batch</strong>"
+msgstr "<strong>Lot</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid "<strong>Box/Units</strong>"
+msgstr "<strong>Boîte/Unités</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>CIF</strong>"
+msgstr "<strong>Numéro d'identification fiscale</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>Cod. Warehouse</strong>"
+msgstr "<strong>Code entrepôt</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<strong>DIMENSION</strong>"
+msgstr "<strong>DIMENSION</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Description</strong>"
+msgstr "<strong>Description</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Driver ID</strong>"
+msgstr "<strong>Identifiant du conducteur</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Driver Name</strong>"
+msgstr "<strong>Nom du conducteur</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>GTIN</strong>"
+msgstr "<strong>GTIN</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>License Plate</strong>"
+msgstr "<strong>Plaque d'immatriculation</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>No. Box for Pallet</strong>"
+msgstr "<strong>Pas de boîte pour palette</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>PALLET NO.</strong>"
+msgstr "<strong>NUMÉRO DE PALETTE</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<strong>PERFORMANCE PARAMETER</strong>"
+msgstr "<strong>PARAMÈTRE DE PERFORMANCE</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>PRODUCT DATE</strong>"
+msgstr "<strong>DATE DE PRODUIT</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Packing list</strong>"
+msgstr "<strong>Liste de colisage</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Pallet N.</strong>"
+msgstr "<strong>Palette N.</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid "<strong>REF</strong>"
+msgstr "<strong>RÉF</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>REFERENCE</strong>"
+msgstr "<strong>RÉFÉRENCE</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Reference</strong>"
+msgstr "<strong>Référence</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<strong>SPECIFICATION</strong>"
+msgstr "<strong>SPÉCIFICATION</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>SSCC</strong>"
+msgstr "<strong>SSCC</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<strong>STATEMENT OF CONFORMANCE</strong>"
+msgstr "<strong>DÉCLARATION DE CONFORMITÉ</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>Serial order number</strong>"
+msgstr "<strong>Numéro de commande séquentiel</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Signature</strong>"
+msgstr "<strong>Signature</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid "<strong>Square</strong>"
+msgstr "<strong>Carré</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Total Boxes:</strong>"
+msgstr "<strong>Nombre total de boîtes :</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Total Packages:</strong>"
+msgstr "<strong>Nombre total de colis :</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>Total Uds Pallet</strong>"
+msgstr "<strong>Total unités palette</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid "<strong>Total packages:</strong>"
+msgstr "<strong>Nombre total de colis :</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Transport Agent</strong>"
+msgstr "<strong>Agent de transport</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "<strong>UNIT</strong>"
+msgstr "<strong>UNITÉ</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "<strong>UNITS</strong>"
+msgstr "<strong>UNITÉS</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Units x Pallet</strong>"
+msgstr "<strong>Unités par palette</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid "<strong>Units x package</strong>"
+msgstr "<strong>Unités par emballage</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "<strong>Units</strong>"
+msgstr "<strong>Unités</strong>"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_error
+msgid ""
+"Asegúrese de que cada producto tenga un COA asignado y que el cliente tenga un reporte\n"
+"                        configurado en su pestaña de reportes."
+msgstr "Assurez-vous que chaque produit ait un COA assigné et que le client dispose d'un rapport configuré dans son onglet de rapports."
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__coa
+msgid "Attach COA"
+msgstr "Joindre le certificat d'analyse."
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__coa_multicolor
+msgid "Attach COA Multicolor"
+msgstr "Joindre le COA multicolore."
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__coa_batch_certificate
+msgid "Attach COA batch certificate"
+msgstr "Joindre le certificat de lot COA."
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__coa_milk
+msgid "Attach COA quality messures"
+msgstr "Joindre les mesures de qualité du COA"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__coa_box_tracking
+msgid "Attach box tracking"
+msgstr "Attacher le suivi du colis"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid "BATCH CERTIFICATE OF ANALYSIS"
+msgstr "CERTIFICAT DE LOT D'ANALYSE"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+msgid "CERTIFICADO DE CALIDAD"
+msgstr "CERTIFICAT DE QUALITÉ"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "COA Body Image"
+msgstr ""
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+msgid "COA PRODUCT NMP DOCUMENT"
+msgstr "DOCUMENT DE PRODUIT COA NMP"
+
+#. module: report_inplast
+#: model:ir.model,name:report_inplast.model_res_company
+msgid "Companies"
+msgstr "Entreprises"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid "Company Image"
+msgstr "Image de l'entreprise"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_external_layout_custom
+msgid "Company logo"
+msgstr "Logo de l'entreprise"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_external_layout_custom
+msgid "Company logo2"
+msgstr "Logo de l'entreprise 2"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_attachment
+msgid ""
+"Components\n"
+"                        Attachment"
+msgstr ""
+"Composants\n"
+"                        Pièce jointe"
+
+#. module: report_inplast
+#: model:ir.model,name:report_inplast.model_res_partner
+msgid "Contact"
+msgstr "Contactez-nous"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "Customer"
+msgstr "Client"
+
+#. module: report_inplast
+#: model:ir.model,name:report_inplast.model_picking_report_type
+msgid "Customer can define diferent picking formats"
+msgstr "Le client peut définir différents formats de picking."
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "Date"
+msgstr "Rendez-vous"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__name
+msgid "Delivery slip name"
+msgstr "Nom du bon de livraison"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__display_name
+msgid "Display Name"
+msgstr "Nom d'affichage"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_error
+msgid "Error en la configuración de COA"
+msgstr "Erreur de configuration de COA"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+msgid "Figure"
+msgstr "Figure"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__id
+msgid "ID"
+msgstr "Identifiant"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "John Doe"
+msgstr "Jean Dupont"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_picking_report_type__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_a
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_handle_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_nmp_document
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_external_layout_custom
+msgid "Logo"
+msgstr "Logo"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_res_company__pnt_logo_cert_tres
+msgid "Logo COAs cabecera"
+msgstr "Logo COAs en-tête"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_res_company__pnt_logo_cert_dos
+msgid "Logo albaran cabecera dos"
+msgstr "Logo de la factura - Encabezado dos"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_res_company__pnt_logo_cert_uno
+msgid "Logo albaran cabecera uno"
+msgstr "Logo de l'en-tête de la facture 1"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_multicolor_attachment
+msgid ""
+"Multicolor\n"
+"                        Attachment"
+msgstr ""
+"Multicolore\n"
+"                        Pièce jointe"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.picking_report_type_form model_terms:ir.ui.view,arch_db:report_inplast.picking_report_type_tree
+msgid "Picking Report"
+msgstr "Rapport de cueillette"
+
+#. module: report_inplast
+#: model:ir.actions.act_window,name:report_inplast.action_picking_report_type
+msgid "Picking Report Types"
+msgstr "Sélection des types de rapport"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_res_partner__pnt_picking_report_id
+#: model:ir.model.fields,field_description:report_inplast.field_res_users__pnt_picking_report_id
+msgid "Pnt Picking Report"
+msgstr "Rapport de cueillette de points"
+
+#. module: report_inplast
+#: model:ir.model,name:report_inplast.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Déplacements de produit (Ligne de mouvement de stock)"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_stock_move_line__quantity_done_by_lot
+msgid "Quantity Done By Lot"
+msgstr "Quantité réalisée par lot"
+
+#. module: report_inplast
+#: model:ir.ui.menu,name:report_inplast.pnt_menu_picking_report_types
+msgid "Report types"
+msgstr "Types de rapports"
+
+#. module: report_inplast
+#: model:ir.ui.menu,name:report_inplast.pnt_menu_picking_report
+msgid "Reports"
+msgstr "Rapports"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_error
+msgid "Se ha detectado un problema en la configuración del reporte."
+msgstr "Un problème a été détecté dans la configuration du rapport."
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "Serie"
+msgstr "Série"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.traceability_list_report
+msgid "TRACEABILITY LIST PER BOX CAPS"
+msgstr "LISTE DE TRAÇABILITÉ PAR CAPSULE PAR BOÎTE"
+
+#. module: report_inplast
+#: model:ir.model.fields,field_description:report_inplast.field_res_company__pnt_goods_state_table
+msgid "Tabla verificacion albaran"
+msgstr "Tableau de vérification du bon de livraison"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+msgid "Table of meassures"
+msgstr "Tableau des mesures"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid ""
+"The final bottling and packaging used holder must deliver them in a suitable\n"
+"                                removing\n"
+"                                condition to an authorised ecological agent for its reuse,\n"
+"                                to a recoverer or to a recycling.\n"
+"                                Inscrita en el Registro Mercantil de Alicante: Tomo 1.712 General, Folio 11. Hoja nº.\n"
+"                                A-27.348. Inscripción 1ª, 14-6-1994 - C.I.F. A-03946472"
+msgstr ""
+"Le conditionnement final et l'emballage utilisé doivent être livrés dans un état approprié à un agent écologique autorisé pour sa "
+"réutilisation, à un récupérateur ou à un recycleur.\n"
+"Inscrite au Registre du Commerce d'Alicante : Volume 1.712 Général, Feuille 11, Page n° A-27.348. Inscription 1ère, 14-6-1994 - NIF A-03946472"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments
+msgid ""
+"The final holder of used packaging waste must deliver it in appropriate conditions\n"
+"                                    for separation\n"
+"                                    by materials to an ecological agent for reuse to a collector, recycler, or\n"
+"                                    authorized valorizer.\n"
+"                                    Registered in the Commercial Registry of Alicante: Volume 1,712 General, Folio 11.\n"
+"                                    Sheet no. A-27.348.\n"
+"                                    Registration 1st, 14-6-1994 - C.I.F. A-03946472"
+msgstr ""
+"Le dernier détenteur des déchets d'emballage usagés doit les livrer dans des conditions appropriées pour leur séparation par matériau à un "
+"agent écologique en vue de leur réutilisation par un collecteur, un recycleur ou un valorisateur autorisé.\n"
+"Inscrit au Registre du Commerce d'Alicante : Volume 1 712 Général, Feuille 11, N° de page A-27 348.\n"
+"Inscription 1ère, 14-6-1994 - C.I.F. A-03946472."
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+msgid ""
+"Total Height\n"
+"                                (<span>13,65±0,3</span>)"
+msgstr ""
+"Hauteur totale\n"
+"                                (<span>13,65±0,3</span>)"
+
+#. module: report_inplast
+#: model:ir.model,name:report_inplast.model_stock_picking
+msgid "Transfer"
+msgstr "Transfert"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.inplast_report_picking_attachments model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "WH/OUT/0001"
+msgstr "WH/OUT/0001"
+
+#. module: report_inplast
+#: model:ir.actions.report,name:report_inplast.stock_warehouse_label_report
+msgid "Warehouse Label"
+msgstr "Étiquette d'entrepôt"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.packing_list
+msgid "Waybill N."
+msgstr "Bon de transport no."
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_batch_certificate_document
+msgid ""
+"We confirm the detailed batch complies with the relevant legislation for materials in\n"
+"                                    contact with food sold in the UK,\n"
+"                                    HACCP and quality standards and that the results above are representative of the\n"
+"                                    batch\n"
+"                                    delivered."
+msgstr ""
+"Nous confirmons que le lot détaillé est conforme à la législation pertinente pour les matériaux en contact avec les aliments vendus au "
+"Royaume-Uni, aux normes HACCP et de qualité, et que les résultats ci-dessus sont représentatifs du lot livré."
+
+#. module: report_inplast
+#: model:ir.actions.report,name:report_inplast.report_delivery_attachments
+msgid "attachments"
+msgstr "pièces jointes"
+
+#. module: report_inplast
+#: model:ir.actions.report,name:report_inplast.traceability_list
+msgid "traceability list report document"
+msgstr "liste de rapport de document de traçabilité"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+msgid "ФExt Plate(<span>38,4±0,3</span>)"
+msgstr "ФPlaque d'extrémité (<span>38,4±0,3</span>)"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+msgid "ФInternal Screw(<span>34,9±0,25</span>)"
+msgstr "ФVis de fixation interne (<span>34,9±0,25</span>)"
+
+#. module: report_inplast
+#: model_terms:ir.ui.view,arch_db:report_inplast.coa_product_document_meassures_attachment
+msgid "ФInternal w/o Screw(<span>36,3±0,15</span>)"
+msgstr "ФInterne sans vis (<span>36,3±0,15</span>)"

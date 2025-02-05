@@ -29,40 +29,40 @@
 
                                         <t
                                                 t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
-                                                t-call="report_inplast.coa_product_document_a"
+                                                t-call="report_inplast.coa_product_document_a" t-lang="o._get_report_lang()"
                                         />
 
                                         <!-- COA para tipo 'nmp' -->
                                         <t
                                                 t-if="line.product_id.pnt_product_coa.type == 'nmp'"
-                                                t-call="report_inplast.coa_product_nmp_document"
+                                                t-call="report_inplast.coa_product_nmp_document" t-lang="o._get_report_lang()"
                                         />
                                         <!-- COA para tipo 'asas' -->
                                         <t
                                                 t-if="line.product_id.pnt_product_coa.type == 'asas'"
-                                                t-call="report_inplast.coa_product_handle_document"
+                                                t-call="report_inplast.coa_product_handle_document" t-lang="o._get_report_lang()"
                                         />
                                         <!-- Para 'buxton' se añade el certificado por lote, si está configurado -->
                                         <t t-if="line.product_id.pnt_product_coa.type == 'buxton'">
                                             <t
                                                     t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
-                                                    t-call="report_inplast.coa_product_batch_certificate_document"
+                                                    t-call="report_inplast.coa_product_batch_certificate_document" t-lang="o._get_report_lang()"
                                             />
                                         </t>
                                         <!-- Adjuntos multicolor -->
                                         <t
                                                 t-if="o.partner_id.pnt_picking_report_id.coa_multicolor and line.product_id.pnt_product_coa.get_multicolor_body_for_partner_lang(o.partner_id.lang)"
-                                                t-call="report_inplast.coa_product_document_multicolor_attachment"
+                                                t-call="report_inplast.coa_product_document_multicolor_attachment" t-lang="o._get_report_lang()"
                                         />
                                         <!-- Adjuntos de medidas de calidad (milk) -->
                                         <t
                                                 t-if="o.partner_id.pnt_picking_report_id.coa_milk and line.product_id.pnt_product_coa.print_quality_meassure"
-                                                t-call="report_inplast.coa_product_document_meassures_attachment"
+                                                t-call="report_inplast.coa_product_document_meassures_attachment" t-lang="o._get_report_lang()"
                                         />
                                         <!-- Adjuntos de componentes -->
                                         <t
                                                 t-if="line.product_id.pnt_product_coa.print_components"
-                                                t-call="report_inplast.coa_product_document_attachment"
+                                                t-call="report_inplast.coa_product_document_attachment" t-lang="o._get_report_lang()"
                                         />
                                         <!-- NOTA: Falta incluir el reporte de seguimiento de cajas si se requiere -->
                                     </t>

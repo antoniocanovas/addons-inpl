@@ -31,10 +31,27 @@
 
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-                <div>
-                    <p style="text-center">CERTIFICATE OF QUALITY</p>
 
+                <div class="row"
+                     style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; border: 1px solid #000; height: 55px; margin: 0; padding: 0;">
+                    <!-- Columna del logo -->
+                    <div class="col-2"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
+                        <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
+                             style="max-height: 50px; max-width: 95%;"/>
+                    </div>
+
+                    <!-- Columna con el texto principal -->
+                    <div class="col-9"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; text-align: center; font-weight: bold; font-size: 20px; height: 100%;">
+                        CERTIFICADO DE CALIDAD
+                    </div>
                 </div>
+
+
+                <br/>
+
+
                 <div style="border: 1px solid black; padding: 10px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
                     <div class="row" style="margin-top:2px;">
@@ -61,16 +78,8 @@
                         </div>
 
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <t t-set="matching_code"
-                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id.commercial_partner_id]"/>
-                            <t t-if="not matching_code">
-                                <span style="font-weight:bold; font-size:30px;"
-                                      t-field="line.product_id.default_code"></span>
-                            </t>
-                            <t t-if="matching_code">
-                                <span t-esc="matching_code[0].name"/>
-                            </t>
-                            
+                            <span t-field="line.product_id.default_code"/>
+
                         </div>
 
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
@@ -98,14 +107,14 @@
                             <span>Raw Material</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <span t-field="line.move_id.production_id.name"/>
+                            <span t-field="line.product_id.product_base_raw"/>
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-1">
                             <span>Colour</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
-                            <span t-field="line.product_id.pnt_product_dye"/>
+                            <span t-field="line.product_id.product_base_dye"/>
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
@@ -122,7 +131,15 @@
                             <span>Cod.CLI</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <span t-field="o.sale_id.client_order_ref"/>
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id.commercial_partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span t-esc="matching_code[0].name"/>
+                            </t>
                         </div>
                         <div style="margin:1px;" class="col-1">
 
@@ -164,6 +181,7 @@
                          alt="COA Body Image"
                          style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"/>
                 </div>
+                <br/>
 
 
                 <div style="border: 1px solid black; padding: 10px; page-break-inside: avoid;">
@@ -220,11 +238,24 @@
 
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-                <div>
-                    <p style="text-center">CERTIFICATE OF QUALITY ASA</p>
+                <div class="row"
+                     style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; border: 1px solid #000; height: 55px; margin: 0; padding: 0;">
+                    <!-- Columna del logo -->
+                    <div class="col-2"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
+                        <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
+                             style="max-height: 50px; max-width: 95%;"/>
+                    </div>
 
-
+                    <!-- Columna con el texto principal -->
+                    <div class="col-9"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; text-align: center; font-weight: bold; font-size: 20px; height: 100%;">
+                        CERTIFICADO DE CALIDAD
+                    </div>
                 </div>
+
+
+                <br/>
                 <div style="border: 1px solid black; padding: 10px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
                     <div class="row" style="margin-top:2px;">
@@ -250,7 +281,7 @@
                             <span>Reference Nº</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <span t-field="line.product_id.name"/>
+                            <span t-field="line.product_id.default_code"/>
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-1">
@@ -301,7 +332,15 @@
                             <span>Cod.CLI</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <span t-field="o.sale_id.client_order_ref"/>
+                            <t t-set="matching_code"
+                               t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id.commercial_partner_id]"/>
+                            <t t-if="not matching_code">
+                                <span style="font-weight:bold; font-size:30px;"
+                                      t-field="line.product_id.default_code"></span>
+                            </t>
+                            <t t-if="matching_code">
+                                <span t-esc="matching_code[0].name"/>
+                            </t>
                         </div>
                         <div style="margin:1px;" class="col-1">
 
@@ -345,9 +384,25 @@
             <t t-call="web.basic_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-                <div>
-                    <p style="text-center">COA PRODUCT NMP DOCUMENT</p>
+                <div class="row"
+                     style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; border: 1px solid #000; height: 55px; margin: 0; padding: 0;">
+                    <!-- Columna del logo -->
+                    <div class="col-2"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
+                        <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
+                             style="max-height: 50px; max-width: 95%;"/>
+                    </div>
+
+                    <!-- Columna con el texto principal -->
+                    <div class="col-9"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; text-align: center; font-weight: bold; font-size: 20px; height: 100%;">
+                        COA PRODUCT NMP DOCUMENT
+                    </div>
                 </div>
+
+
+                <br/>
+
                 <div style="border: 1px solid black; padding: 10px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
                     <div class="row" style="margin-top:2px;">
@@ -373,7 +428,7 @@
                             <span>Reference Nº</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <span t-field="line.product_id.name"/>
+                            <span t-field="line.product_id.default_code"/>
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-1">
@@ -522,9 +577,22 @@
             <t t-call="web.basic_layout">
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-                <div>
-                    <p style="text-center">BATCH CERTIFICATE OF ANALYSIS</p>
+                <div class="row"
+                     style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; border: 1px solid #000; height: 55px; margin: 0; padding: 0;">
+                    <!-- Columna del logo -->
+                    <div class="col-2"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
+                        <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
+                             style="max-height: 50px; max-width: 95%;"/>
+                    </div>
+
+                    <!-- Columna con el texto principal -->
+                    <div class="col-9"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; text-align: center; font-weight: bold; font-size: 20px; height: 100%;">
+                        BATCH CERTIFICATE OF ANALYSIS
+                    </div>
                 </div>
+
                 <!--######## CONTENEDOR PRINCIPAL ########-->
                 <div style="border: 1px solid black; padding: 10px;font-size:12px;text-align:center;"
                      name="contenedor-principal">
@@ -919,7 +987,21 @@
                 <t t-set="o" t-value="o.with_context(lang=o._get_report_lang())"/>
 
                 <t t-set="partner" t-value="o.partner_id or (o.move_ids and o.move_ids[0].partner_id) or False"/>
-                <p>Meassures Attachment</p>
+                <div class="row"
+                     style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; border: 1px solid #000; height: 55px; margin: 0; padding: 0;">
+                    <!-- Columna del logo -->
+                    <div class="col-2"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
+                        <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
+                             style="max-height: 50px; max-width: 95%;"/>
+                    </div>
+
+                    <!-- Columna con el texto principal -->
+                    <div class="col-9"
+                         style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; text-align: center; font-weight: bold; font-size: 20px; height: 100%;">
+                        Table of meassures
+                    </div>
+                </div>
                 <div style="border: 1px solid black; padding: 10px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
                     <div class="row" style="margin-top:2px;">
@@ -945,7 +1027,7 @@
                             <span>Reference Nº</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-3">
-                            <span t-field="line.product_id.name"/>
+                            <span t-field="line.product_id.default_code"/>
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-1">

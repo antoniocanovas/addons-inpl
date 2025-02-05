@@ -51,6 +51,7 @@
         <field name="attachment">'attachments  - %s - %s' % (object.partner_id.name or '', object.name)</field>
         <field name="binding_model_id" ref="stock.model_stock_picking"/>
         <field name="binding_type">report</field>
+
         <field name="paperformat_id"
                ref="custom_paperformat_attachments"/> <!-- Aquí se vincula el formato de papel -->
     </record>
