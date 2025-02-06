@@ -38,7 +38,8 @@
                     <div class="col-2"
                          style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
                         <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
-                             style="max-height: 50px; max-width: 95%;"/>
+                             style="max-height: 50px; max-width: 95%;"
+                             t-if="o.company_id.pnt_logo_cert_tres"/>
                     </div>
 
                     <!-- Columna con el texto principal -->
@@ -52,7 +53,7 @@
                 <br/>
 
 
-                <div style="border: 1px solid black; padding: 10px;">
+                <div style="border: 1px solid black; padding: 10px; font-size: 13px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
                     <div class="row" style="margin-top:2px;">
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
@@ -64,11 +65,14 @@
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
-                            <span>Counter</span>
+                            <span>Prod. Date</span>
                         </div>
-                        <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
-                            <span t-esc="line.quantity"/>
+                        <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
+                            <t t-if="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')">
+                                <t t-esc="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')"/>
+                            </t>
                         </div>
+
 
                     </div>
                     <div class="row">
@@ -92,14 +96,16 @@
                             </t>
 
                         </div>
+
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
-                            <span>Quantity</span>
+                            <span>End Prod. Date</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity_done_by_lot"/>
+                            <t t-if="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')">
+                                <t t-esc="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')"/>
+                            </t>
                         </div>
-
                     </div>
                     <div class="row">
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 5px;margin:1px;"
@@ -134,8 +140,7 @@
                             <t t-set="matching_code"
                                t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="not matching_code">
-                                <span style="font-weight:bold; font-size:30px;"
-                                      t-field="line.product_id.default_code"></span>
+                                <span t-field="line.product_id.default_code"></span>
                             </t>
                             <t t-if="matching_code">
                                 <span t-esc="matching_code[0].name"/>
@@ -147,15 +152,16 @@
                         <div style="margin:1px;" class="col-2">
 
                         </div>
+
+
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
-                            <span>Prod. Date</span>
+                            <span>Quantity</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <t t-if="line.lot_id.create_date">
-                                <t t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"/>
-                            </t>
+                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity_done_by_lot"/>
                         </div>
+
 
                     </div>
                     <div class="row">
@@ -179,7 +185,8 @@
                 <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 700px;">
                     <img t-att-src="image_data_uri(o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang))"
                          alt="COA Body Image"
-                         style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"/>
+                         style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"
+                         t-if="o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang)"/>
                 </div>
                 <br/>
 
@@ -203,15 +210,7 @@
                         <div style=" padding: 2px;margin:1px;" class="col-2">
                             <span t-field="o.sale_id.name"/>
                         </div>
-                        <div style="padding: 2px;margin:1px;"
-                             class="col-2">
-                            <span>Prod. Date</span>
-                        </div>
-                        <div style="padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <t t-if="line.lot_id.create_date">
-                                <t t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"/>
-                            </t>
-                        </div>
+
                     </div>
 
                     <div class="row">
@@ -244,35 +243,32 @@
                     <div class="col-2"
                          style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
                         <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
-                             style="max-height: 50px; max-width: 95%;"/>
+                             style="max-height: 50px; max-width: 95%;"
+                             t-if="o.company_id.pnt_logo_cert_tres"/>
                     </div>
 
                     <!-- Columna con el texto principal -->
                     <div class="col-9"
                          style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; text-align: center; font-weight: bold; font-size: 20px; height: 100%;">
-                        CERTIFICADO DE CALIDAD
+                       QUALITY CERTIFICATE
                     </div>
                 </div>
 
 
                 <br/>
-                <div style="border: 1px solid black; padding: 10px;">
+                <div style="border: 1px solid black; padding: 10px; font-size: 13px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
                     <div class="row" style="margin-top:2px;">
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
                             <span>Denomination</span>
                         </div>
-                        <div style="border: 1px solid black; padding: 3px;margin:1px;" class="col-6">
+                        <div style="border: 1px solid black; padding: 3px;margin:1px;" class="col-10">
                             <span t-field="line.lot_id.parent_id.name" t-if="line.lot_id"/>
                         </div>
-                        <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
-                             class="col-2">
-                            <span>Counter</span>
-                        </div>
-                        <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
-                            <span t-esc="line.quantity"/>
-                        </div>
+
+
+
 
                     </div>
                     <div class="row">
@@ -335,7 +331,7 @@
                             <t t-set="matching_code"
                                t-value="[code for code in line.product_id.pnt_parent_id.pnt_customer_code_ids if code.partner_id == o.partner_id.commercial_partner_id]"/>
                             <t t-if="not matching_code">
-                                <span style="font-weight:bold; font-size:30px;"
+                                <span style="font-weight:bold; "
                                       t-field="line.product_id.default_code"></span>
                             </t>
                             <t t-if="matching_code">
@@ -370,7 +366,8 @@
                 <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 700px;">
                     <img t-att-src="image_data_uri(o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang))"
                          alt="COA Body Image"
-                         style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"/>
+                         style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"
+                         t-if="o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang)"/>
                 </div>
 
 
@@ -390,7 +387,8 @@
                     <div class="col-2"
                          style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
                         <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
-                             style="max-height: 50px; max-width: 95%;"/>
+                             style="max-height: 50px; max-width: 95%;"
+                             t-if="o.company_id.pnt_logo_cert_tres"/>
                     </div>
 
                     <!-- Columna con el texto principal -->
@@ -403,7 +401,7 @@
 
                 <br/>
 
-                <div style="border: 1px solid black; padding: 10px;">
+                <div style="border: 1px solid black; padding: 10px; font-size: 13px;" >
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
                     <div class="row" style="margin-top:2px;">
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
@@ -415,11 +413,17 @@
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
-                            <span>Counter</span>
+                            <span>Prod. Date</span>
                         </div>
-                        <div style="border: 1px solid black; padding: 2px;margin:1px;" class="col-2">
-                            <span t-esc="line.quantity"/>
+                        <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
+
+                            <t t-if="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')">
+                                <t t-esc="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')"/>
+                            </t>
                         </div>
+
+
+
 
                     </div>
                     <div class="row">
@@ -442,11 +446,17 @@
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
-                            <span>Quantity</span>
+                            <span>End Prod. Date</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity_done_by_lot"/>
+
+                            <t t-if="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')">
+                                <t t-esc="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')"/>
+                            </t>
                         </div>
+
+
+
 
                     </div>
                     <div class="row">
@@ -491,14 +501,12 @@
                         </div>
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
                              class="col-2">
-                            <span>Prod. Date</span>
+                            <span>Quantity</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-
-                            <t t-if="line.lot_id.create_date">
-                                <t t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"/>
-                            </t>
+                            <span t-esc="line.product_id.pnt_parent_qty * line.quantity_done_by_lot"/>
                         </div>
+
 
                     </div>
                     <div class="row">
@@ -520,7 +528,8 @@
                 <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 700px;">
                     <img t-att-src="image_data_uri(o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang))"
                          alt="COA Body Image"
-                         style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"/>
+                         style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"
+                         t-if="o.product_id.pnt_product_coa.get_coa_body_for_partner_lang(o.partner_id.lang)"/>
                 </div>
 
                 <div style="border: 1px solid black; padding: 10px;page-break-inside: avoid;">
@@ -542,15 +551,7 @@
                         <div style=" padding: 2px;margin:1px;" class="col-2">
                             <span t-field="o.sale_id.client_order_ref"/>
                         </div>
-                        <div style="padding: 2px;margin:1px;"
-                             class="col-2">
-                            <span>Prod. Date</span>
-                        </div>
-                        <div style="padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <t t-if="line.lot_id.create_date">
-                                <t t-esc="line.lot_id.create_date.strftime('%d/%m/%Y')"/>
-                            </t>
-                        </div>
+
                     </div>
 
                     <div class="row">
@@ -583,7 +584,8 @@
                     <div class="col-2"
                          style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
                         <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
-                             style="max-height: 50px; max-width: 95%;"/>
+                             style="max-height: 50px; max-width: 95%;"
+                             t-if="o.company_id.pnt_logo_cert_tres"/>
                     </div>
 
                     <!-- Columna con el texto principal -->
@@ -953,7 +955,8 @@
                     <div style="width: 100%; page-break-inside: avoid; text-align: center; height: 700px;">
                         <img t-att-src="image_data_uri(o.product_id.pnt_product_coa.get_components_body_for_partner_lang(o.partner_id.lang))"
                              alt="COA Body Image"
-                             style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"/>
+                             style="width: 100%; page-break-inside: avoid; text-align: center; max-height: 700px;"
+                             t-if="o.product_id.pnt_product_coa.get_components_body_for_partner_lang(o.partner_id.lang)"/>
                     </div>
 
                 </div>
@@ -993,7 +996,9 @@
                     <div class="col-2"
                          style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; height: 100%; border-right: 1px solid #000;">
                         <img t-att-src="image_data_uri(o.company_id.pnt_logo_cert_tres)" alt="Logo"
-                             style="max-height: 50px; max-width: 95%;"/>
+                             style="max-height: 50px; max-width: 95%;"
+                             t-if="o.company_id.pnt_logo_cert_tres"/>
+
                     </div>
 
                     <!-- Columna con el texto principal -->

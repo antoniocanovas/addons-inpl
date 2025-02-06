@@ -21,48 +21,55 @@
                     <t t-call="web.html_container">
                         <!-- Se itera por cada lote siempre y cuando existan líneas de movimiento asociadas al lote
                              y el partner tenga configurado el COA en el reporte de picking -->
-                        <t t-if="o and o.get_move_lines_by_parent_lot() and o.partner_id.pnt_picking_report_id.coa">
+                        <t t-if="o and o.get_move_lines_by_parent_lot() and o.partner_id.commercial_partner_id.pnt_picking_report_id.coa">
                             <t t-foreach="o.get_move_lines_by_parent_lot()" t-as="line">
-                                <t t-if="o.partner_id.pnt_picking_report_id.coa">
+                                <t t-if="o.partner_id.commercial_partner_id.pnt_picking_report_id.coa">
                                     <t t-if="line.product_id.pnt_product_coa">
 
 
                                         <t
                                                 t-if="line.product_id.pnt_product_coa.type == 'normal' or line.product_id.pnt_product_coa.type == 'buxton'"
-                                                t-call="report_inplast.coa_product_document_a" t-lang="o._get_report_lang()"
+                                                t-call="report_inplast.coa_product_document_a"
+                                                t-lang="o._get_report_lang()"
                                         />
 
                                         <!-- COA para tipo 'nmp' -->
                                         <t
                                                 t-if="line.product_id.pnt_product_coa.type == 'nmp'"
-                                                t-call="report_inplast.coa_product_nmp_document" t-lang="o._get_report_lang()"
+                                                t-call="report_inplast.coa_product_nmp_document"
+                                                t-lang="o._get_report_lang()"
                                         />
                                         <!-- COA para tipo 'asas' -->
                                         <t
                                                 t-if="line.product_id.pnt_product_coa.type == 'asas'"
-                                                t-call="report_inplast.coa_product_handle_document" t-lang="o._get_report_lang()"
+                                                t-call="report_inplast.coa_product_handle_document"
+                                                t-lang="o._get_report_lang()"
                                         />
                                         <!-- Para 'buxton' se añade el certificado por lote, si está configurado -->
                                         <t t-if="line.product_id.pnt_product_coa.type == 'buxton'">
                                             <t
                                                     t-if="o.partner_id.pnt_picking_report_id.coa_batch_certificate"
-                                                    t-call="report_inplast.coa_product_batch_certificate_document" t-lang="o._get_report_lang()"
+                                                    t-call="report_inplast.coa_product_batch_certificate_document"
+                                                    t-lang="o._get_report_lang()"
                                             />
                                         </t>
                                         <!-- Adjuntos multicolor -->
                                         <t
                                                 t-if="o.partner_id.pnt_picking_report_id.coa_multicolor and line.product_id.pnt_product_coa.get_multicolor_body_for_partner_lang(o.partner_id.lang)"
-                                                t-call="report_inplast.coa_product_document_multicolor_attachment" t-lang="o._get_report_lang()"
+                                                t-call="report_inplast.coa_product_document_multicolor_attachment"
+                                                t-lang="o._get_report_lang()"
                                         />
                                         <!-- Adjuntos de medidas de calidad (milk) -->
                                         <t
                                                 t-if="o.partner_id.pnt_picking_report_id.coa_milk and line.product_id.pnt_product_coa.print_quality_meassure"
-                                                t-call="report_inplast.coa_product_document_meassures_attachment" t-lang="o._get_report_lang()"
+                                                t-call="report_inplast.coa_product_document_meassures_attachment"
+                                                t-lang="o._get_report_lang()"
                                         />
                                         <!-- Adjuntos de componentes -->
                                         <t
                                                 t-if="line.product_id.pnt_product_coa.print_components"
-                                                t-call="report_inplast.coa_product_document_attachment" t-lang="o._get_report_lang()"
+                                                t-call="report_inplast.coa_product_document_attachment"
+                                                t-lang="o._get_report_lang()"
                                         />
                                         <!-- NOTA: Falta incluir el reporte de seguimiento de cajas si se requiere -->
                                     </t>
@@ -91,15 +98,15 @@
                   inherit_id="stock.stock_report_delivery_has_serial_move_line" priority="99">
             <!-- Inserción de nuevas celdas en la línea del reporte -->
             <xpath expr="//t[@t-name='stock.stock_report_delivery_has_serial_move_line']" position="inside">
-                <td class="text-center">
-                    <span>(</span>
-                    <span t-esc="move_line.quantity_done_by_lot * o.product_id.pnt_box_qty"/>
-                    <!-- <span t-esc="o.get_quantity_done_lot * o.product_id.pnt_box_qty"/> -->
-                    <span>X</span>
-                    <span t-esc="o.product_id.pnt_parent_qty / o.product_id.pnt_box_qty"/>
-                    <span>Units / Box</span>
-                    <span>)</span>
-                </td>
+                <!--                <td class="text-center">-->
+                <!--                    <span>(</span>-->
+                <!--                    <span t-esc="move_line.quantity_done_by_lot * o.product_id.pnt_box_qty"/>-->
+                <!--                    &lt;!&ndash; <span t-esc="o.get_quantity_done_lot * o.product_id.pnt_box_qty"/> &ndash;&gt;-->
+                <!--                    <span>X</span>-->
+                <!--                    <span t-esc="o.product_id.pnt_parent_qty / o.product_id.pnt_box_qty"/>-->
+                <!--                    <span>Units / Box</span>-->
+                <!--                    <span>)</span>-->
+                <!--                </td>-->
                 <td class="text-center">
                     <span t-esc="move_line.quantity_done_by_lot * o.product_id.pnt_parent_qty"/>
                 </td>
@@ -122,6 +129,10 @@
                         <span t-esc="matching_code[0].gtin"/>
                     </td>
                 </t>
+
+                <!--                <td class="text-center">-->
+                <!--                    <span t-esc="o.product_id.bom_ids and o.product_id.bom_ids[0].pallet_line_id.product_id.name or ''"/>-->
+                <!--                </td>-->
             </xpath>
 
             <!-- Reemplazo del contenido de 'move_line_lot' si existe número de serie -->
@@ -171,15 +182,83 @@
                     <th class="text-center">
                         <strong>Units</strong>
                     </th>
-                    <th class="text-center">
-                        <strong>Units x package</strong>
-                    </th>
+                    <!--                    <th class="text-center">-->
+                    <!--                        <strong>Units x package</strong>-->
+                    <!--                    </th>-->
                     <th class="text-center">
                         <strong>REF</strong>
                     </th>
                     <th class="text-center">
                         <strong>GTIN</strong>
                     </th>
+                    <!--                    <th class="text-center">-->
+                    <!--                        <strong>Pallet</strong>-->
+                    <!--                    </th>-->
+                </xpath>
+
+                <xpath expr="//table[@class='table table-sm mt48']" position="after">
+                    <table class="table table-sm mt48">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    <strong>Pallet</strong>
+                                </th>
+                                <th class="text-center">
+                                    <strong>Units</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <!-- 1) Initialize an empty dictionary -->
+                            <t t-set="pallet_dict" t-value="{}"/>
+
+                            <!-- 2) Go through each move line and accumulate the quantity in the dictionary by pallet name -->
+                            <t t-foreach="o.get_move_lines_by_parent_lot()" t-as="move_line">
+
+                                <!-- Extract the pallet name (or fallback to empty if not found) -->
+                                <t t-set="pallet_name"
+                                   t-value="move_line.product_id.bom_ids
+                            and move_line.product_id.bom_ids[0].pallet_line_id.product_id.name
+                            or ''"/>
+
+                                <!-- Check if we already have this pallet in our dictionary -->
+                                <t t-if="pallet_dict.get(pallet_name)">
+                                    <!-- If so, update by adding the new quantity -->
+                                    <t t-set="pallet_dict"
+                                       t-value="dict(
+                           pallet_dict,
+                           **{pallet_name: pallet_dict[pallet_name] + move_line.quantity_done_by_lot}
+                       )"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <!-- Otherwise, create a new entry with the current quantity -->
+                                    <t t-set="pallet_dict"
+                                       t-value="dict(
+                           pallet_dict,
+                           **{pallet_name: move_line.quantity_done_by_lot}
+                       )"
+                                    />
+                                </t>
+                            </t>
+
+                            <!-- 3) Render each pallet and its total quantity -->
+                            <t t-foreach="pallet_dict.items()" t-as="dict_item">
+                                <tr>
+                                    <!-- dict_item[0] is the pallet name -->
+                                    <td class="text-center">
+                                        <span t-esc="dict_item[0]"/>
+                                    </td>
+                                    <!-- dict_item[1] is the summed quantity -->
+                                    <td class="text-center">
+                                        <span t-esc="dict_item[1]" t-options="{'widget': 'integer'}"/>
+                                    </td>
+                                </tr>
+                            </t>
+
+                        </tbody>
+                    </table>
                 </xpath>
 
 
@@ -224,6 +303,7 @@
                                     Order No.:
                                 </strong>
                                 <span style="margin-left: 5px" t-field="o.sale_id.client_order_ref"/>
+
                             </div>
                             <div class="col-offset-8 col-4">
                                 <strong style="border: 2px solid #000; padding: 5px; text-align: left; background-color:#D3D3D3;">
@@ -237,6 +317,12 @@
                                 </strong>
                                 <span style="margin-left: 5px" t-esc="o.date" t-if="o.date"/>
                             </div>
+                        </div>
+                        <div class="row" style="margin-top: 20px;">
+                            <strong style="border: 2px solid #000; padding: 5px; text-align: left; background-color:#D3D3D3;">
+                                Wisecap Order No.:
+                            </strong>
+                            <span style="margin-left: 5px" t-field="o.name"/>
                         </div>
 
                         <!-- Sección de comentarios y nota legal -->
