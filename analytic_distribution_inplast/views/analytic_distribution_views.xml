@@ -1,35 +1,41 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
-    <!-- FORM INH VIEW: -->
-    <record id="inplast_analytic_distribution_inh_form" model="ir.ui.view">
-        <field name="name">inplast.analytic.distribution.inh.form</field>
+    <record id="view_analytic_distribution_form_custom_fields" model="ir.ui.view">
+        <field name="name">analytic.distribution.form.custom.fields</field>
         <field name="model">analytic.distribution</field>
-        <field name="arch" type="xml">
-            <data>
-                <xpath expr="//notebook" position="inside">
-                    <page name="workcenters" string="Workcenters">
-                        <field name="workcenter_ids" colspan="2"/>
-                    </page>
-                </xpath>
-                <field name="income_credit" position="after">
-                    <field name="income_analytic_distribution_account_ids" widget="many2many_tags"
-                           options="{'no_create':true}"
-                           domain="[('plan_id','=',analytic_distribution_plan_id)]"/>
-                    <field name="analytic_distribution_plan_id" invisible="1"/>
-                </field>
-                <field name="expense_credit" position="after">
-                    <field name="expense_analytic_distribution_account_ids" widget="many2many_tags"
-                           domain="[('plan_id','=',analytic_distribution_plan_id)]"/>
-                </field>
-            </data>
-        </field>
-        <field name="groups_id" eval="[(6, 0, [])]"/>
         <field name="inherit_id" ref="analytic_distribution_base.analytic_distribution_default_form"/>
-        <field name="key" eval="False"/>
-        <field name="mode">extension</field>
-        <field name="priority">32</field>
-        <field name="type">form</field>
-    </record>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <!-- Grupo para Albaranes de Asas y Tapones -->
+                <group>
+                    <group string="Albaranes de Asas">
+                        <field name="picking_in_handles_qty" readonly="1"/>
+                        <field name="picking_in_handles_ids"
+                               widget="many2many_tags"
 
+                        />
+                    </group>
+                    <group string="Albaranes de Tapones">
+                        <field name="picking_in_caps_qty" readonly="1"/>
+                        <field name="picking_in_caps_ids"
+                               widget="many2many_tags"
+
+                        />
+                    </group>
+                </group>
+
+                <!-- Grupo para Palets de Tapones y Palets de Asas -->
+                <group>
+                    <group string="Palets de Tapones">
+                        <field name="sale_pallet_cap_qty" readonly="1"/>
+                        <field name="sale_pallet_cap_ids" widget="many2many_tags" readonly="1"/>
+                    </group>
+                    <group string="Palets de Asas">
+                        <field name="sale_pallet_handles_qty" readonly="1"/>
+                        <field name="sale_pallet_handles_ids" widget="many2many_tags" readonly="1"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
 </odoo>

@@ -1,230 +1,210 @@
-from odoo import fields, models, api
-from odoo.exceptions import UserError
+# -*- coding: utf-8 -*-
+# Copyright
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
+from odoo import fields, models, api
 
 class AnalyticDistribution(models.Model):
-    _inherit = "analytic.distribution"
+    _inherit = 'analytic.distribution'
 
-    compute_method = fields.Selection(
-        [
-            ("demo", "demo INPLAST"),
-            ("r13", "R13.- Electricidad"),
-            ("r14", "R14.- Calidad"),
-            ("r15", "R15.- Calidad"),
-            ("r22", "R22.- Ventas por región y subfamilia"),
-        ]
+    picking_in_handles_ids = fields.Many2many(
+        'stock.picking',
+        relation='analytic_distribution_inplast_handles_rel',  # nombre único para la tabla rel
+        column1='analytic_distribution_id',
+        column2='picking_id',
+        string="Albaranes de Asas",
+        compute="_compute_picking_in_handles_ids",
+
+    )
+    picking_in_pallet_handles_qty = fields.Float(
+        string="Cantidad de Asas",
+        compute="_compute_picking_in_handles",
+        store=True
     )
 
-    def _get_analytic_distribution_plan(self):
-        self.analytic_distribution_plan_id = self.env.company.analytic_distribution_plan_id.id
-    analytic_distribution_plan_id = fields.Many2one('account.analytic.plan', string='Distribution plan',
-                                                    compute='_get_analytic_distribution_plan')
+    picking_in_handles_qty = fields.Float(
+        string="Cantidad de Asas",
+        compute="_compute_picking_in_handles_qty",
+        store=True
+    )
+    picking_in_caps_ids = fields.Many2many(
+        'stock.picking',
+        relation='analytic_distribution_inplast_caps_rel',  # nombre único para la tabla rel
+        column1='analytic_distribution_id',
+        column2='picking_id',
+        string="Albaranes de tapones",
+        compute="_compute_picking_in_caps_ids",
 
-    income_analytic_distribution_account_ids = fields.Many2many(
-        'account.analytic.account',
-        string='Income distrib.',
-        help='Analytic distribution account',
-        relation = "income_ada_rel",
-        column1 = "distribution_id",
-        column2 = "analytic_account_id",
-        copy = True,
+    )
+    picking_in_pallet_caps_qty = fields.Float(
+        string="pallets de Tapones",
+        compute="_compute_picking_in_caps_qty",
+        store=True
     )
 
-    expense_analytic_distribution_account_ids = fields.Many2many(
-        'account.analytic.account',
-        string='Expense distrib',
-        help='Analytic distribution account',
-        relation = "expense_ada_rel",
-        column1 = "distribution_id",
-        column2 = "analytic_account_id",
-        copy = True,
+    picking_in_caps_qty = fields.Float(
+        string="albaranes de Tapones",
+        compute="_compute_picking_in_caps",
+        store=True
     )
 
 
 
-    workcenter_ids = fields.Many2many("mrp.workcenter", string="Workcenters")
+    sale_pallet_cap_ids = fields.Many2many(
+        'sale.order.line',
+        string="Líneas de Palets de Tapones",
+        compute="_compute_sale_pallet_cap_ids",
+    )
+    sale_pallet_cap_qty = fields.Float(
+        string="Cantidad de Palets de Tapones",
+        compute="_compute_sale_pallet_cap_qty",
+    )
+    sale_pallet_handles_ids = fields.Many2many(
+        'sale.order.line',
+        string="Líneas de Palets de Tapones",
+        compute="_compute_sale_pallet_cap_ids",
+    )
+    sale_pallet_handles_qty = fields.Float(
+        string="Cantidad de Palets de Tapones",
+        compute="_compute_sale_pallet_cap_qty",
+    )
 
-    def compute_distribution(self):
-        """Extend this function with custom Inplast analytic compute modes"""
-        super().compute_distribution()
-        self.env["account.analytic.line"].search(
-            [("analytic_distribution_id", "=", self.id)]
-        ).unlink()
-        self.inplast_computed_modes()
-
-    def inplast_computed_modes(self):
-        if self.compute_method == "demo":
-            raise UserError("ok")
-        elif self.compute_method == "r13":
-            self.compute_r13()
-        elif self.compute_method in ["r14","r15"]:
-            self.compute_r14()
-        elif self.compute_method == "r22":
-            self.compute_r22()
 
 
-    def compute_r13(self):
-        datefrom = self.date_from
-        dateto = self.date_to
-        total_kwh = 0  # Total de kWh consumidos por todas las máquinas
-        workcenters = self.workcenter_ids
-        amount = self.amount  # El coste a distribuir
+    @api.depends('date_from', 'date_to')
+    def _compute_sale_pallet_handles_qty(self):
+        self.sale_pallet_handles_qty = len(self.sale_pallet_handles_ids)
 
-        # Wororders entre fechas:
-        workorders = self.env["mrp.workorder"].search(
-            [
-                ("workcenter_id", "in", workcenters.ids),
-                ("date_start", ">=", datefrom),
-                ("date_start", "<=", dateto),
-            ]
-        )
+    @api.depends('date_from', 'date_to')
+    def _compute_sale_pallet_cap_qty(self):
+        self.sale_pallet_cap_qty = len(self.sale_pallet_cap_ids)
 
-        # Inicialización de listas simples
-        mrpproducts = []
-        product_total_kwh = []
+    @api.depends('date_from', 'date_to')
+    def _compute_picking_in_handles_qty(self):
+        self.picking_in_handles_qty=len(self.picking_in_handles_ids)
 
-        # Cálculo del total de kWh consumidos
-        for wo in workorders:
-            product = wo.product_id
-            duration = wo.duration
-            machine = wo.workcenter_id
+    @api.depends('date_from', 'date_to')
+    def _compute_picking_in_caps_qty(self):
+        self.picking_in_caps_qty = len(self.picking_in_caps_ids)
 
-            # Identificamos productos únicos y agregamos a la lista si no están
-            if product not in mrpproducts:
-                mrpproducts.append(product)
-                product_total_kwh.append(0)  # Inicializamos su consumo total a 0
-
-            # Calculamos el consumo de kWh
-            kwh_consumed = duration * machine.power_kw
-            total_kwh += kwh_consumed
-
-            # Actualizamos el consumo total por producto
-            product_index = mrpproducts.index(product)
-            product_total_kwh[product_index] += kwh_consumed
-
-        # Verificar si hay consumo total de kWh para evitar la división por cero
-        if total_kwh == 0:
-            raise UserError("No hay consumo de energía registrado.")
-
-        # Crear entradas analíticas para cada producto
-        for i in range(len(mrpproducts)):
-            product = mrpproducts[i]
-            product_kwh = product_total_kwh[i]
-
-            machine_percentage = (product_kwh / total_kwh) * 100
-            machine_cost = (amount * machine_percentage) / 100
-
-            # Buscar la cuenta analítica para el producto base tapón, o crearla:
-            analytic_product = product
-            if product.pnt_product_type == 'packing':
-                analytic_product = product.pnt_parent_id
-
-            analytic_account = self.env['account.analytic.account'].search([
-                ('product_id','=',analytic_product.id)
+    @api.depends('date_from', 'date_to')
+    def _compute_picking_in_caps_ids(self):
+        """Calcula los pickings del periodo en que al menos una línea tenga
+        product_id.categ_id.type == '['cap_mrp', 'cap_distribution']' y suma la cantidad de esas líneas."""
+        for rec in self:
+            # Ajusta el dominio según tus campos de fecha y la relación con los pickings
+            pickings = self.env['stock.picking'].search([
+                ('scheduled_date', '>=', rec.date_from),
+                ('scheduled_date', '<=', rec.date_to),
+                ('move_ids_without_package.product_id.categ_id.type', 'in', ['cap_mrp', 'cap_distribution']),
             ])
-            if not analytic_account.id:
-                analytic_account = self.env['account.analytic.account'].create({
-                    'product_id': analytic_product.id,
-                    'plan_id': self.env.company.analytic_product_plan_id.id,
-                    'name': analytic_product.name,
-                })
+            rec.picking_in_caps_ids = pickings
 
 
-            self.env["account.analytic.line"].create(
-                {
-                    "name": f"Consumo {product.name}",
-                    "amount": machine_cost,
-                    "product_id": product.id,
-                    "date": fields.Date.today(),
-                    "analytic_distribution_id": self.id,
-                    "account_id": analytic_account.id,
-                }
-            )
+    @api.depends('date_from', 'date_to')
+    def _compute_picking_in_caps(self):
+        """Calcula los pickings del periodo en que al menos una línea tenga
+        product_id.categ_id.type == '['cap_mrp', 'cap_distribution']' y suma la cantidad de esas líneas."""
+        for rec in self:
+            # Ajusta el dominio según tus campos de fecha y la relación con los pickings
+            pickings = self.env['stock.picking'].search([
+                ('scheduled_date', '>=', rec.date_from),
+                ('scheduled_date', '<=', rec.date_to),
+                ('move_ids_without_package.product_id.categ_id.type',  'in', ['cap_mrp', 'cap_distribution']),
+            ])
 
-        return True
+            total_qty = 0.0
+            for picking in pickings:
+                # Filtramos las líneas con productos del tipo 'handle'
+                lines = picking.move_ids_without_package.filtered(
+                    lambda l: l.product_id.categ_id.type in ['cap_mrp', 'cap_distribution']
+                )
+                total_qty += sum(lines.mapped('product_uom_qty'))
+            rec.picking_in_pallet_caps_qty = total_qty
 
-    def compute_r14(self):
-        datefrom = self.date_from
-        dateto = self.date_to
-        total_duration = 0  # Total de kWh consumidos por todas las máquinas
-        workcenters = self.workcenter_ids
-        amount = self.amount  # El máximo coste a distribuir
+    @api.depends('date_from', 'date_to')
+    def _compute_picking_in_handles_ids(self):
+        """Calcula los pickings del periodo en que al menos una línea tenga
+        product_id.categ_id.type == 'handle' y suma la cantidad de esas líneas."""
+        for rec in self:
+            # Ajusta el dominio según tus campos de fecha y la relación con los pickings
+            pickings = self.env['stock.picking'].search([
+                ('scheduled_date', '>=', rec.date_from),
+                ('scheduled_date', '<=', rec.date_to),
+                ('move_ids_without_package.product_id.categ_id.type', '=', 'handle'),
+            ])
+            rec.picking_in_handles_ids = pickings
 
-        # Órdenes de manufactura consideradas entre fechas:
-        workorders = self.env["mrp.workorder"].search(
-            [
-                ("workcenter_id", "in", workcenters.ids),
-                ("date_start", ">=", datefrom),
-                ("date_start", "<=", dateto),
-            ]
-        )
+    @api.depends('date_from', 'date_to')
+    def _compute_picking_in_handles(self):
+        """Calcula los pickings del periodo en que al menos una línea tenga
+        product_id.categ_id.type == 'handle' y suma la cantidad de esas líneas."""
+        for rec in self:
+            # Ajusta el dominio según tus campos de fecha y la relación con los pickings
+            pickings = self.env['stock.picking'].search([
+                ('scheduled_date', '>=', rec.date_from),
+                ('scheduled_date', '<=', rec.date_to),
+                ('move_ids_without_package.product_id.categ_id.type', '=', 'handle'),
+            ])
 
-        # Inicialización de listas simples
-        mrpproducts = []
-        product_total_duration = []
+            total_qty = 0.0
+            for picking in pickings:
+                # Filtramos las líneas con productos del tipo 'handle'
+                lines = picking.move_ids_without_package.filtered(
+                    lambda l: l.product_id.categ_id.type == 'handle'
+                )
+                total_qty += sum(lines.mapped('product_uom_qty'))
+            rec.picking_in_pallet_handles_qty = total_qty
 
-        # Cálculo del total de kWh consumidos
-        for wo in workorders:
-            product = wo.product_id
-            duration = wo.duration
-            machine = wo.workcenter_id
+    @api.depends('date_from', 'date_to')
+    def _compute_sale_pallet_cap_ids(self):
+        """Calcula las líneas de venta del periodo que tengan productos de
+        familia de tapones (por ejemplo, 'cap_mrp' y 'cap_distribution') y suma
+        la cantidad vendida."""
+        for rec in self:
+            sale_lines = self.env['sale.order.line'].search([
+                ('order_id.date_order', '>=', rec.date_from),
+                ('order_id.date_order', '<=', rec.date_to),
+                ('product_id.categ_id.type', 'in', ['cap_mrp', 'cap_distribution']),
+            ])
+            rec.sale_pallet_cap_ids = sale_lines
 
-            # Identificamos productos únicos y agregamos a la lista si no están
-            if product not in mrpproducts:
-                mrpproducts.append(product)
-                product_total_duration.append(0)  # Inicializamos su consumo total a 0
+    @api.depends('date_from', 'date_to')
+    def _compute_sale_pallet_cap(self):
+        """Calcula las líneas de venta del periodo que tengan productos de
+        familia de tapones (por ejemplo, 'cap_mrp' y 'cap_distribution') y suma
+        la cantidad vendida."""
+        for rec in self:
+            sale_lines = self.env['sale.order.line'].search([
+                ('order_id.date_order', '>=', rec.date_from),
+                ('order_id.date_order', '<=', rec.date_to),
+                ('product_id.categ_id.type', 'in', ['cap_mrp', 'cap_distribution']),
+            ])
+            rec.sale_pallet_cap_qty = (sum(sale_lines.mapped('product_uom_qty')))
 
-            total_duration += duration
+    @api.depends('date_from', 'date_to')
+    def _compute_sale_pallet_handles_ids(self):
+        """Calcula las líneas de venta del periodo que tengan productos de
+        familia de tapones (por ejemplo, 'cap_mrp' y 'cap_distribution') y suma
+        la cantidad vendida."""
+        for rec in self:
+            sale_lines = self.env['sale.order.line'].search([
+                ('order_id.date_order', '>=', rec.date_from),
+                ('order_id.date_order', '<=', rec.date_to),
+                ('product_id.categ_id.type', '=', 'handle'),
+            ])
+            rec.sale_pallet_cap_ids = sale_lines
 
-            # Actualizamos el consumo total por producto
-            product_index = mrpproducts.index(product)
-            product_total_duration[product_index] += duration
+    @api.depends('date_from', 'date_to')
+    def _compute_sale_pallet_handles(self):
+        """Calcula las líneas de venta del periodo que tengan productos de
+        familia de tapones (por ejemplo, 'cap_mrp' y 'cap_distribution') y suma
+        la cantidad vendida."""
+        for rec in self:
+            sale_lines = self.env['sale.order.line'].search([
+                ('order_id.date_order', '>=', rec.date_from),
+                ('order_id.date_order', '<=', rec.date_to),
+                ('product_id.categ_id.type', '=', 'handle'),
+            ])
 
-        # Verificar si hay consumo total de kWh para evitar la división por cero
-        if total_duration == 0:
-            raise UserError("No hay consumo de energía registrado.")
-
-        # Crear entradas analíticas para cada producto
-        for i in range(len(mrpproducts)):
-            product = mrpproducts[i]
-            product_kwh = product_total_duration[i]
-
-            machine_percentage = (product_kwh / total_duration) * 100
-            machine_cost = (amount * machine_percentage) / 100
-
-            self.env["account.analytic.line"].create(
-                {
-                    "name": f"Consumo {product.name}",
-                    "amount": machine_cost,
-                    "product_id": product.id,
-                    "date": fields.Date.today(),
-                    "analytic_distribution_id": self.id,
-                }
-            )
-
-        return True
-
-    def compute_r22(self):
-        # El chequeo de región es el siguiente: país = España (ES), o posición fiscal "intracomuntaria" (EU) y otros.
-        # La parametrización está hecha:
-        analytic_spain = self.env.company.analytic_spain_account_id.id
-        analytic_eu= self.env.companyanalytic_eu_account_id.id
-        analytic_noneu = self.env.company.analytic_non_eu_account_id.id
-        amount = self.amount
-
-        fiscal_position_eu_external_id = "account." + self.company.id + "_" + "fp_intra"
-        partner_eu = self.env.ref(fiscal_position_eu_external_id)
-
-        if not analytic_spain.id or not analytic_eu.id or not analytic_noneu.id:
-            raise UserError('Go to company => Analytic parametrization and assign region accounts.')
-
-        # Cálculo para España: Todos los account.move.line de las cuentas, cuyo partner.country_id es España.
-        #  Es UE si la posición fiscal es partner_eu.id; el resto a "Resto del mundo".
-
-        #  Se hace el porcentaje sobre el total de venta,
-        #  Se crea array de familia que ha sido cada venta (por array de venta, familia),
-        #  Si existe cuenta analítica para esta familia, se añade apunte contable, en otro caso se crea y después añade.
-
-        # El array podría ser: [ 'region', 'familia' , 'importe']
-        # Después calcular en base al array.
-        return True
+            rec.sale_pallet_cap_qty = sum(sale_lines.mapped('product_uom_qty'))

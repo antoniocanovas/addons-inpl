@@ -34,6 +34,7 @@
         Base modelo for custom analytic distributions developed in customer modules. 
     """,
     "data": [
+        'views/analytic_distribution_template_views.xml',
         'views/analytic_distribution_views.xml',
         'security/ir.model.access.csv',
     ],

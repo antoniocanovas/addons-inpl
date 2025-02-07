@@ -9,14 +9,16 @@ class ProductCategory(models.Model):
 
 #    pnt_pricelist_weight = fields.Float('Pricelist weight', store=True, copy=True)
 
-    # Tipo de productos en subfamilia:
-    pnt_product_type = fields.Selection([('final','End-product'),
-                                         ('semi', 'Semi-finished'),
-                                         ('packing','Packing'),
-                                         ('raw', 'Raw'),
-                                         ('dye', 'Dye'),
-                                         ('packaging', 'Packaging'),
-                                         ('other', 'Other')],
-                                        store=True, copy=True, string='Product type')
+    type = fields.Selection([
+        ('raw_cistern', 'Raw Cistern'),
+        ('raw_sack', 'Raw Sack'),
+        ('raw_pallet', 'Raw Pallet'),
+        ('raw_bags', 'Raw Bags'),
+        ('raw_cardboard', 'Raw Cardboard'),
+        ('cap_mrp', 'Cap MRP'),
+        ('cap_distribution', 'Cap Distribution'),
+        ('handle', 'Handle'),
+        ('other', 'Other')
+    ], string='Type', required=True, help="Select the type of parameter.")
 
     pnt_code = fields.Char('Code')

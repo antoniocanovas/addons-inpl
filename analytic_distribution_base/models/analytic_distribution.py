@@ -9,38 +9,31 @@ from odoo.exceptions import UserError
 class AnalyticDistribution(models.Model):
     _name = 'analytic.distribution'
     _description = 'Analytic distribution'
+    _inherit = ["mail.thread", "mail.activity.mixin"]
+
 
     name = fields.Char('Name', required=True)
-    amount = fields.Float('Amount', copy=False)
-    compute_method = fields.Selection([('demo','Demo')], string="Compute method")
     date_from = fields.Date('From date', copy=False)
     date_to = fields.Date('To date', copy=False, default=lambda self: datetime.today())
-    analytic_line_ids = fields.One2many('account.analytic.line', 'analytic_distribution_id', string='Analytic lines')
+    analytic_line_ids = fields.One2many('account.analytic.line', 'analytic_distribution_period_id', string='Analytic lines')
     comment = fields.Html('Comments', store=True, copy=False)
 
+    days = fields.Integer('Days', compute='_compute_days', store=True)
+    def _compute_days(self):
+        for record in self:
+            if record.date_from and record.date_to:
+                record.days = (record.date_to - record.date_from).days
+            else:
+                record.days = 0
+
+
+    analytic_distribution_template_ids = fields.Many2many('analytic.distribution.template', string='Distributions')
     def _get_analytic_line_count(self):
         self.analytic_line_count = len(self.analytic_line_ids.ids)
     analytic_line_count = fields.Integer('Lines', compute='_get_analytic_line_count')
 
-    income_credit  = fields.Monetary('Income credit')
-    income_debit   = fields.Monetary('Income debit')
-    expense_credit = fields.Monetary('Expense credit')
-    expense_debit  = fields.Monetary('Expense debit')
     currency_id    = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
 
-    income_account_ids = fields.Many2many(
-        'account.account', string='Income accounts',
-        relation='income_account_rel',
-        column1='distribution_id',
-        column2='account_id',
-    )
-
-    expense_account_ids = fields.Many2many(
-        'account.account', string='Expense accounts',
-        relation='expense_account_rel',
-        column1='distribution_id',
-        column2='account_id',
-    )
 
     def compute_distribution(self):
         datefrom = self.date_from
