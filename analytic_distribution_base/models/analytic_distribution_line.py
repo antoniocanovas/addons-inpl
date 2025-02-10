@@ -16,8 +16,32 @@ class AnalyticDistributionLine(models.Model):
     distribution_id = fields.Many2one('analytic.distribution', string='Distribution')
     date_from = fields.Date(related='distribution_id.date_from')
     date_to = fields.Date(related='distribution_id.date_to')
+
     income_debit = fields.Monetary('Income debit')
     income_credit = fields.Monetary('Income credit')
     expense_debit = fields.Monetary('Expense debit')
     expense_credit = fields.Monetary('Expense credit')
+
     currency_id = fields.Many2one('res.currency', default=lambda self:self.env.company.currency_id)
+
+
+    def compute_debit_credit(self):
+        for record in self:
+            datefrom = record.date_from
+            dateto = record.date_to
+            income_credit, income_debit, expense_credit, expense_debit = 0,0,0,0
+            incomelines = self.env['account.move.line'].search(
+                [('account_id', 'in', record.income_account_ids.ids), ('date', '>=', datefrom), ('date', '<=', dateto)])
+            for li in incomelines:
+                income_debit += li.debit
+                income_credit += li.credit
+
+            expenselines = self.env['account.move.line'].search(
+                [('account_id', 'in', record.expense_account_ids.ids), ('date', '>=', datefrom), ('date', '<=', dateto)])
+            for li in expenselines:
+                expense_debit += li.debit
+                expense_credit += li.credit
+
+            record.write(
+                {'income_debit':income_debit, 'income_credit':income_credit,
+                 'expense_debit':expense_debit, 'expense_credit':expense_credit})
