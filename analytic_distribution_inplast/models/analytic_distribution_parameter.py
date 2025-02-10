@@ -77,7 +77,7 @@ class AnalyticDistributionParameter(models.Model):
         string='Minutes per pallet',
         help="Minutes required to relocate each pallet."
     )
-    ctr_box_qty = fields.Integer(
+    container_box_qty = fields.Integer(
         string='Boxes per container',
         help="Number of boxes that fit in a container."
     )

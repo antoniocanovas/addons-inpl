@@ -65,6 +65,7 @@
                     <group>
                         <field name="date_from" required="1"/>
                         <field name="date_to" required="1"/>
+                        <field name="days"/>
                         <field name="comment" placeholder="Notes" nolabel="1" colspan="2"/>
                         <field name="analytic_distribution_template_ids"/>
                         <field name="currency_id" invisible="1"/>

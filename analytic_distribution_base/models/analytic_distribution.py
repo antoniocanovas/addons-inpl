@@ -22,7 +22,7 @@ class AnalyticDistribution(models.Model):
     def _compute_days(self):
         for record in self:
             if record.date_from and record.date_to:
-                record.days = (record.date_to - record.date_from).days
+                record.days = (record.date_to - record.date_from).days + 1
             else:
                 record.days = 0
 

@@ -65,7 +65,7 @@
 
                             <group string="Other">
                                 <field name="pallet_reloc"/>
-                                <field name="ctr_box_qty"/>
+                                <field name="container_box_qty"/>
                             </group>
                         </group>
 
