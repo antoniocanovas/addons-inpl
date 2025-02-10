@@ -27,7 +27,7 @@ class AnalyticDistribution(models.Model):
             else:
                 record.days = 0
 
-
+    # Quitado porque pasamos a utilizar líneas con balance:
     #analytic_distribution_template_ids = fields.Many2many('analytic.distribution.template', string='Distributions')
     def _get_analytic_line_count(self):
         self.analytic_line_count = len(self.analytic_line_ids.ids)
