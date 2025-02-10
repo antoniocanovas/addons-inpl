@@ -79,10 +79,11 @@
                     <field name="line_ids" nolabel="1">
                         <tree editable="bottom">
                             <field name="template_id" string="Name" required="1"/>
-                            <field name="income_debit" readonly="1"/>
-                            <field name="income_credit" readonly="1"/>
-                            <field name="expense_debit" readonly="1"/>
-                            <field name="expense_credit" readonly="1"/>
+                            <field name="income_debit" widget="monetary" readonly="1"/>
+                            <field name="income_credit" widget="monetary" readonly="1"/>
+                            <field name="expense_debit" widget="monetary" readonly="1"/>
+                            <field name="expense_credit" widget="monetary" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
                         </tree>
                     </field>
                     <field name="currency_id" invisible="1"/>
