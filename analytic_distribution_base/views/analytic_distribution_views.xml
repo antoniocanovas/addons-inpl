@@ -75,7 +75,7 @@
                         <field name="analytic_distribution_template_ids"/>
                         -->
                     </group>
-                    <notepad>
+                    <notebook>
                         <page name="templates" string="Templates">
                             <field name="line_ids" nolabel="1">
                                 <tree editable="bottom">
@@ -88,7 +88,7 @@
                                 </tree>
                             </field>
                         </page>
-                    </notepad>
+                    </notebook>
                     <field name="currency_id" invisible="1"/>
                 </sheet>
                 <!-- Chatter -->

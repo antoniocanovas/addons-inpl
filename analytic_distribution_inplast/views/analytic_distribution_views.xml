@@ -5,7 +5,7 @@
     <field name="model">analytic.distribution</field>
     <field name="inherit_id" ref="analytic_distribution_base.analytic_distribution_default_form"/>
     <field name="arch" type="xml">
-      <xpath expr="//notepad" position="inside">
+      <xpath expr="//notebook" position="inside">
         <page name="picking" string="Picking">
           <!-- Grupo para Albaranes de Asas y Tapones -->
           <group>
