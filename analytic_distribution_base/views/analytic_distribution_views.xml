@@ -67,7 +67,10 @@
                         <field name="date_to" required="1"/>
                         <field name="days"/>
                         <field name="comment" placeholder="Notes" nolabel="1" colspan="2"/>
+                        <!-- Quitado el 10 de febrero porque pasamos a usar líneas:
                         <field name="analytic_distribution_template_ids"/>
+                        -->
+                        <field name="line_ids"/>
                         <field name="currency_id" invisible="1"/>
                     </group>
                 </sheet>
