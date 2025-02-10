@@ -75,17 +75,20 @@
                         <field name="analytic_distribution_template_ids"/>
                         -->
                     </group>
-                    <group string="Templates"/>
-                    <field name="line_ids" nolabel="1">
-                        <tree editable="bottom">
-                            <field name="template_id" string="Name" required="1"/>
-                            <field name="income_debit" widget="monetary" readonly="1"/>
-                            <field name="income_credit" widget="monetary" readonly="1"/>
-                            <field name="expense_debit" widget="monetary" readonly="1"/>
-                            <field name="expense_credit" widget="monetary" readonly="1"/>
-                            <field name="currency_id" column_invisible="1"/>
-                        </tree>
-                    </field>
+                    <notepad>
+                        <page name="templates" string="Templates">
+                            <field name="line_ids" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="template_id" string="Name" required="1"/>
+                                    <field name="income_debit" widget="monetary" readonly="1"/>
+                                    <field name="income_credit" widget="monetary" readonly="1"/>
+                                    <field name="expense_debit" widget="monetary" readonly="1"/>
+                                    <field name="expense_credit" widget="monetary" readonly="1"/>
+                                    <field name="currency_id" column_invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notepad>
                     <field name="currency_id" invisible="1"/>
                 </sheet>
                 <!-- Chatter -->
@@ -94,7 +97,6 @@
                     <field name="activity_ids"/>
                     <field name="message_ids" options="{'post_refresh': 'always'}"/>
                 </div>
-
             </form>
         </field>
         <field name="groups_id" eval="[(6, 0, [])]"/>
