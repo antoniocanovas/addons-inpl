@@ -30,16 +30,22 @@ class AnalyticDistributionLine(models.Model):
             datefrom = record.date_from
             dateto = record.date_to
             income_credit, income_debit, expense_credit, expense_debit = 0,0,0,0
-            incomelines = self.env['account.move.line'].search(
-                [('account_id', 'in', record.template_id.income_account_ids.ids),
-                 ('date', '>=', datefrom), ('date', '<=', dateto)])
+            incomelines = self.env['account.move.line'].search([
+                ('account_id', 'in', record.template_id.income_account_ids.ids),
+                ('date', '>=', datefrom),
+                ('date', '<=', dateto),
+                ('analytic_account_ids', 'in', record.template_id.income_analytic_ids.ids),
+            ])
             for li in incomelines:
                 income_debit += li.debit
                 income_credit += li.credit
 
-            expenselines = self.env['account.move.line'].search(
-                [('account_id', 'in', record.template_id.expense_account_ids.ids),
-                 ('date', '>=', datefrom), ('date', '<=', dateto)])
+            expenselines = self.env['account.move.line'].search([
+                ('account_id', 'in', record.template_id.expense_account_ids.ids),
+                ('date', '>=', datefrom),
+                ('date', '<=', dateto),
+                ('analytic_account_ids', 'in', record.template_id.expense_analytic_ids.ids),
+            ])
             for li in expenselines:
                 expense_debit += li.debit
                 expense_credit += li.credit
