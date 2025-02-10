@@ -70,7 +70,8 @@
                         <!-- Quitado el 10 de febrero porque pasamos a usar líneas:
                         <field name="analytic_distribution_template_ids"/>
                         -->
-                        <field name="line_ids">
+                        <group string="Templates"/>
+                        <field name="line_ids" nolabel="1">
                                 <tree editable="bottom">
                                     <field name="template_id"/>
                                     <field name="income"/>
