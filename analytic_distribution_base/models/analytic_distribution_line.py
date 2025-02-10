@@ -18,6 +18,7 @@ class AnalyticDistributionLine(models.Model):
     date_to = fields.Date(related='distribution_id.date_to')
     income = fields.Monetary('Income', compute='_get_income')
     expense = fields.Monetary('Expense', compute='_get_expense')
+    currency_id = fields.Many2one('res.currency', default=lambda self:self.env.company.currency_id)
 
     @api.depends('date_from','date_to','template_id')
     def _get_income(self):
