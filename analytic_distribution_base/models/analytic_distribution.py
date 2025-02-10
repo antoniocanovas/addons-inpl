@@ -18,6 +18,7 @@ class AnalyticDistribution(models.Model):
     analytic_line_ids = fields.One2many('account.analytic.line', 'analytic_distribution_period_id', string='Analytic lines')
     comment = fields.Html('Comments', store=True, copy=False)
     line_ids = fields.One2many('analytic.distribution.line','distribution_id', string='Lines')
+    currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
 
     days = fields.Integer('Days', compute='_compute_days', store=True)
     @api.depends('date_from','date_to')
@@ -33,9 +34,6 @@ class AnalyticDistribution(models.Model):
     def _get_analytic_line_count(self):
         self.analytic_line_count = len(self.analytic_line_ids.ids)
     analytic_line_count = fields.Integer('Lines', compute='_get_analytic_line_count')
-
-    currency_id    = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
-
 
     def compute_distribution(self):
         for record in self:
