@@ -11,7 +11,7 @@ class AnalyticDistributionLine(models.Model):
     _description = 'Analytic distribution line'
 
 
-    template_id = fields.Many2one('analytic.distribution.template', string='Template', required=True)
+    template_id = fields.Many2one('analytic.distribution.template', string='Template')
     name = fields.Char(related='template_id.name')
     distribution_id = fields.Many2one('analytic.distribution', string='Distribution')
     date_from = fields.Date(related='distribution_id.date_from')

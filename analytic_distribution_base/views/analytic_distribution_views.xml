@@ -78,7 +78,7 @@
                     <group string="Templates"/>
                     <field name="line_ids" nolabel="1">
                         <tree editable="bottom">
-                            <field name="template_id" string="Name" readonly="template_id"/>
+                            <field name="template_id" string="Name" required="1"/>
                             <field name="income_debit" readonly="1"/>
                             <field name="income_credit" readonly="1"/>
                             <field name="expense_debit" readonly="1"/>
