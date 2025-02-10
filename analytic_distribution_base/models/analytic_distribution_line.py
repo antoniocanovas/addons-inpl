@@ -34,7 +34,7 @@ class AnalyticDistributionLine(models.Model):
                 ('account_id', 'in', record.template_id.income_account_ids.ids),
                 ('date', '>=', datefrom),
                 ('date', '<=', dateto),
-                ('parent_state', '=', 'posted'),
+                ('parent_state', 'in', ['posted']),
                 ('analytic_account_ids', 'in', record.template_id.income_analytic_ids.ids),
             ])
             for li in incomelines:
@@ -45,7 +45,7 @@ class AnalyticDistributionLine(models.Model):
                 ('account_id', 'in', record.template_id.expense_account_ids.ids),
                 ('date', '>=', datefrom),
                 ('date', '<=', dateto),
-                ('parent_state', '=', 'posted'),
+                ('parent_state', 'in', ['posted']),
                 ('analytic_account_ids', 'in', record.template_id.expense_analytic_ids.ids),
             ])
             for li in expenselines:
