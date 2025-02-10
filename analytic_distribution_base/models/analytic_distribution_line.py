@@ -16,16 +16,8 @@ class AnalyticDistributionLine(models.Model):
     distribution_id = fields.Many2one('analytic.distribution', string='Distribution')
     date_from = fields.Date(related='distribution_id.date_from')
     date_to = fields.Date(related='distribution_id.date_to')
-    income = fields.Monetary('Income', compute='_get_income')
-    expense = fields.Monetary('Expense', compute='_get_expense')
+    income_debit = fields.Monetary('Income debit')
+    income_credit = fields.Monetary('Income credit')
+    expense_debit = fields.Monetary('Expense debit')
+    expense_credit = fields.Monetary('Expense credit')
     currency_id = fields.Many2one('res.currency', default=lambda self:self.env.company.currency_id)
-
-    @api.depends('date_from','date_to','template_id')
-    def _get_income(self):
-        for rec in self:
-            rec.income = 1
-
-    @api.depends('date_from','date_to','template_id')
-    def _get_expense(self):
-        for rec in self:
-            rec.expense = 2
