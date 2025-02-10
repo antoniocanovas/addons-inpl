@@ -39,39 +39,45 @@
             </group>
           </group>
 
-          <!-- Grupo para Albaranes de Cisternas -->
-          <group string="Albaranes de Cisternas">
-            <field name="picking_in_cistern_qty" readonly="1"/>
-            <field name="picking_in_cistern_ids" widget="many2many_tags" readonly="1"/>
+          <group>
+            <!-- Grupo para Albaranes de Cisternas -->
+            <group string="Albaranes de Cisternas">
+              <field name="picking_in_cistern_qty" readonly="1"/>
+              <field name="picking_in_cistern_ids" widget="many2many_tags" readonly="1"/>
+            </group>
+
+            <!-- Grupo para Albaranes de Sacos -->
+            <group string="Albaranes de Sacos">
+              <field name="picking_in_sack_qty" readonly="1"/>
+              <field name="picking_in_sack_ids" widget="many2many_tags" readonly="1"/>
+            </group>
           </group>
 
-          <!-- Grupo para Albaranes de Sacos -->
-          <group string="Albaranes de Sacos">
-            <field name="picking_in_sack_qty" readonly="1"/>
-            <field name="picking_in_sack_ids" widget="many2many_tags" readonly="1"/>
+          <group>
+            <!-- Grupo para Albaranes de Color -->
+            <group string="Albaranes de Color">
+              <field name="picking_in_color_qty" readonly="1"/>
+              <field name="picking_in_color_ids" widget="many2many_tags" readonly="1"/>
+            </group>
+
+            <!-- Grupo para Albaranes de Cartón -->
+            <group string="Albaranes de Cartón">
+              <field name="picking_in_cardboard_qty" readonly="1"/>
+              <field name="picking_in_cardboard_ids" widget="many2many_tags" readonly="1"/>
+            </group>
           </group>
 
-          <!-- Grupo para Albaranes de Color -->
-          <group string="Albaranes de Color">
-            <field name="picking_in_color_qty" readonly="1"/>
-            <field name="picking_in_color_ids" widget="many2many_tags" readonly="1"/>
-          </group>
+          <group>
+            <!-- Grupo para Albaranes de Bolsas -->
+            <group string="Albaranes de Bolsas">
+              <field name="picking_in_bag_qty" readonly="1"/>
+              <field name="picking_in_bag_ids" widget="many2many_tags" readonly="1"/>
+            </group>
 
-          <!-- Grupo para Albaranes de Cartón -->
-          <group string="Albaranes de Cartón">
-            <field name="picking_in_cardboard_qty" readonly="1"/>
-            <field name="picking_in_cardboard_ids" widget="many2many_tags" readonly="1"/>
-          </group>
-
-          <!-- Grupo para Albaranes de Bolsas -->
-          <group string="Albaranes de Bolsas">
-            <field name="picking_in_bag_qty" readonly="1"/>
-            <field name="picking_in_bag_ids" widget="many2many_tags" readonly="1"/>
-          </group>
-
-          <group string="sales container">
-            <field name="sale_container_ids" widget="many2many_tags" readonly="1"/>
-            <field name="sale_container_qty" readonly="1"/>
+            <group string="sales container">
+              <field name="sale_container_ids" widget="many2many_tags" readonly="1"/>
+              <field name="sale_container_qty" readonly="1"/>
+            </group>
           </group>
         </page>
 
