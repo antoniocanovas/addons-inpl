@@ -20,6 +20,7 @@ class AnalyticDistribution(models.Model):
     line_ids = fields.One2many('analytic.distribution.line','distribution_id', string='Lines')
 
     days = fields.Integer('Days', compute='_compute_days', store=True)
+    @api.depends('date_from','date_to')
     def _compute_days(self):
         for record in self:
             if record.date_from and record.date_to:
