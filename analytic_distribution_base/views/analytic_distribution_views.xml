@@ -73,7 +73,7 @@
                         <group string="Templates"/>
                         <field name="line_ids" nolabel="1">
                                 <tree editable="bottom">
-                                    <field name="template_id"/>
+                                    <field name="template_id" string="Name"/>
                                     <field name="income"/>
                                     <field name="expense"/>
                                 </tree>
