@@ -63,9 +63,13 @@
                         <field name="name" placeholder="Analytic distribution name ..."/>
                     </h1>
                     <group>
-                        <field name="date_from" required="1"/>
-                        <field name="date_to" required="1"/>
-                        <field name="days"/>
+                        <group>
+                            <field name="date_from" required="1"/>
+                            <field name="date_to" required="1"/>
+                        </group>
+                        <group>
+                            <field name="days"/>
+                        </group>
                         <field name="comment" placeholder="Notes" nolabel="1" colspan="2"/>
                         <!-- Quitado el 10 de febrero porque pasamos a usar líneas:
                         <field name="analytic_distribution_template_ids"/>
@@ -73,11 +77,11 @@
                     </group>
                     <group string="Templates"/>
                     <field name="line_ids" nolabel="1">
-                            <tree editable="bottom">
-                                <field name="template_id" string="Name"/>
-                                <field name="income"/>
-                                <field name="expense"/>
-                            </tree>
+                        <tree editable="bottom">
+                            <field name="template_id" string="Name"/>
+                            <field name="income"/>
+                            <field name="expense"/>
+                        </tree>
                     </field>
                     <field name="currency_id" invisible="1"/>
                 </sheet>
