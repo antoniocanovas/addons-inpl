@@ -40,12 +40,12 @@
                     </group>
 
                         <group >
-                            <group string="Warehouse">
+                            <group string="Expeditions">
                                 <field name="truck_load" widget="float_time"/>
                                 <field name="container_load" widget="float_time"/>
                                 <field name="picking_unload" widget="float_time"/>
                             </group>
-                            <group string="Internal Transfer Relocation (h/day)">
+                            <group string="Internal Transfer Relocations (h/day)">
                                 <field name="raw_color_reloc_day" widget="float_time"/>
                                 <field name="raw_pallet_reloc_day" widget="float_time"/>
                                 <field name="raw_cboard_reloc_day" widget="float_time"/>
