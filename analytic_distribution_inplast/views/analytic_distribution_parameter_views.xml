@@ -40,7 +40,7 @@
                     </group>
 
                         <group >
-                            <group string="Expeditions">
+                            <group string="Warehouse expeditions">
                                 <field name="truck_load" widget="float_time"/>
                                 <field name="container_load" widget="float_time"/>
                                 <field name="picking_unload" widget="float_time"/>
