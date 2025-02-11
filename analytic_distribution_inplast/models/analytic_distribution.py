@@ -488,10 +488,11 @@ class AnalyticDistribution(models.Model):
         self.env["account.analytic.line"].search(
             [("analytic_distribution_id", "=", self.id)]
         ).unlink()
-        self.inplast_computed_modes()
+        for li in self.line_ids:
+            self.inplast_computed_modes(li)
 
-    def inplast_computed_modes(self):
-        if self.compute_method == "demo":
+    def inplast_computed_modes(self,li):
+        if li.compute_method == "demo":
             raise UserError("ok")
         elif self.compute_method == "r13":
             self.compute_r13()
