@@ -38,4 +38,5 @@ class AnalyticDistribution(models.Model):
     def compute_distribution(self):
         for record in self:
             for li in record.line_ids:
+                # Añadir aquí el borrado de apuntes analíticos anteriores.
                 li.compute_debit_credit()
