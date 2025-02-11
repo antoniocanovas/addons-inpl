@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 class AnalyticDistributionTemple(models.Model):
     _inherit = "analytic.distribution.template"
 
-    compute_method = fields.Selection(
+    compute_method = fields.Selection(selection_add=
         [
             ("r1", "R1.- Descarga y ubicación de asas (PDTE)"),
             ("r2", "R2.- Recogida de palet y ubicación (PDTE)"),
