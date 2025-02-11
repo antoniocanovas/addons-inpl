@@ -84,6 +84,7 @@
                                     <field name="income_credit" widget="monetary" readonly="1"/>
                                     <field name="expense_debit" widget="monetary" readonly="1"/>
                                     <field name="expense_credit" widget="monetary" readonly="1"/>
+                                    <field name="balance" widget="monetary"/>
                                     <field name="currency_id" column_invisible="1"/>
                                 </tree>
                             </field>

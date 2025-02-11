@@ -21,6 +21,7 @@ class AnalyticDistributionLine(models.Model):
     income_credit = fields.Monetary('Income credit')
     expense_debit = fields.Monetary('Expense debit')
     expense_credit = fields.Monetary('Expense credit')
+    balance = fields.Monetary('Balance')
 
     currency_id = fields.Many2one('res.currency', default=lambda self:self.env.company.currency_id)
 
@@ -52,6 +53,9 @@ class AnalyticDistributionLine(models.Model):
                 expense_debit += li.debit
                 expense_credit += li.credit
 
+            balance = income_debit - income_credit - expense_debit + expense_credit
+
             record.write(
                 {'income_debit':income_debit, 'income_credit':income_credit,
-                 'expense_debit':expense_debit, 'expense_credit':expense_credit})
+                 'expense_debit':expense_debit, 'expense_credit':expense_credit,
+                 'balance':balance})

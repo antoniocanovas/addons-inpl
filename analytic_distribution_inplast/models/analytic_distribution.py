@@ -489,25 +489,22 @@ class AnalyticDistribution(models.Model):
             [("analytic_distribution_id", "=", self.id)]
         ).unlink()
         for li in self.line_ids:
-            self.inplast_computed_modes(li)
-
-    def inplast_computed_modes(self,li):
-        if li.template_id.compute_method == "demo":
-            raise UserError("ok")
-        elif li.template_id.compute_method == "r13":
-            self.compute_r13()
-        elif li.template_id.compute_method in ["r14","r15"]:
-            self.compute_r14()
-        elif li.template_id.compute_method == "r22":
-            self.compute_r22()
+            if li.template_id.compute_method == "demo":
+                raise UserError("ok")
+            elif li.template_id.compute_method == "r13":
+                self.compute_r13(li)
+            elif li.template_id.compute_method in ["r14","r15"]:
+                self.compute_r14(li)
+            elif li.template_id.compute_method == "r22":
+                self.compute_r22(li)
 
 
-    def compute_r13(self):
+    def compute_r13(self, li):
         datefrom = self.date_from
         dateto = self.date_to
         total_kwh = 0  # Total de kWh consumidos por todas las máquinas
-        workcenters = self.workcenter_ids
-        amount = self.amount  # El coste a distribuir
+        workcenters = li.template_id.workcenter_ids
+        balance = li.balance  # El coste a distribuir
 
         # Wororders entre fechas:
         workorders = self.env["mrp.workorder"].search(
@@ -551,7 +548,7 @@ class AnalyticDistribution(models.Model):
             product_kwh = product_total_kwh[i]
 
             machine_percentage = (product_kwh / total_kwh) * 100
-            machine_cost = (amount * machine_percentage) / 100
+            machine_cost = (balance * machine_percentage) / 100
 
             # Buscar la cuenta analítica para el producto base tapón, o crearla:
             analytic_product = product
