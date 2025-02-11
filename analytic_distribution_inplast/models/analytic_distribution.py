@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 from docutils.nodes import container
 from odoo import fields, models, api
-
+from odoo.exceptions import UserError
 
 class AnalyticDistribution(models.Model):
     _inherit = 'analytic.distribution'
@@ -492,13 +492,13 @@ class AnalyticDistribution(models.Model):
             self.inplast_computed_modes(li)
 
     def inplast_computed_modes(self,li):
-        if li.compute_method == "demo":
+        if li.template_id.compute_method == "demo":
             raise UserError("ok")
-        elif self.compute_method == "r13":
+        elif li.template_id.compute_method == "r13":
             self.compute_r13()
-        elif self.compute_method in ["r14","r15"]:
+        elif li.template_id.compute_method in ["r14","r15"]:
             self.compute_r14()
-        elif self.compute_method == "r22":
+        elif li.template_id.compute_method == "r22":
             self.compute_r22()
 
 
