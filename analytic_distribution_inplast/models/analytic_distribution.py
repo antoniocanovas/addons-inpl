@@ -566,6 +566,12 @@ class AnalyticDistribution(models.Model):
                     'name': analytic_product.name,
                 })
 
+            # Buscar el nombre del campo creado dinámicamente:
+            analytic_field_name = self.env['ir.model.fields'].search([
+                ('model','=','account.analytic.line'),
+                ('ttype','=','many2one'),
+                ('field_description','=',analytic_account.plan_id.name),
+            ]).name
 
             self.env["account.analytic.line"].create(
                 {
@@ -574,7 +580,7 @@ class AnalyticDistribution(models.Model):
                     "product_id": product.id,
                     "date": fields.Date.today(),
                     "analytic_distribution_id": self.id,
-                    "account_id": analytic_account.id,
+                    analytic_field_name: analytic_account.id,
                 }
             )
 
