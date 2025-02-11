@@ -490,7 +490,8 @@ class AnalyticDistribution(models.Model):
         ).unlink()
         for li in self.line_ids:
             if li.template_id.compute_method == "demo":
-                raise UserError("ok")
+                a=1
+                #raise UserError("ok")
             elif li.template_id.compute_method == "r13":
                 self.compute_r13(li)
             elif li.template_id.compute_method in ["r14","r15"]:
