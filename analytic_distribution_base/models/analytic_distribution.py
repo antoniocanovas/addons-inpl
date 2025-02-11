@@ -15,7 +15,7 @@ class AnalyticDistribution(models.Model):
     name = fields.Char('Name', required=True)
     date_from = fields.Date('From date', copy=False)
     date_to = fields.Date('To date', copy=False, default=lambda self: datetime.today())
-    analytic_line_ids = fields.One2many('account.analytic.line', 'analytic_distribution_period_id', string='Analytic lines')
+    analytic_line_ids = fields.One2many('account.analytic.line', 'analytic_distribution_id', string='Analytic lines')
     comment = fields.Html('Comments', store=True, copy=False)
     line_ids = fields.One2many('analytic.distribution.line','distribution_id', string='Lines')
     currency_id = fields.Many2one('res.currency', default=lambda self: self.env.company.currency_id)
