@@ -20,8 +20,8 @@
     <record id="action_view_analytic_item_lines" model="ir.actions.act_window">
         <field name="binding_model_id" eval="False"/>
         <field name="binding_type">action</field>
-        <field name="context">{'search_default_analytic_distribution_template_id': active_id,'default_analytic_distribution_id': active_id}</field>
-        <field name="domain">[('analytic_distribution_template_id', '=', active_id)]</field>
+        <field name="context">{'search_default_analytic_distribution_id': active_id,'default_analytic_distribution_id': active_id}</field>
+        <field name="domain">[('analytic_distribution_id', '=', active_id)]</field>
         <field name="groups_id" eval="[(6, 0, [])]"/>
         <field name="help"><![CDATA[<p>Analytic lines</p>]]></field>
         <field name="limit">80</field>
@@ -52,7 +52,7 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" icon="fa-spinner" type="action" invisible="not analytic_line_count"
-                                name="%(analytic_distribution_template_action_window)d">
+                                name="%(action_view_analytic_item_lines)d">
                             <field widget="statinfo" name="analytic_line_count" string="Lines"/>
                         </button>
                         <button class="oe_stat_button" icon="fa-puzzle-piece" type="object"
