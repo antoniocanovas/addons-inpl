@@ -68,9 +68,14 @@
                             <span>Prod. Date</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <t t-if="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')">
-                                <t t-esc="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')"/>
+                            <t t-if="line.lot_id.mig_fechafabricacion">
+                                <span t-field="line.lot_id.mig_fechafabricacion"/>
                             </t>
+
+                            <t t-elif="line.lot_id.mrp_production_id and line.lot_id.mrp_production_id.date_start">
+                                <span t-esc="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')"/>
+                            </t>
+
                         </div>
 
 
@@ -102,8 +107,11 @@
                             <span>End Prod. Date</span>
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
-                            <t t-if="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')">
-                                <t t-esc="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')"/>
+                            <t t-if="line.lot_id.mig_fechafabricacion">
+                                <span t-field="line.lot_id.mig_fechafabricacion"/>
+                            </t>
+                            <t t-elif="line.lot_id.mrp_production_id and line.lot_id.mrp_production_id.date_finished">
+                                <span t-esc="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')"/>
                             </t>
                         </div>
                     </div>
@@ -250,7 +258,7 @@
                     <!-- Columna con el texto principal -->
                     <div class="col-9"
                          style="display: -webkit-box; -webkit-box-align: center; -webkit-box-pack: center; text-align: center; font-weight: bold; font-size: 20px; height: 100%;">
-                       QUALITY CERTIFICATE
+                        QUALITY CERTIFICATE
                     </div>
                 </div>
 
@@ -266,8 +274,6 @@
                         <div style="border: 1px solid black; padding: 3px;margin:1px;" class="col-10">
                             <span t-field="line.lot_id.parent_id.name" t-if="line.lot_id"/>
                         </div>
-
-
 
 
                     </div>
@@ -401,7 +407,7 @@
 
                 <br/>
 
-                <div style="border: 1px solid black; padding: 10px; font-size: 13px;" >
+                <div style="border: 1px solid black; padding: 10px; font-size: 13px;">
                     <strong style="border-bottom: 1px solid black; width:40px">Product purchase data</strong>
                     <div class="row" style="margin-top:2px;">
                         <div style="background-color:#03fdfd;border: 1px solid black; padding: 2px;margin:1px;"
@@ -417,12 +423,15 @@
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
 
-                            <t t-if="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')">
-                                <t t-esc="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')"/>
+                            <t t-if="line.lot_id.mig_fechafabricacion">
+                                <span t-field="line.lot_id.mig_fechafabricacion"/>
                             </t>
+                            <!-- Otherwise, if production exists and date_start is valid, format it -->
+                            <t t-elif="line.lot_id.mrp_production_id and line.lot_id.mrp_production_id.date_start">
+                                <span t-esc="line.lot_id.mrp_production_id.date_start.strftime('%d/%m/%Y')"/>
+                            </t>
+
                         </div>
-
-
 
 
                     </div>
@@ -450,12 +459,13 @@
                         </div>
                         <div style="border: 1px solid black; padding: 2px;margin:1px;margin-top:2px;" class="col-2">
 
-                            <t t-if="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')">
-                                <t t-esc="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')"/>
+                            <t t-if="line.lot_id.mig_fechafabricacion">
+                                <span t-field="line.lot_id.mig_fechafabricacion"/>
+                            </t>
+                            <t t-elif="line.lot_id.mrp_production_id and line.lot_id.mrp_production_id.date_finished">
+                                <span t-esc="line.lot_id.mrp_production_id.date_finished.strftime('%d/%m/%Y')"/>
                             </t>
                         </div>
-
-
 
 
                     </div>
