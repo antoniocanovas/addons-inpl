@@ -113,7 +113,8 @@ class MrpBom(models.Model):
             if len(colors.ids) > 2:
                 namedye = "MULTICOLOR"
             if namedye != "":
-                record.product_id['pnt_product_dye'] = namedye
+                record.product_tmpl_id['pnt_product_dye'] = namedye
+
 
             # Actualizar el campo pnt_product_raw
             nameraw = ""
@@ -137,5 +138,5 @@ class MrpBom(models.Model):
             if len(raws.ids) > 2:
                 nameraw = "MULTIRAWS"
             if nameraw != "":
-                record.product_id['pnt_product_raw'] = nameraw
-                print(nameraw)
+                record.product_tmpl_id['pnt_product_raw'] = nameraw
+
