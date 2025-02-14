@@ -196,6 +196,14 @@ class AccountMove(models.Model):
 
     ipnr_tax_zone = fields.Boolean(related='picking_partner_id.ipnr_tax_zone')
 
+    is_dropshipping_ipnr = fields.Boolean('Dropshipping no IPNR', compute='_get_dropshipping_ipnr')
+
+    def _get_dropshipping_ipnr(self):
+        for record in self:
+            record.is_dropshipping_ipnr = False
+            if (record.move_type in ['in_invoice', 'in_refund']) and record.invoice_line_ids.purchase_order_id.dest_address_id.id:
+                record.is_dropshipping_ipnr = record.invoice_line_ids.purchase_order_id.dest_address_id.ipnr_tax_zone
+
     @api.depends('state', 'plastictax_move_id', 'write_date')
     def _get_plastic_tax_required(self):
         show_button = False
@@ -204,7 +212,9 @@ class AccountMove(models.Model):
                 # Con esta condición verificamos que es plástico:
                 if (li.product_id.ipnr_subject != 'no') and (li.product_id.plastic_weight_non_recyclable != 0) and (li.quantity != 0):
                     # Operaciones de compra fuera de España:
-                    if (self.ipnr_tax_zone) and (self.move_type in ['in_invoice','in_refund']):
+                    if (self.ipnr_tax_zone) and (self.move_type in ['in_invoice','in_refund']) and not self.invoice_line_ids.purchase_order_id.dest_address_id.id:
+                        show_button = True
+                    if (self.move_type in ['in_invoice','in_refund']) and self.is_dropshipping_ipnr and  self.invoice_line_ids.purchase_order_id.dest_address_id.id:
                         show_button = True
                     # Operaciones de venta fuera de España, sólo recuperamos si es comercio (no fabricados):
                     if (self.ipnr_tax_zone) and (self.move_type in ['out_invoice','out_refund']) and (li.product_id.tax_plastic_type == 'acquirer'):
@@ -218,6 +228,8 @@ class AccountMove(models.Model):
                         show_button = True
         self.plastic_tax = show_button
     plastic_tax = fields.Boolean('Plastic tax', store=False, compute='_get_plastic_tax_required')
+
+
 
     def create_plastic_tax_entry(self):
         # Si es venta o abono de compra: el debe a la 700(producto) y haber a la 475
