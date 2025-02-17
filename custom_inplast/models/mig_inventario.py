@@ -54,7 +54,7 @@ class MigInventario(models.Model):
                     # raise UserError('El lote ya existe: ' + nombrelote)
                 else:
                     ssccs, parentlotname = [], False
-                    parentlotname = nombrelote.split(".")
+                    parentlotname = nombrelote.split("/")
                     parentlot = self.env['stock.lot'].search(
                         [('name', '=', parentlotname[0]), ('product_id', '=', product.id)])
                     if not parentlot.id and parentlotname:
