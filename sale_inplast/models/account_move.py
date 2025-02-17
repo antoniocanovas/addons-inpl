@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from datetime import datetime
 
 import logging
@@ -39,6 +40,8 @@ class AccountMove(models.Model):
                     ("product_tmpl_id", "=", line.product_id.product_tmpl_id.id),
                 ]
             )
+            if len(has_pricelist) > 1:
+                raise UserError("El producto tiene más de un precio en la lista de precios:" + line.product_tmpl_id.name)
             if has_pricelist and (has_pricelist.fixed_price != line.price_unit):
                 line._compute_price_unit()
         # result = super(AccountMove, self).button_update_prices_from_pricelist()
