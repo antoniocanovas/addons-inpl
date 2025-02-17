@@ -5,6 +5,7 @@
         <field name="name">MIG INVENTARIO: Create imported inventory operations</field>
         <field name="model_id" ref="model_mig_inventario"/>
         <field name="state">code</field>
+        <field name="numbercall">-1</field>
         <field name="code">model._cron_update_mig_inventario()</field>
         <field name="interval_number">5</field>
         <field name="interval_type">minutes</field>

@@ -32,7 +32,7 @@ class MigInventario(models.Model):
         # Quedan excluídos los que ya han sido regularizados (tienen sml_id asignado).
         recs = self.env['mig.inventario'].search([('sml_id','=',False)])
         for r in recs:
-            if r.name and r.ubicacion and r.ubicacion_old and r.lote and r.palet:
+            if r.name !="" and r.ubicacion and r.ubicacion_old and r.lote and r.palet:
                 lote, ssccs = False, []
 
                 # Busco la ubicación:
