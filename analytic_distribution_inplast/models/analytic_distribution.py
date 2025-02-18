@@ -411,7 +411,9 @@ class AnalyticDistribution(models.Model):
                 ('move_ids_without_package.product_id.categ_id.type', 'in', ['raw_pallet']),
                 ('picking_type_code', '=', 'incoming'),
             ])
-            rec.picking_in_bag_ids = pickings
+            if picking.ids: pics = pickings
+            else pics = []
+            rec.picking_in_bag_ids = pics
 
     @api.depends('picking_in_pallet_ids')
     def _compute_picking_in_pallet_qty(self):
