@@ -13,7 +13,7 @@ class ProductCategory(models.Model):
         ('raw_cistern', 'Raw Cistern'),
         ('raw_sack', 'Raw Sack'),
         ('raw_pallet', 'Raw Pallet'),
-        ('raw_bags', 'Raw Bags'),
+        ('raw_bag', 'Raw Bags'),
         ('raw_cardboard', 'Raw Cardboard'),
         ('raw_color', 'Raw Corlor'),
         ('cap_mrp', 'Cap MRP'),
