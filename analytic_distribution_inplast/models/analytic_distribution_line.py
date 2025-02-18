@@ -36,4 +36,4 @@ class AnalyticDistributionLine(models.Model):
         total = 0
         if self.picking_hour_qty > 0:
             total = self.balance / self.picking_hour_qty
-        self.picking_hour_cost = total
+        self.picking_hour_cost = -total
