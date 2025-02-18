@@ -26,7 +26,7 @@ class AnalyticDistribution(models.Model):
         store=True,
     )
     picking_in_pallet_handles_qty = fields.Float(
-        string="Handle pallets received",
+        string="Handle pallets in",
         compute="_compute_picking_in_handles",
         store=True,
     )
@@ -457,8 +457,8 @@ class AnalyticDistribution(models.Model):
     # 12) consolidados almacen
     # =========================================================================
 
-    picking_hour_qty = fields.Float(string='Cantidad de consolidados por hora',compute='_compute_picking_hour_qty')
-    picking_balance = fields.Float(string='Balance de consolidados',compute='_compute_picking_balance')
+    picking_hour_qty = fields.Float(string='Pickig hours',compute='_compute_picking_hour_qty')
+    picking_balance = fields.Float(string='Picking hour cost',compute='_compute_picking_balance')
 
     @api.depends('date_from', 'date_to')
     def _compute_picking_hour_qty(self):
