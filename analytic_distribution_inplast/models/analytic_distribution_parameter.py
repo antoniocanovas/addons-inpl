@@ -55,19 +55,19 @@ class AnalyticDistributionParameter(models.Model):
     )
 
     # Internal transfer to production
-    raw_color_reloc_day = fields.Float(
+    raw_color_reloc_daily = fields.Float(
         string='Color',
         help="Daily internal relocation time for color (hours per day)."
     )
-    raw_pallet_reloc_day = fields.Float(
+    raw_pallet_reloc_daily = fields.Float(
         string='Pallet ',
         help="Daily internal relocation time for pallets (hours per day)."
     )
-    raw_cboard_reloc_day = fields.Float(
+    raw_cboard_reloc_daily = fields.Float(
         string='Cardboard',
         help="Daily internal relocation time for cardboard (hours per day)."
     )
-    raw_bag_reloc_day = fields.Float(
+    raw_bag_reloc_daily = fields.Float(
         string='Bag',
         help="Daily internal relocation time for bags (hours per day)."
     )
