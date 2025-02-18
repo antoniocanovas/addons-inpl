@@ -16,37 +16,37 @@ class AnalyticDistributionParameter(models.Model):
 
     # Warehouse (load/unload)
     truck_load = fields.Float(
-        string='Truck load ',
+        string='Truck load',
         help="Time required to load a truck."
     )
     container_load = fields.Float(
-        string='Container load ',
+        string='Container load',
         help="Time required to load a container."
     )
     picking_unload = fields.Float(
-        string='Picking unload ',
+        string='Picking unload',
         help="Time required to unload a picking slip (1h per slip)."
     )
 
     # Raw material reception (load/unload)
     raw_cistern_unload = fields.Float(
-        string='Cistern unload ',
+        string='Cistern unload',
         help="Time required to unload a cistern."
     )
     raw_sack_unload = fields.Float(
-        string='Sack unload ',
+        string='Sack unload',
         help="Time required to unload sacks of raw material."
     )
     raw_color_unload = fields.Float(
-        string='Color unload ',
+        string='Color unload',
         help="Time required to unload color material."
     )
     raw_pallet_unload = fields.Float(
-        string='Pallet unload ',
+        string='Pallet unload',
         help="Time required to unload pallets."
     )
     raw_cardboard_unload = fields.Float(
-        string='Cardboard unload ',
+        string='Cardboard unload',
         help="Time required to unload cardboard."
     )
     raw_bag_unload = fields.Float(

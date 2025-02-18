@@ -17,16 +17,16 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_inplast_handles_rel',  # tabla rel única
         column1='analytic_distribution_id',
         column2='picking_id',
-        string="Albaranes de Asas",
+        string="Handle pickings",
         compute="_compute_picking_in_handles_ids",
     )
     picking_in_handles_qty = fields.Float(
-        string="Cantidad de Albaranes de Asas",
+        string="Handle pickings qty",
         compute="_compute_picking_in_handles_qty",
         store=True,
     )
     picking_in_pallet_handles_qty = fields.Float(
-        string="Cantidad de Asas (suma de UoM)",
+        string="Handle pallets received",
         compute="_compute_picking_in_handles",
         store=True,
     )
@@ -73,16 +73,16 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_inplast_caps_rel',  # tabla rel única
         column1='analytic_distribution_id',
         column2='picking_id',
-        string="Albaranes de Tapones",
+        string="Cap pickings",
         compute="_compute_picking_in_caps_ids",
     )
     picking_in_caps_qty = fields.Float(
-        string="Cantidad de Albaranes de Tapones",
+        string="Cap picking qty",
         compute="_compute_picking_in_caps_qty",
         store=True,
     )
     picking_in_pallet_caps_qty = fields.Float(
-        string="Cantidad de Tapones (suma de UoM)",
+        string="Cap pallets received",
         compute="_compute_picking_in_caps",
         store=True,
     )
@@ -129,15 +129,15 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_sale_caps_order_rel',  # relación rel única
         column1='analytic_distribution_id',
         column2='sale_order_id',
-        string="Sale Orders de Tapones",
+        string="Cap sale orders",
         compute="_compute_sale_caps_order_ids",
     )
     sale_caps_order_count = fields.Integer(
-        string="Número de Sale Orders de Tapones",
+        string="Cap orders qty",
         compute="_compute_sale_caps_order_count",
     )
     sale_caps_order_qty = fields.Float(
-        string="Cantidad de Tapones (Sale Orders)",
+        string="Cap pallet sales",
         compute="_compute_sale_caps_order_qty",
     )
 
@@ -181,15 +181,15 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_sale_handles_order_rel',  # relación rel única
         column1='analytic_distribution_id',
         column2='sale_order_id',
-        string="Sale Orders de Asas",
+        string="Handle sale orders",
         compute="_compute_sale_handles_order_ids",
     )
     sale_handles_order_count = fields.Integer(
-        string="Número de Sale Orders de Asas",
+        string="Handle orders qty",
         compute="_compute_sale_handles_order_count",
     )
     sale_handles_order_qty = fields.Float(
-        string="Cantidad de Asas (Sale Orders)",
+        string="Handle pallets sales",
         compute="_compute_sale_handles_order_qty",
     )
 
@@ -233,11 +233,11 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_inplast_cistern_rel',
         column1='analytic_distribution_id',
         column2='picking_id',
-        string="Albaranes de cisternas",
+        string="Cistern pickings",
         compute="_compute_picking_in_cistern_ids",
     )
     picking_in_cistern_qty = fields.Float(
-        string="Cantidad de cisternas",
+        string="Cistern qty",
         compute="_compute_picking_in_cistern_qty",
     )
 
@@ -265,11 +265,11 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_inplast_sack_rel',
         column1='analytic_distribution_id',
         column2='picking_id',
-        string="Albaranes de sacos",
+        string="Sack pickings",
         compute="_compute_picking_in_sack_ids",
     )
     picking_in_sack_qty = fields.Float(
-        string="Cantidad de sacos",
+        string="Sack pikings qty",
         compute="_compute_picking_in_sack_qty",
     )
 
@@ -297,11 +297,11 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_inplast_color_rel',
         column1='analytic_distribution_id',
         column2='picking_id',
-        string="Albaranes de color",
+        string="Color pickings in",
         compute="_compute_picking_in_color_ids",
     )
     picking_in_color_qty = fields.Float(
-        string="Cantidad de color",
+        string="Color picking in qty",
         compute="_compute_picking_in_color_qty",
     )
 
@@ -329,11 +329,11 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_inplast_cardboard_rel',
         column1='analytic_distribution_id',
         column2='picking_id',
-        string="Albaranes de cartón",
+        string="Cardboard pikings",
         compute="_compute_picking_in_cardboard_ids",
     )
     picking_in_cardboard_qty = fields.Float(
-        string="Cantidad de cartón",
+        string="Cardboard piking qty",
         compute="_compute_picking_in_cardboard_qty",
     )
 
@@ -361,11 +361,11 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_inplast_bag_rel',
         column1='analytic_distribution_id',
         column2='picking_id',
-        string="Albaranes de bolsas",
+        string="Bag pickings",
         compute="_compute_picking_in_bag_ids",
     )
     picking_in_bag_qty = fields.Float(
-        string="Cantidad de bolsas",
+        string="Bag pickings qty",
         compute="_compute_picking_in_bag_qty",
     )
 
@@ -394,11 +394,11 @@ class AnalyticDistribution(models.Model):
         relation='analytic_distribution_inplast_bag_rel',
         column1='analytic_distribution_id',
         column2='picking_id',
-        string="Albaranes de bolsas",
+        string="Pallet pickings in",
         compute="_compute_picking_in_pallet_ids",
     )
     picking_in_pallet_qty = fields.Float(
-        string="Cantidad de bolsas",
+        string="Pallet pickings in qty",
         compute="_compute_picking_in_pallet_qty",
     )
 
