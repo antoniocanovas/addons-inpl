@@ -7,6 +7,15 @@
     <field name="arch" type="xml">
       <xpath expr="//notebook" position="inside">
         <page name="picking" string="Picking">
+          <!-- RESUMEN: -->
+          <group string="Balance">
+            <group>
+              <field name="picking_hour_qty"/>
+            </group>
+            <group>
+              <field name="picking_balance"/>
+            </group>
+          </group>
           <!-- Grupo para Albaranes de Asas y Tapones -->
           <group>
             <group string="Albaranes de Asas">
