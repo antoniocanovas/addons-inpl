@@ -412,7 +412,7 @@ class AnalyticDistribution(models.Model):
                 ('picking_type_code', '=', 'incoming'),
             ])
             if picking.ids: pics = pickings
-            else pics = []
+            else: pics = []
             rec.picking_in_bag_ids = pics
 
     @api.depends('picking_in_pallet_ids')
