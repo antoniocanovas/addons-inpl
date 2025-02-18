@@ -14,9 +14,7 @@ class AnalyticDistributionLine(models.Model):
     # 12) Consolidados almacen
     # =========================================================================
     picking_hour_qty = fields.Float(string='Pickig hours',compute='_compute_picking_hour_qty')
-    # Revisar estos campos, el balance debe venir de las líneas o el precio hora sobre las líneas:
-    #picking_balance = fields.Float(string='Picking balance',compute='_compute_picking_balance')
-    #picking_hour_cost = fields.Float(string='Picking hour cost', compute='_compute_picking_hour_cost')
+    picking_hour_cost = fields.Float(string='Picking hour cost', compute='_compute_picking_hour_cost')
 
     @api.depends('date_from', 'date_to')
     def _compute_picking_hour_qty(self):
@@ -33,3 +31,9 @@ class AnalyticDistributionLine(models.Model):
             container_load = distribution.sale_container_qty * parameters.container_load
 
             rec.picking_hour_qty = cistern_unload + sack_unload + color_unload + cardboard_unload + bag_unload + pallet_unload + internal_pickings + container_load
+
+    def _compute_picking_hour_cost(self):
+        total = 0
+        if self.picking_hour_qty > 0:
+            total = self.balance / self.picking_hour_qty
+        self.picking_hour_cost = total

@@ -8,6 +8,7 @@
       <!-- DATOS GENERALES RESUMEN: -->
       <xpath expr="//tree" position="inside">
         <field name="picking_hour_qty" optional="show"/>
+        <field name="picking_hour_cost" optional="show"/>
       </xpath>
 
 
