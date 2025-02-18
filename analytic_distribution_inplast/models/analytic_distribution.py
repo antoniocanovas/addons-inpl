@@ -391,7 +391,7 @@ class AnalyticDistribution(models.Model):
 
     picking_in_pallet_ids = fields.Many2many(
         'stock.picking',
-        relation='analytic_distribution_inplast_bag_rel',
+        relation='analytic_distribution_inplast_pallet_rel',
         column1='analytic_distribution_id',
         column2='picking_id',
         string="Pallet pickings in",
