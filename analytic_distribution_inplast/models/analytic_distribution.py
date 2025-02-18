@@ -474,10 +474,7 @@ class AnalyticDistribution(models.Model):
             internal_pickings = rec.days * (parameters.raw_color_relocation_daily + parameters.raw_cardboard_relocation_daily + parameters.raw_bag_relocation_daily + parameters.raw_pallet_relocation_daily)
             container_load = rec.sale_container_qty * parameters.container_load
 
-            rec.picking_hour_qty = (
-                    cistern_unload + sack_unload + color_unload + cardboard_unload + bag_unload + pallet_unload +
-                    internal_pickings + container_load
-            )
+            rec.picking_hour_qty = cistern_unload + sack_unload + color_unload + cardboard_unload + bag_unload + pallet_unload + internal_pickings + container_load
 
 
 
