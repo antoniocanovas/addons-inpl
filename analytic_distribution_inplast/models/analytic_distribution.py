@@ -458,7 +458,9 @@ class AnalyticDistribution(models.Model):
     # =========================================================================
 
     picking_hour_qty = fields.Float(string='Pickig hours',compute='_compute_picking_hour_qty')
-    picking_balance = fields.Float(string='Picking hour cost',compute='_compute_picking_balance')
+    # REvisar estos campos, el balance debe venir de las líneas o el precio hora sobre las líneas:
+    picking_balance = fields.Float(string='Picking balance',compute='_compute_picking_balance')
+    picking_hour_cost = fields.Float(string='Picking hour cost', compute='_compute_picking_hour_cost')
 
     @api.depends('date_from', 'date_to')
     def _compute_picking_hour_qty(self):
@@ -476,7 +478,14 @@ class AnalyticDistribution(models.Model):
 
             rec.picking_hour_qty = cistern_unload + sack_unload + color_unload + cardboard_unload + bag_unload + pallet_unload + internal_pickings + container_load
 
+    def _compute_picking_balance(self):
+        self.picking_balance = 1
 
+    def _compute_picking_hour_cost(self):
+        price = 0
+        if self.picking_hour_qty > 0:
+            price = self.picking_balance / self.picking_hour_qty
+        self.picking_hour_cost = price
 
     # =========================================================================
     # MÉTODOS DE CÁLCULO PARA DISTRIBUCIONES ANALÍTICAS:

@@ -11,6 +11,7 @@
           <group string="Balance">
             <group>
               <field name="picking_hour_qty"/>
+              <field name="picking_hour_cost" widget="monetary"/>
             </group>
             <group>
               <field name="picking_balance"/>
