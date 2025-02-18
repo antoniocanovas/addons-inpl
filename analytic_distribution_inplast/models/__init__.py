@@ -8,3 +8,4 @@ from . import analytic_distribution_parameter
 from . import analytic_distribution
 from . import sale_order_line
 from . import stock_move
+from . import analytic_distribution_line

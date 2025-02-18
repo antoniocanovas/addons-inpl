@@ -454,40 +454,6 @@ class AnalyticDistribution(models.Model):
 
 
     # =========================================================================
-    # 12) consolidados almacen
-    # =========================================================================
-
-    picking_hour_qty = fields.Float(string='Pickig hours',compute='_compute_picking_hour_qty')
-    # REvisar estos campos, el balance debe venir de las líneas o el precio hora sobre las líneas:
-    picking_balance = fields.Float(string='Picking balance',compute='_compute_picking_balance')
-    picking_hour_cost = fields.Float(string='Picking hour cost', compute='_compute_picking_hour_cost')
-
-    @api.depends('date_from', 'date_to')
-    def _compute_picking_hour_qty(self):
-        for rec in self:
-            picking_hour_qty = 0
-            parameters = self.env.ref('analytic_distribution_inplast.analytic_distribution_inplast_parameter')
-            cistern_unload= parameters.raw_cistern_unload * rec.picking_in_cistern_qty
-            sack_unload = parameters.raw_sack_unload * rec.picking_in_sack_qty
-            color_unload = parameters.raw_color_unload * rec.picking_in_color_qty
-            cardboard_unload = parameters.raw_cardboard_unload * rec.picking_in_cardboard_qty
-            bag_unload = parameters.raw_bag_unload * rec.picking_in_bag_qty
-            pallet_unload = parameters.raw_pallet_unload * rec.picking_in_pallet_qty
-            internal_pickings = rec.days * (parameters.raw_color_reloc_daily + parameters.raw_cboard_reloc_daily + parameters.raw_bag_reloc_daily + parameters.raw_pallet_reloc_daily)
-            container_load = rec.sale_container_qty * parameters.container_load
-
-            rec.picking_hour_qty = cistern_unload + sack_unload + color_unload + cardboard_unload + bag_unload + pallet_unload + internal_pickings + container_load
-
-    def _compute_picking_balance(self):
-        self.picking_balance = 1
-
-    def _compute_picking_hour_cost(self):
-        price = 0
-        if self.picking_hour_qty > 0:
-            price = self.picking_balance / self.picking_hour_qty
-        self.picking_hour_cost = price
-
-    # =========================================================================
     # MÉTODOS DE CÁLCULO PARA DISTRIBUCIONES ANALÍTICAS:
     # =========================================================================
 

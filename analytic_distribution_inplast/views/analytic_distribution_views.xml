@@ -5,18 +5,14 @@
     <field name="model">analytic.distribution</field>
     <field name="inherit_id" ref="analytic_distribution_base.analytic_distribution_default_form"/>
     <field name="arch" type="xml">
+      <!-- DATOS GENERALES RESUMEN: -->
+      <xpath expr="//tree" position="inside">
+        <field name="picking_hour_qty" optional="show"/>
+      </xpath>
+
+
       <xpath expr="//notebook" position="inside">
         <page name="picking" string="Picking">
-          <!-- RESUMEN: -->
-          <group string="Balance">
-            <group>
-              <field name="picking_hour_qty"/>
-              <field name="picking_hour_cost" widget="monetary"/>
-            </group>
-            <group>
-              <field name="picking_balance"/>
-            </group>
-          </group>
           <!-- Grupo para Albaranes de Asas y Tapones -->
           <group>
             <group string="Albaranes de Asas">
