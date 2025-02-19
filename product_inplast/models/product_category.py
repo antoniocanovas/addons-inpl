@@ -15,7 +15,7 @@ class ProductCategory(models.Model):
         ('raw_pallet', 'Raw Pallet'),
         ('raw_bag', 'Raw Bags'),
         ('raw_cardboard', 'Raw Cardboard'),
-        ('raw_color', 'Raw Corlor'),
+        ('raw_color', 'Raw Color'),
         ('cap_mrp', 'Cap MRP'),
         ('cap_distribution', 'Cap Distribution'),
         ('handle', 'Handle'),

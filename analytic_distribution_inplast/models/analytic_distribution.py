@@ -432,7 +432,7 @@ class AnalyticDistribution(models.Model):
                 ('order_id.date_order', '>=', rec.date_from),
                 ('order_id.date_order', '<=', rec.date_to),
                 ('state', 'in', ['sale']),
-                ('bom_template_type', 'in', ['box','box_nonnrp' ]),
+                ('bom_template_type', 'in', ['box','box_nonmrp' ]),
             ])
             parameters = self.env.ref('analytic_distribution_inplast.analytic_distribution_inplast_parameter')
             container_box_qty = parameters.container_box_qty

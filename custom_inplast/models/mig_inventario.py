@@ -16,6 +16,7 @@ class MigInventario(models.Model):
     sscc1 = fields.Char('sscc1')
     sscc2 = fields.Char('sscc2')
     palet = fields.Char('Palet')
+    boxsn = fields.Char('Box SN')
 
     lot_id = fields.Many2one('stock.lot', string='lot_id')
     product_id = fields.Many2one('product.product', string='Producto')
@@ -83,3 +84,11 @@ class MigInventario(models.Model):
 
                     # Registrar línea mig_inventario:
                     r.write({'product_id': product.id, 'location_id': location.id, 'lot_id': lote, 'sml_id': newsml.id})
+
+                    # Crear los lotes de las cajas:
+                    if r.boxsn != "":
+                        cajas = r.boxsn.split("/")
+                        for caja in cajas:
+                            caja = caja.split()
+                            # Pendiente de crear los lotes de caja asociados al palet para poder ser usados en formatos impresos.
+                            # El código está forzando "MO" y otros ... revisar limitaciones.

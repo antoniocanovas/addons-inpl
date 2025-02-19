@@ -15,7 +15,9 @@ class MrpBom(models.Model):
     _inherit = 'mrp.bom'
 
     pnt_raw_type_id = fields.Many2one('uom.category', string='Distribution type')
-    mrp_bom_template_id = fields.Many2one('product.bom.template', string='BOM Template')
+    # Cambio a related (19/02/25) borrar en un futuro la línea comentada:
+    #mrp_bom_template_id = fields.Many2one('product.bom.template', string='BOM Template')
+    mrp_bom_template_id = fields.Many2one(related='product_tmpl_id.mrp_bom_template_id')
     pnt_product_type = fields.Selection(related='product_tmpl_id.pnt_product_type')
 
     # Método interno para ser llamado desde una BA, para los casos de Lista de Materiales por %

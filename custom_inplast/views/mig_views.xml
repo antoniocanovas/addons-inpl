@@ -43,15 +43,16 @@
                     <field name="qty"/>
                     <field name="ubicacion"/>
                     <field name="ubicacion_old"/>
-                    <field name="lote"/>
-                    <field name="palet"/>
-                    <field name="sscc1"/>
-                    <field name="sscc2"/>
+                    <field name="lote" optional="show"/>
+                    <field name="palet" optional="show"/>
+                    <field name="sscc1" optional="show"/>
+                    <field name="sscc2" optional="show"/>
+                    <field name="boxsn" optional="show"/>
                     <field name="product_id"/>
                     <field name="lot_id"/>
                     <field name="location_id"/>
                     <field name="sml_id" optional="hide"/>
-                    <field name="mig_fechafabricacion"/>
+                    <field name="mig_fechafabricacion" optional="show"/>
                 </tree>
             </field>
             <field name="groups_id" eval="[(6, 0, [])]"/>
