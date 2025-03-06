@@ -90,13 +90,14 @@ class MigInventario(models.Model):
                         cajas = r.boxsn.split("/")
                         for caja in cajas:
                             caja = caja.split()
-                            name = r.lote + "." + caja[0]
-                            exist = self.env['stock.lot'].search([('name', '=', name), ('product_id', '=', product.id)])
-                            if not exist:
-                                new_box = self.env['stock.lot'].create({
-                                    'name': name,
-                                    'product_id': product.id,
-                                    'parent_id': lote,
-                                    'mig_fechafabricacion': r.mig_fechafabricacion
-                                })
-                                r.lot_id.related_boxes_ids = [(4, new_box.id)]
+                            try:
+                                name = r.lote + "." + caja[0]
+                                exist = self.env['stock.lot'].search([('name', '=', name), ('product_id', '=', product.id)])
+                                if not exist:
+                                    new_box = self.env['stock.lot'].create({
+                                        'name': name,
+                                        'product_id': product.id,
+                                        'parent_id': lote,
+                                        'mig_fechafabricacion': r.mig_fechafabricacion
+                                    })
+                                    r.lot_id.related_boxes_ids = [(4, new_box.id)]
