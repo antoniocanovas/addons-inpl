@@ -33,7 +33,8 @@ class AnalyticDistributionLine(models.Model):
             rec.picking_hour_qty = cistern_unload + sack_unload + color_unload + cardboard_unload + bag_unload + pallet_unload + internal_pickings + container_load
 
     def _compute_picking_hour_cost(self):
-        total = 0
-        if self.picking_hour_qty > 0:
-            total = self.balance / self.picking_hour_qty
-        self.picking_hour_cost = -total
+        for record in self:
+            total = 0
+            if record.picking_hour_qty > 0:
+                total = record.balance / record.picking_hour_qty
+            record.picking_hour_cost = -total

@@ -8,21 +8,16 @@ class TestL10nEsIpnrCommon(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
-        cls.company = cls.env.ref("base.main_company")
-        cls.company.write({"ipnr_enable": True, "ipnr_date_from": "2022-01-01"})
+        cls.company = cls.env["res.company"].create({
+            "name": "Company",
+            "ipnr_enable": True,
+            "ipnr_date_from": "2022-01-01"
+        })
         cls.partner = cls.env["res.partner"].create({"name": "Test"})
-        )
-        cls.category_ipnr = cls.env["product.category"].create(
-            {"name": "Ipnr Category", "ipnr_subject": True}
-        )
-        cls.product_ipnr_no = cls.env["product.product"].create(
-            {
-                "name": "Product-1",
-                "ipnr_subject": "no",
-                "weight": 1,
-            }
-        )
+        cls.category_ipnr = cls.env["product.category"].create({
+            "name": "Ipnr Category",
+            "ipnr_subject": True
+        })
         cls.product_ipnr_in_product = cls.env["product.product"].create(
             {
                 "name": "Product (IPNR in product)",

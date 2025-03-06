@@ -30,6 +30,9 @@
         "reports/ir_action_report.xml",
         "reports/stock_warehouse_label.xml",
         "views/picking_report_views.xml",
+        "views/mrp_production_form_view.xml",
         "reports/traceability_list_report_document.xml",
+        "reports/box_label_report.xml",
+        "wizards/box_label_wizard_view.xml",
     ],
 }

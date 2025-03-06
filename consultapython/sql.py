@@ -64,7 +64,7 @@ def delete_sql_record(record_pk):
     try:
         with pyodbc.connect(connection_string) as conn:
             with conn.cursor() as cursor:
-                delete_query = f"DELETE FROM {SQL_TABLE} WHERE id = ?"
+                delete_query = f"DELETE FROM {SQL_TABLE} WHERE ID = ?"
                 cursor.execute(delete_query, (record_pk,))
                 conn.commit()
                 print(f"Registro con ID {record_pk} borrado de SQL.")
@@ -86,7 +86,15 @@ def verify_odoo_record(odoo_id, uid, models):
         print("Error al verificar registro en Odoo:", str(e))
     return False
 
+
+import datetime
+
+
 def enviar_a_odoo_y_procesar(entrada, uid, models):
+    # Obtener y convertir la fecha de fabricación
+    fecha_fabricacion = entrada.get("FechaFabricacion")
+    if fecha_fabricacion and isinstance(fecha_fabricacion, datetime.datetime):
+        fecha_fabricacion = fecha_fabricacion.strftime("%Y-%m-%d")
 
     data = {
         "name": entrada.get("NewArticulo"),
@@ -97,7 +105,8 @@ def enviar_a_odoo_y_procesar(entrada, uid, models):
         "palet": entrada.get("Palet"),
         "sscc1": entrada.get("SSCC"),
         "sscc2": entrada.get("SSCC_2"),
-        "mig_fechafabricacion": entrada.get("FechaFabricacion"),
+        "boxsn": entrada.get("Cajas"),
+        "mig_fechafabricacion": fecha_fabricacion,
     }
     try:
         # Crear el registro en Odoo
@@ -118,6 +127,7 @@ def enviar_a_odoo_y_procesar(entrada, uid, models):
         print("Error al crear registro en Odoo:", str(e))
         return False
 
+
 def main():
     # 1. Leer todos los registros de la tabla SQL
     entradas = read_sql_data()
@@ -137,7 +147,7 @@ def main():
     # 3. Procesar cada registro de SQL
     for entrada in entradas:
         # Se asume que cada registro posee un campo 'id' que lo identifica en SQL
-        sql_record_id = entrada.get("id")
+        sql_record_id = entrada.get("ID")
         if sql_record_id is None:
             print("El registro no posee campo 'id'. Se omite.")
             continue

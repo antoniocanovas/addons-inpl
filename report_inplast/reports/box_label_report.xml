@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Box Label Report Action -->
+        <record id="action_report_box_label" model="ir.actions.report">
+            <field name="name">Box Label</field>
+            <field name="model">mrp.production</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">report_inplast.report_box_label</field>
+            <field name="report_file">report_inplast.report_box_label</field>
+            <field name="print_report_name">'Box Label - %s' % object.name</field>
+            <field name="binding_model_id" ref="model_mrp_production"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="base.paperformat_euro"/>
+        </record>
+
+        <!-- Box Label Report Template -->
+        <template id="report_box_label">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <!-- Calculate current label number -->
+                    <t t-set="label_number" t-value="context.get('from_label', 0) + (o_index or 0)"/>
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2 class="text-center">BOX LABEL</h2>
+
+                            <!-- Manufacturing Info Section -->
+                            <div class="row mt-4">
+                                <div class="col-6">
+                                    <strong>Manufacturing Order:</strong>
+                                    <span t-field="o.name"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Date:</strong>
+                                    <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                                </div>
+                            </div>
+
+                            <!-- Product Info Section -->
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <strong>Product:</strong>
+                                    <span t-field="o.product_id.name"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Base Product:</strong>
+                                    <t t-if="o.product_id.pnt_parent_id">
+                                        <span t-field="o.product_id.pnt_parent_id.name"/>
+                                    </t>
+                                </div>
+                            </div>
+
+                            <!-- Lot and Tool Info -->
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <strong>Serial/Lot:</strong>
+                                    <span t-field="o.lot_producing_id.name"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Tool:</strong>
+                                    <t t-if="o.mrp_tool_id">
+                                        <span t-field="o.mrp_tool_id.name"/>
+                                    </t>
+                                </div>
+                            </div>
+
+                            <!-- Additional Info from Wizard -->
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <strong>Machine:</strong>
+                                    <t t-if="context.get('machine_id')">
+                                        <span t-esc="env['mrp.workcenter'].browse(context.get('machine_id')).name"/>
+                                    </t>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Color:</strong>
+                                    <span t-esc="context.get('color') or o.product_id.product_base_dye"/>
+                                </div>
+                            </div>
+
+                            <!-- Quantity Info -->
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <strong>Units per Box:</strong>
+                                    <span t-esc="context.get('base_qty')"/>
+                                </div>
+                                <div class="col-6">
+                                    <strong>Label Number:</strong>
+                                    <!-- Display the current label number for this specific label -->
+                                    <span t-esc="label_number"/>
+                                </div>
+                            </div>
+
+                            <!-- QR Code Section -->
+                            <div class="row mt-4 mb-4">
+                                <div class="col-12 text-center">
+                                    <t t-if="o.name">
+                                        <!-- QR code now includes label number for uniqueness -->
+                                        <img t-att-src="'/report/barcode/?type=QR&amp;value=%s-%s&amp;width=200&amp;height=200' % (o.name, label_number)"
+                                             style="width:200px;height:200px"/>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Force page break between labels unless it's the last one -->
+                        <t t-if="not o_last">
+                            <p style="page-break-after:always;"/>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

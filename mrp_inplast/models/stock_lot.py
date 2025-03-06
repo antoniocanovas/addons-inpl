@@ -114,3 +114,5 @@ class StockLot(models.Model):
                 "default_lot_id": self.id,
             },
         }
+
+

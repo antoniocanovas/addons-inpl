@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_picking_report_type,user.pikcing.report.type,model_picking_report_type,base.group_user,1,1,1,1
+access_box_label_wizard_user,box.label.wizard.user,model_box_label_wizard,mrp.group_mrp_user,1,1,1,1
+access_report_report_inplast_report_box_label,report.report_inplast.report_box_label,model_report_report_inplast_report_box_label,mrp.group_mrp_user,1,0,0,0

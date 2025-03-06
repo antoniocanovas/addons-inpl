@@ -1,0 +1,1 @@
+from . import box_label_wizard

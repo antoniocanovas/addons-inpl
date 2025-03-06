@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Box Label Wizard Form View -->
+    <record id="view_box_label_wizard_form" model="ir.ui.view">
+        <field name="name">box.label.wizard.form</field>
+        <field name="model">box.label.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Box Label">
+                <group>
+                    <group>
+                        <field name="production_id" readonly="1"/>
+                        <field name="product_id" readonly="1"/>
+                        <field name="product_base_id" readonly="1"/>
+                        <field name="tool_id" readonly="1"/>
+                        <field name="color" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="machine_id" options="{'no_create': True}"/>
+                        <field name="base_qty" readonly="1"/>
+                        <field name="last_printed_label" readonly="1"/>
+                        <field name="from_label"/>
+                        <field name="quantity" string="Number of Labels to Print"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_print_box_label" string="Print" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the wizard -->
+    <record id="action_box_label_wizard" model="ir.actions.act_window">
+        <field name="name">Box Label</field>
+        <field name="res_model">box.label.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_mrp_production"/>
+        <field name="binding_view_types">form</field>
+    </record>
+</odoo>
