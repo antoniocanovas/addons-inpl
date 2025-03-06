@@ -101,3 +101,5 @@ class MigInventario(models.Model):
                                         'mig_fechafabricacion': r.mig_fechafabricacion
                                     })
                                     r.lot_id.related_boxes_ids = [(4, new_box.id)]
+                            except:
+                                continue
