@@ -27,7 +27,8 @@ models = xmlrpc.client.ServerProxy(f"{url}/xmlrpc/2/object")
 try:
     # Filtrar órdenes de venta por estado 'sale' y fecha 'date_order'
     domain = [('state', '=', 'sale'), ('date_order', '>=', datetime_filter)]
-    sale_orders = models.execute_kw(db, uid, password, 'sale.order', 'search_read', [domain], {'fields': ['id', 'name', 'partner_id', 'date_order', 'state']})
+    sale_orders = models.execute_kw(db, uid, password, 'sale.order', 'search_read', [domain],
+                                    {'fields': ['id', 'name', 'partner_id', 'date_order', 'state', 'tag_ids']})
 
     # Obtener IDs de las órdenes de venta filtradas
     sale_order_ids = [order['id'] for order in sale_orders]
@@ -37,22 +38,39 @@ try:
         exit()
 
     # Obtener las líneas de pedido de las órdenes filtradas
-    sale_order_line_ids = models.execute_kw(db, uid, password, 'sale.order.line', 'search', [[('order_id', 'in', sale_order_ids)]])
+    sale_order_line_ids = models.execute_kw(db, uid, password, 'sale.order.line', 'search',
+                                            [[('order_id', 'in', sale_order_ids)]])
     sale_order_lines = models.execute_kw(db, uid, password, 'sale.order.line', 'read', [sale_order_line_ids],
-                                          {'fields': ['order_id', 'product_id', 'product_uom_qty', 'price_unit', 'price_subtotal','old_default_code', 'commitment_date', 'customer_arrival_date']})
+                                         {'fields': ['order_id', 'product_id', 'product_uom_qty', 'price_unit',
+                                                     'price_subtotal', 'old_default_code', 'commitment_date',
+                                                     'customer_arrival_date']})
 
     # Obtener IDs de productos y socios (partner_id)
     product_ids = list(set(line['product_id'][0] for line in sale_order_lines if line.get('product_id')))
     partner_ids = list(set(order['partner_id'][0] for order in sale_orders if order.get('partner_id')))
 
-    # Consultar productos y socios
-    products = models.execute_kw(db, uid, password, 'product.product', 'read', [product_ids], {'fields': ['id', 'name', 'default_code']})
+    # Recopilar todos los tag_ids únicos
+    all_tag_ids = []
+    for order in sale_orders:
+        if order.get('tag_ids'):
+            all_tag_ids.extend(order['tag_ids'])
+    all_tag_ids = list(set(all_tag_ids))
+
+    # Consultar productos, socios y tags
+    products = models.execute_kw(db, uid, password, 'product.product', 'read', [product_ids],
+                                 {'fields': ['id', 'name', 'default_code']})
     partners = models.execute_kw(db, uid, password, 'res.partner', 'read', [partner_ids], {'fields': ['id', 'ref']})
+
+    # Obtener información de los tags
+    tags = []
+    if all_tag_ids:
+        tags = models.execute_kw(db, uid, password, 'crm.tag', 'read', [all_tag_ids], {'fields': ['id', 'name']})
 
     # Diccionarios para acceso rápido
     product_dict = {product['id']: product for product in products}
     partner_dict = {partner['id']: partner for partner in partners}
     order_dict = {order['id']: order for order in sale_orders}
+    tag_dict = {tag['id']: tag for tag in tags}
 
 except Exception as e:
     print(f"Error al obtener los datos: {e}")
@@ -63,13 +81,20 @@ try:
     with open(output_csv, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         # Escribir encabezados
-        writer.writerow(['Order Name', 'Customer', 'Customer Reference', 'Product', 'Product Code','Product old Code', 'Quantity', 'Unit Price', 'Subtotal', 'Commitment Date', 'Customer Arrival Date', 'Order Date'])
+        writer.writerow(['Order Name', 'Customer', 'Customer Reference', 'Product', 'Product Code', 'Product old Code',
+                         'Quantity', 'Unit Price', 'Subtotal', 'Commitment Date', 'Customer Arrival Date',
+                         'Order Date', 'Tags'])
 
         # Escribir datos
         for line in sale_order_lines:
             order = order_dict.get(line['order_id'][0]) if line.get('order_id') else {}
             product = product_dict.get(line['product_id'][0]) if line.get('product_id') else {}
             partner = partner_dict.get(order.get('partner_id')[0]) if order.get('partner_id') else {}
+
+            # Obtener nombres de tags
+            tag_names = []
+            if order.get('tag_ids'):
+                tag_names = [tag_dict.get(tag_id, {}).get('name', '') for tag_id in order['tag_ids']]
 
             writer.writerow([
                 order.get('name', ''),
@@ -83,7 +108,8 @@ try:
                 line.get('price_subtotal'),
                 line.get('commitment_date', ''),
                 line.get('customer_arrival_date', ''),
-                order.get('date_order', '')
+                order.get('date_order', ''),
+                ', '.join(tag_names)  # Añadimos los tags como string separado por comas
             ])
     print(f"Exportación completada. Archivo CSV guardado como {output_csv}.")
 except Exception as e:
@@ -97,6 +123,11 @@ try:
         product = product_dict.get(line['product_id'][0]) if line.get('product_id') else {}
         partner = partner_dict.get(order.get('partner_id')[0]) if order.get('partner_id') else {}
 
+        # Obtener nombres de tags
+        tag_names = []
+        if order.get('tag_ids'):
+            tag_names = [tag_dict.get(tag_id, {}).get('name', '') for tag_id in order['tag_ids']]
+
         json_data.append({
             'Order Name': order.get('name', ''),
             'Customer': order.get('partner_id', [''])[1] if order.get('partner_id') else '',
@@ -109,7 +140,8 @@ try:
             'Subtotal': line.get('price_subtotal'),
             'Commitment Date': line.get('commitment_date', ''),
             'Customer Arrival Date': line.get('customer_arrival_date', ''),
-            'Order Date': order.get('date_order', '')
+            'Order Date': order.get('date_order', ''),
+            'Tags': tag_names  # Añadimos los tags como array
         })
 
     with open(output_json, mode='w', encoding='utf-8') as file:
