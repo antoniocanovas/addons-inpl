@@ -13,6 +13,31 @@ class SaleOrderLine(models.Model):
 
     pnt_product_type = fields.Selection(related="product_id.pnt_product_type")
 
+    customer_packaging_ids = fields.Many2many('product.packaging', store=False, string='Customer packaging', compute='_get_customer_packaging_ids',)
+
+    @api.depends('order_id.pricelist_id, order_id.partner_id, product_id')
+    def _get_customer_packaging_ids(self):
+        for record in self:
+            packagings = []
+            pricelist = record.order_id.pricelist_id
+            product_tmpl = record.product_id.product_tmpl_id
+
+            # Aquí tenemos las líneas de producto en tarifa:
+            customer_pricelist_products = self.env['product.pricelist.item'].search(
+                [('pricelist_id', '=', pricelist.id), ('product_tmpl_id.pnt_parent_id', '=', product_tmpl.id)])
+
+            # Añadimos los packaging de todos los productos anteriores:
+            for li in customer_pricelist_products:
+                for packaging in li.product_tmpl_id.packaging_ids:
+                    packagings.append(packaging.id)
+
+            record['customer_packaging_ids'] = [(6, 0, packagings)]
+
+    # quiero que el campo product_packaging_id tenga en el dominio aparte del que tiene + customer_packaging_ids
+
+    product_packaging_id = fields.Many2one('product.packaging', string='Packaging', domain="[('id', 'in', customer_packaging_ids)]", help='Packaging for this product')
+
+
     @api.onchange('product_uom_qty','product_id','product_packaging_id','product_packaging_qty')
     def _get_base_units(self):
         for li in self:

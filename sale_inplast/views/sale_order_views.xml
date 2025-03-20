@@ -84,6 +84,7 @@
                 <field name="customer_arrival_date" optional="show"/>
                 <field name="pnt_base_qty" optional="hide"/>
                 <field name="pnt_product_type" invisible="1"/>
+                <field name="customer_pricelist_productse" invisible="0"/>
                 <field name="pnt_base_1k_price" optional="show"
                        invisible="pnt_product_type not in ['final','packing']"/>
             </xpath>
@@ -136,6 +137,11 @@
             <xpath expr="//tree[1]/field[@name='product_id']"
                    position="attributes">
                 <attribute name="options">{"no_open":true,"no_create":true}</attribute>
+            </xpath>
+
+            <!-- Sólo mostrar los product packaging que el cliente tiene en su lista de precios: -->
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_packaging_id']" position="attributes">
+                <attribute name="domain">[('id','in', customer_pricelist_products)]</attribute>
             </xpath>
 
         </field>
